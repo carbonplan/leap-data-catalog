@@ -10,6 +10,10 @@ export const SampleDatasets = [
         name: 'Provider B',
         url: 'https://www.provider-a.com',
       },
+      {
+        name: 'Provider C',
+        url: 'https://www.provider-a.com',
+      },
     ],
     description:
       'This is Dataset A. Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
@@ -32,7 +36,11 @@ export const SampleDatasets = [
     },
     links: [
       {
-        title: 'Link A',
+        title: 'Link to GitHub',
+        url: 'https://www.link-a.com',
+      },
+      {
+        title: 'Link to publication',
         url: 'https://www.link-a.com',
       },
     ],

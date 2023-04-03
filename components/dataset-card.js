@@ -1,5 +1,6 @@
-import { Link, Tag } from '@carbonplan/components'
-import { Box, Flex, Image, Text } from 'theme-ui'
+import { Button, Link, Tag } from '@carbonplan/components'
+import { RotatingArrow } from '@carbonplan/icons'
+import { Box, Flex, Grid, Image, Text } from 'theme-ui'
 export const DatasetCard = ({ dataset }) => {
   const {
     name,
@@ -36,16 +37,16 @@ export const DatasetCard = ({ dataset }) => {
           ))}
         </Flex>
 
-        <Box mb={2}>
+        <Box pt={3}>
           <Image
             src={thumbnail ?? fallbackThumbnail}
             alt={`Thumbnail for ${name}`}
           />
         </Box>
 
-        <Text sx={{ fontSize: 3, fontWeight: 400, mb: 2 }}>{name}</Text>
+        <Text sx={{ pt: 3, fontSize: 3, fontWeight: 400, mb: 2 }}>{name}</Text>
 
-        <Box mb={2}>
+        <Box pt={3}>
           <Text
             sx={{
               fontSize: 1,
@@ -54,44 +55,42 @@ export const DatasetCard = ({ dataset }) => {
           >
             Providers:
           </Text>
-          {providers.map((provider) => (
-            <Flex
-              key={provider.name}
-              sx={{
-                alignItems: 'baseline',
-                fontSize: 1,
-              }}
-            >
-              <Box
+          <Grid gap={3} columns={[1, 2]} sx={{ mt: 1 }}>
+            {providers.map((provider) => (
+              <Button
+                key={provider.name}
+                suffix={<RotatingArrow />}
                 as={Link}
                 href={provider.url}
                 target='_blank'
                 rel='noopener noreferrer'
-                sx={{ ml: 1 }}
               >
                 {provider.name}
-              </Box>
-            </Flex>
-          ))}
+              </Button>
+            ))}
+          </Grid>
         </Box>
 
-        <Text
-          sx={{
-            fontSize: 1,
-            maxHeight: 100,
-            maxWidth: '100%',
-            overflow: 'auto',
-          }}
-        >
-          {description}
-        </Text>
+        <Box pt={3}>
+          {' '}
+          <Text
+            sx={{
+              fontSize: 1,
+              maxHeight: 100,
+              maxWidth: '100%',
+              overflow: 'auto',
+            }}
+          >
+            {description}
+          </Text>
+        </Box>
 
         {links && (
-          <Box mt={2}>
+          <Box pt={3}>
             <Text sx={{ fontSize: 1, fontWeight: 'bold' }}>Links:</Text>
-            <Box as='ul' sx={{ ml: 3, mt: 1 }}>
+            <Grid gap={3} columns={[1, 2]} sx={{ mt: 1 }}>
               {links.map((link) => (
-                <Text as='li' key={link.url}>
+                <Button key={link.url} suffix={<RotatingArrow />}>
                   <Box
                     as={Link}
                     href={link.url}
@@ -100,11 +99,11 @@ export const DatasetCard = ({ dataset }) => {
                   >
                     {link.title}
                   </Box>
-                </Text>
+                </Button>
               ))}
 
               {doi_citation && (
-                <Text as='li'>
+                <Button suffix={<RotatingArrow />}>
                   <Box
                     as={Link}
                     href={doi_citation}
@@ -116,9 +115,9 @@ export const DatasetCard = ({ dataset }) => {
                       ? doi_citation.match(doiRegex)[1]
                       : doi_citation}
                   </Box>
-                </Text>
+                </Button>
               )}
-            </Box>
+            </Grid>
           </Box>
         )}
       </Box>
