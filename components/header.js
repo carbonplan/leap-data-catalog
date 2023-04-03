@@ -1,9 +1,19 @@
-import { Dimmer, Link } from '@carbonplan/components'
+import { Meta } from '@/components/meta'
+import Logo from '@/public/Leap-Logo-Big.png'
+import { Dimmer } from '@carbonplan/components'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Box, Container, Flex } from 'theme-ui'
 export const Header = () => {
   return (
     <>
+      <Meta
+        card={'TK'}
+        description={
+          'Data catalog for Learning the Earth with Artificial Intelligence and Physics (LEAP) is an NSF Science and Technology Center (STC)'
+        }
+        title={'LEAP Data Catalog'}
+      />
       <Box mb={3}>
         <Box
           as='header'
@@ -26,7 +36,7 @@ export const Header = () => {
             >
               <Link href='/'>
                 <Image
-                  src='/Leap-Logo-Big.png'
+                  src={Logo}
                   width={120}
                   height={30}
                   alt={'LEAP Logo'}
