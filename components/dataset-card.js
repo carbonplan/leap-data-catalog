@@ -1,4 +1,4 @@
-import { Link } from '@carbonplan/components'
+import { Link, Tag } from '@carbonplan/components'
 import { Box, Flex, Image, Text } from 'theme-ui'
 export const DatasetCard = ({ dataset }) => {
   const {
@@ -12,7 +12,7 @@ export const DatasetCard = ({ dataset }) => {
     license,
     links,
     doi_citation,
-    expectedUpdateFrequency,
+    expected_update_frequency,
     demo,
   } = dataset
 
@@ -30,21 +30,9 @@ export const DatasetCard = ({ dataset }) => {
       >
         <Flex sx={{ flexWrap: 'wrap', mb: 2 }}>
           {tags.map((tag) => (
-            <Box
-              key={tag}
-              sx={{
-                borderRadius: 9999,
-                backgroundColor: 'primary',
-                color: 'background',
-                px: 2,
-                py: 1,
-                mr: 2,
-                mb: 2,
-                fontSize: 0,
-              }}
-            >
+            <Tag key={tag} value={true} sx={{ mr: [2] }}>
               {tag}
-            </Box>
+            </Tag>
           ))}
         </Flex>
 
