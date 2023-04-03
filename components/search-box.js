@@ -6,7 +6,7 @@ export const SearchBox = () => {
       <Box as='section'>
         <Flex
           sx={{
-            alignItems: 'center',
+            alignItems: 'flex-end',
           }}
         >
           <Text
@@ -30,7 +30,6 @@ export const SearchBox = () => {
                 sx={{
                   border: 'none',
                   borderBottom: '1px solid #ccc',
-
                   fontSize: 1,
                 }}
               />
