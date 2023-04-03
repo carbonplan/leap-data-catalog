@@ -1,4 +1,5 @@
-import { Box, Flex, Input, Text } from 'theme-ui'
+import { Input } from '@carbonplan/components'
+import { Box, Flex, Text } from 'theme-ui'
 
 export const SearchBox = () => {
   return (
@@ -24,15 +25,7 @@ export const SearchBox = () => {
             }}
           >
             <form>
-              <Input
-                type='text'
-                placeholder='Enter your search term...'
-                sx={{
-                  border: 'none',
-                  borderBottom: '1px solid #ccc',
-                  fontSize: 1,
-                }}
-              />
+              <Input placeholder='Enter your search term...' size='xs' />
             </form>
           </Box>
         </Flex>
