@@ -1,7 +1,7 @@
-import { DatasetCard } from '@/components/dataset-card'
 import { SearchBox } from '@/components/search-box'
 import { SampleDatasets } from '@/data/sample-datasets'
-import { Box, Flex, Text } from 'theme-ui'
+import { Box, Flex, Grid, Text } from 'theme-ui'
+import { DatasetCard } from './dataset-card'
 
 export const Catalog = ({}) => {
   const datasets = SampleDatasets
@@ -18,15 +18,22 @@ export const Catalog = ({}) => {
         <Text
           sx={{
             color: 'primary',
-            fontSize: 6,
+            fontSize: [6, 4],
             fontFamily: 'heading',
           }}
         >
           Data Catalog
         </Text>
         <SearchBox />
-        <DatasetCard dataset={sample} />
       </Flex>
+
+      <Box pt={3}>
+        <Grid gap={3} columns={[1, 2, 3, 3]}>
+          {datasets.map((dataset) => (
+            <DatasetCard key={dataset.name} dataset={dataset} />
+          ))}
+        </Grid>
+      </Box>
     </Box>
   )
 }

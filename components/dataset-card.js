@@ -58,6 +58,7 @@ export const DatasetCard = ({ dataset }) => {
           <Grid gap={3} columns={[1, 2]} sx={{ mt: 1 }}>
             {providers.map((provider) => (
               <Button
+                size='xs'
                 key={provider.name}
                 suffix={<RotatingArrow />}
                 as={Link}
@@ -90,7 +91,7 @@ export const DatasetCard = ({ dataset }) => {
             <Text sx={{ fontSize: 1, fontWeight: 'bold' }}>Links:</Text>
             <Grid gap={3} columns={[1, 2]} sx={{ mt: 1 }}>
               {links.map((link) => (
-                <Button key={link.url} suffix={<RotatingArrow />}>
+                <Button key={link.url} suffix={<RotatingArrow />} size='xs'>
                   <Box
                     as={Link}
                     href={link.url}
@@ -103,7 +104,7 @@ export const DatasetCard = ({ dataset }) => {
               ))}
 
               {doi_citation && (
-                <Button suffix={<RotatingArrow />}>
+                <Button suffix={<RotatingArrow />} size='xs'>
                   <Box
                     as={Link}
                     href={doi_citation}

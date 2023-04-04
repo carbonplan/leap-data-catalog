@@ -85,4 +85,109 @@ export const SampleDatasets = [
     expected_update_frequency: null,
     demo: false,
   },
+
+  {
+    name: 'Dataset C',
+    providers: [
+      {
+        name: 'Provider A',
+        url: 'https://www.provider-a.com',
+      },
+      {
+        name: 'Provider B',
+        url: 'https://www.provider-b.com',
+      },
+    ],
+    description: 'This is Dataset C.',
+    thumbnail: null,
+    tags: ['tag1', 'tag3'],
+    coverage: null,
+    maintainers: [
+      {
+        name: 'Maintainer A',
+        github_username: 'maintainer-a',
+      },
+    ],
+    license: {
+      name: 'Apache License 2.0',
+      url: 'https://www.apache.org/licenses/LICENSE-2.0',
+    },
+    links: [
+      {
+        title: 'Link A',
+        url: 'https://www.link-a.com',
+      },
+      {
+        title: 'Link B',
+        url: 'https://www.link-b.com',
+      },
+    ],
+    doi_citation: 'https://doi.org/10.1234/dataset-c',
+    expected_update_frequency: 'Monthly',
+    demo: true,
+  },
+  {
+    name: 'Dataset D',
+    providers: [
+      {
+        name: 'Provider B',
+        url: 'https://www.provider-b.com',
+      },
+    ],
+    description: 'This is Dataset D.',
+    thumbnail: null,
+    tags: ['tag2', 'tag3'],
+    coverage: {
+      temporal_coverage_start_date: '2023-01-01',
+      temporal_coverage_end_date: '2023-12-31',
+      geo_spatial_coverage: 'USA',
+    },
+    maintainers: [
+      {
+        name: 'Maintainer B',
+        github_username: 'maintainer-b',
+      },
+    ],
+    license: null,
+    links: [
+      {
+        title: 'Link B',
+        url: 'https://www.link-b.com',
+      },
+    ],
+    doi_citation: null,
+    expected_update_frequency: null,
+    demo: false,
+  },
+  {
+    name: 'Dataset E',
+    providers: [
+      {
+        name: 'Provider A',
+        url: 'https://www.provider-a.com',
+      },
+    ],
+    description: 'This is Dataset E.',
+    thumbnail: null,
+    tags: ['tag1', 'tag2', 'tag3'],
+    coverage: null,
+    maintainers: [
+      {
+        name: 'Maintainer A',
+        github_username: 'maintainer-a',
+      },
+      {
+        name: 'Maintainer B',
+        github_username: 'maintainer-b',
+      },
+    ],
+    license: {
+      name: 'Apache License 2.0',
+      url: 'https://www.apache.org/licenses/LICENSE-2.0',
+    },
+    links: [],
+    doi_citation: 'https://doi.org/10.1234/dataset-e',
+    expected_update_frequency: null,
+    demo: false,
+  },
 ]
