@@ -7,6 +7,7 @@ export default function Home() {
     <Layout>
       <Box>
         <Container>
+          <Guide />
           <Catalog />
         </Container>
       </Box>

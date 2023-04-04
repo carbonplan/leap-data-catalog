@@ -41,7 +41,7 @@ export const SampleDatasets = [
       },
       {
         title: 'Link to publication',
-        url: 'https://www.link-a.com',
+        url: 'https://www.link-b.com',
       },
     ],
     doi_citation: 'https://doi.org/10.1234/dataset-a',
