@@ -1,5 +1,6 @@
 import { Catalog } from '@/components/catalog'
 import { Layout } from '@/components/layout'
+import { Guide } from '@carbonplan/components'
 import { Box, Container } from 'theme-ui'
 
 export default function Home() {
