@@ -1,7 +1,7 @@
+import { DatasetCard } from '@/components/dataset-card'
 import { SearchBox } from '@/components/search-box'
 import { SampleDatasets } from '@/data/sample-datasets'
 import { Box, Flex, Grid, Text } from 'theme-ui'
-import { DatasetCard } from './dataset-card'
 
 export const Catalog = ({}) => {
   const datasets = SampleDatasets
