@@ -1,6 +1,12 @@
 import { Box, Text } from 'theme-ui'
 
-import { Links, Tags, Thumbnail, Maintainers } from '@/components/dataset'
+import {
+  License,
+  Links,
+  Maintainers,
+  Tags,
+  Thumbnail,
+} from '@/components/dataset'
 
 export const DatasetCard = ({ dataset }) => {
   const {
@@ -30,7 +36,7 @@ export const DatasetCard = ({ dataset }) => {
         <Thumbnail thumbnail={thumbnail} name={name} />
         <Text sx={{ pt: 3, fontSize: 3, fontWeight: 400, mb: 2 }}>{name}</Text>
 
-        <Box pt={3}>
+        <Box mt={3}>
           <Text
             sx={{
               fontSize: 1,
@@ -42,6 +48,9 @@ export const DatasetCard = ({ dataset }) => {
             {description}
           </Text>
         </Box>
+
+        <License license={license} />
+
         <Maintainers maintainers={maintainers} />
         {links && <Links links={links} doi_citation={doi_citation} />}
       </Box>
