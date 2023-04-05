@@ -2,36 +2,32 @@ import { DatasetCard } from '@/components/dataset-card'
 import { SearchBox } from '@/components/search-box'
 import { SampleDatasets } from '@/data/sample-datasets'
 import { Column, Row } from '@carbonplan/components'
-import { Box, Flex, Text } from 'theme-ui'
+import { Box, Text } from 'theme-ui'
 
 export const Catalog = ({}) => {
   const datasets = SampleDatasets
 
   return (
     <Box as='section' py={2}>
-      <Flex
-        sx={{
-          flexDirection: ['column', 'row'],
-          alignItems: ['flex-start', 'center'],
-          //justifyContent: 'space-between',
-          gap: [3, 8],
-          mb: 6,
-        }}
-      >
-        <Text
-          sx={{
-            color: 'primary',
-            fontSize: [4, 8],
-            fontFamily: 'heading',
-          }}
-        >
-          Data Catalog
-        </Text>
-        <SearchBox />
-      </Flex>
+      <Row columns={[6, 8, 12, 12]}>
+        <Column start={1} width={[6, 4, 4, 4]}>
+          <Text
+            sx={{
+              color: 'primary',
+              fontSize: [4, 4, 6, 6], // figure out smaller font-size
+              fontFamily: 'heading',
+            }}
+          >
+            Data Catalog
+          </Text>
+        </Column>
+        <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]}>
+          <SearchBox />
+        </Column>
+      </Row>
 
       <Box mt={3}>
-        <Row gap={[8, 5, 5, 6]}>
+        <Row>
           {datasets.map(function (dataset, index) {
             return (
               <Column

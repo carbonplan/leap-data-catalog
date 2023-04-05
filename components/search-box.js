@@ -4,10 +4,11 @@ import { Box, Flex, Text } from 'theme-ui'
 export const SearchBox = () => {
   return (
     <>
-      <Box as='section'>
+      <Box as='section' sx={{ width: '100%' }}>
         <Flex
           sx={{
             alignItems: 'flex-end',
+            width: '100%',
           }}
         >
           <Text
@@ -27,7 +28,7 @@ export const SearchBox = () => {
               <Input
                 size='md'
                 sx={{
-                  width: '90%',
+                  flexGrow: 1,
                 }}
               />
             </form>
