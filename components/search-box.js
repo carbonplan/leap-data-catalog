@@ -20,12 +20,16 @@ export const SearchBox = () => {
           </Text>
           <Box
             sx={{
-              flexGrow: 1,
               ml: 3,
             }}
           >
             <form>
-              <Input size='md' />
+              <Input
+                size='md'
+                sx={{
+                  width: '100%',
+                }}
+              />
             </form>
           </Box>
         </Flex>

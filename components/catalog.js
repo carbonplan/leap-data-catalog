@@ -61,7 +61,7 @@ export const Catalog = ({}) => {
         <SearchBox />
       </Flex>
 
-      <Box pt={3}>
+      <Box mt={8}>
         <Row>
           {datasets.map(function (dataset, index) {
             // compute modulo of index
