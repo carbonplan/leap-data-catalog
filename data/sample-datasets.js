@@ -27,7 +27,7 @@ export const SampleDatasets = [
     maintainers: [
       {
         name: 'Maintainer A',
-        github_username: 'maintainer-a',
+        github_username: 'dependabot-bot',
       },
     ],
     license: {
@@ -64,11 +64,11 @@ export const SampleDatasets = [
     maintainers: [
       {
         name: 'Maintainer A',
-        github_username: 'maintainer-a',
+        github_username: 'dependabot-bot',
       },
       {
         name: 'Maintainer B',
-        github_username: 'maintainer-b',
+        github_username: 'octocat',
       },
     ],
     license: {
@@ -105,7 +105,7 @@ export const SampleDatasets = [
     maintainers: [
       {
         name: 'Maintainer A',
-        github_username: 'maintainer-a',
+        github_username: 'dependabot-bot',
       },
     ],
     license: {
@@ -145,7 +145,7 @@ export const SampleDatasets = [
     maintainers: [
       {
         name: 'Maintainer B',
-        github_username: 'maintainer-b',
+        github_username: 'octocat',
       },
     ],
     license: null,
@@ -174,11 +174,11 @@ export const SampleDatasets = [
     maintainers: [
       {
         name: 'Maintainer A',
-        github_username: 'maintainer-a',
+        github_username: 'dependabot-bot',
       },
       {
         name: 'Maintainer B',
-        github_username: 'maintainer-b',
+        github_username: 'octocat',
       },
     ],
     license: {

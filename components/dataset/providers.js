@@ -4,8 +4,10 @@ import { Box, Grid, Text } from 'theme-ui'
 
 export const Providers = ({ providers }) => {
   return (
-    <Box pt={3}>
-      <Text sx={{ fontSize: 1, fontWeight: 400 }}>Providers:</Text>
+    <Box mt={3}>
+      <Text sx={{ fontSize: 1, fontWeight: 400, color: 'muted' }}>
+        Providers:
+      </Text>
       <Grid gap={3} columns={[1, 2]} sx={{ mt: 1 }}>
         {providers.map((provider) => (
           <Button

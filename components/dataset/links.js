@@ -5,8 +5,10 @@ import { Box, Grid, Text } from 'theme-ui'
 export const Links = ({ links, doi_citation }) => {
   const doiRegex = /^https?:\/\/doi\.org\/(.*)$/
   return (
-    <Box pt={3}>
-      <Text sx={{ fontSize: 1, fontWeight: 'bold' }}>Links:</Text>
+    <Box mt={3}>
+      <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
+        Links:
+      </Text>
       <Grid gap={3} columns={[1, 2]} sx={{ mt: 1 }}>
         {links.map((link) => (
           <Button key={link.url} suffix={<RotatingArrow />} size='xs'>
