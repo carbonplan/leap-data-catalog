@@ -26,7 +26,6 @@ export const DatasetCard = ({ dataset }) => {
         sx={{
           borderWidth: 1,
           borderColor: 'muted',
-          p: 3,
         }}
       >
         <Flex sx={{ flexWrap: 'wrap', mb: 2 }}>

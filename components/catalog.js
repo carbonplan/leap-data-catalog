@@ -33,7 +33,7 @@ export const Catalog = ({}) => {
       return { start: (index % 3) * 4 + 1, width: 4 }
     } else if (windowWidth >= 768) {
       // Tablet
-      return { start: (index % 2) * 6 + 1, width: 6 }
+      return { start: (index % 2) * 4 + 1, width: 3 }
     } else {
       // Mobile
       return { start: 1, width: 6 }
@@ -66,7 +66,6 @@ export const Catalog = ({}) => {
           {datasets.map(function (dataset, index) {
             // compute modulo of index
             const { start, width } = getStartAndWidth(index)
-            console.log(index, start, width)
             return (
               <Column key={dataset.name} start={[start]} width={[width]}>
                 <DatasetCard dataset={dataset} />
