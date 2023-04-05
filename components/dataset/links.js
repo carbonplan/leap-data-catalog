@@ -13,7 +13,9 @@ export const Links = ({ links, doi_citation }) => {
       <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
         Links:
       </Text>
-      <LinkGroup members={allLinks} />
+      <Box mt={3}>
+        <LinkGroup members={allLinks} />
+      </Box>
     </Box>
   )
 }

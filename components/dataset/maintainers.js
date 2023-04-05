@@ -15,7 +15,7 @@ export const Maintainers = ({ maintainers }) => {
           <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
             Maintainers:
           </Text>
-          <Flex sx={{ flexDirection: 'row', gap: 3 }}>
+          <Flex mt={3} sx={{ flexDirection: 'row', gap: 3 }}>
             {sortedMaintainers.map((maintainer) => (
               <Link
                 key={maintainer.name}

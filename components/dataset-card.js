@@ -28,8 +28,8 @@ export const DatasetCard = ({ dataset }) => {
     <>
       <Box
         sx={{
-          borderWidth: 1,
-          borderColor: 'muted',
+          mb: [5, 7, 7, 8],
+          width: '100%',
         }}
       >
         <Tags tags={tags} demo={demo} />

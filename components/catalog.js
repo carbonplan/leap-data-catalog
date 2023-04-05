@@ -16,6 +16,7 @@ export const Catalog = ({}) => {
               color: 'primary',
               fontSize: [4, 4, 6, 6], // figure out smaller font-size
               fontFamily: 'heading',
+              width: '100%',
             }}
           >
             Data Catalog

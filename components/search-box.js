@@ -29,6 +29,7 @@ export const SearchBox = () => {
                 size='md'
                 sx={{
                   flexGrow: 1,
+                  width: '100%',
                 }}
               />
             </form>
