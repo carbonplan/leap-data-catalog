@@ -1,6 +1,6 @@
 import { Box, Text } from 'theme-ui'
 
-import { Links, Providers, Tags, Thumbnail } from '@/components/dataset'
+import { Links, Tags, Thumbnail } from '@/components/dataset'
 
 export const DatasetCard = ({ dataset }) => {
   const {
@@ -29,7 +29,7 @@ export const DatasetCard = ({ dataset }) => {
         <Tags tags={tags} />
         <Thumbnail thumbnail={thumbnail} name={name} />
         <Text sx={{ pt: 3, fontSize: 3, fontWeight: 400, mb: 2 }}>{name}</Text>
-        <Providers providers={providers} />
+
         <Box pt={3}>
           <Text
             sx={{
