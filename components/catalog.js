@@ -46,13 +46,15 @@ export const Catalog = ({}) => {
         sx={{
           flexDirection: ['column', 'row'],
           alignItems: ['flex-start', 'center'],
+          // justifyContent: 'space-between',
           gap: [3, 8],
+          mb: 6,
         }}
       >
         <Text
           sx={{
             color: 'primary',
-            fontSize: [6, 4],
+            fontSize: [4, 8],
             fontFamily: 'heading',
           }}
         >
@@ -62,9 +64,8 @@ export const Catalog = ({}) => {
       </Flex>
 
       <Box mt={8}>
-        <Row>
+        <Row gap={[8, 5, 5, 6]}>
           {datasets.map(function (dataset, index) {
-            // compute modulo of index
             const { start, width } = getStartAndWidth(index)
             return (
               <Column key={dataset.name} start={[start]} width={[width]}>

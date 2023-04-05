@@ -20,14 +20,14 @@ export const SearchBox = () => {
           </Text>
           <Box
             sx={{
-              ml: 3,
+              ml: [6],
             }}
           >
             <form>
               <Input
                 size='md'
                 sx={{
-                  width: '100%',
+                  width: '90%',
                 }}
               />
             </form>
