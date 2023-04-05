@@ -36,7 +36,12 @@ export const Catalog = ({}) => {
             return (
               <Column
                 key={dataset.name}
-                start={[1, (index + 1) % 3, (index + 1) % 4, (index + 1) % 4]}
+                start={[
+                  1,
+                  (index % 2) * 4 + 1,
+                  (index % 3) * 4 + 1,
+                  (index % 3) * 4 + 1,
+                ]}
                 width={[6, 3, 4, 4]}
               >
                 <DatasetCard dataset={dataset} />
