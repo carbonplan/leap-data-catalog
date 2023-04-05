@@ -25,7 +25,7 @@ export const SearchBox = () => {
             }}
           >
             <form>
-              <Input placeholder='Enter your search term...' size='xs' />
+              <Input size='md' />
             </form>
           </Box>
         </Flex>
