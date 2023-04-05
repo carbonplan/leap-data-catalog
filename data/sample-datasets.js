@@ -157,7 +157,7 @@ export const SampleDatasets = [
     ],
     doi_citation: null,
     expected_update_frequency: null,
-    demo: false,
+    demo: true,
   },
   {
     name: 'Dataset E',

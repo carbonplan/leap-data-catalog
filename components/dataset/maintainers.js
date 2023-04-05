@@ -2,6 +2,11 @@ import { Box, Flex, Image, Text } from 'theme-ui'
 import { Link, AvatarGroup, Avatar, Group } from '@carbonplan/components'
 
 export const Maintainers = ({ maintainers }) => {
+  // Sort maintainers by name
+  const sortedMaintainers = maintainers.sort((a, b) =>
+    a.name.localeCompare(b.name),
+  )
+
   return (
     <>
       <Box mt={3}>
@@ -11,7 +16,7 @@ export const Maintainers = ({ maintainers }) => {
             Maintainers:
           </Text>
           <Flex sx={{ flexDirection: 'row', gap: 3 }}>
-            {maintainers.map((maintainer) => (
+            {sortedMaintainers.map((maintainer) => (
               <Link
                 key={maintainer.name}
                 href={`https://github.com/${maintainer.github_username}`}

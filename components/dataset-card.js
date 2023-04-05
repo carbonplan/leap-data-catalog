@@ -32,7 +32,7 @@ export const DatasetCard = ({ dataset }) => {
           borderColor: 'muted',
         }}
       >
-        <Tags tags={tags} />
+        <Tags tags={tags} demo={demo} />
         <Thumbnail thumbnail={thumbnail} name={name} />
         <Text sx={{ pt: 3, fontSize: 3, fontWeight: 400, mb: 2 }}>{name}</Text>
 
