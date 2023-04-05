@@ -68,7 +68,7 @@ export const Catalog = ({}) => {
           {datasets.map(function (dataset, index) {
             const { start, width } = getStartAndWidth(index)
             return (
-              <Column key={dataset.name} start={[start]} width={[width]}>
+              <Column key={dataset.name} start={[1, (index + 1) % 3, (index + 1) % 4, (index + 1) % 4]} width={[6, 3, 4, 4]}>
                 <DatasetCard dataset={dataset} />
               </Column>
             )
