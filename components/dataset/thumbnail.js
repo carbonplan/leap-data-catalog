@@ -7,6 +7,9 @@ export const Thumbnail = ({ thumbnail, name }) => {
       <Image
         src={thumbnail ?? fallbackThumbnail}
         alt={`Thumbnail for ${name}`}
+        sx={{
+          width: '100%',
+        }}
       />
     </Box>
   )
