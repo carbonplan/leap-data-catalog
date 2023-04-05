@@ -12,14 +12,14 @@ export const Providers = ({ providers }) => {
         {providers.map((provider) => (
           <Button
             size='xs'
-            key={provider.name}
+            key={provider.label}
             suffix={<RotatingArrow />}
             as={Link}
-            href={provider.url}
+            href={provider.href}
             target='_blank'
             rel='noopener noreferrer'
           >
-            {provider.name}
+            {provider.label}
           </Button>
         ))}
       </Grid>

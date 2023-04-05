@@ -3,16 +3,16 @@ export const SampleDatasets = [
     name: 'Dataset A',
     providers: [
       {
-        name: 'Provider A',
-        url: 'https://www.provider-a.com',
+        label: 'Provider A',
+        href: 'https://www.provider-a.com',
       },
       {
-        name: 'Provider B',
-        url: 'https://www.provider-a.com',
+        label: 'Provider B',
+        label: 'https://www.provider-a.com',
       },
       {
-        name: 'Provider C',
-        url: 'https://www.provider-a.com',
+        label: 'Provider C',
+        href: 'https://www.provider-a.com',
       },
     ],
     description:
@@ -32,16 +32,16 @@ export const SampleDatasets = [
     ],
     license: {
       name: 'MIT License',
-      url: 'https://opensource.org/licenses/MIT',
+      href: 'https://opensource.org/licenses/MIT',
     },
     links: [
       {
-        title: 'Link to GitHub',
-        url: 'https://www.link-a.com',
+        label: 'Link to GitHub',
+        href: 'https://www.link-a.com',
       },
       {
-        title: 'Link to publication',
-        url: 'https://www.link-b.com',
+        label: 'Link to publication',
+        href: 'https://www.link-b.com',
       },
     ],
     doi_citation: 'https://doi.org/10.1234/dataset-a',
@@ -52,8 +52,8 @@ export const SampleDatasets = [
     name: 'Dataset B',
     providers: [
       {
-        name: 'Provider B',
-        url: 'https://www.provider-b.com',
+        label: 'Provider B',
+        href: 'https://www.provider-b.com',
       },
     ],
     description:
@@ -72,13 +72,13 @@ export const SampleDatasets = [
       },
     ],
     license: {
-      name: 'MIT License',
-      url: 'https://opensource.org/licenses/MIT',
+      label: 'MIT License',
+      href: 'https://opensource.org/licenses/MIT',
     },
     links: [
       {
-        title: 'Link B',
-        url: 'https://www.link-b.com',
+        label: 'Link B',
+        href: 'https://www.link-b.com',
       },
     ],
     doi_citation: null,
@@ -90,12 +90,12 @@ export const SampleDatasets = [
     name: 'Dataset C',
     providers: [
       {
-        name: 'Provider A',
-        url: 'https://www.provider-a.com',
+        label: 'Provider A',
+        href: 'https://www.provider-a.com',
       },
       {
-        name: 'Provider B',
-        url: 'https://www.provider-b.com',
+        label: 'Provider B',
+        href: 'https://www.provider-b.com',
       },
     ],
     description: 'This is Dataset C.',
@@ -109,17 +109,17 @@ export const SampleDatasets = [
       },
     ],
     license: {
-      name: 'Apache License 2.0',
-      url: 'https://www.apache.org/licenses/LICENSE-2.0',
+      label: 'Apache License 2.0',
+      href: 'https://www.apache.org/licenses/LICENSE-2.0',
     },
     links: [
       {
-        title: 'Link A',
-        url: 'https://www.link-a.com',
+        label: 'Link A',
+        href: 'https://www.link-a.com',
       },
       {
-        title: 'Link B',
-        url: 'https://www.link-b.com',
+        label: 'Link B',
+        href: 'https://www.link-b.com',
       },
     ],
     doi_citation: 'https://doi.org/10.1234/dataset-c',
@@ -130,8 +130,8 @@ export const SampleDatasets = [
     name: 'Dataset D',
     providers: [
       {
-        name: 'Provider B',
-        url: 'https://www.provider-b.com',
+        label: 'Provider B',
+        href: 'https://www.provider-b.com',
       },
     ],
     description: 'This is Dataset D.',
@@ -151,8 +151,8 @@ export const SampleDatasets = [
     license: null,
     links: [
       {
-        title: 'Link B',
-        url: 'https://www.link-b.com',
+        label: 'Link B',
+        href: 'https://www.link-b.com',
       },
     ],
     doi_citation: null,
@@ -163,8 +163,8 @@ export const SampleDatasets = [
     name: 'Dataset E',
     providers: [
       {
-        name: 'Provider A',
-        url: 'https://www.provider-a.com',
+        label: 'Provider A',
+        href: 'https://www.provider-a.com',
       },
     ],
     description: 'This is Dataset E.',
@@ -182,8 +182,8 @@ export const SampleDatasets = [
       },
     ],
     license: {
-      name: 'Apache License 2.0',
-      url: 'https://www.apache.org/licenses/LICENSE-2.0',
+      label: 'Apache License 2.0',
+      href: 'https://www.apache.org/licenses/LICENSE-2.0',
     },
     links: [],
     doi_citation: 'https://doi.org/10.1234/dataset-e',

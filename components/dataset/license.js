@@ -9,7 +9,7 @@ export const License = ({ license }) => {
       </Text>
       <Link
         ml={2}
-        href={license?.url}
+        href={license?.href}
         target='_blank'
         rel='noopener noreferrer'
         sx={{
