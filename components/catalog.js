@@ -1,11 +1,45 @@
 import { DatasetCard } from '@/components/dataset-card'
 import { SearchBox } from '@/components/search-box'
 import { SampleDatasets } from '@/data/sample-datasets'
-import { Box, Flex, Grid, Text } from 'theme-ui'
+import { Column, Row } from '@carbonplan/components'
+import { useEffect, useState } from 'react'
+import { Box, Flex, Text } from 'theme-ui'
+
+// Custom hook to get the current window width
+function useWindowWidth() {
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1024, // Default to desktop width if window is not available
+  )
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return // Skip if window is not available
+
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return windowWidth
+}
 
 export const Catalog = ({}) => {
   const datasets = SampleDatasets
-  const sample = datasets[0]
+  const windowWidth = useWindowWidth()
+
+  // Helper function to calculate the start and width based on the screen size
+  const getStartAndWidth = (index) => {
+    if (windowWidth >= 1024) {
+      // Desktop
+      return { start: (index % 3) * 4 + 1, width: 4 }
+    } else if (windowWidth >= 768) {
+      // Tablet
+      return { start: (index % 2) * 6 + 1, width: 6 }
+    } else {
+      // Mobile
+      return { start: 1, width: 6 }
+    }
+  }
+
   return (
     <Box as='section' py={2}>
       <Flex
@@ -28,11 +62,18 @@ export const Catalog = ({}) => {
       </Flex>
 
       <Box pt={3}>
-        <Grid gap={3} columns={[1, 2, 3, 3]}>
-          {datasets.map((dataset) => (
-            <DatasetCard key={dataset.name} dataset={dataset} />
-          ))}
-        </Grid>
+        <Row>
+          {datasets.map(function (dataset, index) {
+            // compute modulo of index
+            const { start, width } = getStartAndWidth(index)
+            console.log(index, start, width)
+            return (
+              <Column key={dataset.name} start={[start]} width={[width]}>
+                <DatasetCard dataset={dataset} />
+              </Column>
+            )
+          })}
+        </Row>
       </Box>
     </Box>
   )
