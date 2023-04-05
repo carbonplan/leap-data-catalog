@@ -21,7 +21,8 @@ export const SearchBox = () => {
           </Text>
           <Box
             sx={{
-              ml: [6],
+              ml: [4],
+              width: '100%',
             }}
           >
             <form>
