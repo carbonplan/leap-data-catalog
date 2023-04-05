@@ -46,7 +46,7 @@ export const Catalog = ({}) => {
         sx={{
           flexDirection: ['column', 'row'],
           alignItems: ['flex-start', 'center'],
-          // justifyContent: 'space-between',
+          //justifyContent: 'space-between',
           gap: [3, 8],
           mb: 6,
         }}
@@ -63,7 +63,7 @@ export const Catalog = ({}) => {
         <SearchBox />
       </Flex>
 
-      <Box mt={8}>
+      <Box mt={3}>
         <Row gap={[8, 5, 5, 6]}>
           {datasets.map(function (dataset, index) {
             const { start, width } = getStartAndWidth(index)

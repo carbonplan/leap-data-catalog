@@ -34,7 +34,10 @@ export const DatasetCard = ({ dataset }) => {
       >
         <Tags tags={tags} demo={demo} />
         <Thumbnail thumbnail={thumbnail} name={name} />
-        <Text sx={{ pt: 3, fontSize: 3, fontWeight: 400, mb: 2 }}>{name}</Text>
+        <Box mt={3}>
+          {' '}
+          <Text sx={{ fontSize: 3, fontWeight: 400 }}>{name}</Text>
+        </Box>
 
         <Box mt={3}>
           <Text
