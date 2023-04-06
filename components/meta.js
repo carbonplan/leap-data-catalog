@@ -8,13 +8,26 @@ export const Meta = ({ title, description, card }) => {
       <title>{title}</title>
       <meta name='description' content={description} />
       <meta name='viewport' content='width=device-width, initial-scale=1' />
-      <link rel='alternate icon' type='image/png' href='' />
+      <link
+        rel='alternate icon'
+        type='image/png'
+        href='https://leap.columbia.edu/wp-content/uploads/2021/11/cropped-favicon-1-1-32x32.png'
+      />
+      <link
+        rel='icon'
+        type='image/png'
+        href='https://leap.columbia.edu/wp-content/uploads/2021/11/cropped-favicon-1-1-32x32.png'
+      />
       <meta name='theme-color' content={theme.colors.background} />
       <meta
         name='color-scheme'
         content={colorMode === 'light' ? 'light' : 'dark'}
       />
       <meta name='msapplication-TileColor' content={theme.colors.background} />
+      <meta
+        name='msapplication-TileImage'
+        content='https://leap.columbia.edu/wp-content/uploads/2021/11/cropped-favicon-1-1-180x180.png'
+      />
 
       <meta property='og:title' content={title} />
       <meta property='og:description' content={description} />

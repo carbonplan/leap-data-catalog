@@ -14,16 +14,19 @@ export const Header = () => {
         }
         title={'LEAP Data Catalog'}
       />
-      <Box mb={3}>
+      <Box pb={8}>
         <Box
           as='header'
           sx={{
             borderBottom: '1px solid #eee',
             borderColor: 'muted',
             py: 3,
-            position: 'sticky',
+            position: 'fixed',
             top: 0,
             zIndex: 100,
+            width: '100%',
+            backdropFilter: 'saturate(180%) blur(5px)',
+            backgroundColor: 'background',
           }}
         >
           <Container>

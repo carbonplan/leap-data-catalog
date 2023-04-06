@@ -1,27 +1,16 @@
+import { Catalog } from '@/components/catalog'
 import { Layout } from '@/components/layout'
-import { Info } from '@carbonplan/icons'
-import { Box, Flex, Text } from 'theme-ui'
+import { Guide } from '@carbonplan/components'
+import { Box, Container } from 'theme-ui'
 
 export default function Home() {
   return (
     <Layout>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Flex>
-          <Info />
-          <Text
-            sx={{
-              px: 2,
-            }}
-          >
-            Site under Construction
-          </Text>
-        </Flex>
+      <Box>
+        <Container>
+          <Guide />
+          <Catalog />
+        </Container>
       </Box>
     </Layout>
   )
