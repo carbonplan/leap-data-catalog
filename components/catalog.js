@@ -1,11 +1,23 @@
 import { DatasetCard } from '@/components/dataset-card'
 import { SearchBox } from '@/components/search-box'
-import { SampleDatasets } from '@/data/sample-datasets'
+import { fetcher } from '@/utils/fetcher'
 import { Column, Row } from '@carbonplan/components'
+import useSWR from 'swr'
 import { Box, Text } from 'theme-ui'
 
 export const Catalog = ({}) => {
-  const datasets = SampleDatasets
+  const { data: datasets, error } = useSWR(
+    'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json',
+    fetcher,
+    { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
+  )
+  if (error) {
+    return <div>Error loading datasets from catalog</div>
+  }
+
+  if (!datasets) {
+    return <div>Loading datasets from catalog</div>
+  }
 
   return (
     <Box as='section' py={2}>
@@ -29,7 +41,7 @@ export const Catalog = ({}) => {
 
       <Box mt={3}>
         <Row>
-          {datasets.map(function (dataset, index) {
+          {datasets?.map(function (dataset, index) {
             return (
               <Column
                 key={dataset.name}
