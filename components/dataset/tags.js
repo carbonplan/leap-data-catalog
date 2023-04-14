@@ -3,7 +3,9 @@ import { Box, Flex } from 'theme-ui'
 
 export const Tags = ({ tags, demo }) => {
   // Sort tags alphabetically
-  const sortedTags = tags.sort((a, b) => a.localeCompare(b))
+  const sortedTags = tags
+    .sort((a, b) => a.localeCompare(b))
+    .filter((t) => t !== 'sea surface temperature')
   return (
     <Box mt={3}>
       <Flex sx={{ flexWrap: 'wrap', mb: 2 }}>

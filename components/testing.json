@@ -4,8 +4,8 @@
     "description": "TK",
     "stores": [
       {
-        "name": "hadisst.zarr",
-        "href": "https://ncsa.osn.xsede.org/Pangeo/pangeo-forge/HadISST-feedstock/hadisst.zarr"
+        "name": "dryspells_corn",
+        "href": "https://carbonplan-data-viewer.s3.amazonaws.com/demo/dryspells_corn/CanESM5-ssp370-full-time-extent.zarr"
       }
     ],
     "links": [
@@ -28,7 +28,7 @@
         "github_username": "katamartin"
       }
     ],
-    "tags": ["climate", "zarr"],
+    "tags": ["climate", "agriculture", "zarr"],
     "license": {
       "name": "MIT License",
       "href": "https://choosealicense.com/licenses/mit/"
