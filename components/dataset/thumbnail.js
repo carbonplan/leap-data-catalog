@@ -23,7 +23,7 @@ export const Thumbnail = ({ thumbnail, name, demo, stores }) => {
               top: 0,
               width: '100%',
               backgroundColor: alpha('secondary', 0.4),
-              height: '100%',
+              height: 'calc(100% - 5px)',
             }}
           >
             <Badge sx={{ mt: 2, ml: 2 }}>Demo</Badge>
