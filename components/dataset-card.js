@@ -7,6 +7,7 @@ import {
   Tags,
   Thumbnail,
 } from '@/components/dataset'
+import { Badge } from '@carbonplan/components'
 
 export const DatasetCard = ({ dataset }) => {
   const {
@@ -33,9 +34,8 @@ export const DatasetCard = ({ dataset }) => {
         }}
       >
         <Tags tags={tags} demo={demo} />
-        <Thumbnail thumbnail={thumbnail} name={name} />
+        <Thumbnail thumbnail={thumbnail} name={name} demo={demo} />
         <Box mt={3}>
-          {' '}
           <Text sx={{ fontSize: 3, fontWeight: 400 }}>{name}</Text>
         </Box>
 

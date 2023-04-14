@@ -1,0 +1,39 @@
+[
+  {
+    "name": "Corn dry spells",
+    "description": "TK",
+    "stores": [
+      {
+        "name": "hadisst.zarr",
+        "href": "https://ncsa.osn.xsede.org/Pangeo/pangeo-forge/HadISST-feedstock/hadisst.zarr"
+      }
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/carbonplan/drought"
+      }
+    ],
+    "maintainers": [
+      {
+        "name": "Oriana Chegwidden",
+        "github_username": "orianac"
+      },
+      {
+        "name": "Anderson Banihirwe",
+        "github_username": "andersy005"
+      },
+      {
+        "name": "Kata Martin",
+        "github_username": "katamartin"
+      }
+    ],
+    "tags": ["climate", "zarr"],
+    "license": {
+      "name": "MIT License",
+      "href": "https://choosealicense.com/licenses/mit/"
+    },
+    "thumbnail": "/dryspell.png",
+    "demo": true
+  }
+]
