@@ -1,7 +1,69 @@
 [
   {
+    "name": "Daily Maximum Near-Surface Air Temperature (tasmax)",
+    "description": "Sample downscaled CMIP6 data product",
+    "stores": [
+      {
+        "name": "tasmax.zarr",
+        "href": "https://carbonplan-data-viewer.s3.us-west-2.amazonaws.com/demo/ScenarioMIP.CCCma.CanESM5.ssp245.r1i1p1f1.day.GARD-SV.tasmax.zarr"
+      }
+    ],
+    "maintainers": [
+      {
+        "name": "Oriana Chegwidden",
+        "github_username": "orianac"
+      },
+      {
+        "name": "Anderson Banihirwe",
+        "github_username": "andersy005"
+      },
+      {
+        "name": "Kata Martin",
+        "github_username": "katamartin"
+      }
+    ],
+    "tags": ["climate", "cmip6", "zarr"],
+    "license": {
+      "name": "MIT License",
+      "href": "https://choosealicense.com/licenses/mit/"
+    },
+    "thumbnail": "/tasmax.png",
+    "demo": true
+  },
+  {
+    "name": "Precipitation (pr)",
+    "description": "Sample downscaled CMIP6 data product",
+    "stores": [
+      {
+        "name": "pr.zarr",
+        "href": "https://carbonplan-data-viewer.s3.amazonaws.com/demo/ScenarioMIP.CCCma.CanESM5.ssp245.r1i1p1f1.annual.GARD-SV.pr.zarr"
+      }
+    ],
+    "maintainers": [
+      {
+        "name": "Oriana Chegwidden",
+        "github_username": "orianac"
+      },
+      {
+        "name": "Anderson Banihirwe",
+        "github_username": "andersy005"
+      },
+      {
+        "name": "Kata Martin",
+        "github_username": "katamartin"
+      }
+    ],
+    "tags": ["climate", "cmip6", "zarr"],
+    "license": {
+      "name": "MIT License",
+      "href": "https://choosealicense.com/licenses/mit/"
+    },
+    "thumbnail": "/pr.png",
+    "demo": true
+  },
+  {
     "name": "Corn dry spells",
-    "description": "TK",
+    "description": "Sample analysis dataset that calculates dry spells of relevance to corn production",
     "stores": [
       {
         "name": "dryspells_corn",
