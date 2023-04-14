@@ -59,7 +59,7 @@ export const DatasetCard = ({ dataset }) => {
 
         <License license={license} />
 
-        <Maintainers maintainers={maintainers} />
+        {!demo && <Maintainers maintainers={maintainers} />}
         {links && <Links links={links} doi_citation={doi_citation} />}
       </Box>
     </>
