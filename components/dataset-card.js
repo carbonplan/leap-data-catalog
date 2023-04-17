@@ -4,6 +4,7 @@ import {
   License,
   Links,
   Maintainers,
+  Stores,
   Tags,
   Thumbnail,
 } from '@/components/dataset'
@@ -61,6 +62,7 @@ export const DatasetCard = ({ dataset }) => {
 
         {!demo && <Maintainers maintainers={maintainers} />}
         {links && <Links links={links} doi_citation={doi_citation} />}
+        {stores.length > 0 && <Stores stores={stores} />}
       </Box>
     </>
   )
