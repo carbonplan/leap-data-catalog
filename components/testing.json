@@ -5,7 +5,7 @@
     "stores": [
       {
         "name": "tasmax.zarr",
-        "href": "https://carbonplan-data-viewer.s3.us-west-2.amazonaws.com/demo/ScenarioMIP.CCCma.CanESM5.ssp245.r1i1p1f1.day.GARD-SV.tasmax.zarr"
+        "href": "https://carbonplan-data-viewer.s3.amazonaws.com/demo/ScenarioMIP.CCCma.CanESM5.ssp245.r1i1p1f1.annual.GARD-SV.tasmax.zarr"
       }
     ],
     "maintainers": [
@@ -95,7 +95,7 @@
       "name": "MIT License",
       "href": "https://choosealicense.com/licenses/mit/"
     },
-    "thumbnail": "/dryspell.png",
+    "thumbnail": "/corn-energy.png",
     "demo": true
   }
 ]
