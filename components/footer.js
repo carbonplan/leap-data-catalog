@@ -1,5 +1,5 @@
-import { Link } from '@carbonplan/components'
-import { Box, Container, Flex } from 'theme-ui'
+import { Column, Link, Row } from '@carbonplan/components'
+import { Box, Container } from 'theme-ui'
 
 export const Footer = () => {
   return (
@@ -13,13 +13,14 @@ export const Footer = () => {
           }}
         >
           <Container>
-            <Flex
-              sx={{ justifyContent: 'space-between', alignItems: 'center' }}
-            >
-              <Link href='#'>TK</Link>
-              <Link href='#'>TK</Link>
-              <Link href='#'>TK</Link>
-            </Flex>
+            <Row>
+              <Column start={1} width={2}>
+                © 2023
+              </Column>
+              <Column start={3} width={2}>
+                <Link href='https://leap.columbia.edu'>About LEAP</Link>
+              </Column>
+            </Row>
           </Container>
         </Box>
       </Box>
