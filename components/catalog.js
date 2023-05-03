@@ -9,7 +9,7 @@ export const Catalog = ({}) => {
   const { data: datasets, error } = useSWR(
     'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json',
     fetcher,
-    { dedupingInterval: 60 * 60 * 1000 } // 1 hour in milliseconds
+    { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
   )
   if (error) {
     return <div>Error loading datasets from catalog</div>
