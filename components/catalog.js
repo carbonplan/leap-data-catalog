@@ -9,7 +9,7 @@ export const Catalog = ({}) => {
   const { data: datasets, error } = useSWR(
     'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json',
     fetcher,
-    { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
+    { dedupingInterval: 60 * 60 * 1000 } // 1 hour in milliseconds
   )
   if (error) {
     return <div>Error loading datasets from catalog</div>
@@ -21,7 +21,7 @@ export const Catalog = ({}) => {
 
   return (
     <Box as='section' py={2}>
-      <Row columns={[6, 8, 12, 12]}>
+      <Row columns={[6, 8, 12, 12]} sx={{ mb: 6 }}>
         <Column start={1} width={[6, 4, 4, 4]}>
           <Text
             sx={{
@@ -34,7 +34,7 @@ export const Catalog = ({}) => {
             Data Catalog
           </Text>
         </Column>
-        <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]}>
+        <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]} sx={{ mt: 4 }}>
           <SearchBox />
         </Column>
       </Row>
