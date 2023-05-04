@@ -4,6 +4,7 @@ import {
   License,
   Links,
   Maintainers,
+  Stores,
   Tags,
   Thumbnail,
 } from '@/components/dataset'
@@ -21,6 +22,7 @@ export const DatasetCard = ({ dataset }) => {
     links,
     doi_citation,
     expected_update_frequency,
+    stores,
     demo,
   } = dataset
 
@@ -33,9 +35,13 @@ export const DatasetCard = ({ dataset }) => {
         }}
       >
         <Tags tags={tags} demo={demo} />
-        <Thumbnail thumbnail={thumbnail} name={name} />
+        <Thumbnail
+          thumbnail={thumbnail}
+          name={name}
+          demo={demo}
+          stores={stores}
+        />
         <Box mt={3}>
-          {' '}
           <Text sx={{ fontSize: 3, fontWeight: 400 }}>{name}</Text>
         </Box>
 
@@ -54,8 +60,9 @@ export const DatasetCard = ({ dataset }) => {
 
         <License license={license} />
 
-        <Maintainers maintainers={maintainers} />
+        {!demo && <Maintainers maintainers={maintainers} />}
         {links && <Links links={links} doi_citation={doi_citation} />}
+        {stores.length > 0 && <Stores stores={stores} />}
       </Box>
     </>
   )

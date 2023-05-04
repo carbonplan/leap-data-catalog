@@ -1,42 +1,40 @@
 import { Input } from '@carbonplan/components'
 import { Box, Flex, Text } from 'theme-ui'
 
-export const SearchBox = () => {
+export const SearchBox = ({ sx }) => {
   return (
-    <>
-      <Box as='section' sx={{ width: '100%' }}>
-        <Flex
+    <Box as='section' sx={{ width: '100%', ...sx }}>
+      <Flex
+        sx={{
+          alignItems: 'flex-end',
+          width: '100%',
+        }}
+      >
+        <Text
           sx={{
-            alignItems: 'flex-end',
+            fontWeight: 'bold',
+            fontSize: [3, 4],
+          }}
+        >
+          Search
+        </Text>
+        <Box
+          sx={{
+            ml: [4],
             width: '100%',
           }}
         >
-          <Text
-            sx={{
-              fontWeight: 'bold',
-              fontSize: [3, 4],
-            }}
-          >
-            Search
-          </Text>
-          <Box
-            sx={{
-              ml: [4],
-              width: '100%',
-            }}
-          >
-            <form>
-              <Input
-                size='md'
-                sx={{
-                  flexGrow: 1,
-                  width: '100%',
-                }}
-              />
-            </form>
-          </Box>
-        </Flex>
-      </Box>
-    </>
+          <form>
+            <Input
+              size='md'
+              sx={{
+                flexGrow: 1,
+                width: '100%',
+              }}
+            />
+          </form>
+        </Box>
+      </Flex>
+    </Box>
   )
 }
