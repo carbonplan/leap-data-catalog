@@ -10,7 +10,7 @@ export const Catalog = ({}) => {
   const { data: datasets, error } = useSWR(
     'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json',
     fetcher,
-    { dedupingInterval: 60 * 60 * 1000 } // 1 hour in milliseconds
+    { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
   )
   const [search, setSearch] = useState('')
 
@@ -26,7 +26,7 @@ export const Catalog = ({}) => {
     const re = new RegExp(search, 'i')
 
     return datasets.filter(
-      (d) => d.name.match(re) || d.tags?.some((tag) => tag.match(re))
+      (d) => d.name.match(re) || d.tags?.some((tag) => tag.match(re)),
     )
   }, [datasets, search])
 
