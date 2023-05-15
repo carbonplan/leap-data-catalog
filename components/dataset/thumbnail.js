@@ -6,9 +6,7 @@ export const Thumbnail = ({ thumbnail, name, demo, stores }) => {
   const fallbackThumbnail = 'https://via.placeholder.com/400x200'
   return (
     <Box mt={3} sx={{ position: 'relative' }}>
-      <Link
-        href={`https://ncview-js.staging.carbonplan.org/?dataset=${stores[0].href}`}
-      >
+      <Link>
         <Image
           src={thumbnail ?? fallbackThumbnail}
           alt={`Thumbnail for ${name}`}
