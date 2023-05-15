@@ -2,8 +2,9 @@ import { Box, Image, Link } from 'theme-ui'
 import { Badge } from '@carbonplan/components'
 import { alpha } from '@theme-ui/color'
 
-export const Thumbnail = ({ thumbnail, name, demo, stores }) => {
+export const Thumbnail = ({ thumbnail, name, demo }) => {
   const fallbackThumbnail = 'https://via.placeholder.com/400x200'
+
   return (
     <Box mt={3} sx={{ position: 'relative' }}>
       <Link>

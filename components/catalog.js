@@ -2,6 +2,7 @@ import { DatasetCard } from '@/components/dataset-card'
 import { SearchBox } from '@/components/search-box'
 import { fetcher } from '@/utils/fetcher'
 import { Column, Row } from '@carbonplan/components'
+import { useMemo, useState } from 'react'
 import useSWR from 'swr'
 import { Box, Text } from 'theme-ui'
 
@@ -9,8 +10,26 @@ export const Catalog = ({}) => {
   const { data: datasets, error } = useSWR(
     'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json',
     fetcher,
-    { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
+    { dedupingInterval: 60 * 60 * 1000 } // 1 hour in milliseconds
   )
+  const [search, setSearch] = useState('')
+
+  const filteredDatasets = useMemo(() => {
+    if (!datasets) {
+      return []
+    }
+
+    if (!search) {
+      return datasets
+    }
+
+    const re = new RegExp(search, 'i')
+
+    return datasets.filter(
+      (d) => d.name.match(re) || d.tags?.some((tag) => tag.match(re))
+    )
+  }, [datasets, search])
+
   if (error) {
     return <div>Error loading datasets from catalog</div>
   }
@@ -35,13 +54,13 @@ export const Catalog = ({}) => {
           </Text>
         </Column>
         <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]} sx={{ mt: 4 }}>
-          <SearchBox />
+          <SearchBox search={search} setSearch={setSearch} />
         </Column>
       </Row>
 
       <Box mt={3}>
         <Row>
-          {datasets?.map(function (dataset, index) {
+          {filteredDatasets.map(function (dataset, index) {
             return (
               <Column
                 key={dataset.name}
