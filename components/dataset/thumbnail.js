@@ -2,13 +2,12 @@ import { Box, Image, Link } from 'theme-ui'
 import { Badge } from '@carbonplan/components'
 import { alpha } from '@theme-ui/color'
 
-export const Thumbnail = ({ thumbnail, name, demo, stores }) => {
+export const Thumbnail = ({ thumbnail, name, demo }) => {
   const fallbackThumbnail = 'https://via.placeholder.com/400x200'
+
   return (
     <Box mt={3} sx={{ position: 'relative' }}>
-      <Link
-        href={`https://ncview-js.staging.carbonplan.org/?dataset=${stores[0].href}`}
-      >
+      <Link>
         <Image
           src={thumbnail ?? fallbackThumbnail}
           alt={`Thumbnail for ${name}`}

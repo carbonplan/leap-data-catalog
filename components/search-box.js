@@ -1,7 +1,7 @@
 import { Input } from '@carbonplan/components'
 import { Box, Flex, Text } from 'theme-ui'
 
-export const SearchBox = ({ sx }) => {
+export const SearchBox = ({ sx, search, setSearch }) => {
   return (
     <Box as='section' sx={{ width: '100%', ...sx }}>
       <Flex
@@ -27,6 +27,8 @@ export const SearchBox = ({ sx }) => {
           <form>
             <Input
               size='md'
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               sx={{
                 flexGrow: 1,
                 width: '100%',
