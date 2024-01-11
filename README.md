@@ -2,10 +2,6 @@
 
 **LEAP data catalog**
 
-[![GitHub][github-badge]][github]
-![build-status][]
-![MIT License][]
-
 ![GitHub deployments](https://img.shields.io/github/deployments/carbonplan/leap-data-catalog/production?label=vercel)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
