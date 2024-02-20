@@ -5,3 +5,26 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every weekday
       interval: 'monthly'
+
+  # Maintain dependencies for npm
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+
+    groups:
+      dependencies:
+        patterns:
+          - '@carbonplan*'
+          - '@mdx-js*'
+          - '@theme*'
+          - 'next*'
+          - 'react*'
+          - 'rehype*'
+          - 'swr'
+          - 'theme-ui*'
+      dev-dependencies:
+        patterns:
+          - '@types/*'
+          - 'eslint*'
+          - 'playwright'
