@@ -14,13 +14,15 @@
     "@carbonplan/layouts": "^3.1.0",
     "@carbonplan/prism": "^2.0.0",
     "@theme-ui/color": "^0.15.7",
-    "eslint": "8.37.0",
-    "eslint-config-next": "13.2.4",
     "next": "^13.5.4",
     "react": "18.2.0",
     "react-animate-height": "^3.1.1",
     "react-dom": "18.2.0",
     "swr": "^2.1.2",
     "theme-ui": "^0.15.7"
+  },
+  "devDependencies": {
+    "eslint": "8.37.0",
+    "eslint-config-next": "13.2.4"
   }
 }
