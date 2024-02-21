@@ -3,6 +3,7 @@ import NSFLogo from '@/public/NSF.svg'
 import Image from 'next/image'
 import { FaGithub, FaGlobe, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { Box, Container, Flex, IconButton, Link, Text } from 'theme-ui'
+import { GitSHA } from '@/components/git-sha'
 
 export const Footer = () => {
   return (
@@ -39,9 +40,20 @@ export const Footer = () => {
               <Image src={Logo} width={120} height={30} alt='LEAP Logo' />
             </Flex>
           </Link>
-          <Text sx={{ mb: [3, 0], flexGrow: [1, 0] }}>
-            © {new Date().getFullYear()}, LEAP-STC. MIT Licensed.
-          </Text>
+          <Flex
+            sx={{
+              flexDirection: ['column'],
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              textAlign: ['center'],
+            }}
+          >
+            <Text>© {new Date().getFullYear()}, LEAP-STC. MIT Licensed.</Text>
+            <Box sx={{ m: 2 }}>
+              <GitSHA />
+            </Box>
+          </Flex>
+
           <Flex
             sx={{
               alignItems: 'center',
