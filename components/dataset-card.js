@@ -1,6 +1,7 @@
 import { Box, Text } from 'theme-ui'
 
 import {
+  DataViewer,
   License,
   Links,
   Maintainers,
@@ -12,6 +13,7 @@ import {
 export const DatasetCard = ({ dataset }) => {
   const {
     name,
+    stores,
     providers,
     description,
     thumbnail,
@@ -57,6 +59,9 @@ export const DatasetCard = ({ dataset }) => {
             {description}
           </Text>
         </Box>
+
+        {/* display data-viewer link when the dataset has a single store  */}
+        {stores.length === 1 && <DataViewer store={stores[0]} />}
 
         <License license={license} />
 

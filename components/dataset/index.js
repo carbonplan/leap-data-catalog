@@ -1,3 +1,4 @@
+export { DataViewer } from '@/components/dataset/data-viewer'
 export { License } from '@/components/dataset/license'
 export { Links } from '@/components/dataset/links'
 export { Maintainers } from '@/components/dataset/maintainers'
