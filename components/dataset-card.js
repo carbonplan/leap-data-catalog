@@ -39,15 +39,22 @@ export const DatasetCard = ({ dataset, index }) => {
     fallbackThumbnails[index % fallbackThumbnails.length]
 
   const colors = [
-    'red',
+    'midnightBlue',
+    'navy',
+    'forestGreen',
+    'seafoamGreen',
+    'charcoal',
+    'skyBlue',
+    'aqua',
+    'coral',
+    'gold',
+    'lavender',
     'orange',
     'yellow',
     'green',
     'teal',
     'blue',
     'cyan',
-    'purple',
-    'pink',
   ]
 
   const color = colors[index % colors.length]
@@ -66,7 +73,7 @@ export const DatasetCard = ({ dataset, index }) => {
         <Box sx={{ height: '60px', mb: '20px' }}>
           <Tags tags={tags} demo={demo} />
         </Box>
-        <Box sx={{ flex: 1, position: 'relative', height: '200px' }}>
+        <Box sx={{ flex: 1, position: 'relative' }}>
           <Thumbnail
             url={thumbnail ?? fallbackThumbnail}
             demo={demo}
@@ -74,7 +81,7 @@ export const DatasetCard = ({ dataset, index }) => {
           />
         </Box>
 
-        <Box sx={{ marginTop: '220px' }}>
+        <Box>
           <Box mt={3}>
             <Text sx={{ fontSize: 3, fontWeight: 400 }}>{name}</Text>
           </Box>
