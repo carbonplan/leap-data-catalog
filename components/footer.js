@@ -1,7 +1,8 @@
-import { FaGithub, FaTwitter, FaYoutube, FaGlobe } from 'react-icons/fa'
-import { Box, Container, Flex, IconButton, Link, Text } from 'theme-ui'
-import Image from 'next/image'
 import Logo from '@/public/Leap-Logo-Big.png'
+import NSFLogo from '@/public/NSF.svg'
+import Image from 'next/image'
+import { FaGithub, FaGlobe, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { Box, Container, Flex, IconButton, Link, Text } from 'theme-ui'
 
 export const Footer = () => {
   return (
@@ -16,7 +17,7 @@ export const Footer = () => {
           }}
         >
           <Link
-            href='/'
+            href='https://leap.columbia.edu/'
             sx={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -24,7 +25,19 @@ export const Footer = () => {
               mb: [3, 0],
             }}
           >
-            <Image src={Logo} height={32} width={120} alt='LEAP Logo' />
+            <Flex sx={{ alignItems: 'center' }}>
+              <Image src={NSFLogo} height={48} width={48} alt='NSF Logo' />
+              {/* Vertical divider */}
+              <Box
+                sx={{
+                  mx: 2, // adjusts the spacing around the divider
+                  height: '30px', // match the height with the logo height or as desired
+                  width: '1px', // the width of the divider line
+                  bg: 'primary', // the color of the line
+                }}
+              />
+              <Image src={Logo} width={120} height={30} alt='LEAP Logo' />
+            </Flex>
           </Link>
           <Text sx={{ mb: [3, 0], flexGrow: [1, 0] }}>
             © {new Date().getFullYear()}, LEAP-STC. MIT Licensed.
