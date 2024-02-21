@@ -11,7 +11,7 @@ export const Thumbnail = ({ url, color, demo }) => {
             sx={{
               backgroundImage: `url(${url})`,
               position: 'absolute',
-              height: '200px',
+              height: ['200px', '200px', '250px', '300px'],
               width: '100%',
               filter: 'grayscale(100%)',
               backgroundSize: 'cover',
@@ -21,10 +21,9 @@ export const Thumbnail = ({ url, color, demo }) => {
             sx={{
               backgroundColor: alpha(color, 0.4),
               position: 'absolute',
-              height: '200px',
+              height: ['200px', '200px', '250px', '300px'],
               width: '100%',
               opacity: 0.7,
-              mixBlendMode: 'dodge',
             }}
           />
         </Box>
