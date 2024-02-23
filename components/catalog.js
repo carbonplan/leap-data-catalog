@@ -72,7 +72,7 @@ export const Catalog = ({}) => {
                 ]}
                 width={[6, 3, 4, 4]}
               >
-                <DatasetCard dataset={dataset} />
+                <DatasetCard dataset={dataset} index={index} />
               </Column>
             )
           })}
