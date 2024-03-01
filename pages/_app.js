@@ -3,7 +3,7 @@ import * as gtag from '@/utils/ga'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import { useEffect } from 'react'
-import { ThemeProvider } from 'theme-ui'
+import { ThemeUIProvider } from 'theme-ui'
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }) {
     }
   }, [router.events])
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeUIProvider theme={theme}>
       <Script
         strategy='afterInteractive'
         src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
@@ -39,6 +39,6 @@ export default function App({ Component, pageProps }) {
         }}
       />
       <Component {...pageProps} />
-    </ThemeProvider>
+    </ThemeUIProvider>
   )
 }
