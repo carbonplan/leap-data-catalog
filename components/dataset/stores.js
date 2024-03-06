@@ -25,7 +25,9 @@ const Store = ({ name, href }) => {
     blank.select()
     document.execCommand('copy')
     document.body.removeChild(blank)
-    if (tick) clearTimeout(tick)
+    if (tick) {
+      clearTimeout(tick)
+    }
     setCopied(true)
     const timeout = setTimeout(() => {
       setCopied(false)
@@ -80,11 +82,11 @@ const Store = ({ name, href }) => {
 
 export const Stores = ({ stores }) => {
   return (
-    <Box mt={3}>
+    <Box>
       <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
         {stores.length > 1 ? 'Stores:' : 'Store:'}
       </Text>
-      <Flex sx={{ flexDirection: 'column', gap: 3 }}>
+      <Flex sx={{ flexDirection: 'column', gap: 3, ml: 4 }}>
         {stores.map((store) => (
           <Store key={store.name} {...store} />
         ))}

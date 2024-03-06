@@ -8,45 +8,42 @@ export const Maintainers = ({ maintainers }) => {
   )
 
   return (
-    <>
-      <Box mt={3}>
-        {' '}
-        <Flex sx={{ flexDirection: 'column', gap: 2 }}>
-          <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
-            Maintainers:
-          </Text>
-          <Flex mt={3} sx={{ flexDirection: 'row', gap: 3 }}>
-            {sortedMaintainers.map((maintainer) => (
-              <Link
-                key={maintainer.name}
-                href={`https://github.com/${maintainer.github_username}`}
-                target='_blank'
-                rel='noopener noreferrer'
-                sx={{ textDecoration: 'none' }}
+    <Box>
+      <Flex sx={{ flexDirection: 'column', gap: 3 }}>
+        <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
+          Maintainers:
+        </Text>
+        <Flex sx={{ flexDirection: 'row', gap: 3, ml: 4 }}>
+          {sortedMaintainers.map((maintainer) => (
+            <Link
+              key={maintainer.name}
+              href={`https://github.com/${maintainer.github_username}`}
+              target='_blank'
+              rel='noopener noreferrer'
+              sx={{ textDecoration: 'none' }}
+            >
+              <Flex
+                sx={{ flexDirection: 'column', alignItems: 'center', gap: 1 }}
               >
-                <Flex
-                  sx={{ flexDirection: 'column', alignItems: 'center', gap: 1 }}
+                <Avatar
+                  src={`https://github.com/${maintainer.github_username}.png`}
+                  alt={`${maintainer.name}'s avatar`}
+                  sx={{ width: 48, height: 48, borderRadius: '50%' }}
+                />
+                <Text
+                  sx={{
+                    fontSize: 1,
+                    fontWeight: 'normal',
+                    textAlign: 'center',
+                  }}
                 >
-                  <Avatar
-                    src={`https://github.com/${maintainer.github_username}.png`}
-                    alt={`${maintainer.name}'s avatar`}
-                    sx={{ width: 48, height: 48, borderRadius: '50%' }}
-                  />
-                  <Text
-                    sx={{
-                      fontSize: 1,
-                      fontWeight: 'normal',
-                      textAlign: 'center',
-                    }}
-                  >
-                    {maintainer.name}
-                  </Text>
-                </Flex>
-              </Link>
-            ))}
-          </Flex>
+                  {maintainer.name}
+                </Text>
+              </Flex>
+            </Link>
+          ))}
         </Flex>
-      </Box>
-    </>
+      </Flex>
+    </Box>
   )
 }
