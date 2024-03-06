@@ -1,4 +1,4 @@
-import { Box, Text } from 'theme-ui'
+import { Box, Text, Flex } from 'theme-ui'
 import {
   getUniqueHashFromString,
   getRandomIndexFromHash,
@@ -107,13 +107,12 @@ export const DatasetCard = ({ dataset }) => {
               {description}
             </Text>
           </Box>
-
-          {stores.length > 0 && <Stores stores={stores} />}
-
-          <License license={license} />
-
-          {!demo && <Maintainers maintainers={maintainers} />}
-          {links && <Links links={links} doi_citation={doi_citation} />}
+          <Flex sx={{ flexDirection: 'column', gap: 4, mt: 3 }}>
+            {stores.length > 0 && <Stores stores={stores} />}
+            <License license={license} />
+            {!demo && <Maintainers maintainers={maintainers} />}
+            {links && <Links links={links} doi_citation={doi_citation} />}
+          </Flex>
         </Box>
       </Box>
     </>
