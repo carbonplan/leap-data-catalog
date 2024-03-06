@@ -9,11 +9,11 @@ export const Links = ({ links, doi_citation }) => {
   doi ? allLinks.push({ label: `doi:${doi}`, href: doi_citation }) : null
 
   return (
-    <Box mt={3}>
+    <Box>
       <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
         Links:
       </Text>
-      <Box mt={3}>
+      <Box sx={{ ml: 4 }}>
         <LinkGroup members={allLinks} />
       </Box>
     </Box>

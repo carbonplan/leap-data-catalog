@@ -108,11 +108,12 @@ export const DatasetCard = ({ dataset }) => {
             </Text>
           </Box>
 
+          {stores.length > 0 && <Stores stores={stores} />}
+
           <License license={license} />
 
           {!demo && <Maintainers maintainers={maintainers} />}
           {links && <Links links={links} doi_citation={doi_citation} />}
-          {stores.length > 0 && <Stores stores={stores} />}
         </Box>
       </Box>
     </>
