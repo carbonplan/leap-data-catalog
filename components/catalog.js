@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 export const Catalog = ({}) => {
   const router = useRouter()
   const { catalog } = router.query
-  const isPreview = process.env.NEXT_PUBLIC_DEPLOYMENT_ENV === 'preview'
+  const isPreview = process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'
   const defaultCatalogUrl =
     process.env.NEXT_PUBLIC_CATALOG_URL ||
     'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json'
