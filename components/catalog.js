@@ -5,10 +5,24 @@ import { Column, Row } from '@carbonplan/components'
 import { useMemo, useState } from 'react'
 import useSWR from 'swr'
 import { Box, Text } from 'theme-ui'
+import { useRouter } from 'next/router'
 
 export const Catalog = ({}) => {
+  const router = useRouter()
+  const { catalog } = router.query
+  const isPreview = process.env.NEXT_PUBLIC_DEPLOYMENT_ENV === 'preview'
+  const defaultCatalogUrl =
+    process.env.NEXT_PUBLIC_CATALOG_URL ||
+    'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json'
+  let catalogUrl = defaultCatalogUrl
+
+  // Use the query parameter only if in preview mode
+  if (isPreview && catalog) {
+    catalogUrl = catalog
+  }
+
   const { data: datasets, error } = useSWR(
-    'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json',
+    catalogUrl,
     fetcher,
     { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
   )
@@ -31,7 +45,11 @@ export const Catalog = ({}) => {
   }, [datasets, search])
 
   if (error) {
-    return <div>Error loading datasets from catalog</div>
+    return (
+      <div style={{ color: 'red', fontWeight: 'bold' }}>
+        🚨 Error loading datasets from catalog: {catalogUrl} - {error.message}
+      </div>
+    )
   }
 
   if (!datasets) {
