@@ -45,8 +45,6 @@ export const DatasetCard = ({ dataset }) => {
     'midnightBlue',
     'navy',
     'forestGreen',
-    'seafoamGreen',
-    'charcoal',
     'skyBlue',
     'aqua',
     'coral',
@@ -61,6 +59,7 @@ export const DatasetCard = ({ dataset }) => {
   ]
 
   const hash = getUniqueHashFromString(name)
+
   const thumbnailIndex = getRandomIndexFromHash(hash, fallbackThumbnails.length)
   const colorIndex = getRandomIndexFromHash(hash, colors.length)
 
@@ -80,7 +79,7 @@ export const DatasetCard = ({ dataset }) => {
         }}
       >
         <Box sx={{ height: '60px', mb: '20px' }}>
-          <Tags tags={tags} demo={demo} />
+          {tags?.length > 0 && <Tags tags={tags} demo={demo} />}
         </Box>
         <Box sx={{ flex: 1, position: 'relative' }}>
           <Thumbnail
