@@ -7,8 +7,13 @@ import useSWR from 'swr'
 import { Box, Text } from 'theme-ui'
 import { useRouter } from 'next/router'
 
-export const Catalog = ({}) => {
+export const Catalog = ({ serverHostname }) => {
   const router = useRouter()
+
+  const isClient = typeof window !== 'undefined'
+  const hostname = isClient ? window.location.hostname : serverHostname
+  console.log(hostname, isClient, serverHostname)
+  const isProduction = hostname === 'leap-data-catalog.vercel.app'
   const defaultCatalogUrl =
     process.env.NEXT_PUBLIC_CATALOG_URL ||
     'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json'
@@ -16,7 +21,7 @@ export const Catalog = ({}) => {
   const getCatalogUrl = () => {
     const { catalog } = router.query
 
-    if (catalog) {
+    if (!isProduction && catalog) {
       return catalog
     }
 
@@ -102,4 +107,12 @@ export const Catalog = ({}) => {
       </Box>
     </Box>
   )
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      serverHostname: context.req.headers.host,
+    },
+  }
 }
