@@ -7,12 +7,11 @@ import useSWR from 'swr'
 import { Box, Text } from 'theme-ui'
 import { useRouter } from 'next/router'
 
-export const Catalog = ({ serverHostname }) => {
+export const Catalog = ({}) => {
   const router = useRouter()
 
   const isClient = typeof window !== 'undefined'
-  const hostname = isClient ? window.location.hostname : serverHostname
-  console.log(hostname, isClient, serverHostname)
+  const hostname = isClient ? window.location.hostname : 'localhost'
   const isProduction = hostname === 'leap-data-catalog.vercel.app'
   const defaultCatalogUrl =
     process.env.NEXT_PUBLIC_CATALOG_URL ||
@@ -107,12 +106,4 @@ export const Catalog = ({ serverHostname }) => {
       </Box>
     </Box>
   )
-}
-
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      serverHostname: context.req.headers.host,
-    },
-  }
 }
