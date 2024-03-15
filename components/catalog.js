@@ -9,6 +9,10 @@ import { useRouter } from 'next/router'
 
 export const Catalog = ({}) => {
   const router = useRouter()
+
+  const isClient = typeof window !== 'undefined'
+  const hostname = isClient ? window.location.hostname : 'localhost'
+  const isProduction = hostname === 'leap-data-catalog.vercel.app'
   const defaultCatalogUrl =
     process.env.NEXT_PUBLIC_CATALOG_URL ||
     'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json'
@@ -16,7 +20,7 @@ export const Catalog = ({}) => {
   const getCatalogUrl = () => {
     const { catalog } = router.query
 
-    if (catalog) {
+    if (!isProduction && catalog) {
       return catalog
     }
 
