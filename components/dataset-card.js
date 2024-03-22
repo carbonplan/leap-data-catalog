@@ -1,8 +1,8 @@
-import { Box, Text, Flex } from 'theme-ui'
 import {
-  getUniqueHashFromString,
   getRandomIndexFromHash,
+  getUniqueHashFromString,
 } from '@/utils/string-hash'
+import { Box, Flex, Text } from 'theme-ui'
 
 import {
   License,
@@ -11,7 +11,7 @@ import {
   Stores,
   Tags,
   Thumbnail,
-} from '@/components/dataset'
+} from '@/components/feedstock'
 
 export const DatasetCard = ({ dataset }) => {
   const {
