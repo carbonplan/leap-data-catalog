@@ -13,7 +13,7 @@ store = '${url}'
 ds = xr.open_dataset(store, engine='zarr', chunks={})
 `
 
-const Store = ({ name, href }) => {
+const Store = ({ name, url }) => {
   const [expanded, setExpanded] = useState(false)
   const [copied, setCopied] = useState(false)
   const [tick, setTick] = useState(null)
@@ -69,11 +69,11 @@ const Store = ({ name, href }) => {
                 <Down sx={{ ml: '2px' }} />
               )
             }
-            onClick={() => handleClick(href)}
+            onClick={() => handleClick(url)}
           >
             {copied ? 'Copied' : 'Copy'}
           </Button>
-          <Code language='python'>{getSnippet(href)}</Code>
+          <Code language='python'>{getSnippet(url)}</Code>
         </Box>
       </AnimateHeight>
     </Box>
