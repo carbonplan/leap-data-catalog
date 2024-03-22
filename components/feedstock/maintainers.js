@@ -17,7 +17,7 @@ export const Maintainers = ({ maintainers }) => {
           {sortedMaintainers.map((maintainer) => (
             <Link
               key={maintainer.name}
-              href={`https://github.com/${maintainer.github_username}`}
+              href={`https://github.com/${maintainer.github}`}
               target='_blank'
               rel='noopener noreferrer'
               sx={{ textDecoration: 'none' }}
@@ -26,7 +26,7 @@ export const Maintainers = ({ maintainers }) => {
                 sx={{ flexDirection: 'column', alignItems: 'center', gap: 1 }}
               >
                 <Avatar
-                  src={`https://github.com/${maintainer.github_username}.png`}
+                  src={`https://github.com/${maintainer.github}.png`}
                   alt={`${maintainer.name}'s avatar`}
                   sx={{ width: 48, height: 48, borderRadius: '50%' }}
                 />

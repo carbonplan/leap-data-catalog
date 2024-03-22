@@ -1,4 +1,4 @@
-import { DatasetCard } from '@/components/dataset-card'
+import { FeedstockCard } from '@/components/feedstock-card'
 import { SearchBox } from '@/components/search-box'
 import { fetcher } from '@/utils/fetcher'
 import { Column, Row } from '@carbonplan/components'
@@ -29,39 +29,39 @@ export const Catalog = ({}) => {
 
   const catalogUrl = getCatalogUrl()
 
-  const { data: datasets, error } = useSWR(
+  const { data: feedstocks, error } = useSWR(
     catalogUrl,
     fetcher,
     { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
   )
   const [search, setSearch] = useState('')
 
-  const filteredDatasets = useMemo(() => {
-    if (!datasets) {
+  const filteredFeedstocks = useMemo(() => {
+    if (!feedstocks) {
       return []
     }
 
     if (!search) {
-      return datasets
+      return feedstocks
     }
 
     const re = new RegExp(search, 'i')
 
-    return datasets.filter(
-      (d) => d.name.match(re) || d.tags?.some((tag) => tag.match(re)),
+    return feedstocks.filter(
+      (d) => d.title.match(re) || d.tags?.some((tag) => tag.match(re)),
     )
-  }, [datasets, search])
+  }, [feedstocks, search])
 
   if (error) {
     return (
       <div style={{ color: 'red', fontWeight: 'bold' }}>
-        🚨 Error loading datasets from catalog: {catalogUrl} - {error.message}
+        🚨 Error loading feedstocks from catalog: {catalogUrl} - {error.message}
       </div>
     )
   }
 
-  if (!datasets) {
-    return <div>Loading datasets from catalog</div>
+  if (!feedstocks) {
+    return <div>Loading feedstocks from catalog</div>
   }
 
   return (
@@ -86,10 +86,10 @@ export const Catalog = ({}) => {
 
       <Box mt={3}>
         <Row>
-          {filteredDatasets.map(function (dataset, index) {
+          {filteredFeedstocks.map(function (feedstock, index) {
             return (
               <Column
-                key={dataset.name}
+                key={feedstock.title}
                 start={[
                   1,
                   (index % 2) * 4 + 1,
@@ -98,7 +98,7 @@ export const Catalog = ({}) => {
                 ]}
                 width={[6, 3, 4, 4]}
               >
-                <DatasetCard dataset={dataset} />
+                <FeedstockCard feedstock={feedstock} />
               </Column>
             )
           })}

@@ -13,22 +13,22 @@ import {
   Thumbnail,
 } from '@/components/feedstock'
 
-export const DatasetCard = ({ dataset }) => {
+export const FeedstockCard = ({ feedstock }) => {
   const {
-    name,
-    providers,
+    title,
     description,
     thumbnail,
     tags,
-    coverage,
     maintainers,
-    license,
+    provenance,
     links,
     doi_citation,
-    expected_update_frequency,
     stores,
     demo,
-  } = dataset
+  } = feedstock
+
+  const { license, license_link, providers } = provenance
+  console.log(provenance, license)
 
   const fallbackThumbnails = [
     'https://images.unsplash.com/photo-1583325958573-3c89e40551ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80',
@@ -58,7 +58,7 @@ export const DatasetCard = ({ dataset }) => {
     'cyan',
   ]
 
-  const hash = getUniqueHashFromString(name)
+  const hash = getUniqueHashFromString(title)
 
   const thumbnailIndex = getRandomIndexFromHash(hash, fallbackThumbnails.length)
   const colorIndex = getRandomIndexFromHash(hash, colors.length)
@@ -91,7 +91,7 @@ export const DatasetCard = ({ dataset }) => {
 
         <Box>
           <Box mt={3}>
-            <Text sx={{ fontSize: 3, fontWeight: 400 }}>{name}</Text>
+            <Text sx={{ fontSize: 3, fontWeight: 400 }}>{title}</Text>
           </Box>
 
           <Box mt={3}>
