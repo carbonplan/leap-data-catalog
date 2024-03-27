@@ -81,6 +81,8 @@ const Store = ({ name, url }) => {
           <Button
             size={'xs'}
             href={`https://data-viewer-git-katamartin-serverless-carbonplan.vercel.app/?dataset=${url}`}
+            target='_blank'
+            rel='noopener noreferrer'
             suffix={
               <RotatingArrow
                 sx={{ ml: '2px', mt: '-1px', width: 14, height: 14 }}
