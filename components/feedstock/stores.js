@@ -1,5 +1,6 @@
 import { Box, Flex, Text } from 'theme-ui'
-import { Button, Expander } from '@carbonplan/components'
+import { Button, Expander, Link } from '@carbonplan/components'
+import { RotatingArrow } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
 import AnimateHeight from 'react-animate-height'
 
@@ -13,8 +14,9 @@ store = '${url}'
 ds = xr.open_dataset(store, engine='zarr', chunks={})
 `
 
-const Store = ({ name, href }) => {
+const Store = ({ name, url }) => {
   const [expanded, setExpanded] = useState(false)
+
   const [copied, setCopied] = useState(false)
   const [tick, setTick] = useState(null)
 
@@ -69,11 +71,43 @@ const Store = ({ name, href }) => {
                 <Down sx={{ ml: '2px' }} />
               )
             }
-            onClick={() => handleClick(href)}
+            onClick={() => handleClick(url)}
           >
             {copied ? 'Copied' : 'Copy'}
           </Button>
-          <Code language='python'>{getSnippet(href)}</Code>
+
+          <Code language='python'>{getSnippet(url)}</Code>
+
+          <Button
+            size={'xs'}
+            href={`https://data-viewer-git-katamartin-serverless-carbonplan.vercel.app/?dataset=${url}`}
+            target='_blank'
+            rel='noopener noreferrer'
+            suffix={
+              <RotatingArrow
+                sx={{ ml: '2px', mt: '-1px', width: 14, height: 14 }}
+              />
+            }
+            sx={{
+              mt: 3,
+              mb: 2,
+              p: 2,
+              bg: 'primary',
+              color: 'background',
+              fontFamily: 'mono',
+              textAlign: 'center',
+              fontSize: 1,
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              '&:hover': {
+                bg: 'secondary',
+              },
+              borderRadius: 'small',
+              alignSelf: 'center',
+            }}
+          >
+            Open in Data Viewer
+          </Button>
         </Box>
       </AnimateHeight>
     </Box>
