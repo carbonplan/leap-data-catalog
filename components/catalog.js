@@ -13,9 +13,9 @@ export const Catalog = ({}) => {
   const isClient = typeof window !== 'undefined'
   const hostname = isClient ? window.location.hostname : 'localhost'
   const isProduction = hostname === 'leap-data-catalog.vercel.app'
+  //TODO: temporary hard code the default catalog URL
   const defaultCatalogUrl =
-    process.env.NEXT_PUBLIC_CATALOG_URL ||
-    'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json'
+    'https://gist.githubusercontent.com/andersy005/b83592c90eb12f8d18ab3405ef562cd1/raw/475c2f65bd136f12e1b9fefc9d2004e8e6c5cc7f/consolidated-web-catalog.json'
 
   const getCatalogUrl = () => {
     const { catalog } = router.query

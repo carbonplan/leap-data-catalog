@@ -15,6 +15,7 @@ ds = xr.open_dataset(store, engine='zarr', chunks={})
 
 const Store = ({ name, url }) => {
   const [expanded, setExpanded] = useState(false)
+
   const [copied, setCopied] = useState(false)
   const [tick, setTick] = useState(null)
 
