@@ -86,6 +86,7 @@ export const FeedstockCard = ({ feedstock }) => {
             url={thumbnail ?? fallbackThumbnail}
             demo={demo}
             color={color}
+            stores={stores}
           />
         </Box>
 
