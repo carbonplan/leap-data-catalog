@@ -11,7 +11,7 @@ export const Thumbnail = ({ url, color, demo, stores }) => {
       }}
     >
       <Link
-        href={`https://data-viewer-git-katamartin-serverless-carbonplan.vercel.app/?dataset=${stores[0].url}`}
+        href={`https://data-viewer-git-katamartin-pyramid-maps-carbonplan.vercel.app/?dataset=${stores[0].url}`}
       >
         <Box
           as='img'

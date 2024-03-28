@@ -80,7 +80,7 @@ const Store = ({ name, url }) => {
 
           <Button
             size={'xs'}
-            href={`https://data-viewer-git-katamartin-serverless-carbonplan.vercel.app/?dataset=${url}`}
+            href={`https://data-viewer-git-katamartin-pyramid-maps-carbonplan.vercel.app/?dataset=${url}`}
             target='_blank'
             rel='noopener noreferrer'
             suffix={
