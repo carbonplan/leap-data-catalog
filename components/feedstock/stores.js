@@ -14,7 +14,7 @@ store = '${url}'
 ds = xr.open_dataset(store, engine='zarr', chunks={})
 `
 
-const Store = ({ name, url }) => {
+const Store = ({ name, url, virtual_url }) => {
   const [expanded, setExpanded] = useState(false)
 
   const [copied, setCopied] = useState(false)
@@ -80,7 +80,7 @@ const Store = ({ name, url }) => {
 
           <Button
             size={'xs'}
-            href={`https://data-viewer-git-katamartin-serverless-carbonplan.vercel.app/?dataset=${url}`}
+            href={`https://data-viewer-git-katamartin-serverless-carbonplan.vercel.app/?dataset=${virtual_url}`}
             target='_blank'
             rel='noopener noreferrer'
             suffix={
