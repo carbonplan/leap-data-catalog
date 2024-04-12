@@ -1,11 +1,11 @@
-import { Box, Flex, Text } from 'theme-ui'
 import { Button, Expander, Link } from '@carbonplan/components'
 import { RotatingArrow } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
 import AnimateHeight from 'react-animate-height'
+import { Box, Flex, Text } from 'theme-ui'
 
-import { useState } from 'react'
 import { Check, Down } from '@carbonplan/icons'
+import { useState } from 'react'
 
 const getSnippet = (url) => `
 import xarray as xr
@@ -39,13 +39,17 @@ const Store = ({ name, url, virtual_url }) => {
 
   return (
     <Box sx={{ fontSize: 1, '& pre': { fontSize: '10px', my: 2 } }}>
-      <Flex sx={{ alignItems: 'center', gap: 2 }}>
-        {name}
-        <Expander
-          value={expanded}
-          onClick={() => setExpanded((prev) => !prev)}
-        />
-      </Flex>
+      <Button size={'xs'} onClick={() => setExpanded((prev) => !prev)}>
+        <Flex
+          sx={{
+            gap: 2,
+            alignItems: 'center',
+          }}
+        >
+          <Text>{name}</Text>
+          <Expander value={expanded} />
+        </Flex>
+      </Button>
       <AnimateHeight
         duration={100}
         height={expanded ? 'auto' : 0}
