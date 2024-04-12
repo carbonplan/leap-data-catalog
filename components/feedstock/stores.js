@@ -111,7 +111,7 @@ export const Stores = ({ stores }) => {
       <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
         {stores.length > 1 ? 'Stores:' : 'Store:'}
       </Text>
-      <Flex sx={{ flexDirection: 'column', gap: 3, ml: 4 }}>
+      <Flex sx={{ flexDirection: 'column', ml: 4 }}>
         {stores.map((store) => (
           <Store key={store.name} {...store} />
         ))}
