@@ -79,31 +79,18 @@ const Store = ({ name, url, virtual_url }) => {
           <Code language='python'>{getSnippet(url)}</Code>
 
           <Button
-            size={'xs'}
+            as={Link}
             href={`https://data-viewer-git-katamartin-pyramid-maps-carbonplan.vercel.app/?dataset=${virtual_url}`}
             target='_blank'
             rel='noopener noreferrer'
-            suffix={
-              <RotatingArrow
-                sx={{ ml: '2px', mt: '-1px', width: 14, height: 14 }}
-              />
-            }
+            suffix={<RotatingArrow sx={{ ml: '2px' }} />}
             sx={{
               mt: 3,
               mb: 2,
-              p: 2,
-              bg: 'primary',
-              color: 'background',
+              fontSize: 0,
               fontFamily: 'mono',
-              textAlign: 'center',
-              fontSize: 1,
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              '&:hover': {
-                bg: 'secondary',
-              },
-              borderRadius: 'small',
-              alignSelf: 'center',
+              color: 'secondary',
+              textTransform: 'uppercase',
             }}
           >
             Open in Data Viewer
