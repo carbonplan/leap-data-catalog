@@ -12,15 +12,13 @@ export const Links = ({ links, doi_citation }) => {
   })
   doi ? allLinks.push({ label: `doi:${doi}`, href: doi_citation }) : null
 
-  console.log(allLinks)
-
   return (
     <Flex sx={{ flexDirection: 'column', gap: 3 }}>
       <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
         Links:
       </Text>
 
-      <LinkGroup size='xs' members={allLinks} sx={{ ml: 4 }} />
+      <LinkGroup members={allLinks} sx={{ ml: 4 }} />
     </Flex>
   )
 }

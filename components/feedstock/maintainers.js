@@ -1,5 +1,5 @@
-import { Box, Flex, Image, Text } from 'theme-ui'
-import { Link, AvatarGroup, Avatar, Group } from '@carbonplan/components'
+import { Avatar, Link } from '@carbonplan/components'
+import { Box, Flex, Text } from 'theme-ui'
 
 export const Maintainers = ({ maintainers }) => {
   // Sort maintainers by name
