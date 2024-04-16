@@ -5,8 +5,14 @@ export const Links = ({ links, doi_citation }) => {
   const doiRegex = /^https?:\/\/doi\.org\/(.*)$/
   const doiMatch = doi_citation?.match(doiRegex)
   const doi = doiMatch ? doiMatch[1] : doi_citation
-  let allLinks = [...links]
+  // rename the url key to href
+  let allLinks = links.map((link) => {
+    const { url, ...otherProps } = link
+    return { href: url, ...otherProps }
+  })
   doi ? allLinks.push({ label: `doi:${doi}`, href: doi_citation }) : null
+
+  console.log(allLinks)
 
   return (
     <Flex sx={{ flexDirection: 'column', gap: 3 }}>
