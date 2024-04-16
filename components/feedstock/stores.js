@@ -14,7 +14,11 @@ store = '${url}'
 ds = xr.open_dataset(store, engine='zarr', chunks={})
 `
 
-const Store = ({ name, url, virtual_url }) => {
+const Store = ({ dataset }) => {
+  const { id, name, url, 'ncviewjs:rechunking': rechunking } = dataset
+  // Checking if rechunking is not null and has at least one item
+  const pyramid =
+    rechunking && rechunking.length > 0 ? rechunking[0].path : null
   const [expanded, setExpanded] = useState(false)
 
   const [copied, setCopied] = useState(false)
@@ -46,7 +50,7 @@ const Store = ({ name, url, virtual_url }) => {
             alignItems: 'center',
           }}
         >
-          <Text>{name}</Text>
+          <Text>{name || id}</Text>
           <Expander value={expanded} />
         </Flex>
       </Button>
@@ -84,7 +88,7 @@ const Store = ({ name, url, virtual_url }) => {
 
           <Button
             as={Link}
-            href={`https://data-viewer-git-katamartin-pyramid-maps-carbonplan.vercel.app/?dataset=${virtual_url}`}
+            href={`https://data-viewer-git-katamartin-pyramid-maps-carbonplan.vercel.app/?dataset=${pyramid || url}`}
             target='_blank'
             rel='noopener noreferrer'
             suffix={<RotatingArrow sx={{ ml: '2px' }} />}
@@ -113,7 +117,7 @@ export const Stores = ({ stores }) => {
       </Text>
       <Flex sx={{ flexDirection: 'column', ml: 4 }}>
         {stores.map((store) => (
-          <Store key={store.name} {...store} />
+          <Store key={store.id} dataset={store} />
         ))}
       </Flex>
     </Box>

@@ -28,7 +28,6 @@ export const FeedstockCard = ({ feedstock }) => {
   } = feedstock
 
   const { license, license_link, providers } = provenance
-  console.log(provenance, license)
 
   const fallbackThumbnails = [
     'https://images.unsplash.com/photo-1583325958573-3c89e40551ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80',
