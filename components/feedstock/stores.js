@@ -1,10 +1,11 @@
-import { Box, Flex, Text } from 'theme-ui'
-import { Button, Expander } from '@carbonplan/components'
+import { Button, Expander, Link } from '@carbonplan/components'
+import { RotatingArrow } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
 import AnimateHeight from 'react-animate-height'
+import { Box, Flex, Text } from 'theme-ui'
 
-import { useState } from 'react'
 import { Check, Down } from '@carbonplan/icons'
+import { useState } from 'react'
 
 const getSnippet = (url) => `
 import xarray as xr
@@ -13,8 +14,13 @@ store = '${url}'
 ds = xr.open_dataset(store, engine='zarr', chunks={})
 `
 
-const Store = ({ name, href }) => {
+const Store = ({ dataset }) => {
+  const { id, name, url, 'ncviewjs:rechunking': rechunking } = dataset
+  // Checking if rechunking is not null and has at least one item
+  const pyramid =
+    rechunking && rechunking.length > 0 ? rechunking[0].path : null
   const [expanded, setExpanded] = useState(false)
+
   const [copied, setCopied] = useState(false)
   const [tick, setTick] = useState(null)
 
@@ -37,13 +43,17 @@ const Store = ({ name, href }) => {
 
   return (
     <Box sx={{ fontSize: 1, '& pre': { fontSize: '10px', my: 2 } }}>
-      <Flex sx={{ alignItems: 'center', gap: 2 }}>
-        {name}
-        <Expander
-          value={expanded}
-          onClick={() => setExpanded((prev) => !prev)}
-        />
-      </Flex>
+      <Button size={'xs'} onClick={() => setExpanded((prev) => !prev)}>
+        <Flex
+          sx={{
+            gap: 2,
+            alignItems: 'center',
+          }}
+        >
+          <Text>{name || id}</Text>
+          <Expander value={expanded} />
+        </Flex>
+      </Button>
       <AnimateHeight
         duration={100}
         height={expanded ? 'auto' : 0}
@@ -69,11 +79,30 @@ const Store = ({ name, href }) => {
                 <Down sx={{ ml: '2px' }} />
               )
             }
-            onClick={() => handleClick(href)}
+            onClick={() => handleClick(url)}
           >
             {copied ? 'Copied' : 'Copy'}
           </Button>
-          <Code language='python'>{getSnippet(href)}</Code>
+
+          <Code language='python'>{getSnippet(url)}</Code>
+
+          <Button
+            as={Link}
+            href={`https://data-viewer-git-katamartin-pyramid-maps-carbonplan.vercel.app/?dataset=${pyramid || url}`}
+            target='_blank'
+            rel='noopener noreferrer'
+            suffix={<RotatingArrow sx={{ ml: '2px' }} />}
+            sx={{
+              mt: 3,
+              mb: 2,
+              fontSize: 0,
+              fontFamily: 'mono',
+              color: 'secondary',
+              textTransform: 'uppercase',
+            }}
+          >
+            Open in Data Viewer
+          </Button>
         </Box>
       </AnimateHeight>
     </Box>
@@ -86,9 +115,9 @@ export const Stores = ({ stores }) => {
       <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
         {stores.length > 1 ? 'Stores:' : 'Store:'}
       </Text>
-      <Flex sx={{ flexDirection: 'column', gap: 3, ml: 4 }}>
+      <Flex sx={{ flexDirection: 'column', ml: 4 }}>
         {stores.map((store) => (
-          <Store key={store.name} {...store} />
+          <Store key={store.id} dataset={store} />
         ))}
       </Flex>
     </Box>
