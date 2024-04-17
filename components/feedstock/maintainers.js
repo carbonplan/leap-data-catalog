@@ -33,7 +33,6 @@ export const Maintainers = ({ maintainers }) => {
                 <Text
                   sx={{
                     fontSize: 1,
-                    fontWeight: 'normal',
                     textAlign: 'center',
                   }}
                 >

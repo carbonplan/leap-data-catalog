@@ -19,8 +19,6 @@ export const License = ({ license, license_link }) => {
           sx={{
             textDecoration: 'none',
             fontSize: 1,
-            fontWeight: 'normal',
-            color: 'primary',
           }}
         >
           {license || license_link?.label}
