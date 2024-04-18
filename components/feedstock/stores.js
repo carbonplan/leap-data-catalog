@@ -74,9 +74,9 @@ const Store = ({ dataset }) => {
         >
           <Button
             sx={{
-              fontSize: [1, 1, 1, 2],
+              fontSize: [0, 0, 0, 1],
               letterSpacing: 'mono',
-              lineHeight: [1.2],
+
               textTransform: 'uppercase',
               fontFamily: 'mono',
               color: 'secondary',
@@ -102,11 +102,16 @@ const Store = ({ dataset }) => {
             }`}
             target='_blank'
             rel='noopener noreferrer'
-            suffix={<RotatingArrow />}
+            suffix={
+              <RotatingArrow
+                sx={{
+                  transform: ['translateY(-6%)'],
+                }}
+              />
+            }
             sx={{
-              fontSize: [1, 1, 1, 2],
+              fontSize: [0, 0, 0, 1],
               letterSpacing: 'mono',
-              lineHeight: [1.2],
               textTransform: 'uppercase',
               fontFamily: 'mono',
               color: 'secondary',
