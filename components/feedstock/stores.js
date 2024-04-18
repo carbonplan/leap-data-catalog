@@ -85,7 +85,7 @@ const Store = ({ dataset }) => {
 
           <Button
             as={Link}
-            href={`https://data-viewer-git-katamartin-pyramid-maps-carbonplan.vercel.app/?dataset=${
+            href={`https://ncview-js.staging.carbonplan.org/?dataset=${
               pyramid || url
             }`}
             target='_blank'
