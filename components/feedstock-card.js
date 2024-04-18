@@ -2,14 +2,13 @@ import {
   getRandomIndexFromHash,
   getUniqueHashFromString,
 } from '@/utils/string-hash'
-import { Box, Flex, Text } from 'theme-ui'
+import { Box, Flex } from 'theme-ui'
 
 import {
   License,
   Links,
   Maintainers,
   Stores,
-  Tags,
   Thumbnail,
 } from '@/components/feedstock'
 
@@ -77,14 +76,12 @@ export const FeedstockCard = ({ feedstock }) => {
           position: 'relative',
         }}
       >
-        <Box sx={{ height: '60px', mb: '20px' }}>
-          {tags?.length > 0 && <Tags tags={tags} demo={demo} />}
-        </Box>
         <Box sx={{ flex: 1, position: 'relative' }}>
           <Thumbnail
             url={thumbnail ?? fallbackThumbnail}
             demo={demo}
             color={color}
+            tags={tags}
           />
         </Box>
 
