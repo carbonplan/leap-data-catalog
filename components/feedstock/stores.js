@@ -76,7 +76,6 @@ const Store = ({ dataset }) => {
             sx={{
               fontSize: [0, 0, 0, 1],
               letterSpacing: 'mono',
-
               textTransform: 'uppercase',
               fontFamily: 'mono',
               color: 'secondary',
@@ -87,7 +86,13 @@ const Store = ({ dataset }) => {
               top: 0,
               textTransform: 'uppercase',
             }}
-            suffix={copied ? <Check /> : <Down />}
+            suffix={
+              copied ? (
+                <Check sx={{ transform: 'translateY(-10%)' }} />
+              ) : (
+                <Down sx={{ transform: 'rotate(135deg) translateY(1px)' }} />
+              )
+            }
             onClick={() => handleClick(url)}
           >
             {copied ? 'Copied' : 'Copy'}
