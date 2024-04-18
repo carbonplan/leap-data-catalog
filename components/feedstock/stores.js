@@ -42,7 +42,7 @@ const Store = ({ dataset }) => {
   }
 
   return (
-    <Box sx={{ fontSize: 1, '& pre': { fontSize: '10px', my: 2 } }}>
+    <Box sx={{ '& pre': { fontSize: '10px', my: 2 } }}>
       <Button size={'xs'} onClick={() => setExpanded((prev) => !prev)}>
         <Flex
           sx={{
@@ -62,7 +62,6 @@ const Store = ({ dataset }) => {
         <Box sx={{ position: 'relative' }}>
           <Button
             sx={{
-              fontSize: 0,
               fontFamily: 'mono',
               color: 'secondary',
               position: 'absolute',
@@ -72,13 +71,7 @@ const Store = ({ dataset }) => {
               top: 0,
               textTransform: 'uppercase',
             }}
-            suffix={
-              copied ? (
-                <Check sx={{ ml: '3px' }} />
-              ) : (
-                <Down sx={{ ml: '2px' }} />
-              )
-            }
+            suffix={copied ? <Check /> : <Down />}
             onClick={() => handleClick(url)}
           >
             {copied ? 'Copied' : 'Copy'}
@@ -88,17 +81,18 @@ const Store = ({ dataset }) => {
 
           <Button
             as={Link}
-            href={`https://data-viewer-git-katamartin-pyramid-maps-carbonplan.vercel.app/?dataset=${pyramid || url}`}
+            href={`https://data-viewer-git-katamartin-pyramid-maps-carbonplan.vercel.app/?dataset=${
+              pyramid || url
+            }`}
             target='_blank'
             rel='noopener noreferrer'
-            suffix={<RotatingArrow sx={{ ml: '2px' }} />}
+            suffix={<RotatingArrow />}
             sx={{
-              mt: 3,
-              mb: 2,
-              fontSize: 0,
+              textTransform: 'uppercase',
               fontFamily: 'mono',
               color: 'secondary',
-              textTransform: 'uppercase',
+              mt: 3,
+              mb: 2,
             }}
           >
             Open in Data Viewer
@@ -112,7 +106,7 @@ const Store = ({ dataset }) => {
 export const Stores = ({ stores }) => {
   return (
     <Box>
-      <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
+      <Text sx={{ color: 'muted' }}>
         {stores.length > 1 ? 'Stores:' : 'Store:'}
       </Text>
       <Flex sx={{ flexDirection: 'column', ml: 4 }}>

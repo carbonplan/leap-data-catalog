@@ -89,22 +89,21 @@ export const FeedstockCard = ({ feedstock }) => {
         </Box>
 
         <Box>
-          <Box mt={3}>
-            <Text sx={{ fontSize: 3, fontWeight: 400 }}>{title}</Text>
+          <Box
+            sx={{
+              fontSize: [4, 4, 4, 4],
+              fontFamily: 'heading',
+              mb: 2,
+              pt: ['2px'],
+              mt: 2,
+            }}
+          >
+            {title}
+          </Box>
+          <Box sx={{ fontSize: [2, 2, 2, 2], mb: 2, py: [1] }}>
+            {description}
           </Box>
 
-          <Box mt={3}>
-            <Text
-              sx={{
-                fontSize: 1,
-                maxHeight: 100,
-                maxWidth: '100%',
-                overflow: 'auto',
-              }}
-            >
-              {description}
-            </Text>
-          </Box>
           <Flex sx={{ flexDirection: 'column', gap: 4, mt: 3 }}>
             {stores.length > 0 && <Stores stores={stores} />}
             <License license={license} />

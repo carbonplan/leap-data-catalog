@@ -10,9 +10,7 @@ export const Maintainers = ({ maintainers }) => {
   return (
     <Box>
       <Flex sx={{ flexDirection: 'column', gap: 3 }}>
-        <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
-          Maintainers:
-        </Text>
+        <Text sx={{ color: 'muted' }}>Maintainers:</Text>
         <Flex sx={{ flexDirection: 'row', gap: 3, ml: 4 }}>
           {sortedMaintainers.map((maintainer) => (
             <Link
@@ -32,7 +30,6 @@ export const Maintainers = ({ maintainers }) => {
                 />
                 <Text
                   sx={{
-                    fontSize: 1,
                     textAlign: 'center',
                   }}
                 >

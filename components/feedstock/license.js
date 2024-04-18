@@ -4,9 +4,7 @@ import { Box, Text, Flex } from 'theme-ui'
 export const License = ({ license, license_link }) => {
   return (
     <Box sx={{ flexDirection: 'column', gap: 2 }}>
-      <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
-        License:
-      </Text>
+      <Text sx={{ color: 'muted' }}>License:</Text>
       <Flex sx={{ ml: 4 }}>
         <Link
           href={
@@ -18,7 +16,6 @@ export const License = ({ license, license_link }) => {
           rel='noopener noreferrer'
           sx={{
             textDecoration: 'none',
-            fontSize: 1,
           }}
         >
           {license || license_link?.label}
