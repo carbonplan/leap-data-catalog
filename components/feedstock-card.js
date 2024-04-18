@@ -101,7 +101,14 @@ export const FeedstockCard = ({ feedstock }) => {
             {description}
           </Box>
 
-          <Flex sx={{ flexDirection: 'column', gap: 4, mt: 3 }}>
+          <Flex
+            sx={{
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              gap: 3,
+              mt: 3,
+            }}
+          >
             {stores.length > 0 && <Stores stores={stores} />}
             <License license={license} />
             {!demo && <Maintainers maintainers={maintainers} />}

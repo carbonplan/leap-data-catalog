@@ -42,16 +42,20 @@ const Store = ({ dataset }) => {
   }
 
   return (
-    <Box sx={{ '& pre': { fontSize: '10px', my: 2 } }}>
+    <Flex
+      sx={{ flexDirection: 'column', '& pre': { fontSize: '10px', my: 2 } }}
+    >
       <Button size={'xs'} onClick={() => setExpanded((prev) => !prev)}>
         <Flex
           sx={{
-            gap: 2,
             alignItems: 'center',
+            justifyContent: 'space-between',
+            textTransform: 'uppercase',
           }}
         >
+          {' '}
           <Text>{name || id}</Text>
-          <Expander value={expanded} />
+          <Expander value={expanded} sx={{ ml: 2 }} />
         </Flex>
       </Button>
       <AnimateHeight
@@ -99,21 +103,29 @@ const Store = ({ dataset }) => {
           </Button>
         </Box>
       </AnimateHeight>
-    </Box>
+    </Flex>
   )
 }
 
 export const Stores = ({ stores }) => {
   return (
-    <Box>
-      <Text sx={{ color: 'muted' }}>
+    <Flex sx={{ flexDirection: 'column', gap: 2 }}>
+      <Text
+        sx={{
+          color: 'muted',
+          fontSize: 0,
+          fontFamily: 'mono',
+          letterSpacing: 'mono',
+          textTransform: 'uppercase',
+        }}
+      >
         {stores.length > 1 ? 'Stores:' : 'Store:'}
       </Text>
-      <Flex sx={{ flexDirection: 'column', ml: 4 }}>
+      <Flex sx={{ flexDirection: 'column' }}>
         {stores.map((store) => (
           <Store key={store.id} dataset={store} />
         ))}
       </Flex>
-    </Box>
+    </Flex>
   )
 }

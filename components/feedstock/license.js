@@ -1,26 +1,40 @@
 import { Link } from '@carbonplan/components'
-import { Box, Text, Flex } from 'theme-ui'
+import { Flex, Text } from 'theme-ui'
 
 export const License = ({ license, license_link }) => {
   return (
-    <Box sx={{ flexDirection: 'column', gap: 2 }}>
-      <Text sx={{ color: 'muted' }}>License:</Text>
-      <Flex sx={{ ml: 4 }}>
-        <Link
-          href={
-            license === 'proprietary'
-              ? license_link?.url
-              : `https://spdx.org/licenses/${license}`
-          }
-          target='_blank'
-          rel='noopener noreferrer'
-          sx={{
-            textDecoration: 'none',
-          }}
-        >
-          {license || license_link?.label}
-        </Link>
-      </Flex>
-    </Box>
+    <Flex
+      sx={{
+        flexDirection: 'column',
+        gap: 2,
+      }}
+    >
+      <Text
+        sx={{
+          color: 'muted',
+          fontSize: 0,
+          fontFamily: 'mono',
+          letterSpacing: 'mono',
+          textTransform: 'uppercase',
+        }}
+      >
+        License:
+      </Text>
+
+      <Link
+        href={
+          license === 'proprietary'
+            ? license_link?.url
+            : `https://spdx.org/licenses/${license}`
+        }
+        target='_blank'
+        rel='noopener noreferrer'
+        sx={{
+          textDecoration: 'none',
+        }}
+      >
+        {license || license_link?.label}
+      </Link>
+    </Flex>
   )
 }
