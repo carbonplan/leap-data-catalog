@@ -45,12 +45,16 @@ const Store = ({ dataset }) => {
     <Flex
       sx={{ flexDirection: 'column', '& pre': { fontSize: '10px', my: 2 } }}
     >
-      <Button size={'xs'} onClick={() => setExpanded((prev) => !prev)}>
+      <Button
+        sx={{
+          textTransform: 'uppercase',
+        }}
+        onClick={() => setExpanded((prev) => !prev)}
+      >
         <Flex
           sx={{
             alignItems: 'center',
             justifyContent: 'space-between',
-            textTransform: 'uppercase',
           }}
         >
           {' '}
@@ -63,9 +67,17 @@ const Store = ({ dataset }) => {
         height={expanded ? 'auto' : 0}
         easing={'linear'}
       >
-        <Box sx={{ position: 'relative' }}>
+        <Box
+          sx={{
+            position: 'relative',
+          }}
+        >
           <Button
             sx={{
+              fontSize: [1, 1, 1, 2],
+              letterSpacing: 'mono',
+              lineHeight: [1.2],
+              textTransform: 'uppercase',
               fontFamily: 'mono',
               color: 'secondary',
               position: 'absolute',
@@ -92,6 +104,9 @@ const Store = ({ dataset }) => {
             rel='noopener noreferrer'
             suffix={<RotatingArrow />}
             sx={{
+              fontSize: [1, 1, 1, 2],
+              letterSpacing: 'mono',
+              lineHeight: [1.2],
               textTransform: 'uppercase',
               fontFamily: 'mono',
               color: 'secondary',
