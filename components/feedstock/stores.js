@@ -15,6 +15,8 @@ ds = xr.open_dataset(store, engine='zarr', chunks={})
 `
 
 const Store = ({ dataset, color }) => {
+  console.log(dataset.id, color)
+
   const { id, name, url, 'ncviewjs:rechunking': rechunking } = dataset
   // Checking if rechunking is not null and has at least one item
   const pyramid =
@@ -47,6 +49,8 @@ const Store = ({ dataset, color }) => {
     >
       <Button
         sx={{
+          color: color,
+          fontSize: [3, 3, 3, 4],
           textTransform: 'uppercase',
         }}
         onClick={() => setExpanded((prev) => !prev)}

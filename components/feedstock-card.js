@@ -40,18 +40,24 @@ export const FeedstockCard = ({ feedstock }) => {
   ]
 
   const colors = [
-    'midnightBlue',
-    'navy',
+    'aquamarine',
+    'cadetBlue',
+    'yellow',
     'forestGreen',
     'aqua',
     'coral',
-    'gold',
+    'lightSeaGreen',
+    'Teal',
     'orange',
-    'yellow',
     'green',
     'teal',
     'blue',
     'cyan',
+    'Tomato',
+    'SpringGreen',
+    'Plum',
+    'SteelBlue',
+    'Sienna',
   ]
 
   const hash = getUniqueHashFromString(title)
@@ -95,9 +101,7 @@ export const FeedstockCard = ({ feedstock }) => {
           >
             {title}
           </Box>
-          <Box sx={{ fontSize: [2, 2, 2, 2], mb: 2, py: [1] }}>
-            {description}
-          </Box>
+          <Box sx={{ fontSize: [3], mb: 2, py: [1] }}>{description}</Box>
 
           {stores.length > 0 && <Stores stores={stores} color={color} />}
           <Flex

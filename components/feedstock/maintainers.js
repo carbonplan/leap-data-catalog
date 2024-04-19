@@ -36,13 +36,15 @@ export const Maintainers = ({ maintainers }) => {
             rel='noopener noreferrer'
             sx={{ textDecoration: 'none' }}
           >
-            <Flex sx={{ flexDirection: 'column', gap: 2 }}>
+            <Flex
+              sx={{ flexDirection: 'column', gap: 2, alignItems: 'center' }}
+            >
               <Avatar
                 src={`https://github.com/${maintainer.github}.png`}
                 alt={`${maintainer.name}'s avatar`}
                 sx={{ width: 48, height: 48, borderRadius: '50%' }}
               />
-              <Text>{maintainer.name}</Text>
+              {/* <Text sx={{ fontSize: 3 }}>{maintainer.name}</Text> */}
             </Flex>
           </Link>
         ))}

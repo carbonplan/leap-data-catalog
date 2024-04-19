@@ -32,6 +32,7 @@ export const License = ({ license, license_link }) => {
         rel='noopener noreferrer'
         sx={{
           textDecoration: 'none',
+          fontSize: 3,
         }}
       >
         {license || license_link?.label}
