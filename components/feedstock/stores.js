@@ -1,4 +1,4 @@
-import { Button, Expander, Link } from '@carbonplan/components'
+import { Button, Expander } from '@carbonplan/components'
 import { RotatingArrow } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
 import AnimateHeight from 'react-animate-height'
@@ -14,7 +14,7 @@ store = '${url}'
 ds = xr.open_dataset(store, engine='zarr', chunks={})
 `
 
-const Store = ({ dataset }) => {
+const Store = ({ dataset, color }) => {
   const { id, name, url, 'ncviewjs:rechunking': rechunking } = dataset
   // Checking if rechunking is not null and has at least one item
   const pyramid =
@@ -101,7 +101,6 @@ const Store = ({ dataset }) => {
           <Code language='python'>{getSnippet(url)}</Code>
 
           <Button
-            as={Link}
             href={`https://ncview-js.staging.carbonplan.org/?dataset=${
               pyramid || url
             }`}
@@ -115,11 +114,11 @@ const Store = ({ dataset }) => {
               />
             }
             sx={{
+              color: color,
               fontSize: [0, 0, 0, 1],
               letterSpacing: 'mono',
               textTransform: 'uppercase',
               fontFamily: 'mono',
-              color: 'secondary',
               mt: 3,
               mb: 2,
             }}
@@ -132,7 +131,7 @@ const Store = ({ dataset }) => {
   )
 }
 
-export const Stores = ({ stores }) => {
+export const Stores = ({ stores, color }) => {
   return (
     <Flex sx={{ flexDirection: 'column', gap: 2 }}>
       <Text
@@ -148,7 +147,7 @@ export const Stores = ({ stores }) => {
       </Text>
       <Flex sx={{ flexDirection: 'column' }}>
         {stores.map((store) => (
-          <Store key={store.id} dataset={store} />
+          <Store key={store.id} dataset={store} color={color} />
         ))}
       </Flex>
     </Flex>

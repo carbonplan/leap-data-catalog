@@ -43,11 +43,9 @@ export const FeedstockCard = ({ feedstock }) => {
     'midnightBlue',
     'navy',
     'forestGreen',
-    'skyBlue',
     'aqua',
     'coral',
     'gold',
-    'lavender',
     'orange',
     'yellow',
     'green',
@@ -109,7 +107,7 @@ export const FeedstockCard = ({ feedstock }) => {
               mt: 3,
             }}
           >
-            {stores.length > 0 && <Stores stores={stores} />}
+            {stores.length > 0 && <Stores stores={stores} color={color} />}
             <License license={license} />
             {!demo && <Maintainers maintainers={maintainers} />}
             {links && <Links links={links} doi_citation={doi_citation} />}
