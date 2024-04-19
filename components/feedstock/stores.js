@@ -66,11 +66,12 @@ const Store = ({ dataset, color }) => {
         >
           <Button
             sx={{
+              color: color,
               fontSize: [0, 0, 0, 1],
               letterSpacing: 'mono',
               textTransform: 'uppercase',
               fontFamily: 'mono',
-              color: 'secondary',
+              //color: 'secondary',
               position: 'absolute',
               mt: 2,
               mr: 2,
@@ -80,7 +81,11 @@ const Store = ({ dataset, color }) => {
             }}
             suffix={
               copied ? (
-                <Check sx={{ transform: 'translateY(-10%)' }} />
+                <Check
+                  sx={{
+                    transform: ['translateY(-15%)'],
+                  }}
+                />
               ) : (
                 <Down sx={{ transform: 'rotate(135deg) translateY(1px)' }} />
               )
