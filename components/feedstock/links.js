@@ -1,4 +1,5 @@
 import { LinkGroup } from '@carbonplan/components'
+import { Box } from 'theme-ui'
 
 export const Links = ({ links, doi_citation }) => {
   const doiRegex = /^https?:\/\/doi\.org\/(.*)$/
@@ -12,8 +13,8 @@ export const Links = ({ links, doi_citation }) => {
   doi ? allLinks.push({ label: `doi:${doi}`, href: doi_citation }) : null
 
   return (
-    <>
+    <Box sx={{ mt: 4 }}>
       <LinkGroup members={allLinks} inverted />
-    </>
+    </Box>
   )
 }

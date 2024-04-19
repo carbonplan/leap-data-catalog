@@ -7,6 +7,7 @@ export const License = ({ license, license_link }) => {
       sx={{
         flexDirection: 'column',
         gap: 2,
+        mt: 4,
       }}
     >
       <Text
@@ -18,7 +19,7 @@ export const License = ({ license, license_link }) => {
           textTransform: 'uppercase',
         }}
       >
-        License:
+        License
       </Text>
 
       <Link

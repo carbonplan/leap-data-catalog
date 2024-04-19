@@ -99,17 +99,18 @@ export const FeedstockCard = ({ feedstock }) => {
             {description}
           </Box>
 
+          {stores.length > 0 && <Stores stores={stores} color={color} />}
           <Flex
             sx={{
               flexDirection: 'column',
+              gap: 2,
+              mt: 4,
               justifyContent: 'space-between',
-              gap: 3,
-              mt: 3,
             }}
           >
-            {stores.length > 0 && <Stores stores={stores} color={color} />}
+            {' '}
             <License license={license} />
-            {!demo && <Maintainers maintainers={maintainers} />}
+            <Maintainers maintainers={maintainers} />
             {links && <Links links={links} doi_citation={doi_citation} />}
           </Flex>
         </Box>

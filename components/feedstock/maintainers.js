@@ -9,7 +9,12 @@ export const Maintainers = ({ maintainers }) => {
 
   return (
     <Flex
-      sx={{ flexDirection: 'column', gap: 2, justifyContent: 'space-between' }}
+      sx={{
+        flexDirection: 'column',
+        gap: 2,
+        justifyContent: 'space-between',
+        mt: 4,
+      }}
     >
       <Text
         sx={{
@@ -20,7 +25,7 @@ export const Maintainers = ({ maintainers }) => {
           textTransform: 'uppercase',
         }}
       >
-        Maintainers:
+        Maintainers
       </Text>
       <Flex sx={{ flexDirection: 'row', gap: 2 }}>
         {sortedMaintainers.map((maintainer) => (
@@ -31,21 +36,13 @@ export const Maintainers = ({ maintainers }) => {
             rel='noopener noreferrer'
             sx={{ textDecoration: 'none' }}
           >
-            <Flex
-              sx={{ flexDirection: 'column', alignItems: 'center', gap: 2 }}
-            >
+            <Flex sx={{ flexDirection: 'column', gap: 2 }}>
               <Avatar
                 src={`https://github.com/${maintainer.github}.png`}
                 alt={`${maintainer.name}'s avatar`}
                 sx={{ width: 48, height: 48, borderRadius: '50%' }}
               />
-              <Text
-                sx={{
-                  textAlign: 'center',
-                }}
-              >
-                {maintainer.name}
-              </Text>
+              <Text>{maintainer.name}</Text>
             </Flex>
           </Link>
         ))}
