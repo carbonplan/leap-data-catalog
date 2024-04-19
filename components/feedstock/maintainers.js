@@ -44,7 +44,7 @@ export const Maintainers = ({ maintainers }) => {
                 alt={`${maintainer.name}'s avatar`}
                 sx={{ width: 48, height: 48, borderRadius: '50%' }}
               />
-              {/* <Text sx={{ fontSize: 3 }}>{maintainer.name}</Text> */}
+              {/* <Text sx={{ fontSize: [2, 2, 3, 3] }}>{maintainer.name}</Text> */}
             </Flex>
           </Link>
         ))}
