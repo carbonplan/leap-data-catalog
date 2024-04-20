@@ -38,7 +38,7 @@ export const FeedstockCard = ({ feedstock }) => {
     'https://images.unsplash.com/photo-1584267759777-8a74a4f72a91?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fG1ldGVvcm9sb2d5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&q=60',
     'https://images.unsplash.com/photo-1513553404607-988bf2703777?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80',
   ]
-
+  // https://w3schools.sinsixx.com/tags/ref_color_tryit.asp@color=white.htm
   const colors = [
     'aquamarine',
     'cadetBlue',
