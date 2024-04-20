@@ -51,7 +51,7 @@ export const FeedstockCard = ({ feedstock }) => {
     'orange',
     'green',
     'teal',
-    'blue',
+    'DeepSkyBlue',
     'cyan',
     'Tomato',
     'SpringGreen',
