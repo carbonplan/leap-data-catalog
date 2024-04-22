@@ -14,7 +14,11 @@ export const Links = ({ links, doi_citation }) => {
 
   return (
     <Box sx={{ mt: 4 }}>
-      <LinkGroup members={allLinks} inverted />
+      <LinkGroup
+        members={allLinks}
+        sx={{ '& a': { fontSize: [2, 2, 3, 3] } }}
+        inverted
+      />
     </Box>
   )
 }
