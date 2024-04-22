@@ -136,7 +136,7 @@ export const Stores = ({ stores, color }) => {
     <Flex
       sx={{
         flexDirection: 'column',
-        gap: 4,
+        gap: [3, 3, 3, 4],
         mt: 4,
         justifyContent: 'space-between',
       }}
