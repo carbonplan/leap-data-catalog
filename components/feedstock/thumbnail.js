@@ -18,8 +18,9 @@ const Tags = ({ tags, sx }) => {
         <Badge
           key={tag}
           sx={{
-            fontSize: [1],
-            height: ['21px'],
+            fontSize: [0, 0, 0, 1],
+            height: ['24px', '24px', '24px', '24px'],
+            lineHeight: ['24px', '24px', '24px', '24px'],
             textTransform: 'uppercase',
             fontFamily: 'mono',
             letterSpacing: 'mono',
