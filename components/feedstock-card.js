@@ -68,7 +68,7 @@ export const FeedstockCard = ({ feedstock }) => {
     <>
       <Box
         sx={{
-          mb: [5, 7, 7, 8],
+          mb: [7, 7, 7, 8],
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
@@ -87,7 +87,7 @@ export const FeedstockCard = ({ feedstock }) => {
         <Box>
           <Box
             sx={{
-              fontSize: [3, 3, 4, 4],
+              fontSize: [3, 3, 3, 4],
               fontFamily: 'heading',
               mb: 2,
               pt: ['2px'],
@@ -96,7 +96,7 @@ export const FeedstockCard = ({ feedstock }) => {
           >
             {title}
           </Box>
-          <Box sx={{ fontSize: [2, 2, 3, 3], mb: 2, py: [1] }}>
+          <Box sx={{ fontSize: [2, 2, 2, 3], mb: 2, py: [1] }}>
             {description}
           </Box>
 

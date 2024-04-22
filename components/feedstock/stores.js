@@ -48,7 +48,7 @@ const Store = ({ dataset, color }) => {
       <Button
         sx={{
           color: color,
-          fontSize: [2, 2, 3, 3],
+          fontSize: [2, 2, 2, 3],
           textTransform: 'uppercase',
         }}
         onClick={() => setExpanded((prev) => !prev)}

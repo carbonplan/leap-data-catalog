@@ -19,8 +19,8 @@ const Tags = ({ tags, sx }) => {
           key={tag}
           sx={{
             fontSize: [0, 0, 0, 1],
-            height: ['24px', '24px', '24px', '24px'],
-            lineHeight: ['24px', '24px', '24px', '24px'],
+            height: ['22px', '22px', '22px', '24px'],
+            lineHeight: ['22px', '22px', '22px', '24px'],
             textTransform: 'uppercase',
             fontFamily: 'mono',
             letterSpacing: 'mono',
@@ -37,7 +37,7 @@ export const Thumbnail = ({ url, color, demo, tags }) => {
   return (
     <Box
       sx={{
-        height: ['200px', '200px', '250px', '300px'],
+        height: ['200px', '200px', '200px', '300px'],
         position: 'relative',
       }}
     >
