@@ -40,22 +40,17 @@ export const FeedstockCard = ({ feedstock }) => {
   ]
   // https://w3schools.sinsixx.com/tags/ref_color_tryit.asp@color=white.htm
   const colors = [
-    'aquamarine',
+    'DarkViolet',
     'cadetBlue',
     'yellow',
     'forestGreen',
-    'aqua',
-    'coral',
-    'lightSeaGreen',
+    'SeaGreen',
     'Teal',
-    'orange',
-    'green',
-    'teal',
+    'Darkorange',
     'DeepSkyBlue',
-    'cyan',
+    'DarkCyan',
     'Tomato',
-    'SpringGreen',
-    'Plum',
+    'DarkGreen',
     'SteelBlue',
     'Sienna',
   ]
@@ -115,7 +110,7 @@ export const FeedstockCard = ({ feedstock }) => {
             }}
           >
             {' '}
-            <License license={license} />
+            <License license={license} license_link={license_link} />
             <Maintainers maintainers={maintainers} />
             {links && <Links links={links} doi_citation={doi_citation} />}
           </Flex>
