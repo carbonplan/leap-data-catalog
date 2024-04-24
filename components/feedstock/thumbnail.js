@@ -33,7 +33,7 @@ const Tags = ({ tags, sx }) => {
     </Flex>
   )
 }
-export const Thumbnail = ({ url, color, demo, tags }) => {
+export const Thumbnail = ({ url, color, tags }) => {
   return (
     <Box
       sx={{

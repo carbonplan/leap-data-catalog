@@ -23,7 +23,6 @@ export const FeedstockCard = ({ feedstock }) => {
     links,
     doi_citation,
     stores,
-    demo,
   } = feedstock
 
   const { license, license_link, providers } = provenance
@@ -78,7 +77,6 @@ export const FeedstockCard = ({ feedstock }) => {
         <Box sx={{ flex: 1, position: 'relative' }}>
           <Thumbnail
             url={thumbnail ?? fallbackThumbnail}
-            demo={demo}
             color={color}
             tags={tags}
           />

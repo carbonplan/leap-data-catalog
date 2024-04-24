@@ -74,7 +74,6 @@ const Store = ({ dataset, color }) => {
               letterSpacing: 'mono',
               textTransform: 'uppercase',
               fontFamily: 'mono',
-              //color: 'secondary',
               position: 'absolute',
               mt: 2,
               mr: 2,
@@ -106,6 +105,11 @@ const Store = ({ dataset, color }) => {
             }`}
             target='_blank'
             rel='noopener noreferrer'
+            onClick={(e) => {
+              if (!dataset.public) {
+                e.preventDefault() // Prevents the link from being followed
+              }
+            }}
             suffix={
               <RotatingArrow
                 sx={{
@@ -121,6 +125,8 @@ const Store = ({ dataset, color }) => {
               fontFamily: 'mono',
               mt: 3,
               mb: 2,
+              cursor: dataset.public ? 'pointer' : 'not-allowed', // Changes cursor to indicate disabled state
+              //opacity: dataset.public ? 1 : 0.5, // Reduces opacity to indicate disabled state
             }}
           >
             Open in Data Viewer
