@@ -1,12 +1,43 @@
 import { Badge } from '@carbonplan/components'
 import { alpha } from '@theme-ui/color'
-import { Box } from 'theme-ui'
+import { Box, Flex } from 'theme-ui'
 
-export const Thumbnail = ({ url, color, demo }) => {
+const Tags = ({ tags, sx }) => {
+  // Sort tags alphabetically
+  const sortedTags = tags.sort((a, b) => a.localeCompare(b))
+  return (
+    <Flex
+      sx={{
+        columnGap: 2,
+        rowGap: 1,
+        flexWrap: 'wrap',
+        ...sx,
+      }}
+    >
+      {sortedTags.map((tag) => (
+        <Badge
+          key={tag}
+          sx={{
+            fontSize: [0, 0, 0, 1],
+            height: ['22px', '22px', '22px', '24px'],
+            lineHeight: ['22px', '22px', '22px', '24px'],
+            textTransform: 'uppercase',
+            fontFamily: 'mono',
+            letterSpacing: 'mono',
+            opacity: 0.7,
+          }}
+        >
+          {tag}
+        </Badge>
+      ))}
+    </Flex>
+  )
+}
+export const Thumbnail = ({ url, color, tags }) => {
   return (
     <Box
       sx={{
-        height: ['200px', '200px', '250px', '300px'],
+        height: ['200px', '200px', '200px', '300px'],
         position: 'relative',
       }}
     >
@@ -31,18 +62,17 @@ export const Thumbnail = ({ url, color, demo }) => {
         }}
       />
 
-      {demo && (
-        <Box
+      {tags?.length > 0 && (
+        <Tags
+          tags={tags}
           sx={{
             position: 'absolute',
-            top: 0,
-            width: '100%',
-            height: '100%',
-            backgroundColor: alpha('secondary', 0.4),
+            maxWidth: '65%',
+            right: 2,
+            bottom: 2,
+            justifyContent: 'flex-end',
           }}
-        >
-          <Badge sx={{ mt: 2, ml: 2 }}>Demo</Badge>
-        </Box>
+        />
       )}
     </Box>
   )

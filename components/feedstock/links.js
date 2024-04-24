@@ -1,5 +1,5 @@
 import { LinkGroup } from '@carbonplan/components'
-import { Flex, Text } from 'theme-ui'
+import { Box } from 'theme-ui'
 
 export const Links = ({ links, doi_citation }) => {
   const doiRegex = /^https?:\/\/doi\.org\/(.*)$/
@@ -13,12 +13,12 @@ export const Links = ({ links, doi_citation }) => {
   doi ? allLinks.push({ label: `doi:${doi}`, href: doi_citation }) : null
 
   return (
-    <Flex sx={{ flexDirection: 'column', gap: 3 }}>
-      <Text sx={{ fontSize: 1, fontWeight: 'bold', color: 'muted' }}>
-        Links:
-      </Text>
-
-      <LinkGroup members={allLinks} sx={{ ml: 4 }} />
-    </Flex>
+    <Box sx={{ mt: 4 }}>
+      <LinkGroup
+        members={allLinks}
+        sx={{ '& a': { fontSize: [2, 2, 2, 3] } }}
+        inverted
+      />
+    </Box>
   )
 }

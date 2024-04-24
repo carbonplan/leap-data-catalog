@@ -71,7 +71,7 @@ export const Catalog = ({}) => {
           <Text
             sx={{
               color: 'primary',
-              fontSize: [4, 4, 6, 6], // figure out smaller font-size
+              fontSize: [4, 4, 4, 6], // figure out smaller font-size
               fontFamily: 'heading',
               width: '100%',
             }}
@@ -96,7 +96,7 @@ export const Catalog = ({}) => {
                   (index % 3) * 4 + 1,
                   (index % 3) * 4 + 1,
                 ]}
-                width={[6, 3, 4, 4]}
+                width={[6, 4, 4, 4]}
               >
                 <FeedstockCard feedstock={feedstock} />
               </Column>

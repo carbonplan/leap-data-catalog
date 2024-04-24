@@ -13,7 +13,7 @@ export const SearchBox = ({ sx, search, setSearch }) => {
         <Text
           sx={{
             fontWeight: 'bold',
-            fontSize: [3, 4],
+            fontSize: [3, 3, 3, 4],
           }}
         >
           Search

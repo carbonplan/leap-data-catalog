@@ -14,7 +14,6 @@ export const GitSHA = () => {
     <Flex
       sx={{
         alignItems: 'center',
-        fontSize: 1,
       }}
     >
       <Link
