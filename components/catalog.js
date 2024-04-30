@@ -1,4 +1,4 @@
-import { DatasetCard } from '@/components/dataset-card'
+import { FeedstockCard } from '@/components/feedstock-card'
 import { SearchBox } from '@/components/search-box'
 import { fetcher } from '@/utils/fetcher'
 import { Column, Row } from '@carbonplan/components'
@@ -13,9 +13,9 @@ export const Catalog = ({}) => {
   const isClient = typeof window !== 'undefined'
   const hostname = isClient ? window.location.hostname : 'localhost'
   const isProduction = hostname === 'leap-data-catalog.vercel.app'
+  //TODO: temporary hard code the default catalog URL
   const defaultCatalogUrl =
-    process.env.NEXT_PUBLIC_CATALOG_URL ||
-    'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/datasets/consolidated-web-catalog.json'
+    'https://raw.githubusercontent.com/leap-stc/data-management/staging/catalog/output/consolidated-web-catalog.json'
 
   const getCatalogUrl = () => {
     const { catalog } = router.query
@@ -29,39 +29,39 @@ export const Catalog = ({}) => {
 
   const catalogUrl = getCatalogUrl()
 
-  const { data: datasets, error } = useSWR(
+  const { data: feedstocks, error } = useSWR(
     catalogUrl,
     fetcher,
     { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
   )
   const [search, setSearch] = useState('')
 
-  const filteredDatasets = useMemo(() => {
-    if (!datasets) {
+  const filteredFeedstocks = useMemo(() => {
+    if (!feedstocks) {
       return []
     }
 
     if (!search) {
-      return datasets
+      return feedstocks
     }
 
     const re = new RegExp(search, 'i')
 
-    return datasets.filter(
-      (d) => d.name.match(re) || d.tags?.some((tag) => tag.match(re)),
+    return feedstocks.filter(
+      (d) => d.title.match(re) || d.tags?.some((tag) => tag.match(re)),
     )
-  }, [datasets, search])
+  }, [feedstocks, search])
 
   if (error) {
     return (
       <div style={{ color: 'red', fontWeight: 'bold' }}>
-        🚨 Error loading datasets from catalog: {catalogUrl} - {error.message}
+        🚨 Error loading feedstocks from catalog: {catalogUrl} - {error.message}
       </div>
     )
   }
 
-  if (!datasets) {
-    return <div>Loading datasets from catalog</div>
+  if (!feedstocks) {
+    return <div>Loading feedstocks from catalog</div>
   }
 
   return (
@@ -71,7 +71,7 @@ export const Catalog = ({}) => {
           <Text
             sx={{
               color: 'primary',
-              fontSize: [4, 4, 6, 6], // figure out smaller font-size
+              fontSize: [4, 4, 4, 6], // figure out smaller font-size
               fontFamily: 'heading',
               width: '100%',
             }}
@@ -86,19 +86,19 @@ export const Catalog = ({}) => {
 
       <Box mt={3}>
         <Row>
-          {filteredDatasets.map(function (dataset, index) {
+          {filteredFeedstocks.map(function (feedstock, index) {
             return (
               <Column
-                key={dataset.name}
+                key={feedstock.title}
                 start={[
                   1,
                   (index % 2) * 4 + 1,
                   (index % 3) * 4 + 1,
                   (index % 3) * 4 + 1,
                 ]}
-                width={[6, 3, 4, 4]}
+                width={[6, 4, 4, 4]}
               >
-                <DatasetCard dataset={dataset} />
+                <FeedstockCard feedstock={feedstock} />
               </Column>
             )
           })}
