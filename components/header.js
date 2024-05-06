@@ -1,9 +1,8 @@
 import { Meta } from '@/components/meta'
-import Logo from '@/public/Leap-Logo-Big.png'
 import { Dimmer } from '@carbonplan/components'
-import Image from 'next/image'
 import Link from 'next/link'
-import { Box, Container, Flex } from 'theme-ui'
+import { Box, Container, Flex, Image } from 'theme-ui'
+
 export const Header = () => {
   return (
     <>
@@ -39,7 +38,7 @@ export const Header = () => {
             >
               <Link href='/'>
                 <Image
-                  src={Logo}
+                  src={'/Leap-Logo-Big.png'}
                   width={120}
                   height={30}
                   alt={'LEAP Logo'}
