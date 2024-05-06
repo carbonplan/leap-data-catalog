@@ -1,8 +1,5 @@
-import Logo from '@/public/Leap-Logo-Big.png'
-import NSFLogo from '@/public/NSF.svg'
-import Image from 'next/image'
 import { FaGithub, FaGlobe, FaTwitter, FaYoutube } from 'react-icons/fa'
-import { Box, Container, Flex, IconButton, Link, Text } from 'theme-ui'
+import { Box, Container, Flex, IconButton, Image, Link, Text } from 'theme-ui'
 import { GitSHA } from '@/components/git-sha'
 
 export const Footer = () => {
@@ -27,17 +24,22 @@ export const Footer = () => {
             }}
           >
             <Flex sx={{ alignItems: 'center' }}>
-              <Image src={NSFLogo} height={48} width={48} alt='NSF Logo' />
+              <Image src={'/NSF.svg'} height={48} width={48} alt='NSF Logo' />
               {/* Vertical divider */}
               <Box
                 sx={{
                   mx: 2, // adjusts the spacing around the divider
                   height: '30px', // match the height with the logo height or as desired
                   width: '1px', // the width of the divider line
-                  bg: 'primary', // the color of the line
+                  bg: '#6e6e6e', // the color of the line
                 }}
               />
-              <Image src={Logo} width={120} height={30} alt='LEAP Logo' />
+              <Image
+                src={'/Leap-Logo-Big.png'}
+                width={120}
+                height={30}
+                alt='LEAP Logo'
+              />
             </Flex>
           </Link>
           <Flex
