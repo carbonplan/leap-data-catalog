@@ -3,6 +3,7 @@ import { RotatingArrow } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
 import AnimateHeight from 'react-animate-height'
 import { Box, Flex, Text } from 'theme-ui'
+import { TooltipWrapper } from '@/components/tooltip'
 
 import { Check, Down } from '@carbonplan/icons'
 import { useState } from 'react'
@@ -23,6 +24,7 @@ const Store = ({ dataset, color }) => {
 
   const [copied, setCopied] = useState(false)
   const [tick, setTick] = useState(null)
+  const [tooltipExpanded, setTooltipExpanded] = useState(false)
 
   const handleClick = (url) => {
     const blank = document.createElement('textarea')
@@ -41,21 +43,32 @@ const Store = ({ dataset, color }) => {
     setTick(timeout)
   }
 
+  const tooltipContent = dataset.public
+    ? ''
+    : 'This dataset is private. Access requires credentials or a Columbia-LEAP JupyterHub server.'
+
   return (
     <Flex
       sx={{ flexDirection: 'column', '& pre': { fontSize: '10px', my: 2 } }}
     >
-      <Button
-        sx={{
-          color: color,
-          fontSize: [2, 2, 2, 3],
-          textTransform: 'uppercase',
-        }}
-        onClick={() => setExpanded((prev) => !prev)}
+      <TooltipWrapper
+        tooltip={tooltipContent}
+        color={color}
+        expanded={!dataset.public && tooltipExpanded}
+        setExpanded={setTooltipExpanded}
       >
-        <Text sx={{ mr: [2] }}>{name || id}</Text>
-        <Expander value={expanded} />
-      </Button>
+        <Button
+          sx={{
+            color: color,
+            fontSize: [2, 2, 2, 3],
+            textTransform: 'uppercase',
+          }}
+          onClick={() => setExpanded((prev) => !prev)}
+        >
+          <Text sx={{ mr: [2] }}>{name || id}</Text>
+          <Expander value={expanded} />
+        </Button>
+      </TooltipWrapper>
 
       <AnimateHeight
         duration={100}
@@ -126,7 +139,8 @@ const Store = ({ dataset, color }) => {
               mt: 3,
               mb: 2,
               cursor: dataset.public ? 'pointer' : 'not-allowed', // Changes cursor to indicate disabled state
-              //opacity: dataset.public ? 1 : 0.5, // Reduces opacity to indicate disabled state
+              opacity: dataset.public ? 1 : 0.5, // Grey out the button when disabled
+              pointerEvents: dataset.public ? 'auto' : 'none', // Disables pointer events when dataset is not public
             }}
           >
             Open in Data Viewer
