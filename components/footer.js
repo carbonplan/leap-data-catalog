@@ -24,7 +24,7 @@ export const Footer = () => {
             }}
           >
             <Flex sx={{ alignItems: 'center' }}>
-              <Image src={'/NSF.svg'} height={48} width={48} alt='NSF Logo' />
+              <Image src={'/nsf.png'} height={36} width={36} alt='NSF Logo' />
               {/* Vertical divider */}
               <Box
                 sx={{
