@@ -139,7 +139,7 @@ const Store = ({ dataset, color }) => {
               mt: 3,
               mb: 2,
               cursor: dataset.public ? 'pointer' : 'not-allowed', // Changes cursor to indicate disabled state
-              opacity: dataset.public ? 1 : 0.5, // Grey out the button when disabled
+              color: dataset.public ? color : 'secondary', // Grey out the button when disabled
               pointerEvents: dataset.public ? 'auto' : 'none', // Disables pointer events when dataset is not public
             }}
           >

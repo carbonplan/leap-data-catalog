@@ -67,7 +67,7 @@ export const TooltipWrapper = ({
         height={expanded ? 'auto' : 0}
         easing={'linear'}
       >
-        <Box sx={{ my: 1, fontSize: [2, 2, 2, 3], color }}>{tooltip}</Box>
+        <Box sx={{ mt: 2, fontSize: [1, 1, 1, 2], color }}>{tooltip}</Box>
       </AnimateHeight>
     </>
   ) : (
