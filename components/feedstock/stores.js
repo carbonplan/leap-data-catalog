@@ -1,5 +1,5 @@
 import { Button, Expander } from '@carbonplan/components'
-import { RotatingArrow } from '@carbonplan/icons'
+import { RotatingArrow, Arrow } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
 import AnimateHeight from 'react-animate-height'
 import { Box, Flex, Text } from 'theme-ui'
@@ -124,11 +124,15 @@ const Store = ({ dataset, color }) => {
               }
             }}
             suffix={
-              <RotatingArrow
-                sx={{
-                  transform: ['translateY(-6%)'],
-                }}
-              />
+              dataset.public ? (
+                <RotatingArrow
+                  sx={{
+                    transform: ['translateY(-6%)'],
+                  }}
+                />
+              ) : (
+                <Arrow />
+              )
             }
             sx={{
               color: color,
@@ -140,7 +144,6 @@ const Store = ({ dataset, color }) => {
               mb: 2,
               cursor: dataset.public ? 'pointer' : 'not-allowed', // Changes cursor to indicate disabled state
               color: dataset.public ? color : 'secondary', // Grey out the button when disabled
-              pointerEvents: dataset.public ? 'auto' : 'none', // Disables pointer events when dataset is not public
             }}
           >
             Open in Data Viewer

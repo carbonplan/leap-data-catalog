@@ -50,17 +50,18 @@ export const TooltipWrapper = ({
     <>
       <Flex
         sx={{
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          gap: 2,
           ...sx,
         }}
       >
-        {children}
         <Tooltip
           expanded={expanded}
           setExpanded={setExpanded}
           sx={{ mt: mt, flexShrink: 0 }}
         />
+        {children}
       </Flex>
       <AnimateHeight
         duration={100}
