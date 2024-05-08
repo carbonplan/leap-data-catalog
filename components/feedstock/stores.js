@@ -45,7 +45,7 @@ const Store = ({ dataset, color }) => {
 
   const tooltipContent = dataset.public
     ? ''
-    : 'This dataset is private. Access requires credentials or a Columbia-LEAP JupyterHub server.'
+    : 'Access requires credentials or a Columbia-LEAP JupyterHub server.'
 
   return (
     <Flex
