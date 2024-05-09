@@ -43,9 +43,13 @@ const Store = ({ dataset, color }) => {
     setTick(timeout)
   }
 
-  const tooltipContent = dataset.public
-    ? ''
-    : 'Access requires credentials or a Columbia-LEAP JupyterHub server.'
+  const tooltipContent = !dataset.public
+    ? 'Access requires credentials or a Columbia-LEAP JupyterHub server.'
+    : dataset.geospatial
+      ? ''
+      : 'This dataset contains non-geospatial data not supported by the data viewer.'
+
+  const isActivated = dataset.public && dataset.geospatial
 
   return (
     <Flex
@@ -119,12 +123,12 @@ const Store = ({ dataset, color }) => {
             target='_blank'
             rel='noopener noreferrer'
             onClick={(e) => {
-              if (!dataset.public) {
+              if (!isActivated) {
                 e.preventDefault() // Prevents the link from being followed
               }
             }}
             suffix={
-              dataset.public ? (
+              isActivated ? (
                 <RotatingArrow
                   sx={{
                     transform: ['translateY(-6%)'],
@@ -142,8 +146,8 @@ const Store = ({ dataset, color }) => {
               fontFamily: 'mono',
               mt: 3,
               mb: 2,
-              cursor: dataset.public ? 'pointer' : 'not-allowed', // Changes cursor to indicate disabled state
-              color: dataset.public ? color : 'secondary', // Grey out the button when disabled
+              cursor: isActivated ? 'pointer' : 'not-allowed', // Changes cursor to indicate disabled state
+              color: isActivated ? color : 'secondary', // Grey out the button when disabled
             }}
           >
             Open in Data Viewer
