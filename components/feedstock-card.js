@@ -97,8 +97,8 @@ export const FeedstockCard = ({ feedstock }) => {
           <Box sx={{ fontSize: [2, 2, 2, 3], mb: 2, py: [1] }}>
             {description}
           </Box>
-
-          {stores.length > 0 && <Stores stores={stores} color={color} />}
+          {links && <Links links={links} doi_citation={doi_citation} />}
+          {stores?.length > 0 && <Stores stores={stores} color={color} />}
           <Flex
             sx={{
               flexDirection: 'column',
@@ -110,7 +110,6 @@ export const FeedstockCard = ({ feedstock }) => {
             {' '}
             <License license={license} license_link={license_link} />
             <Maintainers maintainers={maintainers} />
-            {links && <Links links={links} doi_citation={doi_citation} />}
           </Flex>
         </Box>
       </Box>
