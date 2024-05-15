@@ -10,6 +10,7 @@ import {
   Maintainers,
   Stores,
   Thumbnail,
+  Repository,
 } from '@/components/feedstock'
 
 export const FeedstockCard = ({ feedstock }) => {
@@ -23,6 +24,7 @@ export const FeedstockCard = ({ feedstock }) => {
     links,
     doi_citation,
     stores,
+    'ncviewjs:meta_yaml_url': meta_yaml_url,
   } = feedstock
 
   const { license, license_link, providers } = provenance
@@ -110,6 +112,7 @@ export const FeedstockCard = ({ feedstock }) => {
             {' '}
             <License license={license} license_link={license_link} />
             <Maintainers maintainers={maintainers} />
+            <Repository metaURL={meta_yaml_url} />
           </Flex>
         </Box>
       </Box>
