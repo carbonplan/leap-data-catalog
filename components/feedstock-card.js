@@ -112,7 +112,7 @@ export const FeedstockCard = ({ feedstock }) => {
             {' '}
             <License license={license} license_link={license_link} />
             <Maintainers maintainers={maintainers} />
-            <Repository repo={meta_yaml_url} />
+            <Repository metaURL={meta_yaml_url} />
           </Flex>
         </Box>
       </Box>

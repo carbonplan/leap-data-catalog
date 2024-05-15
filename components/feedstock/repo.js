@@ -7,8 +7,8 @@ function getOrgAndRepo(url) {
   const repo = urlParts[4]
   return `${org}/${repo}`
 }
-export const Repository = ({ repo }) => {
-  const orgAndRepo = getOrgAndRepo(repo)
+export const Repository = ({ metaURL }) => {
+  const orgAndRepo = getOrgAndRepo(metaURL)
   const githubUrl = `https://github.com/${orgAndRepo}`
 
   return (
