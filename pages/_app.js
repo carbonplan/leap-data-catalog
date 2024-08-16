@@ -9,7 +9,17 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
   useEffect(() => {
     const handleRouteChange = (url) => {
-      gtag.pageview(url)
+      if (url?.includes('#')) {
+        const [pathname, hash] = url.split('#')
+        gtag.event({
+          action: 'navigate_to_section',
+          category: 'Navigation',
+          label: hash,
+          value: pathname,
+        })
+      } else {
+        gtag.pageview(url)
+      }
     }
     router.events.on('routeChangeComplete', handleRouteChange)
     router.events.on('hashChangeComplete', handleRouteChange)
