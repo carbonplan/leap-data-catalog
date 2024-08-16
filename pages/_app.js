@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
   useEffect(() => {
     const handleRouteChange = (url) => {
-      if (url?.includes('#')) {
+      if (url.includes('#')) {
         const [pathname, hash] = url.split('#')
         gtag.event({
           action: 'navigate_to_section',
