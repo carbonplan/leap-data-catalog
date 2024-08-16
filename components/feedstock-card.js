@@ -4,6 +4,7 @@ import {
 } from '@/utils/string-hash'
 import { Link } from '@carbonplan/components'
 import { Box, Flex } from 'theme-ui'
+import { useEffect } from 'react'
 
 import {
   License,
@@ -66,6 +67,13 @@ export const FeedstockCard = ({ feedstock }) => {
 
   const color = colors[colorIndex]
   const id = title.toLowerCase().replace(/\s+/g, '-') // Convert title to id
+
+  useEffect(() => {
+    // Check if the current URL hash matches the id of this card
+    if (window.location.hash === `#${id}`) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [id])
 
   return (
     <>
