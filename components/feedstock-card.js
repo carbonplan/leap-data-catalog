@@ -108,7 +108,6 @@ export const FeedstockCard = ({ feedstock }) => {
             <Box
               as={Link}
               href={`#${id}`}
-              tracking={true}
               sx={{
                 textDecoration: 'none',
               }}
