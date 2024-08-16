@@ -2,15 +2,16 @@ import {
   getRandomIndexFromHash,
   getUniqueHashFromString,
 } from '@/utils/string-hash'
+import { Link } from '@carbonplan/components'
 import { Box, Flex } from 'theme-ui'
 
 import {
   License,
   Links,
   Maintainers,
+  Repository,
   Stores,
   Thumbnail,
-  Repository,
 } from '@/components/feedstock'
 
 export const FeedstockCard = ({ feedstock }) => {
@@ -64,10 +65,12 @@ export const FeedstockCard = ({ feedstock }) => {
   const fallbackThumbnail = fallbackThumbnails[thumbnailIndex]
 
   const color = colors[colorIndex]
+  const id = title.toLowerCase().replace(/\s+/g, '-') // Convert title to id
 
   return (
     <>
       <Box
+        id={id} // Use the generated id
         sx={{
           mb: [7, 7, 7, 8],
           width: '100%',
@@ -94,7 +97,16 @@ export const FeedstockCard = ({ feedstock }) => {
               mt: 2,
             }}
           >
-            {title}
+            <Box
+              as={Link}
+              href={`#${id}`}
+              tracking={true}
+              sx={{
+                textDecoration: 'none',
+              }}
+            >
+              {title}
+            </Box>
           </Box>
           <Box sx={{ fontSize: [2, 2, 2, 3], mb: 2, py: [1] }}>
             {description}

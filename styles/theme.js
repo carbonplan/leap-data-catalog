@@ -84,6 +84,7 @@ export const theme = {
       lineHeight: 'body',
       fontWeight: 'body',
       letterSpacing: 'body',
+      scrollBehavior: 'smooth',
     },
     a: {
       color: 'text',
