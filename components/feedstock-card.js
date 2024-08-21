@@ -2,9 +2,10 @@ import {
   getRandomIndexFromHash,
   getUniqueHashFromString,
 } from '@/utils/string-hash'
-import { Link } from '@carbonplan/components'
+import { Button, Link } from '@carbonplan/components'
+import { useEffect, useState } from 'react'
+import { FaShare } from 'react-icons/fa'
 import { Box, Flex } from 'theme-ui'
-import { useEffect } from 'react'
 
 import {
   License,
@@ -30,6 +31,8 @@ export const FeedstockCard = ({ feedstock }) => {
   } = feedstock
 
   const { license, license_link, providers } = provenance
+
+  const [isCopied, setIsCopied] = useState(false)
 
   const fallbackThumbnails = [
     'https://images.unsplash.com/photo-1583325958573-3c89e40551ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80',
@@ -75,6 +78,14 @@ export const FeedstockCard = ({ feedstock }) => {
     }
   }, [id])
 
+  const handleShare = () => {
+    const url = `${window.location.origin}${window.location.pathname}#${id}`
+    navigator.clipboard.writeText(url).then(() => {
+      setIsCopied(true)
+      setTimeout(() => setIsCopied(false), 2000)
+    })
+  }
+
   return (
     <>
       <Box
@@ -96,25 +107,54 @@ export const FeedstockCard = ({ feedstock }) => {
         </Box>
 
         <Box>
-          <Box
+          <Flex
             sx={{
-              fontSize: [3, 3, 3, 4],
-              fontFamily: 'heading',
-              mb: 2,
-              pt: ['2px'],
+              alignItems: 'center',
+              justifyContent: 'space-between',
               mt: 2,
+              mb: 2,
             }}
           >
             <Box
-              as={Link}
-              href={`#${id}`}
               sx={{
-                textDecoration: 'none',
+                fontSize: [3, 3, 3, 4],
+                fontFamily: 'heading',
+                mb: 2,
+                pt: ['2px'],
+                mt: 2,
               }}
             >
-              {title}
+              <Box
+                as={Link}
+                href={`#${id}`}
+                sx={{
+                  textDecoration: 'none',
+                }}
+              >
+                {title}
+              </Box>
             </Box>
-          </Box>
+
+            <Button
+              onClick={handleShare}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                color: color,
+                px: 2,
+                py: 1,
+                fontSize: [2, 2, 2, 3],
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                minWidth: 'auto',
+                flexShrink: 0,
+              }}
+            >
+              <FaShare style={{ marginRight: '4px', flexShrink: 0 }} />
+              {isCopied ? 'Copied!' : 'Share'}
+            </Button>
+          </Flex>
+
           <Box sx={{ fontSize: [2, 2, 2, 3], mb: 2, py: [1] }}>
             {description}
           </Box>
