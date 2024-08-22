@@ -3,7 +3,7 @@ import {
   getUniqueHashFromString,
 } from '@/utils/string-hash'
 import { Button, Link } from '@carbonplan/components'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaShare } from 'react-icons/fa'
 import { Box, Flex } from 'theme-ui'
 
