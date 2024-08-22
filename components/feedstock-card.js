@@ -3,7 +3,7 @@ import {
   getUniqueHashFromString,
 } from '@/utils/string-hash'
 import { Button, Link } from '@carbonplan/components'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { FaShare } from 'react-icons/fa'
 import { Box, Flex } from 'theme-ui'
 
@@ -33,6 +33,8 @@ export const FeedstockCard = ({ feedstock }) => {
   const { license, license_link, providers } = provenance
 
   const [isCopied, setIsCopied] = useState(false)
+  const [isSelected, setIsSelected] = useState(false)
+  const cardRef = useRef(null)
 
   const fallbackThumbnails = [
     'https://images.unsplash.com/photo-1583325958573-3c89e40551ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80',
@@ -72,10 +74,22 @@ export const FeedstockCard = ({ feedstock }) => {
   const id = title.toLowerCase().replace(/\s+/g, '-') // Convert title to id
 
   useEffect(() => {
-    // Check if the current URL hash matches the id of this card
-    if (window.location.hash === `#${id}`) {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    const checkIfSelected = () => {
+      if (window.location.hash === `#${id}`) {
+        setIsSelected(true)
+        cardRef.current?.scrollIntoView({ behavior: 'smooth' })
+
+        // Remove the highlight after a delay
+        setTimeout(() => setIsSelected(false), 3000)
+      } else {
+        setIsSelected(false)
+      }
     }
+
+    checkIfSelected()
+    window.addEventListener('hashchange', checkIfSelected)
+
+    return () => window.removeEventListener('hashchange', checkIfSelected)
   }, [id])
 
   const handleShare = () => {
@@ -89,6 +103,7 @@ export const FeedstockCard = ({ feedstock }) => {
   return (
     <>
       <Box
+        ref={cardRef}
         id={id} // Use the generated id
         sx={{
           mb: [7, 7, 7, 8],
@@ -96,6 +111,10 @@ export const FeedstockCard = ({ feedstock }) => {
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
+          transition: 'background-color 0.3s ease',
+          backgroundColor: isSelected ? 'highlight' : 'transparent',
+          padding: 3,
+          borderRadius: 'default',
         }}
       >
         <Box sx={{ flex: 1, position: 'relative' }}>
