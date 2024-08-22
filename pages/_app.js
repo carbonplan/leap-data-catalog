@@ -9,23 +9,22 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
   useEffect(() => {
     const handleRouteChange = (url) => {
-      if (url.includes('#')) {
-        const [pathname, hash] = url.split('#')
-        gtag.event({
-          action: 'navigate_to_section',
-          category: 'Navigation',
-          label: hash,
-          value: pathname,
-        })
-      } else {
-        gtag.pageview(url)
-      }
+      gtag.pageview(url)
+    }
+    const handleHashChange = (url) => {
+      const [pathname, hash] = url.split('#')
+      gtag.event({
+        action: 'navigate_to_section',
+        category: 'Navigation',
+        label: hash,
+        value: pathname,
+      })
     }
     router.events.on('routeChangeComplete', handleRouteChange)
-    router.events.on('hashChangeComplete', handleRouteChange)
+    router.events.on('hashChangeComplete', handleHashChange)
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
-      router.events.off('hashChangeComplete', handleRouteChange)
+      router.events.off('hashChangeComplete', handleHashChange)
     }
   }, [router.events])
   return (
