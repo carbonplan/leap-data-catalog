@@ -112,7 +112,7 @@ export const FeedstockCard = ({ feedstock }) => {
           flexDirection: 'column',
           position: 'relative',
           transition: 'background-color 0.3s ease',
-          backgroundColor: isSelected ? 'highlight' : 'transparent',
+          backgroundColor: isSelected ? alpha(color, 0.05) : 'transparent',
           padding: 3,
           borderRadius: 'default',
         }}
