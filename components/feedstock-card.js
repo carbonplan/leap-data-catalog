@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from 'react'
 import { FaShare } from 'react-icons/fa'
 import { Box, Flex } from 'theme-ui'
 
+import { alpha } from '@theme-ui/color'
+
 import {
   License,
   Links,
@@ -77,18 +79,17 @@ export const FeedstockCard = ({ feedstock }) => {
     const checkIfSelected = () => {
       if (window.location.hash === `#${id}`) {
         setIsSelected(true)
-        cardRef.current?.scrollIntoView({ behavior: 'smooth' })
-
-        // Remove the highlight after a delay
         setTimeout(() => setIsSelected(false), 3000)
-      } else {
-        setIsSelected(false)
       }
     }
 
+    // Check on initial load
     checkIfSelected()
+
+    // Set up event listener for hash changes
     window.addEventListener('hashchange', checkIfSelected)
 
+    // Cleanup
     return () => window.removeEventListener('hashchange', checkIfSelected)
   }, [id])
 
