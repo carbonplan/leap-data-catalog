@@ -3,9 +3,11 @@ import {
   getUniqueHashFromString,
 } from '@/utils/string-hash'
 import { Button, Link } from '@carbonplan/components'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaShare } from 'react-icons/fa'
 import { Box, Flex } from 'theme-ui'
+
+import { alpha } from '@theme-ui/color'
 
 import {
   License,
@@ -33,6 +35,8 @@ export const FeedstockCard = ({ feedstock }) => {
   const { license, license_link, providers } = provenance
 
   const [isCopied, setIsCopied] = useState(false)
+  const [isSelected, setIsSelected] = useState(false)
+  const cardRef = useRef(null)
 
   const fallbackThumbnails = [
     'https://images.unsplash.com/photo-1583325958573-3c89e40551ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80',
@@ -72,10 +76,26 @@ export const FeedstockCard = ({ feedstock }) => {
   const id = title.toLowerCase().replace(/\s+/g, '-') // Convert title to id
 
   useEffect(() => {
-    // Check if the current URL hash matches the id of this card
-    if (window.location.hash === `#${id}`) {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    // handle initial load
+    const handleInitialLoad = () => {
+      if (window.location.hash === `#${id}`) {
+        setIsSelected(true)
+        cardRef.current?.scrollIntoView({ behavior: 'smooth' })
+        setTimeout(() => setIsSelected(false), 3000)
+      }
     }
+
+    // handle subsequent hash changes
+    const handleHashChange = () => {
+      if (window.location.hash === `#${id}`) {
+        setIsSelected(true)
+        setTimeout(() => setIsSelected(false), 3000)
+      }
+    }
+
+    handleInitialLoad()
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
   }, [id])
 
   const handleShare = () => {
@@ -89,6 +109,7 @@ export const FeedstockCard = ({ feedstock }) => {
   return (
     <>
       <Box
+        ref={cardRef}
         id={id} // Use the generated id
         sx={{
           mb: [7, 7, 7, 8],
@@ -96,6 +117,10 @@ export const FeedstockCard = ({ feedstock }) => {
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
+          transition: 'background-color 0.3s ease',
+          backgroundColor: isSelected ? alpha(color, 0.05) : 'transparent',
+          padding: 3,
+          borderRadius: 'default',
         }}
       >
         <Box sx={{ flex: 1, position: 'relative' }}>
