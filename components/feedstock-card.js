@@ -76,21 +76,26 @@ export const FeedstockCard = ({ feedstock }) => {
   const id = title.toLowerCase().replace(/\s+/g, '-') // Convert title to id
 
   useEffect(() => {
-    const checkIfSelected = () => {
+    // handle initial load
+    const handleInitialLoad = () => {
+      if (window.location.hash === `#${id}`) {
+        setIsSelected(true)
+        cardRef.current?.scrollIntoView({ behavior: 'smooth' })
+        setTimeout(() => setIsSelected(false), 3000)
+      }
+    }
+
+    // handle subsequent hash changes
+    const handleHashChange = () => {
       if (window.location.hash === `#${id}`) {
         setIsSelected(true)
         setTimeout(() => setIsSelected(false), 3000)
       }
     }
 
-    // Check on initial load
-    checkIfSelected()
-
-    // Set up event listener for hash changes
-    window.addEventListener('hashchange', checkIfSelected)
-
-    // Cleanup
-    return () => window.removeEventListener('hashchange', checkIfSelected)
+    handleInitialLoad()
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
   }, [id])
 
   const handleShare = () => {
