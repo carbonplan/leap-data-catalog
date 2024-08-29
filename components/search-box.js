@@ -1,3 +1,4 @@
+'use client'
 import { Input } from '@carbonplan/components'
 import { Box, Flex, Text } from 'theme-ui'
 

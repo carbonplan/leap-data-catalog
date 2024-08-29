@@ -1,3 +1,5 @@
+'use client'
+
 import { Avatar, Link } from '@carbonplan/components'
 import { Flex, Text } from 'theme-ui'
 

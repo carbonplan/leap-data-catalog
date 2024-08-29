@@ -1,3 +1,5 @@
+'use client'
+
 import { Badge } from '@carbonplan/components'
 import { alpha } from '@theme-ui/color'
 import { Box, Flex } from 'theme-ui'

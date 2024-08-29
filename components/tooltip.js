@@ -1,3 +1,5 @@
+'use client'
+
 import { IconButton } from 'theme-ui'
 import { Info } from '@carbonplan/icons'
 

@@ -1,3 +1,5 @@
+'use client'
+
 import { Button, Expander } from '@carbonplan/components'
 import { RotatingArrow, Arrow } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'

@@ -1,3 +1,5 @@
+'use client'
+
 import { LinkGroup } from '@carbonplan/components'
 import { Box } from 'theme-ui'
 

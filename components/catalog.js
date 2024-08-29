@@ -1,3 +1,7 @@
+'use client'
+
+import { useSearchParams } from 'next/navigation'
+
 import { FeedstockCard } from '@/components/feedstock-card'
 import { SearchBox } from '@/components/search-box'
 import { fetcher } from '@/utils/fetcher'
@@ -5,10 +9,9 @@ import { Column, Row } from '@carbonplan/components'
 import { useMemo, useState } from 'react'
 import useSWR from 'swr'
 import { Box, Text } from 'theme-ui'
-import { useRouter } from 'next/router'
 
 export const Catalog = ({}) => {
-  const router = useRouter()
+  const searchParams = useSearchParams()
 
   const isClient = typeof window !== 'undefined'
   const hostname = isClient ? window.location.hostname : 'localhost'
@@ -18,7 +21,7 @@ export const Catalog = ({}) => {
     'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/output/consolidated-web-catalog.json'
 
   const getCatalogUrl = () => {
-    const { catalog } = router.query
+    const catalog = searchParams.get('catalog')
 
     if (!isProduction && catalog) {
       return catalog

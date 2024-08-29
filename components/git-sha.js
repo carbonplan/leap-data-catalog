@@ -1,3 +1,5 @@
+'use client'
+
 import { IoGitBranchOutline } from 'react-icons/io5'
 import { Flex, Link, Text } from 'theme-ui'
 

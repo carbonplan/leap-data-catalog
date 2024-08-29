@@ -1,3 +1,5 @@
+'use client'
+
 import { Button, Link } from '@carbonplan/components'
 import { RotatingArrow } from '@carbonplan/icons'
 import { Box, Grid, Text } from 'theme-ui'

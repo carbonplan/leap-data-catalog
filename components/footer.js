@@ -1,3 +1,5 @@
+'use client'
+
 import { FaGithub, FaGlobe, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { Box, Container, Flex, IconButton, Image, Link, Text } from 'theme-ui'
 import { GitSHA } from '@/components/git-sha'
