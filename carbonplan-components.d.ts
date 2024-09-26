@@ -18,6 +18,7 @@ declare module '@carbonplan/components' {
   export function Expander(props: any): JSX.Element
   export function Badge(props: any): JSX.Element
   export function Tooltip(props: any): JSX.Element
+  export function Input(props: any): JSX.Element
   // Add more component declarations as needed
 }
 

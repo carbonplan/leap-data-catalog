@@ -53,6 +53,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({ url, color, tags }) => {
         position: 'relative',
       }}
     >
+      {/* @ts-ignore */}
       <Box
         as='img'
         src={url}

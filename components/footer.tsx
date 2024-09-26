@@ -67,6 +67,7 @@ export const Footer = () => {
           >
             <IconButton
               as='a'
+              // @ts-ignore
               href='https://twitter.com/LeapStc'
               sx={{ mx: 2 }}
             >
@@ -74,6 +75,7 @@ export const Footer = () => {
             </IconButton>
             <IconButton
               as='a'
+              // @ts-ignore
               href='https://github.com/leap-stc'
               sx={{ mx: 2 }}
             >
@@ -81,12 +83,19 @@ export const Footer = () => {
             </IconButton>
             <IconButton
               as='a'
+              // @ts-ignore
               href='https://www.youtube.com/@LEAP_STC'
               sx={{ mx: 2 }}
             >
               <FaYoutube size={24} />
             </IconButton>
-            <IconButton as='a' href='https://leap.columbia.edu/' sx={{ mx: 2 }}>
+
+            <IconButton
+              as='a'
+              // @ts-ignore
+              href='https://leap.columbia.edu/'
+              sx={{ mx: 2 }}
+            >
               <FaGlobe size={24} />
             </IconButton>
           </Flex>

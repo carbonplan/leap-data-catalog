@@ -20,6 +20,7 @@ export function Analytics() {
         action: 'navigate_to_section',
         category: 'Navigation',
         label: newHash,
+        // @ts-ignore
         value: window.location.pathname,
       })
     }
@@ -35,6 +36,7 @@ export function Analytics() {
           action: 'navigate_to_section',
           category: 'Navigation',
           label: newHash,
+          // @ts-ignore
           value: window.location.pathname,
         })
       }

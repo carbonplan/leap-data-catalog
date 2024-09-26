@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { IconButton, Box, Flex, ThemeUIStyleObject } from 'theme-ui'
 import { Info } from '@carbonplan/icons'
+import React, { useState } from 'react'
 import AnimateHeight from 'react-animate-height'
+import { Box, Flex, IconButton, ThemeUIStyleObject } from 'theme-ui'
 
 interface TooltipProps {
   expanded: boolean
@@ -47,6 +47,8 @@ interface TooltipWrapperProps {
   mt?: string
   color?: string
   sx?: ThemeUIStyleObject
+  expanded?: boolean
+  setExpanded?: (expanded: boolean) => void
 }
 
 export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({
@@ -55,8 +57,14 @@ export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({
   mt = '8px',
   color,
   sx,
+  expanded: controlledExpanded,
+  setExpanded: controlledSetExpanded,
 }) => {
-  const [expanded, setExpanded] = useState(false)
+  const [internalExpanded, setInternalExpanded] = useState(false)
+
+  const expanded =
+    controlledExpanded !== undefined ? controlledExpanded : internalExpanded
+  const setExpanded = controlledSetExpanded || setInternalExpanded
 
   return tooltip ? (
     <>

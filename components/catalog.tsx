@@ -7,11 +7,10 @@ import { Column, Row } from '@carbonplan/components'
 import { useMemo, useState } from 'react'
 import useSWR from 'swr'
 import { Box, Text } from 'theme-ui'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { Feedstock } from '@/types/types'
 
 export const Catalog = () => {
-  const pathname = usePathname()
   const searchParams = useSearchParams()
 
   const isClient = typeof window !== 'undefined'

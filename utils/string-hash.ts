@@ -10,7 +10,7 @@
  * @param {string} str - The string to be hashed.
  * @return {number} - A 32-bit integer hash of the string.
  */
-export function getUniqueHashFromString(str) {
+export function getUniqueHashFromString(str: string): number {
   let hash = 0
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i)
@@ -20,7 +20,10 @@ export function getUniqueHashFromString(str) {
   return hash
 }
 
-export function getRandomIndexFromHash(hash, arrayLength) {
+export function getRandomIndexFromHash(
+  hash: number,
+  arrayLength: number,
+): number {
   // Seed a simple pseudo-random number generator with the hash
   const seed = hash
   const a = 1664525

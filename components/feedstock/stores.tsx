@@ -115,7 +115,6 @@ const Store: React.FC<StoreProps> = ({ dataset, color }) => {
               mr: 2,
               right: 0,
               top: 0,
-              textTransform: 'uppercase',
             }}
             suffix={
               copied ? (
@@ -141,7 +140,7 @@ const Store: React.FC<StoreProps> = ({ dataset, color }) => {
             }`}
             target='_blank'
             rel='noopener noreferrer'
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               if (!isActivated) {
                 e.preventDefault()
               }
@@ -158,7 +157,6 @@ const Store: React.FC<StoreProps> = ({ dataset, color }) => {
               )
             }
             sx={{
-              color: color,
               fontSize: [0, 0, 0, 1],
               letterSpacing: 'mono',
               textTransform: 'uppercase',
