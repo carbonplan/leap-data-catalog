@@ -1,4 +1,3 @@
-import { Meta } from '@/components/meta'
 import { Dimmer } from '@carbonplan/components'
 import Link from 'next/link'
 import { Box, Container, Flex, Image } from 'theme-ui'
@@ -6,13 +5,6 @@ import { Box, Container, Flex, Image } from 'theme-ui'
 export const Header = () => {
   return (
     <>
-      <Meta
-        card={'TK'}
-        description={
-          'Data catalog for Learning the Earth with Artificial Intelligence and Physics (LEAP) is an NSF Science and Technology Center (STC)'
-        }
-        title={'LEAP Data Catalog'}
-      />
       <Box pb={8}>
         <Box
           as='header'
