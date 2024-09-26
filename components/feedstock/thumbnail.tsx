@@ -1,9 +1,20 @@
 import { Badge } from '@carbonplan/components'
 import { alpha } from '@theme-ui/color'
+import React from 'react'
 import { Box, Flex } from 'theme-ui'
 
-const Tags = ({ tags, sx }) => {
-  // Sort tags alphabetically
+interface TagsProps {
+  tags: string[]
+  sx?: object
+}
+
+interface ThumbnailProps {
+  url: string
+  color: string
+  tags?: string[]
+}
+
+const Tags: React.FC<TagsProps> = ({ tags, sx }) => {
   const sortedTags = tags.sort((a, b) => a.localeCompare(b))
   return (
     <Flex
@@ -33,7 +44,8 @@ const Tags = ({ tags, sx }) => {
     </Flex>
   )
 }
-export const Thumbnail = ({ url, color, tags }) => {
+
+export const Thumbnail: React.FC<ThumbnailProps> = ({ url, color, tags }) => {
   return (
     <Box
       sx={{
@@ -62,7 +74,7 @@ export const Thumbnail = ({ url, color, tags }) => {
         }}
       />
 
-      {tags?.length > 0 && (
+      {tags && tags.length > 0 && (
         <Tags
           tags={tags}
           sx={{

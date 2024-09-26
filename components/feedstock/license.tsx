@@ -1,7 +1,13 @@
+import { LicenseLink } from '@/types/types'
 import { Link } from '@carbonplan/components'
 import { Flex, Text } from 'theme-ui'
 
-export const License = ({ license, license_link }) => {
+interface LicenseProps {
+  license: string
+  license_link?: LicenseLink
+}
+
+export const License: React.FC<LicenseProps> = ({ license, license_link }) => {
   return (
     <Flex
       sx={{
@@ -35,7 +41,7 @@ export const License = ({ license, license_link }) => {
           fontSize: [2, 2, 2, 3],
         }}
       >
-        {license || license_link?.label}
+        {license || license_link?.title}
       </Link>
     </Flex>
   )

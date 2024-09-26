@@ -1,15 +1,6 @@
 'use client'
 
 import {
-  getRandomIndexFromHash,
-  getUniqueHashFromString,
-} from '@/utils/string-hash'
-import { Button, Link } from '@carbonplan/components'
-import { useEffect, useRef, useState } from 'react'
-import { FaShare } from 'react-icons/fa'
-import { Box, Flex } from 'theme-ui'
-import { alpha } from '@theme-ui/color'
-import {
   License,
   Links,
   Maintainers,
@@ -18,6 +9,15 @@ import {
   Thumbnail,
 } from '@/components/feedstock'
 import { Feedstock } from '@/types/types'
+import {
+  getRandomIndexFromHash,
+  getUniqueHashFromString,
+} from '@/utils/string-hash'
+import { Button, Link } from '@carbonplan/components'
+import { alpha } from '@theme-ui/color'
+import { useEffect, useRef, useState } from 'react'
+import { FaShare } from 'react-icons/fa'
+import { Box, Flex } from 'theme-ui'
 
 interface FeedstockCardProps {
   feedstock: Feedstock
@@ -25,18 +25,18 @@ interface FeedstockCardProps {
 
 export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
   const {
-    title,
     description,
-    thumbnail,
-    tags,
+    links,
     maintainers,
     provenance,
-    links,
     stores,
+    tags,
+    thumbnail,
+    title,
+    'ncviewjs:meta_yaml_url': meta_yaml_url,
   } = feedstock
 
   const { license, license_link } = provenance
-  const meta_yaml_url = feedstock['ncviewjs:meta_yaml_url']
 
   const [isCopied, setIsCopied] = useState(false)
   const [isSelected, setIsSelected] = useState(false)
@@ -152,13 +152,9 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
               mt: 2,
             }}
           >
-            <Box
-              as={Link}
-              href={`#${id}`}
-              sx={{
-                textDecoration: 'none',
-              }}
-            >
+            {' '}
+            {/* @ts-ignore */}
+            <Box as={Link} href={`#${id}`} sx={{ textDecoration: 'none' }}>
               {title}
             </Box>
           </Box>
@@ -184,7 +180,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
         </Flex>
 
         <Box sx={{ fontSize: [2, 2, 2, 3], mb: 2, py: [1] }}>{description}</Box>
-        {links && <Links links={links} doi_citation={feedstock.doi_citation} />}
+        {links && <Links links={links} />}
         {stores && stores.length > 0 && (
           <Stores stores={stores} color={color} />
         )}

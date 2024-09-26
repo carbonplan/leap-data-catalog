@@ -1,7 +1,17 @@
 import { Input } from '@carbonplan/components'
 import { Box, Flex, Text } from 'theme-ui'
 
-export const SearchBox = ({ sx, search, setSearch }) => {
+interface SearchBoxProps {
+  sx?: React.CSSProperties
+  search: string
+  setSearch: (value: string) => void
+}
+
+export const SearchBox: React.FC<SearchBoxProps> = ({
+  sx,
+  search,
+  setSearch,
+}) => {
   return (
     <Box as='section' sx={{ width: '100%', ...sx }}>
       <Flex
@@ -28,7 +38,9 @@ export const SearchBox = ({ sx, search, setSearch }) => {
             <Input
               size='md'
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearch(e.target.value)
+              }
               sx={{
                 flexGrow: 1,
                 width: '100%',

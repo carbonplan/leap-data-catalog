@@ -1,8 +1,13 @@
+import { Provider } from '@/types/types'
 import { Button, Link } from '@carbonplan/components'
 import { RotatingArrow } from '@carbonplan/icons'
 import { Box, Grid, Text } from 'theme-ui'
 
-export const Providers = ({ providers }) => {
+interface ProvidersProps {
+  providers: Provider[]
+}
+
+export const Providers: React.FC<ProvidersProps> = ({ providers }) => {
   return (
     <Box mt={3}>
       <Text sx={{ color: 'muted' }}>Providers:</Text>
@@ -10,14 +15,14 @@ export const Providers = ({ providers }) => {
         {providers.map((provider) => (
           <Button
             size='xs'
-            key={provider.label}
+            key={provider.name}
             suffix={<RotatingArrow />}
             as={Link}
-            href={provider.href}
+            href={provider.url}
             target='_blank'
             rel='noopener noreferrer'
           >
-            {provider.label}
+            {provider.description}
           </Button>
         ))}
       </Grid>

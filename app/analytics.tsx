@@ -1,8 +1,8 @@
 'use client'
 
+import * as gtag from '@/utils/ga'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
-import * as gtag from '@/utils/ga'
 
 export function Analytics() {
   const pathname = usePathname()

@@ -45,4 +45,5 @@ export interface Feedstock {
   links?: Link[]
   stores?: Store[]
   meta_yaml_url?: string
+  'ncviewjs:meta_yaml_url'?: string
 }

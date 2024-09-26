@@ -1,11 +1,15 @@
-import { IconButton } from 'theme-ui'
+import React, { useState } from 'react'
+import { IconButton, Box, Flex, ThemeUIStyleObject } from 'theme-ui'
 import { Info } from '@carbonplan/icons'
-
-import { Box, Flex } from 'theme-ui'
-import { useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 
-const Tooltip = ({ expanded, setExpanded, sx }) => {
+interface TooltipProps {
+  expanded: boolean
+  setExpanded: (expanded: boolean) => void
+  sx?: ThemeUIStyleObject
+}
+
+const Tooltip: React.FC<TooltipProps> = ({ expanded, setExpanded, sx }) => {
   return (
     <IconButton
       onClick={() => setExpanded(!expanded)}
@@ -37,7 +41,15 @@ const Tooltip = ({ expanded, setExpanded, sx }) => {
   )
 }
 
-export const TooltipWrapper = ({
+interface TooltipWrapperProps {
+  children: React.ReactNode
+  tooltip?: string
+  mt?: string
+  color?: string
+  sx?: ThemeUIStyleObject
+}
+
+export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({
   children,
   tooltip,
   mt = '8px',

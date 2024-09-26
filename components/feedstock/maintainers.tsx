@@ -1,7 +1,12 @@
+import { Maintainer } from '@/types/types'
 import { Avatar, Link } from '@carbonplan/components'
 import { Flex, Text } from 'theme-ui'
 
-export const Maintainers = ({ maintainers }) => {
+interface MaintainersProps {
+  maintainers: Maintainer[]
+}
+
+export const Maintainers: React.FC<MaintainersProps> = ({ maintainers }) => {
   // Sort maintainers by name
   const sortedMaintainers = maintainers.sort((a, b) =>
     a.name.localeCompare(b.name),
@@ -44,7 +49,6 @@ export const Maintainers = ({ maintainers }) => {
                 alt={`${maintainer.name}'s avatar`}
                 sx={{ width: 48, height: 48, borderRadius: '50%' }}
               />
-              {/* <Text sx={{ fontSize: [2, 2, 2, 3] }}>{maintainer.name}</Text> */}
             </Flex>
           </Link>
         ))}

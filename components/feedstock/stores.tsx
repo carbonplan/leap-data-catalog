@@ -1,32 +1,51 @@
+import React, { useState } from 'react'
 import { Button, Expander } from '@carbonplan/components'
-import { RotatingArrow, Arrow } from '@carbonplan/icons'
+import { RotatingArrow, Arrow, Check, Down } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
 import AnimateHeight from 'react-animate-height'
 import { Box, Flex, Text } from 'theme-ui'
-import { TooltipWrapper } from '@/components/tooltip'
+import { TooltipWrapper } from '@/components/tooltip-wrapper'
 
-import { Check, Down } from '@carbonplan/icons'
-import { useState } from 'react'
+interface Rechunking {
+  path: string
+}
 
-const getSnippet = (url) => `
+interface Dataset {
+  id: string
+  name?: string
+  url: string
+  'ncviewjs:rechunking'?: Rechunking[]
+  public?: boolean
+  geospatial?: boolean
+}
+
+interface StoreProps {
+  dataset: Dataset
+  color: string
+}
+
+interface StoresProps {
+  stores: Dataset[]
+  color: string
+}
+
+const getSnippet = (url: string) => `
 import xarray as xr
 
 store = '${url}'
 ds = xr.open_dataset(store, engine='zarr', chunks={})
 `
 
-const Store = ({ dataset, color }) => {
+const Store: React.FC<StoreProps> = ({ dataset, color }) => {
   const { id, name, url, 'ncviewjs:rechunking': rechunking } = dataset
-  // Checking if rechunking is not null and has at least one item
   const pyramid =
     rechunking && rechunking.length > 0 ? rechunking[0].path : null
   const [expanded, setExpanded] = useState(false)
-
   const [copied, setCopied] = useState(false)
-  const [tick, setTick] = useState(null)
+  const [tick, setTick] = useState<NodeJS.Timeout | null>(null)
   const [tooltipExpanded, setTooltipExpanded] = useState(false)
 
-  const handleClick = (url) => {
+  const handleClick = (url: string) => {
     const blank = document.createElement('textarea')
     document.body.appendChild(blank)
     blank.value = getSnippet(url)
@@ -124,7 +143,7 @@ const Store = ({ dataset, color }) => {
             rel='noopener noreferrer'
             onClick={(e) => {
               if (!isActivated) {
-                e.preventDefault() // Prevents the link from being followed
+                e.preventDefault()
               }
             }}
             suffix={
@@ -146,8 +165,8 @@ const Store = ({ dataset, color }) => {
               fontFamily: 'mono',
               mt: 3,
               mb: 2,
-              cursor: isActivated ? 'pointer' : 'not-allowed', // Changes cursor to indicate disabled state
-              color: isActivated ? color : 'secondary', // Grey out the button when disabled
+              cursor: isActivated ? 'pointer' : 'not-allowed',
+              color: isActivated ? color : 'secondary',
             }}
           >
             Open in Data Viewer
@@ -158,7 +177,7 @@ const Store = ({ dataset, color }) => {
   )
 }
 
-export const Stores = ({ stores, color }) => {
+export const Stores: React.FC<StoresProps> = ({ stores, color }) => {
   return (
     <Flex
       sx={{
