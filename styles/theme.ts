@@ -1,4 +1,6 @@
-export const theme = {
+import { Theme } from 'theme-ui'
+
+export const theme: Theme = {
   space: [0, 4, 8, 16, 24, 32, 48, 64, 96, 128, 172, 256, 512],
   fonts: {
     body: 'relative-book-pro, Roboto, system-ui, -apple-system, BlinkMacSystemFont',
@@ -196,10 +198,10 @@ export const theme = {
       fontFamily: 'mono',
       letterSpacing: 'mono',
       borderRadius: '1px',
-      overflowWrap: 'break-word',
-      wordWrap: 'break-word',
-      wordBreak: 'break-word',
-      whiteSpace: 'break-spaces',
+      overflowWrap: 'break-word' as const,
+      wordWrap: 'break-word' as const,
+      wordBreak: 'break-word' as const,
+      whiteSpace: 'break-spaces' as const,
       color: 'primary',
       bg: 'hinted',
       '.comment,.prolog,.doctype,.cdata,.punctuation,.operator,.entity,.url': {
