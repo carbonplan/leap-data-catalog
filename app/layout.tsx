@@ -2,6 +2,8 @@ import Providers from '@/app/providers'
 import PageCard from '@/components/layouts/page-card'
 import { Metadata } from 'next'
 
+import { GoogleAnalytics } from '@next/third-parties/google'
+
 export const metadata: Metadata = {
   title: 'LEAP Data Catalog',
   description: 'Explore and discover datasets from the LEAP project',
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
     siteName: 'LEAP Data Catalog',
     images: [
       {
-        url: 'https://example.com/og-image.jpg', // Replace with your actual OG image URL
+        url: 'https://leap.columbia.edu/wp-content/uploads/2023/08/NSF-LEAP-joint-logo.png',
         width: 1200,
         height: 630,
       },
@@ -41,7 +43,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'LEAP Data Catalog',
     description: 'Explore and discover datasets from the LEAP project',
-    images: ['https://example.com/og-image.jpg'], // Replace with your actual Twitter card image URL
+    images: [
+      'https://leap.columbia.edu/wp-content/uploads/2023/08/NSF-LEAP-joint-logo.png',
+    ],
   },
   formatDetection: {
     telephone: false,
@@ -60,6 +64,8 @@ export default function RootLayout({
           <PageCard>{children}</PageCard>
         </Providers>
       </body>
+
+      <GoogleAnalytics gaId='G-P57XQ0ETNC' />
     </html>
   )
 }
