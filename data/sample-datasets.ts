@@ -8,7 +8,7 @@ export const SampleDatasets = [
       },
       {
         label: 'Provider B',
-        label: 'https://www.provider-a.com',
+        href: 'https://www.provider-a.com',
       },
       {
         label: 'Provider C',

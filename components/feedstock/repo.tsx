@@ -1,13 +1,22 @@
 import { Link } from '@carbonplan/components'
 import { Flex, Text } from 'theme-ui'
 
-function getOrgAndRepo(url) {
+interface RepositoryProps {
+  metaURL?: string
+}
+
+function getOrgAndRepo(url: string): string {
   const urlParts = url.split('/')
   const org = urlParts[3]
   const repo = urlParts[4]
   return `${org}/${repo}`
 }
-export const Repository = ({ metaURL }) => {
+
+export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
+  if (!metaURL) {
+    return null // Or you could return a placeholder component
+  }
+
   const orgAndRepo = getOrgAndRepo(metaURL)
   const githubUrl = `https://github.com/${orgAndRepo}`
 

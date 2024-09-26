@@ -1,3 +1,5 @@
+'use client'
+
 import { FeedstockCard } from '@/components/feedstock-card'
 import { SearchBox } from '@/components/search-box'
 import { fetcher } from '@/utils/fetcher'
@@ -5,20 +7,20 @@ import { Column, Row } from '@carbonplan/components'
 import { useMemo, useState } from 'react'
 import useSWR from 'swr'
 import { Box, Text } from 'theme-ui'
-import { useRouter } from 'next/router'
+import { useSearchParams } from 'next/navigation'
+import { Feedstock } from '@/types/types'
 
-export const Catalog = ({}) => {
-  const router = useRouter()
+export const Catalog = () => {
+  const searchParams = useSearchParams()
 
   const isClient = typeof window !== 'undefined'
   const hostname = isClient ? window.location.hostname : 'localhost'
   const isProduction = hostname === 'catalog.leap.columbia.edu'
-  //TODO: temporary hard code the default catalog URL
   const defaultCatalogUrl =
     'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/output/consolidated-web-catalog.json'
 
   const getCatalogUrl = () => {
-    const { catalog } = router.query
+    const catalog = searchParams.get('catalog')
 
     if (!isProduction && catalog) {
       return catalog
@@ -29,7 +31,7 @@ export const Catalog = ({}) => {
 
   const catalogUrl = getCatalogUrl()
 
-  const { data: feedstocks, error } = useSWR(
+  const { data: feedstocks, error } = useSWR<Feedstock[]>(
     catalogUrl,
     fetcher,
     { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
@@ -48,7 +50,10 @@ export const Catalog = ({}) => {
     const re = new RegExp(search, 'i')
 
     return feedstocks.filter(
-      (d) => d.title.match(re) || d.tags?.some((tag) => tag.match(re)),
+      (d: Feedstock) =>
+        d.title.match(re) ||
+        d.tags?.some((tag) => tag.match(re)) ||
+        d.description.match(re),
     )
   }, [feedstocks, search])
 
@@ -71,7 +76,7 @@ export const Catalog = ({}) => {
           <Text
             sx={{
               color: 'primary',
-              fontSize: [4, 4, 4, 6], // figure out smaller font-size
+              fontSize: [4, 4, 4, 6],
               fontFamily: 'heading',
               width: '100%',
             }}
@@ -86,22 +91,20 @@ export const Catalog = ({}) => {
 
       <Box mt={3}>
         <Row>
-          {filteredFeedstocks.map(function (feedstock, index) {
-            return (
-              <Column
-                key={feedstock.title}
-                start={[
-                  1,
-                  (index % 2) * 4 + 1,
-                  (index % 3) * 4 + 1,
-                  (index % 3) * 4 + 1,
-                ]}
-                width={[6, 4, 4, 4]}
-              >
-                <FeedstockCard feedstock={feedstock} />
-              </Column>
-            )
-          })}
+          {filteredFeedstocks.map((feedstock, index) => (
+            <Column
+              key={feedstock.title}
+              start={[
+                1,
+                (index % 2) * 4 + 1,
+                (index % 3) * 4 + 1,
+                (index % 3) * 4 + 1,
+              ]}
+              width={[6, 4, 4, 4]}
+            >
+              <FeedstockCard feedstock={feedstock} />
+            </Column>
+          ))}
         </Row>
       </Box>
     </Box>
