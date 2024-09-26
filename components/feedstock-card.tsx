@@ -1,3 +1,5 @@
+'use client'
+
 import {
   getRandomIndexFromHash,
   getUniqueHashFromString,
@@ -6,9 +8,7 @@ import { Button, Link } from '@carbonplan/components'
 import { useEffect, useRef, useState } from 'react'
 import { FaShare } from 'react-icons/fa'
 import { Box, Flex } from 'theme-ui'
-
 import { alpha } from '@theme-ui/color'
-
 import {
   License,
   Links,
@@ -17,8 +17,13 @@ import {
   Stores,
   Thumbnail,
 } from '@/components/feedstock'
+import { Feedstock } from '@/types/types'
 
-export const FeedstockCard = ({ feedstock }) => {
+interface FeedstockCardProps {
+  feedstock: Feedstock
+}
+
+export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
   const {
     title,
     description,
@@ -27,16 +32,15 @@ export const FeedstockCard = ({ feedstock }) => {
     maintainers,
     provenance,
     links,
-    doi_citation,
     stores,
-    'ncviewjs:meta_yaml_url': meta_yaml_url,
   } = feedstock
 
-  const { license, license_link, providers } = provenance
+  const { license, license_link } = provenance
+  const meta_yaml_url = feedstock['ncviewjs:meta_yaml_url']
 
   const [isCopied, setIsCopied] = useState(false)
   const [isSelected, setIsSelected] = useState(false)
-  const cardRef = useRef(null)
+  const cardRef = useRef<HTMLDivElement>(null)
 
   const fallbackThumbnails = [
     'https://images.unsplash.com/photo-1583325958573-3c89e40551ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80',
@@ -48,7 +52,7 @@ export const FeedstockCard = ({ feedstock }) => {
     'https://images.unsplash.com/photo-1584267759777-8a74a4f72a91?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fG1ldGVvcm9sb2d5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&q=60',
     'https://images.unsplash.com/photo-1513553404607-988bf2703777?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80',
   ]
-  // https://w3schools.sinsixx.com/tags/ref_color_tryit.asp@color=white.htm
+
   const colors = [
     'DarkViolet',
     'cadetBlue',
@@ -107,99 +111,96 @@ export const FeedstockCard = ({ feedstock }) => {
   }
 
   return (
-    <>
-      <Box
-        ref={cardRef}
-        id={id} // Use the generated id
-        sx={{
-          mb: [7, 7, 7, 8],
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          transition: 'background-color 0.3s ease',
-          backgroundColor: isSelected ? alpha(color, 0.05) : 'transparent',
-          padding: 3,
-          borderRadius: 'default',
-        }}
-      >
-        <Box sx={{ flex: 1, position: 'relative' }}>
-          <Thumbnail
-            url={thumbnail ?? fallbackThumbnail}
-            color={color}
-            tags={tags}
-          />
-        </Box>
+    <Box
+      ref={cardRef}
+      id={id}
+      sx={{
+        mb: [7, 7, 7, 8],
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        transition: 'background-color 0.3s ease',
+        backgroundColor: isSelected ? alpha(color, 0.05) : 'transparent',
+        padding: 3,
+        borderRadius: 'default',
+      }}
+    >
+      <Box sx={{ flex: 1, position: 'relative' }}>
+        <Thumbnail
+          url={thumbnail ?? fallbackThumbnail}
+          color={color}
+          tags={tags}
+        />
+      </Box>
 
-        <Box>
-          <Flex
+      <Box>
+        <Flex
+          sx={{
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            mt: 2,
+            mb: 2,
+          }}
+        >
+          <Box
             sx={{
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              mt: 2,
+              fontSize: [3, 3, 3, 4],
+              fontFamily: 'heading',
               mb: 2,
+              pt: ['2px'],
+              mt: 2,
             }}
           >
             <Box
+              as={Link}
+              href={`#${id}`}
               sx={{
-                fontSize: [3, 3, 3, 4],
-                fontFamily: 'heading',
-                mb: 2,
-                pt: ['2px'],
-                mt: 2,
+                textDecoration: 'none',
               }}
             >
-              <Box
-                as={Link}
-                href={`#${id}`}
-                sx={{
-                  textDecoration: 'none',
-                }}
-              >
-                {title}
-              </Box>
+              {title}
             </Box>
-
-            <Button
-              onClick={handleShare}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                color: color,
-                px: 2,
-                py: 1,
-                fontSize: [2, 2, 2, 3],
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-                minWidth: 'auto',
-                flexShrink: 0,
-              }}
-            >
-              <FaShare style={{ marginRight: '4px', flexShrink: 0 }} />
-              {isCopied ? 'Copied!' : 'Share'}
-            </Button>
-          </Flex>
-
-          <Box sx={{ fontSize: [2, 2, 2, 3], mb: 2, py: [1] }}>
-            {description}
           </Box>
-          {links && <Links links={links} doi_citation={doi_citation} />}
-          {stores?.length > 0 && <Stores stores={stores} color={color} />}
-          <Flex
+
+          <Button
+            onClick={handleShare}
             sx={{
-              flexDirection: 'column',
-              gap: 2,
-              mt: 4,
-              justifyContent: 'space-between',
+              display: 'flex',
+              alignItems: 'center',
+              color: color,
+              px: 2,
+              py: 1,
+              fontSize: [2, 2, 2, 3],
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              minWidth: 'auto',
+              flexShrink: 0,
             }}
           >
-            {' '}
-            <License license={license} license_link={license_link} />
-            <Maintainers maintainers={maintainers} />
-            <Repository metaURL={meta_yaml_url} />
-          </Flex>
-        </Box>
+            <FaShare style={{ marginRight: '4px', flexShrink: 0 }} />
+            {isCopied ? 'Copied!' : 'Share'}
+          </Button>
+        </Flex>
+
+        <Box sx={{ fontSize: [2, 2, 2, 3], mb: 2, py: [1] }}>{description}</Box>
+        {links && <Links links={links} doi_citation={feedstock.doi_citation} />}
+        {stores && stores.length > 0 && (
+          <Stores stores={stores} color={color} />
+        )}
+        <Flex
+          sx={{
+            flexDirection: 'column',
+            gap: 2,
+            mt: 4,
+            justifyContent: 'space-between',
+          }}
+        >
+          <License license={license} license_link={license_link} />
+          <Maintainers maintainers={maintainers} />
+          <Repository metaURL={meta_yaml_url} />
+        </Flex>
       </Box>
-    </>
+    </Box>
   )
 }

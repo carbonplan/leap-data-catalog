@@ -3,7 +3,7 @@ import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Box, Flex } from 'theme-ui'
 
-function PageCard({ children }) {
+function PageCard({ children }: { children: React.ReactNode }) {
   return (
     <Flex
       sx={{

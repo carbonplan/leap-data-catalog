@@ -8,6 +8,7 @@ import { useMemo, useState } from 'react'
 import useSWR from 'swr'
 import { Box, Text } from 'theme-ui'
 import { usePathname, useSearchParams } from 'next/navigation'
+import { Feedstock } from '@/types/types'
 
 export const Catalog = () => {
   const pathname = usePathname()
@@ -31,7 +32,7 @@ export const Catalog = () => {
 
   const catalogUrl = getCatalogUrl()
 
-  const { data: feedstocks, error } = useSWR(
+  const { data: feedstocks, error } = useSWR<Feedstock[]>(
     catalogUrl,
     fetcher,
     { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
@@ -50,7 +51,10 @@ export const Catalog = () => {
     const re = new RegExp(search, 'i')
 
     return feedstocks.filter(
-      (d) => d.title.match(re) || d.tags?.some((tag) => tag.match(re)),
+      (d: Feedstock) =>
+        d.title.match(re) ||
+        d.tags?.some((tag) => tag.match(re)) ||
+        d.description.match(re),
     )
   }, [feedstocks, search])
 
@@ -88,22 +92,20 @@ export const Catalog = () => {
 
       <Box mt={3}>
         <Row>
-          {filteredFeedstocks.map(function (feedstock, index) {
-            return (
-              <Column
-                key={feedstock.title}
-                start={[
-                  1,
-                  (index % 2) * 4 + 1,
-                  (index % 3) * 4 + 1,
-                  (index % 3) * 4 + 1,
-                ]}
-                width={[6, 4, 4, 4]}
-              >
-                <FeedstockCard feedstock={feedstock} />
-              </Column>
-            )
-          })}
+          {filteredFeedstocks.map((feedstock, index) => (
+            <Column
+              key={feedstock.title}
+              start={[
+                1,
+                (index % 2) * 4 + 1,
+                (index % 3) * 4 + 1,
+                (index % 3) * 4 + 1,
+              ]}
+              width={[6, 4, 4, 4]}
+            >
+              <FeedstockCard feedstock={feedstock} />
+            </Column>
+          ))}
         </Row>
       </Box>
     </Box>

@@ -14,5 +14,7 @@ declare module '@carbonplan/components' {
   export function Row(props: any): JSX.Element
   export function Column(props: any): JSX.Element
   export function Dimmer(props: any): JSX.Element
+  export function Button(props: any): JSX.Element
+  export function Link(props: any): JSX.Element
   // Add more component declarations as needed
 }
