@@ -2,6 +2,7 @@
 
 import { Catalog } from '@/components/catalog'
 import { Guide } from '@carbonplan/components'
+import { Suspense } from 'react'
 import { Box, Container } from 'theme-ui'
 
 export default function Home() {
@@ -9,7 +10,10 @@ export default function Home() {
     <Box>
       <Container>
         <Guide />
-        <Catalog />
+
+        <Suspense fallback={<Box></Box>}>
+          <Catalog />
+        </Suspense>
       </Container>
     </Box>
   )
