@@ -1,6 +1,7 @@
-import useSWR from 'swr'
 import { Feedstock } from '@/types/types'
 import { fetcher } from '@/utils/fetcher'
+import { slugify } from '@/utils/slugify'
+import useSWR from 'swr'
 
 export const useFeedstocks = (catalogUrl?: string) => {
   const getApiUrl = () => {
@@ -22,8 +23,14 @@ export const useFeedstocks = (catalogUrl?: string) => {
     fallbackData: [],
   })
 
+  // Ensure slugs are added even if they weren't added in the API
+  const feedstocksWithSlugs = data?.map((feedstock) => ({
+    ...feedstock,
+    slug: feedstock.slug || slugify(feedstock.title),
+  }))
+
   return {
-    feedstocks: data,
+    feedstocks: feedstocksWithSlugs,
     error: error,
   }
 }

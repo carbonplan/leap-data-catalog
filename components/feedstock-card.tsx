@@ -25,6 +25,7 @@ interface FeedstockCardProps {
 
 export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
   const {
+    slug,
     description,
     links,
     maintainers,
@@ -77,12 +78,11 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
   const fallbackThumbnail = fallbackThumbnails[thumbnailIndex]
 
   const color = colors[colorIndex]
-  const id = title.toLowerCase().replace(/\s+/g, '-') // Convert title to id
 
   useEffect(() => {
     // handle initial load
     const handleInitialLoad = () => {
-      if (window.location.hash === `#${id}`) {
+      if (window.location.hash === `#${slug}`) {
         setIsSelected(true)
         cardRef.current?.scrollIntoView({ behavior: 'smooth' })
         setTimeout(() => setIsSelected(false), 3000)
@@ -91,7 +91,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
 
     // handle subsequent hash changes
     const handleHashChange = () => {
-      if (window.location.hash === `#${id}`) {
+      if (window.location.hash === `#${slug}`) {
         setIsSelected(true)
         setTimeout(() => setIsSelected(false), 3000)
       }
@@ -100,10 +100,10 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
     handleInitialLoad()
     window.addEventListener('hashchange', handleHashChange)
     return () => window.removeEventListener('hashchange', handleHashChange)
-  }, [id])
+  }, [slug])
 
   const handleShare = () => {
-    const url = `${window.location.origin}${window.location.pathname}#${id}`
+    const url = `${window.location.origin}${window.location.pathname}#${slug}`
     navigator.clipboard.writeText(url).then(() => {
       setIsCopied(true)
       setTimeout(() => setIsCopied(false), 2000)
@@ -113,7 +113,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
   return (
     <Box
       ref={cardRef}
-      id={id}
+      id={slug}
       sx={{
         mb: [7, 7, 7, 8],
         width: '100%',
@@ -154,7 +154,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
           >
             {' '}
             {/* @ts-ignore */}
-            <Box as={Link} href={`#${id}`} sx={{ textDecoration: 'none' }}>
+            <Box as={Link} href={`#${slug}`} sx={{ textDecoration: 'none' }}>
               {title}
             </Box>
           </Box>
