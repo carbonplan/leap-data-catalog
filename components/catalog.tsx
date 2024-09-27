@@ -2,44 +2,24 @@
 
 import { FeedstockCard } from '@/components/feedstock-card'
 import { SearchBox } from '@/components/search-box'
-import { fetcher } from '@/utils/fetcher'
-import { Column, Row } from '@carbonplan/components'
-import { useMemo, useState } from 'react'
-import useSWR from 'swr'
-import { Box, Text } from 'theme-ui'
-import { useSearchParams } from 'next/navigation'
+import { useFeedstocks } from '@/hooks/useFeedstocks'
 import { Feedstock } from '@/types/types'
+import { Column, Row } from '@carbonplan/components'
+import { useSearchParams } from 'next/navigation'
+import { useMemo, useState, Suspense } from 'react'
+import { Box, Text } from 'theme-ui'
 
-export const Catalog = () => {
-  const searchParams = useSearchParams()
-
-  const isClient = typeof window !== 'undefined'
-  const hostname = isClient ? window.location.hostname : 'localhost'
-  const isProduction = hostname === 'catalog.leap.columbia.edu'
-  const defaultCatalogUrl =
-    'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/output/consolidated-web-catalog.json'
-
-  const getCatalogUrl = () => {
-    const catalog = searchParams.get('catalog')
-
-    if (!isProduction && catalog) {
-      return catalog
-    }
-
-    return defaultCatalogUrl
-  }
-
-  const catalogUrl = getCatalogUrl()
-
-  const { data: feedstocks, error } = useSWR<Feedstock[]>(
-    catalogUrl,
-    fetcher,
-    { dedupingInterval: 60 * 60 * 1000 }, // 1 hour in milliseconds
-  )
-  const [search, setSearch] = useState('')
+const FeedstockList = ({
+  catalogUrl,
+  search,
+}: {
+  catalogUrl?: string
+  search: string
+}) => {
+  const { feedstocks, error } = useFeedstocks(catalogUrl)
 
   const filteredFeedstocks = useMemo(() => {
-    if (!feedstocks) {
+    if (!feedstocks || feedstocks.length === 0) {
       return []
     }
 
@@ -60,14 +40,48 @@ export const Catalog = () => {
   if (error) {
     return (
       <div style={{ color: 'red', fontWeight: 'bold' }}>
-        🚨 Error loading feedstocks from catalog: {catalogUrl} - {error.message}
+        🚨 Error loading feedstocks from catalog - {error.message}
       </div>
     )
   }
 
-  if (!feedstocks) {
-    return <div>Loading feedstocks from catalog</div>
+  if (!feedstocks || feedstocks.length === 0) {
+    return <Box />
   }
+
+  if (filteredFeedstocks.length === 0) {
+    return <Box>No feedstocks found matching your search criteria.</Box>
+  }
+
+  return (
+    <Row>
+      {filteredFeedstocks.map((feedstock, index) => (
+        <Column
+          key={feedstock.title}
+          start={[
+            1,
+            (index % 2) * 4 + 1,
+            (index % 3) * 4 + 1,
+            (index % 3) * 4 + 1,
+          ]}
+          width={[6, 4, 4, 4]}
+        >
+          <FeedstockCard feedstock={feedstock} />
+        </Column>
+      ))}
+    </Row>
+  )
+}
+
+export const Catalog = () => {
+  const searchParams = useSearchParams()
+  const [search, setSearch] = useState('')
+
+  const isProduction = process.env.NODE_ENV === 'production'
+
+  const catalogUrl = !isProduction
+    ? (searchParams.get('catalog') ?? undefined)
+    : undefined
 
   return (
     <Box as='section' py={2}>
@@ -90,22 +104,9 @@ export const Catalog = () => {
       </Row>
 
       <Box mt={3}>
-        <Row>
-          {filteredFeedstocks.map((feedstock, index) => (
-            <Column
-              key={feedstock.title}
-              start={[
-                1,
-                (index % 2) * 4 + 1,
-                (index % 3) * 4 + 1,
-                (index % 3) * 4 + 1,
-              ]}
-              width={[6, 4, 4, 4]}
-            >
-              <FeedstockCard feedstock={feedstock} />
-            </Column>
-          ))}
-        </Row>
+        <Suspense fallback={<Box />}>
+          <FeedstockList catalogUrl={catalogUrl} search={search} />
+        </Suspense>
       </Box>
     </Box>
   )
