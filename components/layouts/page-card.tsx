@@ -3,6 +3,8 @@ import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Box, Flex } from 'theme-ui'
 
+import { Guide } from '@carbonplan/components'
+
 function PageCard({ children }: { children: React.ReactNode }) {
   return (
     <Flex
@@ -11,6 +13,7 @@ function PageCard({ children }: { children: React.ReactNode }) {
         minHeight: '100vh',
       }}
     >
+      <Guide />
       <Header />
 
       <Box
