@@ -40,11 +40,12 @@ export interface Feedstock {
   description: string
   maintainers: Maintainer[]
   provenance: Provenance
-  thumbnail?: string
+  thumbnail: string
   tags?: string[]
   links?: Link[]
   stores?: Store[]
   meta_yaml_url?: string
   'ncviewjs:meta_yaml_url'?: string
-  slug?: string
+  slug: string
+  color: string
 }

@@ -9,8 +9,6 @@ import {
   Thumbnail,
 } from '@/components/feedstock'
 import { Feedstock } from '@/types/types'
-import { getColor } from '@/utils/colors'
-import { getThumbnail } from '@/utils/thumbnail'
 import { Button, Link } from '@carbonplan/components'
 import { alpha } from '@theme-ui/color'
 import { useEffect, useRef, useState } from 'react'
@@ -31,6 +29,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
     stores,
     tags,
     thumbnail,
+    color,
     title,
     'ncviewjs:meta_yaml_url': meta_yaml_url,
   } = feedstock
@@ -40,9 +39,6 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
   const [isCopied, setIsCopied] = useState(false)
   const [isSelected, setIsSelected] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
-
-  const color = getColor(title)
-  const fallbackThumbnail = getThumbnail(title)
 
   useEffect(() => {
     // handle initial load
@@ -92,11 +88,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
       }}
     >
       <Box sx={{ flex: 1, position: 'relative' }}>
-        <Thumbnail
-          url={thumbnail ?? fallbackThumbnail}
-          color={color}
-          tags={tags}
-        />
+        <Thumbnail url={thumbnail} color={color} tags={tags} />
       </Box>
 
       <Box>
