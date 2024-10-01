@@ -1,7 +1,7 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import { useFeedstocks } from '@/hooks/useFeedstocks'
+import { useParams } from 'next/navigation'
 import { Box, Spinner } from 'theme-ui'
 
 export default function FeedstockPage() {
@@ -19,13 +19,12 @@ export default function FeedstockPage() {
       </Box>
     )
   }
-  console.log(feedstocks)
 
-  //   const feedstock = feedstocks.find((f) => f.id === id)
+  const feedstock = feedstocks.find((f) => f.slug === id)
 
-  //   if (!feedstock) {
-  //     return <Box>Feedstock not found</Box>
-  //   }
+  if (!feedstock) {
+    return <Box>Feedstock not found</Box>
+  }
 
-  return <div>Testing</div>
+  return <div>Testing - {feedstock.slug}</div>
 }
