@@ -1,26 +1,19 @@
 'use client'
 
-import { useFeedstocks } from '@/hooks/useFeedstocks'
-import { Column, Link, Row, Button } from '@carbonplan/components'
-import { useParams, useRouter } from 'next/navigation'
-import { Box, Spinner, Flex, Text } from 'theme-ui'
-import { Left } from '@carbonplan/icons'
-import { Feedstock, Store } from '@/types/types'
-import { Tags } from '@/components/feedstock/tags'
-import { alpha } from '@theme-ui/color'
-import { Divider } from '@/components/divider'
-import { DataViewer } from '@/components/data-viewer'
 import { CodeSnippet } from '@/components/code-snippet'
+import { DataViewer } from '@/components/data-viewer'
+import { DatasetRepr } from '@/components/dataset-repr'
+import { Divider } from '@/components/divider'
+import { Tags } from '@/components/feedstock/tags'
+import { useFeedstocks } from '@/hooks/useFeedstocks'
+import { Feedstock, Store } from '@/types/types'
+import { Button, Column, Row } from '@carbonplan/components'
+import { Left } from '@carbonplan/icons'
+import { alpha } from '@theme-ui/color'
+import { useParams, useRouter } from 'next/navigation'
+import { Box, Flex, Spinner, Text } from 'theme-ui'
 
-import {
-  License,
-  Links,
-  Maintainers,
-  Repository,
-  Stores,
-  Thumbnail,
-  Providers,
-} from '@/components/feedstock'
+import { License, Links, Maintainers, Repository } from '@/components/feedstock'
 
 const BackButton = ({ href = '/', sx }) => {
   const router = useRouter()
@@ -221,7 +214,7 @@ const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
               >
                 Metadata
               </Text>
-              <DataViewer store={store} color={color} />
+              <DatasetRepr url={store.url} />
             </Flex>
           </Flex>
         </Column>
