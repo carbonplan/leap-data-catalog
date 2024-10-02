@@ -45,7 +45,7 @@ const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({ feedstock }) => {
     <Box
       sx={{
         position: 'relative',
-        height: '400px',
+        height: ['300px', '350px', '400px'],
         width: '100%',
         overflow: 'hidden',
       }}
@@ -75,25 +75,26 @@ const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({ feedstock }) => {
         sx={{
           position: 'absolute',
           top: 0,
-          left: 6,
+          left: [3, 4, 5, 6],
           right: 0,
           bottom: 0,
           display: 'flex',
           alignItems: 'center',
         }}
       >
-        <Row columns={[12]} sx={{ width: '100%' }}>
+        <Row columns={[6, 6, 12, 12]} sx={{ width: '100%' }}>
           <Column start={1} width={[1]}>
             <BackButton sx={{ color: 'white' }} />
           </Column>
 
-          <Column start={[2]} width={[6]}>
+          <Column start={[1, 1, 2, 2]} width={[6, 6, 8, 8]}>
             <Box
               as='h1'
               sx={{
                 fontSize: [3, 4, 5, 6],
                 fontFamily: 'heading',
                 color: 'white',
+                mt: [6, 6, 3, 3],
               }}
             >
               {feedstock.title}
