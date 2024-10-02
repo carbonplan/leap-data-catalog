@@ -269,7 +269,6 @@ const FeedstockPage: React.FC = () => {
   }
 
   const feedstock = feedstocks.find((f) => f.slug === id)
-  console.log(feedstock)
 
   if (!feedstock) {
     return <Box>Feedstock not found</Box>
@@ -282,7 +281,13 @@ const FeedstockPage: React.FC = () => {
       <SectionDivider color={feedstock.color} />
       <FeedstockDetails feedstock={feedstock} />
       <SectionDivider color={feedstock.color} />
-      <FeedstockStore store={feedstock.stores[0]} color={feedstock.color} />
+
+      {feedstock.stores.map((store, index) => (
+        <>
+          <FeedstockStore key={index} store={store} color={feedstock.color} />{' '}
+          <SectionDivider color={feedstock.color} />
+        </>
+      ))}
     </Flex>
   )
 }
