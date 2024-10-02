@@ -5,7 +5,7 @@ import { Box, Container, Flex, Image } from 'theme-ui'
 export const Header = () => {
   return (
     <>
-      <Box pb={8}>
+      <Box>
         <Box
           as='header'
           sx={{

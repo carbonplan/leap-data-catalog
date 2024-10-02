@@ -84,7 +84,7 @@ export const Catalog = () => {
     : undefined
 
   return (
-    <Box as='section' py={2}>
+    <Box as='section' py={10}>
       <Row columns={[6, 8, 12, 12]} sx={{ mb: 6 }}>
         <Column start={1} width={[6, 4, 4, 4]}>
           <Text
