@@ -32,8 +32,6 @@ interface StoresProps {
 
 const Store: React.FC<StoreProps> = ({ dataset, color }) => {
   const { id, name, url, 'ncviewjs:rechunking': rechunking } = dataset
-  const pyramid =
-    rechunking && rechunking.length > 0 ? rechunking[0].path : null
   const [expanded, setExpanded] = useState(false)
 
   const [tooltipExpanded, setTooltipExpanded] = useState(false)
