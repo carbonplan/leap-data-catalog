@@ -30,38 +30,13 @@ interface StoresProps {
   color: string
 }
 
-const getSnippet = (url: string) => `
-import xarray as xr
-
-store = '${url}'
-ds = xr.open_dataset(store, engine='zarr', chunks={})
-`
-
 const Store: React.FC<StoreProps> = ({ dataset, color }) => {
   const { id, name, url, 'ncviewjs:rechunking': rechunking } = dataset
   const pyramid =
     rechunking && rechunking.length > 0 ? rechunking[0].path : null
   const [expanded, setExpanded] = useState(false)
-  const [copied, setCopied] = useState(false)
-  const [tick, setTick] = useState<NodeJS.Timeout | null>(null)
-  const [tooltipExpanded, setTooltipExpanded] = useState(false)
 
-  const handleClick = (url: string) => {
-    const blank = document.createElement('textarea')
-    document.body.appendChild(blank)
-    blank.value = getSnippet(url)
-    blank.select()
-    document.execCommand('copy')
-    document.body.removeChild(blank)
-    if (tick) {
-      clearTimeout(tick)
-    }
-    setCopied(true)
-    const timeout = setTimeout(() => {
-      setCopied(false)
-    }, 1000)
-    setTick(timeout)
-  }
+  const [tooltipExpanded, setTooltipExpanded] = useState(false)
 
   const tooltipContent = !dataset.public
     ? 'Access requires credentials or a Columbia-LEAP JupyterHub server.'
@@ -70,9 +45,7 @@ const Store: React.FC<StoreProps> = ({ dataset, color }) => {
       : 'This dataset contains non-geospatial data not supported by the data viewer.'
 
   return (
-    <Flex
-      sx={{ flexDirection: 'column', '& pre': { fontSize: '10px', my: 2 } }}
-    >
+    <Flex sx={{ flexDirection: 'column' }}>
       <TooltipWrapper
         tooltip={tooltipContent}
         color={color}

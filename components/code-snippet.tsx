@@ -21,6 +21,7 @@ interface CodeSnippetProps {
 
 export const CodeSnippet: React.FC<CodeSnippetProps> = ({ url, color }) => {
   const [copied, setCopied] = useState(false)
+  const [tick, setTick] = useState<NodeJS.Timeout | null>(null)
 
   const handleClick = (url: string) => {
     const blank = document.createElement('textarea')
@@ -43,6 +44,7 @@ export const CodeSnippet: React.FC<CodeSnippetProps> = ({ url, color }) => {
     <Box
       sx={{
         position: 'relative',
+        '& pre': { fontSize: '10px', my: 0 },
       }}
     >
       <Button

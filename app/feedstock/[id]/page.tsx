@@ -10,6 +10,7 @@ import { Tags } from '@/components/feedstock/tags'
 import { alpha } from '@theme-ui/color'
 import { Divider } from '@/components/divider'
 import { DataViewer } from '@/components/data-viewer'
+import { CodeSnippet } from '@/components/code-snippet'
 
 import {
   License,
@@ -161,7 +162,7 @@ const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
             {store.name || store.id}
           </Text>
         </Column>
-        <Column start={5} width={[6]}>
+        <Column start={5} width={[5]}>
           <Flex sx={{ flexDirection: 'column', gap: 4 }}>
             <Flex
               sx={{
@@ -200,7 +201,7 @@ const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
               >
                 Load Dataset
               </Text>
-              <DataViewer store={store} color={color} />
+              <CodeSnippet url={store.url} color={color} />
             </Flex>
 
             <Flex
