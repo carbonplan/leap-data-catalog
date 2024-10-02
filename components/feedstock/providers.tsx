@@ -11,7 +11,7 @@ export const Providers: React.FC<ProvidersProps> = ({ providers }) => {
   return (
     <Box mt={3}>
       <Text sx={{ color: 'muted' }}>Providers:</Text>
-      <Grid gap={3} columns={[1, 2]} sx={{ mt: 1 }}>
+      <Grid gap={1} columns={[1, 2]} sx={{ mt: 1 }}>
         {providers.map((provider) => (
           <Button
             size='xs'

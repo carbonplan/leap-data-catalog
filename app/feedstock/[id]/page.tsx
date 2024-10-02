@@ -1,19 +1,48 @@
 'use client'
 
 import { useFeedstocks } from '@/hooks/useFeedstocks'
-import { Column, Link, Row } from '@carbonplan/components'
-import { useParams } from 'next/navigation'
-import { FaArrowLeftLong } from 'react-icons/fa6'
-import { Box, Spinner } from 'theme-ui'
+import { Column, Link, Row, Button } from '@carbonplan/components'
+import { useParams, useRouter } from 'next/navigation'
+import { Box, Spinner, Flex, Text } from 'theme-ui'
+import { Left } from '@carbonplan/icons'
+import { Feedstock } from '@/types/types'
+import { Tags } from '@/components/feedstock/tags'
+import { alpha } from '@theme-ui/color'
+import { Divider } from '@/components/divider'
+
+import {
+  License,
+  Links,
+  Maintainers,
+  Repository,
+  Stores,
+  Thumbnail,
+  Providers,
+} from '@/components/feedstock'
+
+const BackButton = ({ href = '/', sx }) => {
+  const router = useRouter()
+
+  return (
+    <Button
+      inverted
+      size='xs'
+      onClick={() => {
+        router.push(href)
+      }}
+      prefix={<Left />}
+      sx={sx}
+    >
+      Back
+    </Button>
+  )
+}
 
 interface FeedstockHeaderProps {
   title: string
   thumbnail: string
 }
-const FeedstockHeader: React.FC<FeedstockHeaderProps> = ({
-  title,
-  thumbnail,
-}) => {
+const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({ feedstock }) => {
   return (
     <Box
       sx={{
@@ -25,12 +54,23 @@ const FeedstockHeader: React.FC<FeedstockHeaderProps> = ({
     >
       <Box
         as='img'
-        src={thumbnail}
-        alt={`${title} thumbnail`}
+        src={feedstock.thumbnail}
+        alt={`${feedstock.title} thumbnail`}
         sx={{
-          width: '100%',
+          position: 'absolute',
           height: '100%',
+          width: '100%',
+          filter: 'grayscale(100%)',
           objectFit: 'cover',
+        }}
+      />
+      <Box
+        sx={{
+          backgroundColor: alpha(feedstock.color, 0.4),
+          position: 'absolute',
+          height: '100%',
+          width: '100%',
+          opacity: 0.7,
         }}
       />
       <Box
@@ -46,20 +86,7 @@ const FeedstockHeader: React.FC<FeedstockHeaderProps> = ({
       >
         <Row columns={[12]} sx={{ width: '100%' }}>
           <Column start={1} width={[1]}>
-            <Link
-              href='/'
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                color: 'white',
-                textDecoration: 'none',
-              }}
-            >
-              <FaArrowLeftLong />
-              <Box as='span' sx={{ ml: 2, display: ['none', 'inline'] }}>
-                Back
-              </Box>
-            </Link>
+            <BackButton sx={{ color: 'white' }} />
           </Column>
 
           <Column start={[2]} width={[6]}>
@@ -69,15 +96,76 @@ const FeedstockHeader: React.FC<FeedstockHeaderProps> = ({
                 fontSize: [3, 4, 5, 6],
                 fontFamily: 'heading',
                 color: 'white',
-                margin: 0,
-                textShadow: '1px 1px 2px rgba(0,0,0,0.6)',
               }}
             >
-              {title}
+              {feedstock.title}
             </Box>
           </Column>
         </Row>
       </Box>
+    </Box>
+  )
+}
+
+const SectionDivider: React.FC<{ color: string }> = ({ color }) => {
+  return (
+    <>
+      <Row columns={[12]}>
+        <Column start={[2]} width={[10]}>
+          <Divider color={color} />
+        </Column>
+      </Row>
+    </>
+  )
+}
+
+const FeedstockDescription: React.FC<{ feedstock: Feedstock }> = ({
+  feedstock,
+}) => {
+  return (
+    <Box sx={{ ml: 6 }}>
+      <Row columns={[12]}>
+        <Column start={[2]} width={[6]}>
+          <Flex sx={{ flexDirection: 'column', gap: [4] }}>
+            {feedstock.tags && <Tags tags={feedstock.tags} />}
+            <Box sx={{ fontSize: [2, 2, 2, 3], mb: 2, py: [1] }}>
+              {feedstock.description}
+            </Box>
+          </Flex>
+        </Column>
+        <Column start={[9]} width={[3]}>
+          {feedstock.links && <Links links={feedstock.links} />}
+        </Column>
+      </Row>
+    </Box>
+  )
+}
+
+const FeedstockDetails: React.FC<{ feedstock: Feedstock }> = ({
+  feedstock,
+}) => {
+  return (
+    <Box sx={{ ml: 6 }}>
+      <Row columns={[12]}>
+        <Column start={[2]} width={[10]}>
+          <Flex
+            sx={{
+              flexDirection: ['column', 'column', 'row', 'row'],
+              gap: [4, 4, 6, 6],
+              justifyContent: 'space-between',
+              alignItems: ['stretch', 'flex-start'],
+            }}
+          >
+            <Maintainers maintainers={feedstock.maintainers} />
+            <License
+              license={feedstock.provenance?.license}
+              license_link={feedstock.provenance?.license_link}
+            />
+            <Repository metaURL={feedstock['ncviewjs:meta_yaml_url']} />
+            {/* <Providers providers={feedstock.provenance?.providers} /> */}
+          </Flex>
+        </Column>
+      </Row>
     </Box>
   )
 }
@@ -99,22 +187,20 @@ const FeedstockPage: React.FC = () => {
   }
 
   const feedstock = feedstocks.find((f) => f.slug === id)
+  console.log(feedstock)
 
   if (!feedstock) {
     return <Box>Feedstock not found</Box>
   }
 
   return (
-    <Box>
-      <Row columns={[6, 8, 12, 12]}>
-        <Column start={1} width={[6, 8, 12, 12]}>
-          <FeedstockHeader
-            title={feedstock.title}
-            thumbnail={feedstock.thumbnail}
-          />
-        </Column>
-      </Row>
-    </Box>
+    <Flex sx={{ flexDirection: 'column', gap: [4] }}>
+      <FeedstockHeader feedstock={feedstock} />
+      <FeedstockDescription feedstock={feedstock} />
+      <SectionDivider color={feedstock.color} />
+      <FeedstockDetails feedstock={feedstock} />
+      <SectionDivider color={feedstock.color} />
+    </Flex>
   )
 }
 
