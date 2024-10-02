@@ -1,8 +1,22 @@
+interface Rechunking {
+  path: string
+}
+
+interface Dataset {
+  id: string
+  name?: string
+  url: string
+  'ncviewjs:rechunking'?: Rechunking[]
+  public?: boolean
+  geospatial?: boolean
+}
+
 export interface Store {
   id: string
   name?: string
   url: string
   rechunking?: { [key: string]: string }[]
+  'ncviewjs:rechunking'?: Rechunking[]
   public?: boolean
   geospatial?: boolean
 }

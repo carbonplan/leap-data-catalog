@@ -5,7 +5,8 @@ import { Code } from '@carbonplan/prism'
 import AnimateHeight from 'react-animate-height'
 import { Box, Flex, Text } from 'theme-ui'
 import { TooltipWrapper } from '@/components/tooltip-wrapper'
-
+import { DataViewer } from '@/components/data-viewer'
+import { CodeSnippet } from '@/components/code-snippet'
 interface Rechunking {
   path: string
 }
@@ -68,8 +69,6 @@ const Store: React.FC<StoreProps> = ({ dataset, color }) => {
       ? ''
       : 'This dataset contains non-geospatial data not supported by the data viewer.'
 
-  const isActivated = dataset.public && dataset.geospatial
-
   return (
     <Flex
       sx={{ flexDirection: 'column', '& pre': { fontSize: '10px', my: 2 } }}
@@ -98,78 +97,7 @@ const Store: React.FC<StoreProps> = ({ dataset, color }) => {
         height={expanded ? 'auto' : 0}
         easing={'linear'}
       >
-        <Box
-          sx={{
-            position: 'relative',
-          }}
-        >
-          <Button
-            sx={{
-              color: color,
-              fontSize: [0, 0, 0, 1],
-              letterSpacing: 'mono',
-              textTransform: 'uppercase',
-              fontFamily: 'mono',
-              position: 'absolute',
-              mt: 2,
-              mr: 2,
-              right: 0,
-              top: 0,
-            }}
-            suffix={
-              copied ? (
-                <Check
-                  sx={{
-                    transform: ['translateY(-15%)'],
-                  }}
-                />
-              ) : (
-                <Down sx={{ transform: 'rotate(135deg) translateY(1px)' }} />
-              )
-            }
-            onClick={() => handleClick(url)}
-          >
-            {copied ? 'Copied' : 'Copy'}
-          </Button>
-
-          <Code language='python'>{getSnippet(url)}</Code>
-
-          <Button
-            href={`https://ncview-js.staging.carbonplan.org/?dataset=${
-              pyramid || url
-            }`}
-            target='_blank'
-            rel='noopener noreferrer'
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              if (!isActivated) {
-                e.preventDefault()
-              }
-            }}
-            suffix={
-              isActivated ? (
-                <RotatingArrow
-                  sx={{
-                    transform: ['translateY(-6%)'],
-                  }}
-                />
-              ) : (
-                <Arrow />
-              )
-            }
-            sx={{
-              fontSize: [0, 0, 0, 1],
-              letterSpacing: 'mono',
-              textTransform: 'uppercase',
-              fontFamily: 'mono',
-              mt: 3,
-              mb: 2,
-              cursor: isActivated ? 'pointer' : 'not-allowed',
-              color: isActivated ? color : 'secondary',
-            }}
-          >
-            Open in Data Viewer
-          </Button>
-        </Box>
+        <CodeSnippet url={url} color={color} />
       </AnimateHeight>
     </Flex>
   )

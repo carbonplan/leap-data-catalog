@@ -5,10 +5,11 @@ import { Column, Link, Row, Button } from '@carbonplan/components'
 import { useParams, useRouter } from 'next/navigation'
 import { Box, Spinner, Flex, Text } from 'theme-ui'
 import { Left } from '@carbonplan/icons'
-import { Feedstock } from '@/types/types'
+import { Feedstock, Store } from '@/types/types'
 import { Tags } from '@/components/feedstock/tags'
 import { alpha } from '@theme-ui/color'
 import { Divider } from '@/components/divider'
+import { DataViewer } from '@/components/data-viewer'
 
 import {
   License,
@@ -141,6 +142,93 @@ const FeedstockDescription: React.FC<{ feedstock: Feedstock }> = ({
   )
 }
 
+const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
+  store,
+  color,
+}) => {
+  return (
+    <Box sx={{ ml: 6 }}>
+      <Row columns={[12]}>
+        <Column start={[2]} width={[3]}>
+          <Text
+            sx={{
+              mr: [2],
+              color: color,
+              fontSize: [2, 2, 2, 3],
+              textTransform: 'uppercase',
+            }}
+          >
+            {store.name || store.id}
+          </Text>
+        </Column>
+        <Column start={5} width={[6]}>
+          <Flex sx={{ flexDirection: 'column', gap: 4 }}>
+            <Flex
+              sx={{
+                flexDirection: 'column',
+                gap: 2,
+              }}
+            >
+              <Text
+                sx={{
+                  color: 'muted',
+                  fontSize: 0,
+                  fontFamily: 'mono',
+                  letterSpacing: 'mono',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Data Viewer
+              </Text>
+              <DataViewer store={store} color={color} />
+            </Flex>
+
+            <Flex
+              sx={{
+                flexDirection: 'column',
+                gap: 2,
+              }}
+            >
+              <Text
+                sx={{
+                  color: 'muted',
+                  fontSize: 0,
+                  fontFamily: 'mono',
+                  letterSpacing: 'mono',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Load Dataset
+              </Text>
+              <DataViewer store={store} color={color} />
+            </Flex>
+
+            <Flex
+              sx={{
+                flexDirection: 'column',
+                gap: 2,
+              }}
+            >
+              <Text
+                sx={{
+                  color: 'muted',
+                  fontSize: 0,
+                  fontFamily: 'mono',
+                  letterSpacing: 'mono',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Metadata
+              </Text>
+              <DataViewer store={store} color={color} />
+            </Flex>
+          </Flex>
+        </Column>
+      </Row>
+    </Box>
+  )
+}
+
 const FeedstockDetails: React.FC<{ feedstock: Feedstock }> = ({
   feedstock,
 }) => {
@@ -200,6 +288,7 @@ const FeedstockPage: React.FC = () => {
       <SectionDivider color={feedstock.color} />
       <FeedstockDetails feedstock={feedstock} />
       <SectionDivider color={feedstock.color} />
+      <FeedstockStore store={feedstock.stores[0]} color={feedstock.color} />
     </Flex>
   )
 }
