@@ -14,7 +14,6 @@ function PageCard({ children }: { children: React.ReactNode }) {
       }}
     >
       <Guide />
-      <Header />
 
       <Box
         sx={{
@@ -22,6 +21,7 @@ function PageCard({ children }: { children: React.ReactNode }) {
           flex: '1 1 auto',
         }}
       >
+        <Header />
         {children}
       </Box>
       <Footer />

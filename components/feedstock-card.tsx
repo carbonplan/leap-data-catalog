@@ -111,7 +111,11 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
           >
             {' '}
             {/* @ts-ignore */}
-            <Box as={Link} href={`#${slug}`} sx={{ textDecoration: 'none' }}>
+            <Box
+              as={Link}
+              href={`/feedstock/${slug}`}
+              sx={{ textDecoration: 'none' }}
+            >
               {title}
             </Box>
           </Box>
