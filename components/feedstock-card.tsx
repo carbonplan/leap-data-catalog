@@ -40,31 +40,8 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
   const [isSelected, setIsSelected] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    // handle initial load
-    const handleInitialLoad = () => {
-      if (window.location.hash === `#${slug}`) {
-        setIsSelected(true)
-        cardRef.current?.scrollIntoView({ behavior: 'smooth' })
-        setTimeout(() => setIsSelected(false), 3000)
-      }
-    }
-
-    // handle subsequent hash changes
-    const handleHashChange = () => {
-      if (window.location.hash === `#${slug}`) {
-        setIsSelected(true)
-        setTimeout(() => setIsSelected(false), 3000)
-      }
-    }
-
-    handleInitialLoad()
-    window.addEventListener('hashchange', handleHashChange)
-    return () => window.removeEventListener('hashchange', handleHashChange)
-  }, [slug])
-
   const handleShare = () => {
-    const url = `${window.location.origin}${window.location.pathname}#${slug}`
+    const url = `${window.location.origin}${window.location.pathname}feedstock/${slug}`
     navigator.clipboard.writeText(url).then(() => {
       setIsCopied(true)
       setTimeout(() => setIsCopied(false), 2000)
@@ -110,9 +87,9 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
             }}
           >
             {' '}
-            {/* @ts-ignore */}
             <Box
               as={Link}
+              /* @ts-ignore */
               href={`/feedstock/${slug}`}
               sx={{ textDecoration: 'none' }}
             >
