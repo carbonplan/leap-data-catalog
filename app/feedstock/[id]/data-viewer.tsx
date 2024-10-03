@@ -1,7 +1,7 @@
+import { Store } from '@/types/types'
 import { Button } from '@carbonplan/components'
 import { Arrow, RotatingArrow } from '@carbonplan/icons'
 import React from 'react'
-import { Store } from '@/types/types'
 
 interface DataViewerProps {
   store: Store

@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
-import { Button, Expander } from '@carbonplan/components'
-import { RotatingArrow, Arrow, Check, Down } from '@carbonplan/icons'
+import { Button } from '@carbonplan/components'
+import { Check, Down } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
-import AnimateHeight from 'react-animate-height'
-import { Box, Flex, Text } from 'theme-ui'
-import { TooltipWrapper } from '@/components/tooltip-wrapper'
-import { DataViewer } from '@/components/data-viewer'
+import React, { useState } from 'react'
+import { Box } from 'theme-ui'
 
 const getSnippet = (url: string) => `
 import xarray as xr

@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
-import { Button, Expander } from '@carbonplan/components'
-import { RotatingArrow, Arrow, Check, Down } from '@carbonplan/icons'
-import { Code } from '@carbonplan/prism'
-import AnimateHeight from 'react-animate-height'
-import { Box, Flex, Text } from 'theme-ui'
+import { CodeSnippet } from '@/app/feedstock/[id]/code-snippet'
 import { TooltipWrapper } from '@/components/tooltip-wrapper'
-import { DataViewer } from '@/components/data-viewer'
-import { CodeSnippet } from '@/components/code-snippet'
+import { Button, Expander } from '@carbonplan/components'
+import React, { useState } from 'react'
+import AnimateHeight from 'react-animate-height'
+import { Flex, Text } from 'theme-ui'
 interface Rechunking {
   path: string
 }
