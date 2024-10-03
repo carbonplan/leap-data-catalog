@@ -1,17 +1,10 @@
 'use client'
 
-import {
-  License,
-  Links,
-  Maintainers,
-  Repository,
-  Stores,
-  Thumbnail,
-} from '@/components/feedstock'
+import { License, Maintainers, Thumbnail } from '@/components/feedstock'
 import { Feedstock } from '@/types/types'
 import { Button, Link } from '@carbonplan/components'
 import { alpha } from '@theme-ui/color'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { FaShare } from 'react-icons/fa'
 import { Box, Flex } from 'theme-ui'
 
@@ -118,10 +111,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
         </Flex>
 
         <Box sx={{ fontSize: [2, 2, 2, 3], mb: 2, py: [1] }}>{description}</Box>
-        {links && <Links links={links} />}
-        {stores && stores.length > 0 && (
-          <Stores stores={stores} color={color} />
-        )}
+
         <Flex
           sx={{
             flexDirection: 'column',
@@ -132,7 +122,6 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
         >
           <License license={license} license_link={license_link} />
           <Maintainers maintainers={maintainers} />
-          <Repository metaURL={meta_yaml_url} />
         </Flex>
       </Box>
     </Box>
