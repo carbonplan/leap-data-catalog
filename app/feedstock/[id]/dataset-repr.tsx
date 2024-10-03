@@ -58,16 +58,18 @@ export const DatasetRepr: React.FC<DatasetReprProps> = ({ url }) => {
   return (
     <>
       <Card sx={{ p: 3, borderRadius: 'default', width: '100%' }}>
-        <Box
-          dangerouslySetInnerHTML={{ __html: data?.html }}
-          sx={{
-            overflowY: 'auto',
-            borderColor: 'muted',
-            borderRadius: 'default',
-            p: 2,
-            width: '100%',
-          }}
-        />
+        {data?.html ? (
+          <Box
+            dangerouslySetInnerHTML={{ __html: data?.html }}
+            sx={{
+              overflowY: 'auto',
+              borderColor: 'muted',
+              borderRadius: 'default',
+              p: 2,
+              width: '100%',
+            }}
+          />
+        ) : null}
       </Card>
     </>
   )

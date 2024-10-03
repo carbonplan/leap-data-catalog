@@ -18,6 +18,7 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
     >
       <Box
         as='img'
+        // @ts-ignore
         src={feedstock.thumbnail}
         alt={`${feedstock.title} thumbnail`}
         sx={{

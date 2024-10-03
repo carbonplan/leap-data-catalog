@@ -41,12 +41,13 @@ const FeedstockPage: React.FC = () => {
       <FeedstockDetails feedstock={feedstock} />
       <SectionDivider color={feedstock.color} />
 
-      {feedstock.stores.map((store, index) => (
-        <>
-          <FeedstockStore key={index} store={store} color={feedstock.color} />{' '}
-          <SectionDivider color={feedstock.color} />
-        </>
-      ))}
+      {feedstock.stores &&
+        feedstock.stores.map((store, index) => (
+          <>
+            <FeedstockStore key={index} store={store} color={feedstock.color} />{' '}
+            <SectionDivider color={feedstock.color} />
+          </>
+        ))}
     </Flex>
   )
 }
