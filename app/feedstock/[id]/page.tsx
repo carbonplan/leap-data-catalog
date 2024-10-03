@@ -43,10 +43,10 @@ const FeedstockPage: React.FC = () => {
 
       {feedstock.stores &&
         feedstock.stores.map((store, index) => (
-          <>
-            <FeedstockStore key={index} store={store} color={feedstock.color} />{' '}
-            <SectionDivider color={feedstock.color} />
-          </>
+          <div key={index}>
+            <FeedstockStore store={store} color={feedstock.color} />{' '}
+            <SectionDivider key={index} color={feedstock.color} />
+          </div>
         ))}
     </Flex>
   )

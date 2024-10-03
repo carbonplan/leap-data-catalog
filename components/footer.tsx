@@ -4,7 +4,7 @@ import { GitSHA } from '@/components/git-sha'
 
 export const Footer = () => {
   return (
-    <Box as='footer' sx={{ bg: 'hinted', py: 4 }}>
+    <Box as='footer' sx={{ bg: 'hinted', py: 4, mt: 4 }}>
       <Container>
         <Flex
           sx={{
