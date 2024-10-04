@@ -11,17 +11,13 @@ function PageCard({ children }: { children: React.ReactNode }) {
       sx={{
         flexDirection: 'column',
         minHeight: '100vh',
+        justifyContent: 'space-between',
+        gap: 0,
       }}
     >
       <Guide />
-
-      <Box
-        sx={{
-          width: '100%',
-          flex: '1 1 auto',
-        }}
-      >
-        <Header />
+      <Box>
+        {/* <Header /> */}
         {children}
       </Box>
       <Footer />
