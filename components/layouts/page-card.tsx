@@ -17,7 +17,7 @@ function PageCard({ children }: { children: React.ReactNode }) {
     >
       <Guide />
       <Box>
-        {/* <Header /> */}
+        <Header />
         {children}
       </Box>
       <Footer />

@@ -42,27 +42,45 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
         sx={{
           position: 'absolute',
           top: 0,
-          left: [3, 4, 5, 6],
+          left: 0,
           right: 0,
           bottom: 0,
-          display: 'flex',
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gridTemplateRows: '1fr',
           alignItems: 'center',
         }}
       >
-        <Row columns={[6, 6, 12, 12]} sx={{ width: '100%' }}>
-          <Column start={1} width={[1]}>
-            <BackButton sx={{ color: 'white' }} />
-          </Column>
-
-          <Column start={[1, 1, 2, 2]} width={[6, 6, 8, 8]}>
+        <Row columns={[6, 6, 8, 12]} sx={{ width: '100%' }}>
+          <Column start={1} width={[6, 6, 8, 12]}>
             <Box
-              as='h1'
-              variant='styles.h1'
               sx={{
-                color: 'white',
+                display: 'grid',
+                gridTemplateColumns: ['1fr', 'auto 1fr'],
+                gridTemplateRows: ['auto auto', '1fr'],
+                gap: [3, 4, 7, 8],
+                mx: [3, 4, 5, 6],
+                alignItems: 'center',
               }}
             >
-              {feedstock.title}
+              <BackButton
+                sx={{
+                  color: 'white',
+                  justifySelf: ['start', 'center'],
+                }}
+              />
+              <Box
+                as='h2'
+                variant='styles.h2'
+                sx={{
+                  color: 'white',
+                  margin: 0,
+                  fontSize: ['24px', '28px', '32px', '36px'],
+                  lineHeight: 1.2,
+                }}
+              >
+                {feedstock.title}
+              </Box>
             </Box>
           </Column>
         </Row>
