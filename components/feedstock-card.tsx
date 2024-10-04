@@ -21,7 +21,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
     return text.slice(0, maxLength).trim() + '...'
   }
 
-  const truncatedDescription = truncateDescription(description, 240)
+  const truncatedDescription = truncateDescription(description, 200)
 
   return (
     <Link href={`/feedstock/${slug}`} passHref legacyBehavior>
@@ -31,19 +31,17 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
           textDecoration: 'none',
           color: 'inherit',
           display: 'block',
-          height: '100%', // Ensure full height
+          height: '100%',
         }}
       >
         <Box
           id={slug}
           sx={{
-            height: '100%', // Ensure full height
+            height: '100%',
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
             transition: 'all 0.3s ease',
-            padding: 3,
-            borderRadius: 'default',
             ':hover': {
               backgroundColor: alpha(color, 0.05),
             },

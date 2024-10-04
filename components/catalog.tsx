@@ -54,20 +54,9 @@ const FeedstockList = ({
   }
 
   return (
-    <Row>
+    <Row columns={[1, 2, 3, 3]} gap={[4, 5, 5, 6]} sx={{ gridAutoRows: '1fr' }}>
       {filteredFeedstocks.map((feedstock, index) => (
-        <Column
-          key={feedstock.title}
-          start={[
-            1,
-            (index % 2) * 4 + 1,
-            (index % 3) * 4 + 1,
-            (index % 3) * 4 + 1,
-          ]}
-          width={[6, 4, 4, 4]}
-        >
-          <FeedstockCard feedstock={feedstock} />
-        </Column>
+        <FeedstockCard key={feedstock.title} feedstock={feedstock} />
       ))}
     </Row>
   )
@@ -79,9 +68,9 @@ export const Catalog = () => {
 
   const isProduction = process.env.NODE_ENV === 'production'
 
-  const catalogUrl = !isProduction
-    ? (searchParams.get('catalog') ?? undefined)
-    : undefined
+  const catalogUrl = isProduction
+    ? undefined
+    : (searchParams.get('catalog') ?? undefined)
 
   return (
     <Box as='section' py={10}>

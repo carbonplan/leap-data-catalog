@@ -23,8 +23,8 @@ export function Divider({ color = 'gray', sx = {} }: DividerProps) {
 export const SectionDivider: React.FC<{ color: string }> = ({ color }) => {
   return (
     <>
-      <Row columns={[12]}>
-        <Column start={[2]} width={[10]}>
+      <Row columns={[6, 6, 8, 12]}>
+        <Column start={[1, 1, 1, 2]} width={[6, 6, 8, 10]}>
           <Divider color={color} />
         </Column>
       </Row>
