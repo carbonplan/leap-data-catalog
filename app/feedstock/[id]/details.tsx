@@ -1,4 +1,9 @@
-import { License, Maintainers, Repository } from '@/components/feedstock'
+import {
+  License,
+  Maintainers,
+  Repository,
+  Providers,
+} from '@/components/feedstock'
 import { Feedstock } from '@/types/types'
 import { Column, Row } from '@carbonplan/components'
 import { Box, Flex } from 'theme-ui'
@@ -24,6 +29,7 @@ export const FeedstockDetails: React.FC<{ feedstock: Feedstock }> = ({
               license_link={feedstock.provenance?.license_link}
             />
             <Repository metaURL={feedstock['ncviewjs:meta_yaml_url']} />
+            <Providers providers={feedstock.provenance?.providers} />
           </Flex>
         </Column>
       </Row>

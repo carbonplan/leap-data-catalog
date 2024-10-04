@@ -1,5 +1,6 @@
-import { Link } from '@carbonplan/components'
-import { Flex, Text } from 'theme-ui'
+import { Button, Link } from '@carbonplan/components'
+import { RotatingArrow } from '@carbonplan/icons'
+import { Box, Grid, Text } from 'theme-ui'
 
 interface RepositoryProps {
   metaURL?: string
@@ -14,21 +15,14 @@ function getOrgAndRepo(url: string): string {
 
 export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
   if (!metaURL) {
-    return null // Or you could return a placeholder component
+    return null
   }
 
   const orgAndRepo = getOrgAndRepo(metaURL)
   const githubUrl = `https://github.com/${orgAndRepo}`
 
   return (
-    <Flex
-      sx={{
-        flexDirection: 'column',
-        gap: 2,
-        justifyContent: 'space-between',
-        mt: 4,
-      }}
-    >
+    <Box mt={3}>
       <Text
         sx={{
           color: 'muted',
@@ -38,21 +32,20 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
           textTransform: 'uppercase',
         }}
       >
-        Repository
+        Repository:
       </Text>
-      <Flex sx={{ flexDirection: 'row', gap: 2 }}>
-        <Link
+      <Grid gap={2} columns={[1]} sx={{ mt: 1 }}>
+        <Button
+          size='xs'
+          suffix={<RotatingArrow />}
+          as={Link}
           href={githubUrl}
           target='_blank'
           rel='noopener noreferrer'
-          sx={{
-            textDecoration: 'none',
-            fontSize: [2, 2, 2, 3],
-          }}
         >
           {orgAndRepo}
-        </Link>
-      </Flex>
-    </Flex>
+        </Button>
+      </Grid>
+    </Box>
   )
 }
