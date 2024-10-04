@@ -13,7 +13,7 @@ const labelStyle = {
   fontFamily: 'mono',
   letterSpacing: 'mono',
   textTransform: 'uppercase',
-  mb: 2,
+  //mb: 2,
 }
 
 export const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
@@ -33,7 +33,7 @@ export const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
       <Row columns={[6, 6, 8, 12]}>
         <Column start={[1, 1, 2, 2]} width={[6, 6, 6, 10]}>
           <Grid columns={[1, 1, 2, 2]}>
-            <Box>
+            <Box sx={{ mb: 2 }}>
               <TooltipWrapper
                 tooltip={tooltipContent}
                 color={color}
@@ -45,7 +45,6 @@ export const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
                     color: color,
                     fontSize: [2, 2, 2, 3],
                     textTransform: 'uppercase',
-                    mb: 2,
                   }}
                 >
                   {store.name || store.id}
