@@ -2,10 +2,19 @@ import { TooltipWrapper } from '@/components/tooltip-wrapper'
 import { Store } from '@/types/types'
 import { Column, Row } from '@carbonplan/components'
 import React, { useState } from 'react'
-import { Box, Flex, Text } from 'theme-ui'
+import { Box, Grid, Text } from 'theme-ui'
 import { CodeSnippet } from './code-snippet'
 import { DataViewer } from './data-viewer'
 import { DatasetRepr } from './dataset-repr'
+
+const labelStyle = {
+  color: 'muted',
+  fontSize: 0,
+  fontFamily: 'mono',
+  letterSpacing: 'mono',
+  textTransform: 'uppercase',
+  mb: 2,
+}
 
 export const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
   store,
@@ -21,57 +30,10 @@ export const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
 
   return (
     <Box sx={{ ml: [3, 4, 5, 6] }}>
-      <Row columns={[1, 1, 12, 12]}>
-        <Column start={[1, 1, 2, 2]} width={[1, 1, 3, 3]}>
-          <TooltipWrapper
-            tooltip={tooltipContent}
-            color={color}
-            expanded={!store.public && tooltipExpanded}
-            setExpanded={setTooltipExpanded}
-          >
-            <Text
-              sx={{
-                mr: [2],
-                color: color,
-                fontSize: [2, 2, 2, 3],
-                textTransform: 'uppercase',
-              }}
-            >
-              {store.name || store.id}
-            </Text>
-          </TooltipWrapper>
-        </Column>
-        <Column start={[1, 1, 5, 5]} width={[1, 1, 5, 5]}>
-          <Flex sx={{ flexDirection: ['column'], gap: 4, mt: [6, 6, 0, 0] }}>
-            <Flex sx={{ flexDirection: 'column', gap: 2 }}>
-              <Text
-                sx={{
-                  color: 'muted',
-                  fontSize: 0,
-                  fontFamily: 'mono',
-                  letterSpacing: 'mono',
-                  textTransform: 'uppercase',
-                }}
-              >
-                Data Viewer
-              </Text>
-              <DataViewer store={store} color={color} />
-            </Flex>
-            <Flex sx={{ flexDirection: 'column', gap: 2 }}>
-              <Text
-                sx={{
-                  color: 'muted',
-                  fontSize: 0,
-                  fontFamily: 'mono',
-                  letterSpacing: 'mono',
-                  textTransform: 'uppercase',
-                }}
-              >
-                Load Dataset
-              </Text>
-              <CodeSnippet url={store.url} color={color} />
-            </Flex>
-            <Flex sx={{ flexDirection: 'column', gap: 2 }}>
+      <Row columns={[6, 6, 8, 12]}>
+        <Column start={[1, 1, 2, 2]} width={[6, 6, 6, 10]}>
+          <Grid columns={[1, 1, 2, 2]}>
+            <Box>
               <TooltipWrapper
                 tooltip={tooltipContent}
                 color={color}
@@ -80,19 +42,53 @@ export const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
               >
                 <Text
                   sx={{
-                    color: 'muted',
-                    fontSize: 0,
-                    fontFamily: 'mono',
-                    letterSpacing: 'mono',
+                    color: color,
+                    fontSize: [2, 2, 2, 3],
                     textTransform: 'uppercase',
+                    mb: 2,
                   }}
                 >
-                  Metadata
+                  {store.name || store.id}
                 </Text>
               </TooltipWrapper>
-              <DatasetRepr url={store.url} />
-            </Flex>
-          </Flex>
+            </Box>
+            <Box>
+              <Box>
+                <Text
+                  // @ts-ignore
+                  sx={labelStyle}
+                >
+                  Data Viewer
+                </Text>
+                <DataViewer store={store} color={color} />
+              </Box>
+              <Box>
+                <Text
+                  // @ts-ignore
+                  sx={labelStyle}
+                >
+                  Load Dataset
+                </Text>
+                <CodeSnippet url={store.url} color={color} />
+              </Box>
+              <Box>
+                <TooltipWrapper
+                  tooltip={tooltipContent}
+                  color={color}
+                  expanded={!store.public && tooltipExpanded}
+                  setExpanded={setTooltipExpanded}
+                >
+                  <Text
+                    // @ts-ignore
+                    sx={labelStyle}
+                  >
+                    Metadata
+                  </Text>
+                </TooltipWrapper>
+                <DatasetRepr url={store.url} />
+              </Box>
+            </Box>
+          </Grid>
         </Column>
       </Row>
     </Box>
