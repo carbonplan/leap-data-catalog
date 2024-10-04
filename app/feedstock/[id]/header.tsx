@@ -57,11 +57,9 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
           <Column start={[1, 1, 2, 2]} width={[6, 6, 8, 8]}>
             <Box
               as='h1'
+              variant='styles.h1'
               sx={{
-                fontSize: [3, 4, 5, 6],
-                fontFamily: 'heading',
                 color: 'white',
-                mt: [6, 6, 3, 3],
               }}
             >
               {feedstock.title}
