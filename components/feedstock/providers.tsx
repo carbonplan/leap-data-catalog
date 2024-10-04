@@ -9,7 +9,7 @@ interface ProvidersProps {
 
 export const Providers: React.FC<ProvidersProps> = ({ providers }) => {
   return (
-    <Box mt={3}>
+    <Box>
       <Text
         sx={{
           color: 'muted',
@@ -19,9 +19,9 @@ export const Providers: React.FC<ProvidersProps> = ({ providers }) => {
           textTransform: 'uppercase',
         }}
       >
-        Providers:
+        Providers
       </Text>
-      <Grid gap={2} columns={[1]} sx={{ mt: 1 }}>
+      <Grid gap={2} columns={[1]} sx={{ mt: 3 }}>
         {providers.map((provider) => (
           <Button
             size='xs'
@@ -31,6 +31,7 @@ export const Providers: React.FC<ProvidersProps> = ({ providers }) => {
             href={provider.url}
             target='_blank'
             rel='noopener noreferrer'
+            sx={{ textDecoration: 'none' }}
           >
             {provider.description}
           </Button>

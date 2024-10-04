@@ -22,7 +22,7 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
   const githubUrl = `https://github.com/${orgAndRepo}`
 
   return (
-    <Box mt={3}>
+    <Box>
       <Text
         sx={{
           color: 'muted',
@@ -32,20 +32,20 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
           textTransform: 'uppercase',
         }}
       >
-        Repository:
+        Repository
       </Text>
-      <Grid gap={2} columns={[1]} sx={{ mt: 1 }}>
-        <Button
-          size='xs'
-          suffix={<RotatingArrow />}
-          as={Link}
-          href={githubUrl}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          {orgAndRepo}
-        </Button>
-      </Grid>
+
+      <Button
+        size='xs'
+        suffix={<RotatingArrow />}
+        as={Link}
+        href={githubUrl}
+        target='_blank'
+        rel='noopener noreferrer'
+        sx={{ mt: 3 }}
+      >
+        {orgAndRepo}
+      </Button>
     </Box>
   )
 }
