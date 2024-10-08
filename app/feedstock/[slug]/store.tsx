@@ -1,3 +1,4 @@
+'use client'
 import { TooltipWrapper } from '@/components/tooltip-wrapper'
 import { Store } from '@/types/types'
 import { Column, Row } from '@carbonplan/components'

@@ -1,3 +1,4 @@
+'use client'
 import { Store } from '@/types/types'
 import { Button } from '@carbonplan/components'
 import { Arrow, RotatingArrow } from '@carbonplan/icons'

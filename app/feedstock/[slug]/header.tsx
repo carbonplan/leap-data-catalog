@@ -1,3 +1,4 @@
+'use client'
 import { BackButton } from '@/components/back-button'
 import { Feedstock } from '@/types/types'
 import { Column, Row } from '@carbonplan/components'

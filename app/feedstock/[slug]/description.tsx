@@ -1,3 +1,4 @@
+'use client'
 import { Links } from '@/components/feedstock'
 import { Tags } from '@/components/feedstock/tags'
 import { Feedstock } from '@/types/types'

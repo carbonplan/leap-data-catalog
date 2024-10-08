@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@carbonplan/components'
 import { Left } from '@carbonplan/icons'
 import { useRouter } from 'next/navigation'
