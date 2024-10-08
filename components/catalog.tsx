@@ -2,22 +2,18 @@
 
 import { FeedstockCard } from '@/components/feedstock-card'
 import { SearchBox } from '@/components/search-box'
-import { useFeedstocks } from '@/hooks/useFeedstocks'
 import { Feedstock } from '@/types/types'
 import { Column, Row } from '@carbonplan/components'
-import { useSearchParams } from 'next/navigation'
-import { useMemo, useState, Suspense } from 'react'
-import { Box, Text } from 'theme-ui'
+import { Suspense, useMemo, useState } from 'react'
+import { Box, Text, Container } from 'theme-ui'
 
 const FeedstockList = ({
-  catalogUrl,
+  feedstocks,
   search,
 }: {
-  catalogUrl?: string
+  feedstocks: Feedstock[]
   search: string
 }) => {
-  const { feedstocks, error } = useFeedstocks(catalogUrl)
-
   const filteredFeedstocks = useMemo(() => {
     if (!feedstocks || feedstocks.length === 0) {
       return []
@@ -37,14 +33,6 @@ const FeedstockList = ({
     )
   }, [feedstocks, search])
 
-  if (error) {
-    return (
-      <div style={{ color: 'red', fontWeight: 'bold' }}>
-        🚨 Error loading feedstocks from catalog - {error.message}
-      </div>
-    )
-  }
-
   if (!feedstocks || feedstocks.length === 0) {
     return <Box />
   }
@@ -62,41 +50,50 @@ const FeedstockList = ({
   )
 }
 
-export const Catalog = () => {
-  const searchParams = useSearchParams()
+type CatalogProps = {
+  feedstocks: Feedstock[]
+  error?: Error
+}
+
+export const Catalog = ({ feedstocks, error }: CatalogProps) => {
   const [search, setSearch] = useState('')
 
-  const isProduction = process.env.NODE_ENV === 'production'
-
-  const catalogUrl = isProduction
-    ? undefined
-    : (searchParams.get('catalog') ?? undefined)
-
+  if (error) {
+    return (
+      <div style={{ color: 'red', fontWeight: 'bold' }}>
+        🚨 Error loading feedstocks from catalog - {error.message}
+      </div>
+    )
+  }
   return (
-    <Box as='section' py={10}>
-      <Row columns={[6, 8, 12, 12]} sx={{ mb: 6 }}>
-        <Column start={1} width={[6, 4, 4, 4]}>
-          <Text
-            sx={{
-              color: 'primary',
-              fontSize: [4, 4, 4, 6],
-              fontFamily: 'heading',
-              width: '100%',
-            }}
-          >
-            Data Catalog
-          </Text>
-        </Column>
-        <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]} sx={{ mt: 4 }}>
-          <SearchBox search={search} setSearch={setSearch} />
-        </Column>
-      </Row>
+    <Box>
+      <Container>
+        <Box as='section' py={10}>
+          <Row columns={[6, 8, 12, 12]} sx={{ mb: 6 }}>
+            <Column start={1} width={[6, 4, 4, 4]}>
+              <Text
+                sx={{
+                  color: 'primary',
+                  fontSize: [4, 4, 4, 6],
+                  fontFamily: 'heading',
+                  width: '100%',
+                }}
+              >
+                Data Catalog
+              </Text>
+            </Column>
+            <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]} sx={{ mt: 4 }}>
+              <SearchBox search={search} setSearch={setSearch} />
+            </Column>
+          </Row>
 
-      <Box mt={3}>
-        <Suspense fallback={<Box />}>
-          <FeedstockList catalogUrl={catalogUrl} search={search} />
-        </Suspense>
-      </Box>
+          <Box mt={3}>
+            <Suspense fallback={<Box />}>
+              <FeedstockList feedstocks={feedstocks} search={search} />
+            </Suspense>
+          </Box>
+        </Box>
+      </Container>
     </Box>
   )
 }

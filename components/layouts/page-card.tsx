@@ -1,7 +1,7 @@
 'use client'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
-import { Box, Flex } from 'theme-ui'
+import { Box, Flex, Container } from 'theme-ui'
 
 import { Guide } from '@carbonplan/components'
 
@@ -18,6 +18,7 @@ function PageCard({ children }: { children: React.ReactNode }) {
       <Guide />
       <Box>
         <Header />
+
         {children}
       </Box>
       <Footer />

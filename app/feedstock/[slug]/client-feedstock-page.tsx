@@ -1,5 +1,3 @@
-// app/feedstock/[slug]/ClientFeedstockPage.tsx
-
 'use client'
 
 import { SectionDivider } from '@/components/divider'
