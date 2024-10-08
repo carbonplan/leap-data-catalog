@@ -12,7 +12,7 @@ import { FeedstockHeader } from './header'
 import { FeedstockStore } from './store'
 
 const FeedstockPage: React.FC = () => {
-  const { id } = useParams() as { id: string }
+  const { slug } = useParams() as { slug: string }
   const { feedstocks, error } = useFeedstocks()
 
   if (error) {
@@ -27,7 +27,7 @@ const FeedstockPage: React.FC = () => {
     )
   }
 
-  const feedstock = feedstocks.find((f) => f.slug === id)
+  const feedstock = feedstocks.find((f) => f.slug === slug)
 
   if (!feedstock) {
     return <Box>Feedstock not found</Box>

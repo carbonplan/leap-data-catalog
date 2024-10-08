@@ -13,7 +13,6 @@ const labelStyle = {
   fontFamily: 'mono',
   letterSpacing: 'mono',
   textTransform: 'uppercase',
-  //mb: 2,
 }
 
 export const FeedstockStore: React.FC<{ store: Store; color: string }> = ({

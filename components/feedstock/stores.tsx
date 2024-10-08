@@ -1,4 +1,4 @@
-import { CodeSnippet } from '@/app/feedstock/[id]/code-snippet'
+import { CodeSnippet } from '@/app/feedstock/[slug]/code-snippet'
 import { TooltipWrapper } from '@/components/tooltip-wrapper'
 import { Button, Expander } from '@carbonplan/components'
 import React, { useState } from 'react'
