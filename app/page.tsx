@@ -1,6 +1,6 @@
-import { getFeedstocks } from '@/app/get-feedstocks'
-import { notFound } from 'next/navigation'
 import { Catalog } from '@/components/catalog'
+import { getFeedstocks } from '@/utils/get-feedstocks'
+import { notFound } from 'next/navigation'
 
 type SearchParams = {
   catalogUrl?: string

@@ -1,4 +1,4 @@
-import { getFeedstocks } from '@/app/get-feedstocks'
+import { getFeedstocks } from '@/utils/get-feedstocks'
 import { notFound } from 'next/navigation'
 import ClientFeedstockPage from './client-feedstock-page'
 
