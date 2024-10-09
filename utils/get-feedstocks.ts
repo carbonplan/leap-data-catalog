@@ -6,8 +6,8 @@ import { getThumbnail } from '@/utils/thumbnail'
 const defaultCatalogUrl =
   'https://raw.githubusercontent.com/leap-stc/data-management/main/catalog/output/consolidated-web-catalog.json'
 
-export async function getFeedstocks(catalogUrl?: string): Promise<Feedstock[]> {
-  const url = catalogUrl || defaultCatalogUrl
+export async function getFeedstocks(catalog?: string): Promise<Feedstock[]> {
+  const url = catalog || defaultCatalogUrl
 
   try {
     const res = await fetch(url, { next: { revalidate: 3600 } })

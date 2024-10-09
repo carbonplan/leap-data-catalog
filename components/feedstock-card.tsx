@@ -8,9 +8,14 @@ import { Box, Flex, Text } from 'theme-ui'
 
 interface FeedstockCardProps {
   feedstock: Feedstock
+  catalog?: string
 }
 
-export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
+export const FeedstockCard: React.FC<FeedstockCardProps> = ({
+  feedstock,
+  catalog,
+}) => {
+  console.log('feedstock-catalog', catalog)
   const { slug, description, provenance, tags, thumbnail, color, title } =
     feedstock
 
@@ -24,7 +29,13 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
   const truncatedDescription = truncateDescription(description, 200)
 
   return (
-    <Link href={`/feedstock/${slug}`} passHref legacyBehavior>
+    <Link
+      href={
+        catalog ? `/feedstock/${slug}?catalog=${catalog}` : `/feedstock/${slug}`
+      }
+      passHref
+      legacyBehavior
+    >
       <Box
         as='a'
         sx={{

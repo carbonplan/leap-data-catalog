@@ -3,7 +3,7 @@ import { getFeedstocks } from '@/utils/get-feedstocks'
 import { notFound } from 'next/navigation'
 
 type SearchParams = {
-  catalogUrl?: string
+  catalog?: string
   [key: string]: string | string[] | undefined
 }
 
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export default async function HomePage({ searchParams }: Props) {
-  const catalog = searchParams.catalogUrl
+  const catalog = searchParams.catalog
   try {
     const feedstocks = catalog
       ? await getFeedstocks(catalog)
@@ -22,7 +22,7 @@ export default async function HomePage({ searchParams }: Props) {
       notFound()
     }
 
-    return <Catalog feedstocks={feedstocks} />
+    return <Catalog feedstocks={feedstocks} catalog={catalog} />
   } catch (error) {
     throw new Error(`${error}`)
   }

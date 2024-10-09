@@ -10,9 +10,11 @@ import { Box, Text, Container } from 'theme-ui'
 const FeedstockList = ({
   feedstocks,
   search,
+  catalog,
 }: {
   feedstocks: Feedstock[]
   search: string
+  catalog?: string
 }) => {
   const filteredFeedstocks = useMemo(() => {
     if (!feedstocks || feedstocks.length === 0) {
@@ -44,7 +46,11 @@ const FeedstockList = ({
   return (
     <Row columns={[1, 2, 3, 3]} gap={[4, 5, 5, 6]} sx={{ gridAutoRows: '1fr' }}>
       {filteredFeedstocks.map((feedstock, index) => (
-        <FeedstockCard key={feedstock.title} feedstock={feedstock} />
+        <FeedstockCard
+          key={feedstock.title}
+          feedstock={feedstock}
+          catalog={catalog}
+        />
       ))}
     </Row>
   )
@@ -53,9 +59,10 @@ const FeedstockList = ({
 type CatalogProps = {
   feedstocks: Feedstock[]
   error?: Error
+  catalog?: string
 }
 
-export const Catalog = ({ feedstocks, error }: CatalogProps) => {
+export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
   const [search, setSearch] = useState('')
 
   if (error) {
@@ -89,7 +96,11 @@ export const Catalog = ({ feedstocks, error }: CatalogProps) => {
 
           <Box mt={3}>
             <Suspense fallback={<Box />}>
-              <FeedstockList feedstocks={feedstocks} search={search} />
+              <FeedstockList
+                feedstocks={feedstocks}
+                search={search}
+                catalog={catalog}
+              />
             </Suspense>
           </Box>
         </Box>

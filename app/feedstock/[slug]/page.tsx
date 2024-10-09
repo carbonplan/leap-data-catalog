@@ -11,8 +11,8 @@ export async function generateStaticParams() {
   }))
 }
 
-async function getFeedstock(slug: string) {
-  const feedstocks = await getFeedstocks()
+async function getFeedstock(slug: string, catalog?: string) {
+  const feedstocks = await getFeedstocks(catalog)
   return feedstocks.find((f) => f.slug === slug)
 }
 
@@ -44,10 +44,14 @@ async function getDatasetReprs(
 
 export default async function FeedstockPage({
   params,
+  searchParams,
 }: {
   params: { slug: string }
+  searchParams: { catalog?: string }
 }) {
-  const feedstock = await getFeedstock(params.slug)
+  const { slug } = params
+  const { catalog } = searchParams
+  const feedstock = await getFeedstock(slug, catalog)
 
   if (!feedstock) {
     notFound()
