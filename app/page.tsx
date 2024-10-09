@@ -24,6 +24,6 @@ export default async function HomePage({ searchParams }: Props) {
 
     return <Catalog feedstocks={feedstocks} />
   } catch (error) {
-    throw new Error('Failed to fetch feedstocks')
+    throw new Error(`${error}`)
   }
 }

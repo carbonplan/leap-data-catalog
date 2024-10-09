@@ -29,7 +29,9 @@ export default function Error({
         <Heading as='h1' sx={{ fontSize: 6, mb: 3, color: 'primary' }}>
           Oops! Something went wrong
         </Heading>
-        <Text sx={{ fontSize: 3, mb: 4 }}>{error.digest && `${error}`}</Text>
+        <Text sx={{ fontSize: 3, mb: 4 }}>
+          {error.digest && `${error.message}`}
+        </Text>
       </Box>
     </Flex>
   )

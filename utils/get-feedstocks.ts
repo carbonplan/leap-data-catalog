@@ -9,18 +9,24 @@ const defaultCatalogUrl =
 export async function getFeedstocks(catalogUrl?: string): Promise<Feedstock[]> {
   const url = catalogUrl || defaultCatalogUrl
 
-  const res = await fetch(url, { next: { revalidate: 3600 } })
+  try {
+    const res = await fetch(url, { next: { revalidate: 3600 } })
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch feedstocks')
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch feedstocks: ${res.status} ${res.statusText}`,
+      )
+    }
+
+    const feedstocks: Feedstock[] = await res.json()
+
+    return feedstocks.map((feedstock) => ({
+      ...feedstock,
+      slug: feedstock.slug || slugify(feedstock.title),
+      color: getColor(feedstock.title),
+      thumbnail: feedstock.thumbnail || getThumbnail(feedstock.title),
+    }))
+  } catch (error) {
+    throw new Error(`Failed to fetch feedstocks: ${error}`)
   }
-
-  const feedstocks: Feedstock[] = await res.json()
-
-  return feedstocks.map((feedstock) => ({
-    ...feedstock,
-    slug: feedstock.slug || slugify(feedstock.title),
-    color: getColor(feedstock.title),
-    thumbnail: feedstock.thumbnail || getThumbnail(feedstock.title),
-  }))
 }
