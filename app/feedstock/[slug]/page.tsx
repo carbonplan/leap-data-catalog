@@ -16,12 +16,14 @@ async function getFeedstock(slug: string) {
   return feedstocks.find((f) => f.slug === slug)
 }
 
-async function getDatasetReprs(stores: Store[]) {
+async function getDatasetReprs(
+  stores: Store[],
+): Promise<Record<string, { repr: any; error: string | null }>> {
   const datasetReprs = await Promise.all(
     stores.map(async (store) => {
       try {
         const repr = await getDatasetRepr(store.url)
-        return { storeId: store.id, repr }
+        return { storeId: store.id, repr, error: null }
       } catch (error) {
         console.error(
           `Error fetching dataset repr for store ${store.id}:`,
@@ -29,6 +31,7 @@ async function getDatasetReprs(stores: Store[]) {
         )
         return {
           storeId: store.id,
+          repr: null,
           error: error instanceof Error ? error.message : 'Unknown error',
         }
       }
