@@ -16,10 +16,11 @@ const labelStyle = {
   textTransform: 'uppercase',
 }
 
-export const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
-  store,
-  color,
-}) => {
+export const FeedstockStore: React.FC<{
+  store: Store
+  color: string
+  datasetRepr: { repr: any; error: string | null }
+}> = ({ store, color, datasetRepr }) => {
   const [tooltipExpanded, setTooltipExpanded] = useState(false)
 
   const tooltipContent = !store.public
@@ -84,7 +85,10 @@ export const FeedstockStore: React.FC<{ store: Store; color: string }> = ({
                     Metadata
                   </Text>
                 </TooltipWrapper>
-                <DatasetRepr url={store.url} />
+                <DatasetRepr
+                  data={datasetRepr.repr}
+                  error={datasetRepr.error}
+                />
               </Box>
             </Box>
           </Grid>

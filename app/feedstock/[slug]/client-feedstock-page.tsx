@@ -12,10 +12,12 @@ import { FeedstockStore } from './store'
 
 interface ClientFeedstockPageProps {
   feedstock: Feedstock
+  datasetReprs: Record<string, { repr: any; error: string | null }>
 }
 
 const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
   feedstock,
+  datasetReprs,
 }) => {
   return (
     <Flex sx={{ flexDirection: 'column', gap: [4] }}>
@@ -27,8 +29,12 @@ const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
 
       {feedstock.stores &&
         feedstock.stores.map((store, index) => (
-          <React.Fragment key={index}>
-            <FeedstockStore store={store} color={feedstock.color} />
+          <React.Fragment key={store.id}>
+            <FeedstockStore
+              store={store}
+              color={feedstock.color}
+              datasetRepr={datasetReprs[store.id]}
+            />
             <SectionDivider color={feedstock.color} />
           </React.Fragment>
         ))}
