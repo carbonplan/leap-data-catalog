@@ -1,6 +1,6 @@
 import { LicenseLink } from '@/types/types'
-import { Link } from '@carbonplan/components'
-import { Flex, Text } from 'theme-ui'
+import { Button, Link } from '@carbonplan/components'
+import { Box, Text } from 'theme-ui'
 
 interface LicenseProps {
   license: string
@@ -9,13 +9,7 @@ interface LicenseProps {
 
 export const License: React.FC<LicenseProps> = ({ license, license_link }) => {
   return (
-    <Flex
-      sx={{
-        flexDirection: 'column',
-        gap: 2,
-        mt: 4,
-      }}
-    >
+    <Box>
       <Text
         sx={{
           color: 'muted',
@@ -28,7 +22,9 @@ export const License: React.FC<LicenseProps> = ({ license, license_link }) => {
         License
       </Text>
 
-      <Link
+      <Button
+        size='xs'
+        as={Link}
         href={
           license === 'proprietary'
             ? license_link?.url
@@ -36,13 +32,10 @@ export const License: React.FC<LicenseProps> = ({ license, license_link }) => {
         }
         target='_blank'
         rel='noopener noreferrer'
-        sx={{
-          textDecoration: 'none',
-          fontSize: [2, 2, 2, 3],
-        }}
+        sx={{ mt: 3 }}
       >
         {license || license_link?.title}
-      </Link>
-    </Flex>
+      </Button>
+    </Box>
   )
 }

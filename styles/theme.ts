@@ -1,6 +1,16 @@
 import { Theme } from 'theme-ui'
 
 export const theme: Theme = {
+  alerts: {
+    primary: {
+      color: 'background',
+      bg: 'red',
+    },
+    muted: {
+      color: 'text',
+      bg: 'muted',
+    },
+  },
   space: [0, 4, 8, 16, 24, 32, 48, 64, 96, 128, 172, 256, 512],
   fonts: {
     body: 'relative-book-pro, Roboto, system-ui, -apple-system, BlinkMacSystemFont',

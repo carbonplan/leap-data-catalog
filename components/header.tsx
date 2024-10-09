@@ -1,11 +1,10 @@
-import { Dimmer } from '@carbonplan/components'
 import Link from 'next/link'
 import { Box, Container, Flex, Image } from 'theme-ui'
 
 export const Header = () => {
   return (
     <>
-      <Box pb={8}>
+      <Box>
         <Box
           as='header'
           sx={{
@@ -39,7 +38,6 @@ export const Header = () => {
                   }}
                 />
               </Link>
-              <Dimmer key='dimmer' sx={{ mt: '-2px', color: 'primary' }} />
             </Flex>
           </Container>
         </Box>
