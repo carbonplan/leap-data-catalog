@@ -1,4 +1,4 @@
-const htmlReprServiceUrl = 'https://html-reprs.fly.dev/xarray'
+const htmlReprServiceUrl = 'html-reprs.fly.dev/xarray'
 
 export async function getDatasetRepr(url: string) {
   if (!url) {
@@ -6,7 +6,7 @@ export async function getDatasetRepr(url: string) {
   }
 
   try {
-    const reprUrl = `${htmlReprServiceUrl}?url=${url}`
+    const reprUrl = `https:\\${htmlReprServiceUrl}?url=${url}`
     const response = await fetch(reprUrl, {
       next: { revalidate: 3600 },
     })
