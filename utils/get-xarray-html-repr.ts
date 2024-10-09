@@ -7,6 +7,7 @@ export async function getDatasetRepr(url: string) {
 
   try {
     const reprUrl = `https://${htmlReprServiceUrl}?url=${url}`
+    console.log('reprUrl:', reprUrl)
     const response = await fetch(reprUrl, {
       next: { revalidate: 3600 },
     })
