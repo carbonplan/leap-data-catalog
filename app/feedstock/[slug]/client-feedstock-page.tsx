@@ -24,8 +24,6 @@ const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
       <FeedstockHeader feedstock={feedstock} />
       <FeedstockDescription feedstock={feedstock} />
       <SectionDivider color={feedstock.color} />
-      <FeedstockDetails feedstock={feedstock} />
-      <SectionDivider color={feedstock.color} />
 
       {feedstock.stores &&
         feedstock.stores.map((store, index) => (
@@ -38,6 +36,9 @@ const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
             <SectionDivider color={feedstock.color} />
           </React.Fragment>
         ))}
+
+      <FeedstockDetails feedstock={feedstock} />
+      <SectionDivider color={feedstock.color} />
     </Flex>
   )
 }

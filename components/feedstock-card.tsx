@@ -15,7 +15,6 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({
   feedstock,
   catalog,
 }) => {
-  console.log('feedstock-catalog', catalog)
   const { slug, description, provenance, tags, thumbnail, color, title } =
     feedstock
 
