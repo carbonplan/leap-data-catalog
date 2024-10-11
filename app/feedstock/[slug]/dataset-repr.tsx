@@ -14,7 +14,7 @@ interface DatasetReprProps {
 export const DatasetRepr: React.FC<DatasetReprProps> = ({ data, error }) => {
   if (error) {
     return (
-      <Alert variant='primary' sx={{ p: 3, borderRadius: 'default' }}>
+      <Alert variant='primary'>
         <Flex sx={{ flexDirection: 'row', gap: 4 }}>
           <Info />
           <Text>Failed to load dataset representation: {error}</Text>
@@ -25,7 +25,7 @@ export const DatasetRepr: React.FC<DatasetReprProps> = ({ data, error }) => {
 
   if (!data) {
     return (
-      <Alert variant='primary' sx={{ p: 3, borderRadius: 'default' }}>
+      <Alert variant='primary' sx={{ borderRadius: 'default' }}>
         <Flex sx={{ flexDirection: 'row', gap: 4 }}>
           <Info />
           <Text>No dataset representation available.</Text>
@@ -35,15 +35,11 @@ export const DatasetRepr: React.FC<DatasetReprProps> = ({ data, error }) => {
   }
 
   return (
-    <Card sx={{ p: 3, borderRadius: 'default', width: '100%' }}>
+    <Card sx={{}}>
       <Box
         dangerouslySetInnerHTML={{ __html: data.html }}
         sx={{
           overflowY: 'auto',
-          borderColor: 'muted',
-          borderRadius: 'default',
-          p: 2,
-          width: '100%',
         }}
       />
     </Card>

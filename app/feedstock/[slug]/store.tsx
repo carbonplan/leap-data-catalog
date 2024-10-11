@@ -1,7 +1,7 @@
 'use client'
+
 import { TooltipWrapper } from '@/components/tooltip-wrapper'
 import { Store } from '@/types/types'
-import { Column, Row } from '@carbonplan/components'
 import React, { useState } from 'react'
 import { Box, Grid, Text } from 'theme-ui'
 import { CodeSnippet } from './code-snippet'
@@ -30,30 +30,35 @@ export const FeedstockStore: React.FC<{
       : 'This dataset contains non-geospatial data not supported by the data viewer.'
 
   return (
-    <Box sx={{ ml: [3, 4, 5, 6] }}>
-      <Row columns={[6, 6, 8, 12]}>
-        <Column start={[1, 1, 2, 2]} width={[6, 6, 6, 10]}>
-          <Grid columns={[1, 1, 2, 2]}>
-            <Box sx={{ mb: 2 }}>
-              <TooltipWrapper
-                tooltip={tooltipContent}
-                color={color}
-                expanded={!store.public && tooltipExpanded}
-                setExpanded={setTooltipExpanded}
-              >
-                <Text
-                  sx={{
-                    color: color,
-                    fontSize: [2, 2, 2, 3],
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  {store.name || store.id}
-                </Text>
-              </TooltipWrapper>
-            </Box>
-            <Box>
-              <Box>
+    <Box sx={{ width: '100%', px: [3, 4, 5, 6] }}>
+      <Grid gap={4} columns={[6, 6, 8, 12]}>
+        {/* First row: store.name */}
+        <Box sx={{ gridColumn: ['1 / -1', '1 / -1', '2 / -1', '2 / -1'] }}>
+          <TooltipWrapper
+            tooltip={tooltipContent}
+            color={color}
+            expanded={!store.public && tooltipExpanded}
+            setExpanded={setTooltipExpanded}
+          >
+            <Text
+              sx={{
+                color: color,
+                fontSize: [3, 3, 4, 5],
+                textTransform: 'uppercase',
+                fontWeight: 'bold',
+              }}
+            >
+              {store.name || store.id}
+            </Text>
+          </TooltipWrapper>
+        </Box>
+
+        {/* Second row: two columns */}
+        <Box sx={{ gridColumn: ['1 / -1', '1 / -1', '2 / -1', '2 / -1'] }}>
+          <Grid gap={4} columns={[6, 6, 8, 12]}>
+            {/* First column: DataViewer and CodeSnippet */}
+            <Box sx={{ gridColumn: ['1 / -1', '1 / -1', '1 / 4', '1 / 5'] }}>
+              <Box mb={3}>
                 <Text
                   // @ts-ignore
                   sx={labelStyle}
@@ -71,29 +76,28 @@ export const FeedstockStore: React.FC<{
                 </Text>
                 <CodeSnippet url={store.url} color={color} />
               </Box>
-              <Box>
-                <TooltipWrapper
-                  tooltip={tooltipContent}
-                  color={color}
-                  expanded={!store.public && tooltipExpanded}
-                  setExpanded={setTooltipExpanded}
+            </Box>
+
+            {/* Second column: DatasetRepr */}
+            <Box sx={{ gridColumn: ['1 / -1', '1 / -1', '5 / -1', '7 / -1'] }}>
+              <TooltipWrapper
+                tooltip={tooltipContent}
+                color={color}
+                expanded={!store.public && tooltipExpanded}
+                setExpanded={setTooltipExpanded}
+              >
+                <Text
+                  // @ts-ignore
+                  sx={labelStyle}
                 >
-                  <Text
-                    // @ts-ignore
-                    sx={labelStyle}
-                  >
-                    Metadata
-                  </Text>
-                </TooltipWrapper>
-                <DatasetRepr
-                  data={datasetRepr.repr}
-                  error={datasetRepr.error}
-                />
-              </Box>
+                  Metadata
+                </Text>
+              </TooltipWrapper>
+              <DatasetRepr data={datasetRepr.repr} error={datasetRepr.error} />
             </Box>
           </Grid>
-        </Column>
-      </Row>
+        </Box>
+      </Grid>
     </Box>
   )
 }
