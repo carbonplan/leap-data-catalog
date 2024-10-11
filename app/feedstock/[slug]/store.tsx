@@ -30,7 +30,7 @@ export const FeedstockStore: React.FC<{
       : 'This dataset contains non-geospatial data not supported by the data viewer.'
 
   return (
-    <Box sx={{ width: '100%', px: [3, 4, 5, 6] }}>
+    <Box>
       <Grid gap={4} columns={[6, 6, 8, 12]}>
         {/* First row: store.name */}
         <Box sx={{ gridColumn: ['1 / -1', '1 / -1', '2 / -1', '2 / -1'] }}>

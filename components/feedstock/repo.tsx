@@ -1,6 +1,6 @@
 import { Button, Link } from '@carbonplan/components'
 import { RotatingArrow } from '@carbonplan/icons'
-import { Box, Grid, Text } from 'theme-ui'
+import { Box, Text } from 'theme-ui'
 
 interface RepositoryProps {
   metaURL?: string
@@ -42,7 +42,10 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
         href={githubUrl}
         target='_blank'
         rel='noopener noreferrer'
-        sx={{ mt: 3 }}
+        sx={{
+          mt: 3,
+          wordBreak: 'break-word',
+        }}
       >
         {orgAndRepo}
       </Button>

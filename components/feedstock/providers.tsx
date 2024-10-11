@@ -31,9 +31,11 @@ export const Providers: React.FC<ProvidersProps> = ({ providers }) => {
             href={provider.url}
             target='_blank'
             rel='noopener noreferrer'
-            sx={{ textDecoration: 'none' }}
+            sx={{
+              textDecoration: 'none',
+            }}
           >
-            {provider.description}
+            {provider.name}
           </Button>
         ))}
       </Grid>

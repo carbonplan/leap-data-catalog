@@ -2,7 +2,6 @@
 
 import { SectionDivider } from '@/components/divider'
 import React from 'react'
-import { Flex } from 'theme-ui'
 
 import { Feedstock } from '@/types/types'
 import { FeedstockDescription } from './description'
@@ -20,7 +19,7 @@ const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
   datasetReprs,
 }) => {
   return (
-    <Flex sx={{ flexDirection: 'column', gap: [4] }}>
+    <>
       <FeedstockHeader feedstock={feedstock} />
       <FeedstockDescription feedstock={feedstock} />
       <SectionDivider color={feedstock.color} />
@@ -39,7 +38,7 @@ const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
 
       <FeedstockDetails feedstock={feedstock} />
       <SectionDivider color={feedstock.color} />
-    </Flex>
+    </>
   )
 }
 

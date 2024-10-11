@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Box, Container, Flex, Image } from 'theme-ui'
+import { Box, Flex, Image } from 'theme-ui'
 
 export const Header = () => {
   return (
@@ -19,27 +19,25 @@ export const Header = () => {
             backgroundColor: 'background',
           }}
         >
-          <Container>
-            <Flex
-              sx={{
-                alignItems: 'baseline',
-                mx: 'auto',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Link href='/'>
-                <Image
-                  src={'/Leap-Logo-Big.png'}
-                  width={120}
-                  height={30}
-                  alt={'LEAP Logo'}
-                  sx={{
-                    marginRight: 3,
-                  }}
-                />
-              </Link>
-            </Flex>
-          </Container>
+          <Flex
+            sx={{
+              alignItems: 'baseline',
+              mx: 'auto',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Link href='/'>
+              <Image
+                src={'/Leap-Logo-Big.png'}
+                width={120}
+                height={30}
+                alt={'LEAP Logo'}
+                sx={{
+                  marginRight: 3,
+                }}
+              />
+            </Link>
+          </Flex>
         </Box>
       </Box>
     </>

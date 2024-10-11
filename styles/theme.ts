@@ -55,25 +55,6 @@ export const theme: Theme = {
     purple: '#bc85d9',
     pink: '#e587b6',
     grey: '#a9b4c4',
-    modes: {
-      dark: {
-        text: '#ebebec',
-        background: '#1b1e23',
-        primary: '#ebebec',
-        secondary: '#808080',
-        muted: '#393a3d',
-        hinted: '#2a2c30',
-        red: '#f07071',
-        orange: '#ea9755',
-        yellow: '#d4c05e',
-        green: '#7eb36a',
-        teal: '#64b9c4',
-        blue: '#85a2f7',
-        purple: '#bc85d9',
-        pink: '#e587b6',
-        grey: '#a9b4c4',
-      },
-    },
   },
   layout: {
     container: {
