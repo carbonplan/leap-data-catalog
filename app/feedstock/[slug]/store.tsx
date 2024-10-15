@@ -37,6 +37,7 @@ export const FeedstockStore: React.FC<{
       <Row>
         <Column start={[1, 1, 2, 2]} width={[6, 4, 3, 5]}>
           <Box>
+            {' '}
             <TooltipWrapper
               tooltip={tooltipContent}
               color={color}
@@ -44,6 +45,7 @@ export const FeedstockStore: React.FC<{
               setExpanded={setTooltipExpanded}
             >
               <Button
+                as='div'
                 sx={{
                   color: color,
                   fontSize: [2, 2, 2, 3],
@@ -58,6 +60,7 @@ export const FeedstockStore: React.FC<{
           </Box>
         </Column>
       </Row>
+
       <AnimateHeight
         duration={100}
         height={expanded ? 'auto' : 0}
