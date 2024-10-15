@@ -30,7 +30,6 @@ export const FeedstockDetails: React.FC<{ feedstock: Feedstock }> = ({
           <Providers providers={feedstock.provenance?.providers} />
         </Column>
       </Row>
-      <Row></Row>
     </>
   )
 }
