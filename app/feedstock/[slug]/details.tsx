@@ -7,12 +7,13 @@ import {
 } from '@/components/feedstock'
 import { Feedstock } from '@/types/types'
 import { Column, Row } from '@carbonplan/components'
+import { Box } from 'theme-ui'
 
 export const FeedstockDetails: React.FC<{ feedstock: Feedstock }> = ({
   feedstock,
 }) => {
   return (
-    <>
+    <Box>
       <Row>
         <Column start={[1, 1, 2, 2]} width={[6, 4, 3, 5]}>
           <Maintainers maintainers={feedstock.maintainers} />
@@ -30,6 +31,6 @@ export const FeedstockDetails: React.FC<{ feedstock: Feedstock }> = ({
           <Providers providers={feedstock.provenance?.providers} />
         </Column>
       </Row>
-    </>
+    </Box>
   )
 }
