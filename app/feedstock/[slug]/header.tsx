@@ -12,7 +12,7 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
     <Box
       sx={{
         position: 'relative',
-        height: ['300px', '350px', '400px'],
+        height: ['300px', '300px', '350px', '400px'],
         width: '100%',
         overflow: 'hidden',
       }}
