@@ -1,26 +1,20 @@
-import { FaGithub, FaGlobe, FaTwitter, FaYoutube } from 'react-icons/fa'
-import { Box, Container, Flex, IconButton, Image, Link, Text } from 'theme-ui'
 import { GitSHA } from '@/components/git-sha'
+import { Column, Row } from '@carbonplan/components'
+import Image from 'next/image'
+import Link from 'next/link'
+import { FaGithub, FaGlobe, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { Box, Container, Flex, IconButton, Text } from 'theme-ui'
 
 export const Footer = () => {
   return (
-    <Box as='footer' sx={{ bg: 'hinted', py: 4 }}>
-      <Container>
-        <Flex
-          sx={{
-            flexDirection: ['column', 'row'],
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            textAlign: ['center', 'left'],
-          }}
-        >
+    <Container as='footer' sx={{ bg: 'hinted', py: 4, mt: 4 }}>
+      <Row>
+        <Column start={[1, 1, 1, 2]} width={[3, 3, 3, 3]}>
           <Link
             href='https://leap.columbia.edu/'
-            sx={{
+            style={{
               display: 'inline-flex',
               alignItems: 'center',
-              flexGrow: [1, 0],
-              mb: [3, 0],
             }}
           >
             <Flex sx={{ alignItems: 'center' }}>
@@ -30,8 +24,8 @@ export const Footer = () => {
                 sx={{
                   mx: 2, // adjusts the spacing around the divider
                   height: '30px', // match the height with the logo height or as desired
-                  width: '1px', // the width of the divider line
-                  bg: '#6e6e6e', // the color of the line
+                  width: '1px',
+                  bg: '#6e6e6e',
                 }}
               />
               <Image
@@ -42,34 +36,19 @@ export const Footer = () => {
               />
             </Flex>
           </Link>
-          <Flex
-            sx={{
-              flexDirection: ['column'],
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              textAlign: ['center'],
-            }}
-          >
+        </Column>
+        <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
+          <Box sx={{ mt: [3, 0, 0, 0] }}>
             <Text>© {new Date().getFullYear()}, LEAP-STC. MIT Licensed.</Text>
-            <Box sx={{ m: 2 }}>
-              <GitSHA />
-            </Box>
-          </Flex>
+            <GitSHA />
+          </Box>
 
-          <Flex
-            sx={{
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              flexGrow: [1, 0],
-              mb: [3, 0],
-            }}
-          >
+          <Box sx={{ mt: [3] }}>
             <IconButton
               as='a'
               // @ts-ignore
               href='https://twitter.com/LeapStc'
-              sx={{ mx: 2 }}
+              // sx={{ mx: 2 }}
             >
               <FaTwitter size={24} />
             </IconButton>
@@ -98,9 +77,9 @@ export const Footer = () => {
             >
               <FaGlobe size={24} />
             </IconButton>
-          </Flex>
-        </Flex>
-      </Container>
-    </Box>
+          </Box>
+        </Column>
+      </Row>
+    </Container>
   )
 }

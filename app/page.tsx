@@ -1,20 +1,29 @@
-'use client'
-
 import { Catalog } from '@/components/catalog'
-import { Guide } from '@carbonplan/components'
-import { Suspense } from 'react'
-import { Box, Container } from 'theme-ui'
+import { getFeedstocks } from '@/utils/get-feedstocks'
+import { notFound } from 'next/navigation'
 
-export default function Home() {
-  return (
-    <Box>
-      <Container>
-        <Guide />
+type SearchParams = {
+  catalog?: string
+  [key: string]: string | string[] | undefined
+}
 
-        <Suspense fallback={<Box></Box>}>
-          <Catalog />
-        </Suspense>
-      </Container>
-    </Box>
-  )
+type Props = {
+  searchParams: SearchParams
+}
+
+export default async function HomePage({ searchParams }: Props) {
+  const { catalog } = searchParams
+  try {
+    const feedstocks = catalog
+      ? await getFeedstocks(catalog)
+      : await getFeedstocks()
+
+    if (!feedstocks || feedstocks.length === 0) {
+      notFound()
+    }
+
+    return <Catalog feedstocks={feedstocks} catalog={catalog} />
+  } catch (error) {
+    throw new Error(`${error}`)
+  }
 }
