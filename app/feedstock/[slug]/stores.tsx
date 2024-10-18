@@ -124,3 +124,35 @@ export const FeedstockStore: React.FC<{
     </Box>
   )
 }
+
+export const FeedstockStores: React.FC<{
+  stores: Store[]
+  color: string
+}> = ({ stores, color }) => {
+  return (
+    <>
+      <Row>
+        <Column start={[1, 2, 2, 2]} width={[6]}>
+          <Box sx={{ mb: 4, mt: 2 }}>
+            <Text
+              sx={{
+                color: 'muted',
+                fontSize: 0,
+                fontFamily: 'mono',
+                letterSpacing: 'mono',
+                textTransform: 'uppercase',
+              }}
+            >
+              Available Stores
+            </Text>
+          </Box>
+        </Column>
+      </Row>
+
+      {stores &&
+        stores.map((store, index) => (
+          <FeedstockStore key={store.id} store={store} color={color} />
+        ))}
+    </>
+  )
+}

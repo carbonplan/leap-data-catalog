@@ -10,18 +10,22 @@ interface ProvidersProps {
 export const Providers: React.FC<ProvidersProps> = ({ providers }) => {
   return (
     <Box>
-      <Text
-        sx={{
-          color: 'muted',
-          fontSize: 0,
-          fontFamily: 'mono',
-          letterSpacing: 'mono',
-          textTransform: 'uppercase',
-        }}
-      >
-        Providers
-      </Text>
-      <Grid gap={2} columns={[1]} sx={{ mt: 3 }}>
+      <Box sx={{ mb: 2, mt: 2 }}>
+        {' '}
+        <Text
+          sx={{
+            color: 'muted',
+            fontSize: 0,
+            fontFamily: 'mono',
+            letterSpacing: 'mono',
+            textTransform: 'uppercase',
+          }}
+        >
+          Providers
+        </Text>
+      </Box>
+
+      <Grid gap={2} columns={[1]}>
         {providers.map((provider) => (
           <Button
             size='xs'

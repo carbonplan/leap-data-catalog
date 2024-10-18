@@ -2,13 +2,13 @@
 
 import { SectionDivider } from '@/components/divider'
 import React from 'react'
-import { Box, Container } from 'theme-ui'
+import { Container } from 'theme-ui'
 
 import { Feedstock } from '@/types/types'
 import { FeedstockDescription } from './description'
 import { FeedstockDetails } from './details'
 import { FeedstockHeader } from './header'
-import { FeedstockStore } from './store'
+import { FeedstockStores } from './stores'
 
 interface ClientFeedstockPageProps {
   feedstock: Feedstock
@@ -23,15 +23,8 @@ const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
       <Container>
         <FeedstockDescription feedstock={feedstock} />
         <SectionDivider sx={{ mb: 4 }} color={feedstock.color} />
-
-        {feedstock.stores &&
-          feedstock.stores.map((store, index) => (
-            <Box key={store.id}>
-              <FeedstockStore store={store} color={feedstock.color} />
-              <SectionDivider sx={{ mb: 4 }} color={feedstock.color} />
-            </Box>
-          ))}
-
+        <FeedstockStores stores={feedstock.stores} color={feedstock.color} />
+        <SectionDivider sx={{ mb: 4 }} color={feedstock.color} />
         <FeedstockDetails feedstock={feedstock} />
         <SectionDivider color={feedstock.color} />
       </Container>

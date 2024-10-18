@@ -10,17 +10,19 @@ interface LicenseProps {
 export const License: React.FC<LicenseProps> = ({ license, license_link }) => {
   return (
     <Box>
-      <Text
-        sx={{
-          color: 'muted',
-          fontSize: 0,
-          fontFamily: 'mono',
-          letterSpacing: 'mono',
-          textTransform: 'uppercase',
-        }}
-      >
-        License
-      </Text>
+      <Box sx={{ mb: 2, mt: 2 }}>
+        <Text
+          sx={{
+            color: 'muted',
+            fontSize: 0,
+            fontFamily: 'mono',
+            letterSpacing: 'mono',
+            textTransform: 'uppercase',
+          }}
+        >
+          License
+        </Text>
+      </Box>
 
       <Button
         size='xs'
@@ -32,7 +34,6 @@ export const License: React.FC<LicenseProps> = ({ license, license_link }) => {
         }
         target='_blank'
         rel='noopener noreferrer'
-        sx={{ mt: 3 }}
       >
         {license || license_link?.title}
       </Button>

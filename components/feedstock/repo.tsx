@@ -23,17 +23,20 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
 
   return (
     <Box>
-      <Text
-        sx={{
-          color: 'muted',
-          fontSize: 0,
-          fontFamily: 'mono',
-          letterSpacing: 'mono',
-          textTransform: 'uppercase',
-        }}
-      >
-        Repository
-      </Text>
+      <Box sx={{ mb: 2, mt: 2 }}>
+        {' '}
+        <Text
+          sx={{
+            color: 'muted',
+            fontSize: 0,
+            fontFamily: 'mono',
+            letterSpacing: 'mono',
+            textTransform: 'uppercase',
+          }}
+        >
+          Repository
+        </Text>
+      </Box>
 
       <Button
         size='xs'
@@ -43,7 +46,6 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
         target='_blank'
         rel='noopener noreferrer'
         sx={{
-          mt: 3,
           wordBreak: 'break-word',
         }}
       >
