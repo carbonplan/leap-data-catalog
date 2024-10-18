@@ -37,14 +37,13 @@ export const Footer = () => {
             </Flex>
           </Link>
         </Column>
-        <Column start={[1, 5, 7, 7]} width={[6, 4, 4, 4]}>
+        <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
           <Box sx={{ mt: [3, 0, 0, 0] }}>
             <Text>© {new Date().getFullYear()}, LEAP-STC. MIT Licensed.</Text>
-
             <GitSHA />
           </Box>
 
-          <Box sx={{}}>
+          <Box sx={{ mt: [3] }}>
             <IconButton
               as='a'
               // @ts-ignore
