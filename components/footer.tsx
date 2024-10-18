@@ -3,11 +3,11 @@ import { Column, Row } from '@carbonplan/components'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaGithub, FaGlobe, FaTwitter, FaYoutube } from 'react-icons/fa'
-import { Box, Flex, IconButton, Text } from 'theme-ui'
+import { Box, Container, Flex, IconButton, Text } from 'theme-ui'
 
 export const Footer = () => {
   return (
-    <Box as='footer' sx={{ bg: 'hinted', py: 4, mt: 4 }}>
+    <Container as='footer' sx={{ bg: 'hinted', py: 4, mt: 4 }}>
       <Row>
         <Column start={[1, 1, 2, 2]} width={[3, 3, 3, 3]}>
           <Link
@@ -80,6 +80,6 @@ export const Footer = () => {
           </Box>
         </Column>
       </Row>
-    </Box>
+    </Container>
   )
 }

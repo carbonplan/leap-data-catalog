@@ -3,7 +3,7 @@ import { BackButton } from '@/components/back-button'
 import { Feedstock } from '@/types/types'
 import { Column, Row } from '@carbonplan/components'
 import { alpha } from '@theme-ui/color'
-import { Box } from 'theme-ui'
+import { Box, Container } from 'theme-ui'
 
 export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
   feedstock,
@@ -39,7 +39,7 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
           opacity: 0.8,
         }}
       />
-      <Box
+      <Container
         sx={{
           position: 'absolute',
           top: 0,
@@ -73,7 +73,7 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
             </Box>
           </Column>
         </Row>
-      </Box>
+      </Container>
     </Box>
   )
 }

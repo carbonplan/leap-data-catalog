@@ -1,11 +1,11 @@
 import { Column, Row } from '@carbonplan/components'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Box } from 'theme-ui'
+import { Container } from 'theme-ui'
 
 export const Header = () => {
   return (
-    <Box
+    <Container
       as='header'
       sx={{
         borderBottom: '1px solid #eee',
@@ -20,7 +20,7 @@ export const Header = () => {
       }}
     >
       <Row>
-        <Column start={[2]}>
+        <Column start={[1, 1, 2, 2]}>
           <Link href='/'>
             <Image
               src={'/Leap-Logo-Big.png'}
@@ -31,6 +31,6 @@ export const Header = () => {
           </Link>
         </Column>
       </Row>
-    </Box>
+    </Container>
   )
 }
