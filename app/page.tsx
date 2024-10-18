@@ -12,7 +12,7 @@ type Props = {
 }
 
 export default async function HomePage({ searchParams }: Props) {
-  const catalog = searchParams.catalog
+  const { catalog } = searchParams
   try {
     const feedstocks = catalog
       ? await getFeedstocks(catalog)

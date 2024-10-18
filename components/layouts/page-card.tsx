@@ -16,11 +16,18 @@ function PageCard({ children }: { children: React.ReactNode }) {
       }}
     >
       <Container>
+        {' '}
         <Header />
+      </Container>
+
+      <Container>
         <Guide />
         <Box>{children}</Box>
       </Container>
-      <Footer />
+      <Container>
+        {' '}
+        <Footer />
+      </Container>
     </Flex>
   )
 }
