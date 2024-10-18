@@ -12,6 +12,7 @@ export default async function DatasetReprFetcherServer({
   try {
     data = await getDatasetRepr(store.url)
   } catch (e) {
+    console.error('Error fetching dataset repr:', e)
     error = e instanceof Error ? e.message : 'An unknown error occurred'
   }
 
