@@ -126,7 +126,7 @@ export const FeedstockStore: React.FC<{
 }
 
 export const FeedstockStores: React.FC<{
-  stores: Store[]
+  stores: Store[] | undefined
   color: string
 }> = ({ stores, color }) => {
   return (
