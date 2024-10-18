@@ -3,7 +3,7 @@
 import { TooltipWrapper } from '@/components/tooltip-wrapper'
 import { Store } from '@/types/types'
 import { Button, Column, Expander, Row } from '@carbonplan/components'
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useCallback, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { Box, Text } from 'theme-ui'
 import { CodeSnippet } from './code-snippet'
@@ -25,6 +25,11 @@ export const FeedstockStore: React.FC<{
 }> = ({ store, color }) => {
   const [expanded, setExpanded] = useState(false)
   const [tooltipExpanded, setTooltipExpanded] = useState(false)
+
+  const serverDataPromise = useCallback(
+    () => DatasetReprFetcherServer({ store }),
+    [store],
+  )
 
   const tooltipContent = !store.public
     ? 'Access requires credentials or a Columbia-LEAP JupyterHub server.'
@@ -109,7 +114,7 @@ export const FeedstockStore: React.FC<{
               <Suspense fallback={<div>Loading dataset representation...</div>}>
                 <DatasetReprFetcher
                   store={store}
-                  serverData={DatasetReprFetcherServer({ store })}
+                  serverDataPromise={serverDataPromise}
                 />
               </Suspense>
             </Box>

@@ -1,17 +1,21 @@
 'use client'
 
 import { Store } from '@/types/types'
-import { Suspense, use } from 'react'
+import { Suspense, use, useMemo } from 'react'
 import { DatasetRepr } from './dataset-repr'
 
 export default function DatasetReprFetcher({
   store,
-  serverData,
+  serverDataPromise,
 }: {
   store: Store
-  serverData: Promise<{ data: any; error: string | null }>
+  serverDataPromise: () => Promise<{ data: any; error: string | null }>
 }) {
-  const { data, error } = use(serverData)
+  const memoizedPromise = useMemo(
+    () => serverDataPromise(),
+    [serverDataPromise],
+  )
+  const { data, error } = use(memoizedPromise)
 
   return (
     <Suspense fallback={<div>Loading dataset representation...</div>}>
