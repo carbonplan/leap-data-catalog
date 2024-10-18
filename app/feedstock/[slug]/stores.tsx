@@ -73,42 +73,50 @@ export const FeedstockStore: React.FC<{
       >
         <Row sx={{ mt: 4 }}>
           <Column start={[1, 1, 2, 2]} width={[6, 4, 3, 3]}>
-            <Box>
-              <Text
-                // @ts-ignore
-                sx={labelStyle}
-              >
-                Data Viewer
-              </Text>
+            <Box sx={{ mt: 2 }}>
+              <Box sx={{ mb: 2 }}>
+                {' '}
+                <Text
+                  // @ts-ignore
+                  sx={labelStyle}
+                >
+                  Data Viewer
+                </Text>
+              </Box>
+
               <DataViewer store={store} color={color} />
             </Box>
           </Column>
           <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
-            <Box>
-              <Text
-                // @ts-ignore
-                sx={labelStyle}
-              >
-                Load Dataset
-              </Text>
+            <Box sx={{ mt: 2 }}>
+              <Box sx={{ mb: 2 }}>
+                <Text
+                  // @ts-ignore
+                  sx={labelStyle}
+                >
+                  Load Dataset
+                </Text>
+              </Box>
               <CodeSnippet url={store.url} color={color} />
             </Box>
           </Column>
 
           <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
-            <Box>
+            <Box sx={{ mt: 2 }}>
               <TooltipWrapper
                 tooltip={tooltipContent}
                 color={color}
                 expanded={!store.public && tooltipExpanded}
                 setExpanded={setTooltipExpanded}
               >
-                <Text
-                  // @ts-ignore
-                  sx={labelStyle}
-                >
-                  Metadata
-                </Text>
+                <Box sx={{ mb: 2 }}>
+                  <Text
+                    // @ts-ignore
+                    sx={labelStyle}
+                  >
+                    Metadata
+                  </Text>
+                </Box>
               </TooltipWrapper>
 
               <Suspense fallback={<div>Loading dataset representation...</div>}>
