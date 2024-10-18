@@ -3,12 +3,13 @@
 import { TooltipWrapper } from '@/components/tooltip-wrapper'
 import { Store } from '@/types/types'
 import { Button, Column, Expander, Row } from '@carbonplan/components'
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { Box, Text } from 'theme-ui'
 import { CodeSnippet } from './code-snippet'
 import { DataViewer } from './data-viewer'
-import { DatasetRepr } from './dataset-repr'
+import DatasetReprFetcher from './dataset-repr-fetcher'
+import DatasetReprFetcherServer from './dataset-repr-fetcher-server'
 
 const labelStyle = {
   color: 'muted',
@@ -21,8 +22,7 @@ const labelStyle = {
 export const FeedstockStore: React.FC<{
   store: Store
   color: string
-  datasetRepr: { repr: any; error: string | null }
-}> = ({ store, color, datasetRepr }) => {
+}> = ({ store, color }) => {
   const [expanded, setExpanded] = useState(false)
   const [tooltipExpanded, setTooltipExpanded] = useState(false)
 
@@ -35,7 +35,7 @@ export const FeedstockStore: React.FC<{
   return (
     <Box sx={{ mb: 4 }}>
       <Row>
-        <Column start={[1, 1, 2, 2]} width={[6, 4, 3, 5]}>
+        <Column start={[1, 1, 2, 2]} width={[6, 4, 4, 5]}>
           <Box>
             {' '}
             <TooltipWrapper
@@ -105,7 +105,13 @@ export const FeedstockStore: React.FC<{
                   Metadata
                 </Text>
               </TooltipWrapper>
-              <DatasetRepr data={datasetRepr.repr} error={datasetRepr.error} />
+
+              <Suspense fallback={<div>Loading dataset representation...</div>}>
+                <DatasetReprFetcher
+                  store={store}
+                  serverData={DatasetReprFetcherServer({ store })}
+                />
+              </Suspense>
             </Box>
           </Column>
         </Row>

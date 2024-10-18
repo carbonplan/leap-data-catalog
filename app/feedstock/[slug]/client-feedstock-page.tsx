@@ -12,12 +12,10 @@ import { FeedstockStore } from './store'
 
 interface ClientFeedstockPageProps {
   feedstock: Feedstock
-  datasetReprs: Record<string, { repr: any; error: string | null }>
 }
 
 const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
   feedstock,
-  datasetReprs,
 }) => {
   return (
     <>
@@ -29,11 +27,7 @@ const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
         {feedstock.stores &&
           feedstock.stores.map((store, index) => (
             <Box key={store.id}>
-              <FeedstockStore
-                store={store}
-                color={feedstock.color}
-                datasetRepr={datasetReprs[store.id]}
-              />
+              <FeedstockStore store={store} color={feedstock.color} />
               <SectionDivider sx={{ mb: 4 }} color={feedstock.color} />
             </Box>
           ))}
