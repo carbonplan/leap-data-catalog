@@ -20,7 +20,7 @@ export const Header = () => {
       }}
     >
       <Row>
-        <Column start={[1, 1, 2, 2]}>
+        <Column start={[1, 1, 1, 2]}>
           <Link href='/'>
             <Image
               src={'/Leap-Logo-Big.png'}
