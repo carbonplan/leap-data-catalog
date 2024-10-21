@@ -151,7 +151,7 @@ export const FeedstockStores: React.FC<{
                 textTransform: 'uppercase',
               }}
             >
-              Available Stores
+              Access Data
             </Text>
           </Box>
         </Column>
