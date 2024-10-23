@@ -14,7 +14,7 @@ export const Links: React.FC<LinksProps> = ({ links }) => {
   })
 
   return (
-    <Box sx={{ mt: 4 }}>
+    <Box>
       <LinkGroup
         members={allLinks}
         sx={{ '& a': { fontSize: [2, 2, 2, 3] } }}
