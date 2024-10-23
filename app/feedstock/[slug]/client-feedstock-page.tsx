@@ -26,7 +26,7 @@ const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
         <FeedstockStores stores={feedstock.stores} color={feedstock.color} />
         <SectionDivider sx={{ mb: 4 }} color={feedstock.color} />
         <FeedstockDetails feedstock={feedstock} />
-        <SectionDivider sx={{mt: 5}} color={feedstock.color} />
+        <SectionDivider sx={{ mt: 5 }} color={feedstock.color} />
       </Container>
     </>
   )
