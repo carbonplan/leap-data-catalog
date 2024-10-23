@@ -14,7 +14,7 @@ export const FeedstockDescription: React.FC<{ feedstock: Feedstock }> = ({
         <Column start={[1, 1, 2, 2]} width={[6, 6, 6, 6]}>
           <Flex sx={{ flexDirection: 'column', gap: [3, 4] }}>
             {feedstock.tags && (
-              <Box>
+              <Box sx={{mt: 3}}>
                 <Tags tags={feedstock.tags} />
               </Box>
             )}

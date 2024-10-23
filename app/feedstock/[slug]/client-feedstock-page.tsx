@@ -22,11 +22,11 @@ const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
       <FeedstockHeader feedstock={feedstock} />
       <Container>
         <FeedstockDescription feedstock={feedstock} />
-        <SectionDivider sx={{ mb: 4 }} color={feedstock.color} />
+        <SectionDivider sx={{ mb: 4, mt: 5 }} color={feedstock.color} />
         <FeedstockStores stores={feedstock.stores} color={feedstock.color} />
         <SectionDivider sx={{ mb: 4 }} color={feedstock.color} />
         <FeedstockDetails feedstock={feedstock} />
-        <SectionDivider color={feedstock.color} />
+        <SectionDivider sx={{mt: 5}} color={feedstock.color} />
       </Container>
     </>
   )

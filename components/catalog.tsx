@@ -89,7 +89,7 @@ export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
                 Data Catalog
               </Text>
             </Column>
-            <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]} sx={{ mt: 4 }}>
+            <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]}>
               <SearchBox search={search} setSearch={setSearch} />
             </Column>
           </Row>

@@ -52,6 +52,8 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({
             flexDirection: 'column',
             position: 'relative',
             transition: 'all 0.3s ease',
+            m: -2,
+            p: 2,
             ':hover': {
               backgroundColor: alpha(color, 0.05),
             },
