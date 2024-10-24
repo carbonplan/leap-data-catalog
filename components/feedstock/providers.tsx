@@ -26,22 +26,28 @@ export const Providers: React.FC<ProvidersProps> = ({ providers }) => {
       </Box>
 
       <Grid gap={2} columns={[1]}>
-        {providers.map((provider) => (
-          <Button
-            size='xs'
-            key={provider.name}
-            suffix={<RotatingArrow />}
-            as={Link}
-            href={provider.url}
-            target='_blank'
-            rel='noopener noreferrer'
-            sx={{
-              textDecoration: 'none',
-            }}
-          >
-            {provider.name}
-          </Button>
-        ))}
+        {providers.map((provider) =>
+          provider.url ? (
+            <Button
+              size='xs'
+              key={provider.name}
+              suffix={<RotatingArrow />}
+              as={Link}
+              href={provider.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              sx={{
+                textDecoration: 'none',
+              }}
+            >
+              {provider.name}
+            </Button>
+          ) : (
+            <Box key={provider.name} sx={{ fontSize: [2, 2, 2, 3] }}>
+              {provider.name}
+            </Box>
+          ),
+        )}
       </Grid>
     </Box>
   )
