@@ -1,10 +1,11 @@
+import { XarrayOpenKwargsType } from '@/types/types'
 import { Button } from '@carbonplan/components'
 import { Check, Down } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
 import React, { useState } from 'react'
 import { Box } from 'theme-ui'
 
-const getSnippet = (url: string, xarrayOpenKwargs: Record<string, any>) => `
+const getSnippet = (url: string, xarrayOpenKwargs: XarrayOpenKwargsType) => `
 import xarray as xr
 
 store = '${url}'
@@ -16,10 +17,7 @@ ds = xr.open_dataset(store, engine='${
 interface CodeSnippetProps {
   url: string
   color: string
-  xarrayOpenKwargs: {
-    engine: string
-    chunks: Record<string, any>
-  }
+  xarrayOpenKwargs: XarrayOpenKwargsType
 }
 
 export const CodeSnippet: React.FC<CodeSnippetProps> = ({

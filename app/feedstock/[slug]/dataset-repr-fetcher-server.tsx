@@ -10,7 +10,7 @@ export default async function DatasetReprFetcherServer({
   let error = null
 
   try {
-    data = await getDatasetRepr(store.url)
+    data = await getDatasetRepr(store.url, store.xarray_open_kwargs)
   } catch (e) {
     console.error('Error fetching dataset repr:', e)
     error = e instanceof Error ? e.message : 'An unknown error occurred'
