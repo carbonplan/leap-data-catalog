@@ -1,6 +1,6 @@
 import { Maintainer } from '@/types/types'
 import { Avatar, Link } from '@carbonplan/components'
-import { Flex, Text } from 'theme-ui'
+import { Box, Flex, Text } from 'theme-ui'
 
 interface MaintainersProps {
   maintainers: Maintainer[]
@@ -13,25 +13,21 @@ export const Maintainers: React.FC<MaintainersProps> = ({ maintainers }) => {
   )
 
   return (
-    <Flex
-      sx={{
-        flexDirection: 'column',
-        gap: 2,
-        justifyContent: 'space-between',
-        mt: 4,
-      }}
-    >
-      <Text
-        sx={{
-          color: 'muted',
-          fontSize: 0,
-          fontFamily: 'mono',
-          letterSpacing: 'mono',
-          textTransform: 'uppercase',
-        }}
-      >
-        Maintainers
-      </Text>
+    <Box>
+      <Box sx={{ mb: 2, mt: 2 }}>
+        <Text
+          sx={{
+            color: 'muted',
+            fontSize: 0,
+            fontFamily: 'mono',
+            letterSpacing: 'mono',
+            textTransform: 'uppercase',
+          }}
+        >
+          Maintainers
+        </Text>
+      </Box>
+
       <Flex sx={{ flexDirection: 'row', gap: 2 }}>
         {sortedMaintainers.map((maintainer) => (
           <Link
@@ -53,6 +49,6 @@ export const Maintainers: React.FC<MaintainersProps> = ({ maintainers }) => {
           </Link>
         ))}
       </Flex>
-    </Flex>
+    </Box>
   )
 }

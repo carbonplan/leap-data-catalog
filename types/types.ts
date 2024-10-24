@@ -1,8 +1,22 @@
+interface Rechunking {
+  path: string
+}
+
+interface Dataset {
+  id: string
+  name?: string
+  url: string
+  'ncviewjs:rechunking'?: Rechunking[]
+  public?: boolean
+  geospatial?: boolean
+}
+
 export interface Store {
   id: string
   name?: string
   url: string
   rechunking?: { [key: string]: string }[]
+  'ncviewjs:rechunking'?: Rechunking[]
   public?: boolean
   geospatial?: boolean
 }
@@ -40,10 +54,12 @@ export interface Feedstock {
   description: string
   maintainers: Maintainer[]
   provenance: Provenance
-  thumbnail?: string
+  thumbnail: string
   tags?: string[]
   links?: Link[]
   stores?: Store[]
   meta_yaml_url?: string
   'ncviewjs:meta_yaml_url'?: string
+  slug: string
+  color: string
 }
