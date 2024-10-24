@@ -140,19 +140,9 @@ export const FeedstockStores: React.FC<{
   return (
     <>
       <Row>
-        <Column start={[1, 2, 2, 2]} width={[6]}>
+        <Column start={[1, 1, 2, 2]} width={[6]}>
           <Box sx={{ mb: 4, mt: 2 }}>
-            <Text
-              sx={{
-                color: 'muted',
-                fontSize: 0,
-                fontFamily: 'mono',
-                letterSpacing: 'mono',
-                textTransform: 'uppercase',
-              }}
-            >
-              Access Data
-            </Text>
+            <Box sx={{ fontSize: [2, 2, 2, 3] }}> Access Data </Box>
           </Box>
         </Column>
       </Row>
