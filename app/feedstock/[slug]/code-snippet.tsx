@@ -4,28 +4,38 @@ import { Code } from '@carbonplan/prism'
 import React, { useState } from 'react'
 import { Box } from 'theme-ui'
 
-const getSnippet = (url: string) => `
+const getSnippet = (url: string, xarrayOpenKwargs: Record<string, any>) => `
 import xarray as xr
 
 store = '${url}'
-ds = xr.open_dataset(store, engine='zarr', chunks={})
+ds = xr.open_dataset(store, engine='${
+  xarrayOpenKwargs?.engine || 'zarr'
+}', chunks=${JSON.stringify(xarrayOpenKwargs?.chunks || {})})
 `
 
 interface CodeSnippetProps {
   url: string
   color: string
+  xarrayOpenKwargs: {
+    engine: string
+    chunks: Record<string, any>
+  }
 }
 
-export const CodeSnippet: React.FC<CodeSnippetProps> = ({ url, color }) => {
+export const CodeSnippet: React.FC<CodeSnippetProps> = ({
+  url,
+  color,
+  xarrayOpenKwargs,
+}) => {
   const [copied, setCopied] = useState(false)
   const [tick, setTick] = useState<NodeJS.Timeout | null>(null)
 
   const handleClick = (url: string) => {
     const blank = document.createElement('textarea')
     document.body.appendChild(blank)
-    blank.value = getSnippet(url)
+    blank.value = getSnippet(url, xarrayOpenKwargs)
     blank.select()
-    document.execCommand('copy')
+    navigator.clipboard.writeText(blank.value)
     document.body.removeChild(blank)
     if (tick) {
       clearTimeout(tick)
@@ -73,7 +83,7 @@ export const CodeSnippet: React.FC<CodeSnippetProps> = ({ url, color }) => {
         {copied ? 'Copied' : 'Copy'}
       </Button>
 
-      <Code language='python'>{getSnippet(url)}</Code>
+      <Code language='python'>{getSnippet(url, xarrayOpenKwargs)}</Code>
     </Box>
   )
 }

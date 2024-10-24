@@ -15,6 +15,13 @@ interface Dataset {
   'ncviewjs:rechunking'?: Rechunking[]
   public?: boolean
   geospatial?: boolean
+
+  last_updated?: string
+
+  xarray_open_kwargs?: {
+    engine: string
+    chunks: Record<string, any>
+  }
 }
 
 interface StoreProps {
@@ -28,7 +35,15 @@ interface StoresProps {
 }
 
 const Store: React.FC<StoreProps> = ({ dataset, color }) => {
-  const { id, name, url, 'ncviewjs:rechunking': rechunking } = dataset
+  const {
+    id,
+    name,
+    url,
+    'ncviewjs:rechunking': rechunking,
+    geospatial,
+    xarray_open_kwargs,
+    last_updated,
+  } = dataset
   const [expanded, setExpanded] = useState(false)
 
   const [tooltipExpanded, setTooltipExpanded] = useState(false)
@@ -65,7 +80,11 @@ const Store: React.FC<StoreProps> = ({ dataset, color }) => {
         height={expanded ? 'auto' : 0}
         easing={'linear'}
       >
-        <CodeSnippet url={url} color={color} />
+        <CodeSnippet
+          url={url}
+          color={color}
+          xarrayOpenKwargs={xarray_open_kwargs}
+        />
       </AnimateHeight>
     </Flex>
   )
