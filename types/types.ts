@@ -19,6 +19,13 @@ export interface Store {
   'ncviewjs:rechunking'?: Rechunking[]
   public?: boolean
   geospatial?: boolean
+
+  last_updated?: string
+
+  xarray_open_kwargs: {
+    engine: string
+    chunks: Record<string, any>
+  }
 }
 
 export interface Link {
