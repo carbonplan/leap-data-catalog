@@ -54,21 +54,20 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
       >
         <Row sx={{ mt: [8, 6, 6, 6], mb: 3 }}>
           <Column start={[1]} width={[6, 1, 1, 1]}>
-            <Box>
+            <Box sx={{ mb: [4, 4, 0, 0] }}>
               <BackButton
                 sx={{
                   color: 'white',
-                  mt: [4, 8, '64px', '74px'],
+                  mt: [0, 0, '26px', '28px'],
                 }}
               />
             </Box>
           </Column>
           <Column start={[1, 1, 2, 2]} width={[6, 6, 6, 6]}>
             <Box
-              as='h2'
-              variant='styles.h2'
               sx={{
                 color: 'white',
+                fontSize: ['30px', '34px', '38px', '42px'],
               }}
             >
               {feedstock.title}
