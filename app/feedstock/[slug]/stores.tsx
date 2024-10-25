@@ -97,7 +97,11 @@ export const FeedstockStore: React.FC<{
                   Load Dataset
                 </Text>
               </Box>
-              <CodeSnippet url={store.url} color={color} />
+              <CodeSnippet
+                url={store.url}
+                color={color}
+                xarrayOpenKwargs={store.xarray_open_kwargs}
+              />
             </Box>
           </Column>
 

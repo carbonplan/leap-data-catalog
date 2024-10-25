@@ -11,6 +11,11 @@ interface Dataset {
   geospatial?: boolean
 }
 
+export interface XarrayOpenKwargsType {
+  engine: string
+  chunks: Record<string, any>
+}
+
 export interface Store {
   id: string
   name?: string
@@ -19,6 +24,10 @@ export interface Store {
   'ncviewjs:rechunking'?: Rechunking[]
   public?: boolean
   geospatial?: boolean
+
+  last_updated?: string
+
+  xarray_open_kwargs: XarrayOpenKwargsType
 }
 
 export interface Link {
