@@ -13,7 +13,7 @@
     "@carbonplan/icons": "^2.0.0",
     "@carbonplan/layouts": "^4.1.0",
     "@carbonplan/prism": "^2.0.0",
-    "@next/third-parties": "^14.2.14",
+    "@next/third-parties": "^15.0.2",
     "@theme-ui/color": "^0.16.2",
     "next": "^14.2.14",
     "react": "^18.3.1",
