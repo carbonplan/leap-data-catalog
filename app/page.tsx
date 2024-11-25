@@ -8,11 +8,11 @@ type SearchParams = {
 }
 
 type Props = {
-  searchParams: SearchParams
+  searchParams: Promise<SearchParams>
 }
 
 export default async function HomePage({ searchParams }: Props) {
-  const { catalog } = searchParams
+  const { catalog } = await searchParams
   try {
     const feedstocks = catalog
       ? await getFeedstocks(catalog)

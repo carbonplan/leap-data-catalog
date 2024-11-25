@@ -1,4 +1,5 @@
 import { getFeedstocks } from '@/utils/get-feedstocks'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import ClientFeedstockPage from './client-feedstock-page'
 
@@ -14,15 +15,25 @@ async function getFeedstock(slug: string, catalog?: string) {
   return feedstocks.find((f) => f.slug === slug)
 }
 
-export default async function FeedstockPage({
+type Props = {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ catalog?: string }>
+}
+
+export async function generateMetadata({
   params,
   searchParams,
-}: {
-  params: { slug: string }
-  searchParams: { catalog?: string }
-}) {
-  const { slug } = params
-  const { catalog } = searchParams
+}: Props): Promise<Metadata> {
+  const { slug } = await params
+  const { catalog } = await searchParams
+  return {
+    title: `Feedstock: ${slug}${catalog ? ` (${catalog})` : ''}`,
+  }
+}
+
+export default async function FeedstockPage({ params, searchParams }: Props) {
+  const { slug } = await params
+  const { catalog } = await searchParams
   const feedstock = await getFeedstock(slug, catalog)
 
   if (!feedstock) {
