@@ -11,16 +11,16 @@
   "dependencies": {
     "@carbonplan/components": "^12.6.2",
     "@carbonplan/icons": "^2.0.0",
-    "@carbonplan/layouts": "^4.1.0",
+    "@carbonplan/layouts": "^4.1.2",
     "@carbonplan/prism": "^2.0.0",
     "@next/third-parties": "^15.0.2",
-    "@theme-ui/color": "^0.16.2",
-    "next": "^14.2.14",
+    "@theme-ui/color": "^0.17.1",
+    "next": "^15.0.3",
     "react": "^18.3.1",
     "react-animate-height": "^3.2.3",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
-    "theme-ui": "^0.16.2"
+    "theme-ui": "^0.17.1"
   },
   "devDependencies": {
     "@types/node": "22.8.6",
