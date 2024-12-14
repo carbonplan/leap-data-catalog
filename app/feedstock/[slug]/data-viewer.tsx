@@ -10,7 +10,7 @@ interface DataViewerProps {
 }
 
 export const DataViewer: React.FC<DataViewerProps> = ({ store, color }) => {
-  const { id, name, url, 'ncviewjs:rechunking': rechunking } = store
+  const { id, name, url, rechunking } = store
   const pyramid =
     rechunking && rechunking.length > 0 ? rechunking[0].path : null
 
