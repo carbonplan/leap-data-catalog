@@ -43,12 +43,7 @@ export const FeedstockStore: React.FC<{
         <Column start={[1, 1, 2, 2]} width={[6, 4, 4, 5]}>
           <Box>
             {' '}
-            <TooltipWrapper
-              tooltip={tooltipContent}
-              color={color}
-              expanded={!store.public && tooltipExpanded}
-              setExpanded={setTooltipExpanded}
-            >
+            <TooltipWrapper tooltip={tooltipContent} color={color}>
               <Button
                 as='div'
                 sx={{
@@ -107,12 +102,7 @@ export const FeedstockStore: React.FC<{
 
           <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
             <Box sx={{ mt: 2 }}>
-              <TooltipWrapper
-                tooltip={tooltipContent}
-                color={color}
-                expanded={!store.public && tooltipExpanded}
-                setExpanded={setTooltipExpanded}
-              >
+              <TooltipWrapper tooltip={tooltipContent} color={color}>
                 <Box sx={{ mb: 2 }}>
                   <Text
                     // @ts-ignore
