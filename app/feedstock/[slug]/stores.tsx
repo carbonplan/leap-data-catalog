@@ -43,20 +43,18 @@ export const FeedstockStore: React.FC<{
         <Column start={[1, 1, 2, 2]} width={[6, 4, 4, 5]}>
           <Box>
             {' '}
-            <TooltipWrapper tooltip={tooltipContent} color={color}>
-              <Button
-                as='div'
-                sx={{
-                  color: color,
-                  fontSize: [2, 2, 2, 3],
-                  textTransform: 'uppercase',
-                }}
-                onClick={() => setExpanded((prev) => !prev)}
-              >
-                <Text sx={{ mr: [2] }}>{store.name || store.id}</Text>
-                <Expander value={expanded} />
-              </Button>
-            </TooltipWrapper>
+            <Button
+              as='div'
+              sx={{
+                color: color,
+                fontSize: [2, 2, 2, 3],
+                textTransform: 'uppercase',
+              }}
+              onClick={() => setExpanded((prev) => !prev)}
+            >
+              <Text sx={{ mr: [2] }}>{store.name || store.id}</Text>
+              <Expander value={expanded} />
+            </Button>
           </Box>
         </Column>
       </Row>
