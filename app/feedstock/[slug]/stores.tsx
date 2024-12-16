@@ -32,7 +32,7 @@ export const FeedstockStore: React.FC<{
   )
 
   const tooltipContent = !store.public
-    ? 'Access requires credentials or a Columbia-LEAP JupyterHub server.'
+    ? 'Private dataset. Access requires credentials or a Columbia-LEAP JupyterHub server.'
     : store.geospatial
       ? ''
       : 'This dataset contains non-geospatial data not supported by the data viewer.'
@@ -79,7 +79,9 @@ export const FeedstockStore: React.FC<{
                 </Text>
               </Box>
 
-              <DataViewer store={store} color={color} />
+              <TooltipWrapper tooltip={tooltipContent} color={color}>
+                <DataViewer store={store} color={color} />
+              </TooltipWrapper>
             </Box>
           </Column>
           <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
