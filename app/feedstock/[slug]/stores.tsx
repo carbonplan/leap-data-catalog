@@ -37,6 +37,8 @@ export const FeedstockStore: React.FC<{
       ? ''
       : 'This dataset contains non-geospatial data not supported by the data viewer.'
 
+  const metadataTooltipContent = store.public ? '' : tooltipContent
+
   return (
     <Box sx={{ mb: 4 }}>
       <Row>
@@ -102,7 +104,7 @@ export const FeedstockStore: React.FC<{
 
           <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
             <Box sx={{ mt: 2 }}>
-              <TooltipWrapper tooltip={tooltipContent} color={color}>
+              <TooltipWrapper tooltip={metadataTooltipContent} color={color}>
                 <Box sx={{ mb: 2 }}>
                   <Text
                     // @ts-ignore
