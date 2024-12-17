@@ -47,8 +47,6 @@ interface TooltipWrapperProps {
   mt?: string
   color?: string
   sx?: ThemeUIStyleObject
-  expanded?: boolean
-  setExpanded?: (expanded: boolean) => void
 }
 
 export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({
@@ -57,14 +55,8 @@ export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({
   mt = '8px',
   color,
   sx,
-  expanded: controlledExpanded,
-  setExpanded: controlledSetExpanded,
 }) => {
-  const [internalExpanded, setInternalExpanded] = useState(false)
-
-  const expanded =
-    controlledExpanded !== undefined ? controlledExpanded : internalExpanded
-  const setExpanded = controlledSetExpanded || setInternalExpanded
+  const [expanded, setExpanded] = useState(false)
 
   return tooltip ? (
     <>

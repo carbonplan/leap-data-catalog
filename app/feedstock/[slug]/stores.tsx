@@ -32,10 +32,12 @@ export const FeedstockStore: React.FC<{
   )
 
   const tooltipContent = !store.public
-    ? 'Access requires credentials or a Columbia-LEAP JupyterHub server.'
+    ? 'Private dataset. Access requires credentials or a Columbia-LEAP JupyterHub server.'
     : store.geospatial
       ? ''
       : 'This dataset contains non-geospatial data not supported by the data viewer.'
+
+  const metadataTooltipContent = store.public ? '' : tooltipContent
 
   return (
     <Box sx={{ mb: 4 }}>
@@ -43,25 +45,18 @@ export const FeedstockStore: React.FC<{
         <Column start={[1, 1, 2, 2]} width={[6, 4, 4, 5]}>
           <Box>
             {' '}
-            <TooltipWrapper
-              tooltip={tooltipContent}
-              color={color}
-              expanded={!store.public && tooltipExpanded}
-              setExpanded={setTooltipExpanded}
+            <Button
+              as='div'
+              sx={{
+                color: color,
+                fontSize: [2, 2, 2, 3],
+                textTransform: 'uppercase',
+              }}
+              onClick={() => setExpanded((prev) => !prev)}
             >
-              <Button
-                as='div'
-                sx={{
-                  color: color,
-                  fontSize: [2, 2, 2, 3],
-                  textTransform: 'uppercase',
-                }}
-                onClick={() => setExpanded((prev) => !prev)}
-              >
-                <Text sx={{ mr: [2] }}>{store.name || store.id}</Text>
-                <Expander value={expanded} />
-              </Button>
-            </TooltipWrapper>
+              <Text sx={{ mr: [2] }}>{store.name || store.id}</Text>
+              <Expander value={expanded} />
+            </Button>
           </Box>
         </Column>
       </Row>
@@ -84,7 +79,9 @@ export const FeedstockStore: React.FC<{
                 </Text>
               </Box>
 
-              <DataViewer store={store} color={color} />
+              <TooltipWrapper tooltip={tooltipContent} color={color}>
+                <DataViewer store={store} color={color} />
+              </TooltipWrapper>
             </Box>
           </Column>
           <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
@@ -107,12 +104,7 @@ export const FeedstockStore: React.FC<{
 
           <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
             <Box sx={{ mt: 2 }}>
-              <TooltipWrapper
-                tooltip={tooltipContent}
-                color={color}
-                expanded={!store.public && tooltipExpanded}
-                setExpanded={setTooltipExpanded}
-              >
+              <TooltipWrapper tooltip={metadataTooltipContent} color={color}>
                 <Box sx={{ mb: 2 }}>
                   <Text
                     // @ts-ignore
