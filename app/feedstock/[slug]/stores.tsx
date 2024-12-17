@@ -24,7 +24,6 @@ export const FeedstockStore: React.FC<{
   color: string
 }> = ({ store, color }) => {
   const [expanded, setExpanded] = useState(false)
-  const [tooltipExpanded, setTooltipExpanded] = useState(false)
 
   const serverDataPromise = useCallback(
     () => DatasetReprFetcherServer({ store }),

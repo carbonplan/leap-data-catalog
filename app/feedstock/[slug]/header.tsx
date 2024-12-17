@@ -60,6 +60,7 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
                   color: 'white',
                   mt: [0, 0, '26px', '28px'],
                 }}
+                preserveQuery
               />
             </Box>
           </Column>
