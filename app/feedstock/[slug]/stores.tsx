@@ -3,7 +3,7 @@
 import { TooltipWrapper } from '@/components/tooltip-wrapper'
 import { Store } from '@/types/types'
 import { Button, Column, Expander, Row } from '@carbonplan/components'
-import React, { Suspense, useCallback, useState } from 'react'
+import React, { Suspense, useMemo, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { Box, Text } from 'theme-ui'
 import { CodeSnippet } from './code-snippet'
@@ -25,9 +25,9 @@ export const FeedstockStore: React.FC<{
 }> = ({ store, color }) => {
   const [expanded, setExpanded] = useState(false)
 
-  const serverDataPromise = useCallback(
+  const serverDataPromise = useMemo(
     () => DatasetReprFetcherServer({ store }),
-    [store],
+    [store.url, store.xarray_open_kwargs],
   )
 
   const tooltipContent = !store.public
@@ -116,8 +116,10 @@ export const FeedstockStore: React.FC<{
 
               <Suspense fallback={<div>Loading dataset representation...</div>}>
                 <DatasetReprFetcher
-                  store={store}
-                  serverDataPromise={serverDataPromise}
+                  key={`${store.url}-${JSON.stringify(
+                    store.xarray_open_kwargs,
+                  )}`}
+                  serverDataPromise={() => serverDataPromise}
                 />
               </Suspense>
             </Box>

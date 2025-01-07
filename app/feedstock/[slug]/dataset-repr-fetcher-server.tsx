@@ -1,5 +1,8 @@
 import { Store } from '@/types/types'
 import { getDatasetRepr } from '@/utils/get-xarray-html-repr'
+import { cache } from 'react'
+
+const cachedGetDatasetRepr = cache(getDatasetRepr)
 
 export default async function DatasetReprFetcherServer({
   store,
@@ -10,7 +13,7 @@ export default async function DatasetReprFetcherServer({
   let error = null
 
   try {
-    data = await getDatasetRepr(store.url, store.xarray_open_kwargs)
+    data = await cachedGetDatasetRepr(store.url, store.xarray_open_kwargs)
   } catch (e) {
     console.error('Error fetching dataset repr:', e)
     error = e instanceof Error ? e.message : 'An unknown error occurred'
