@@ -1,13 +1,11 @@
 'use client'
 
-import { Store } from '@/types/types'
 import { Suspense, useEffect, useState } from 'react'
 import { DatasetRepr } from './dataset-repr'
 
 export default function DatasetReprFetcher({
   serverDataPromise,
 }: {
-  store: Store
   serverDataPromise: () => Promise<{ data: any; error: string | null }>
 }) {
   const [data, setData] = useState<any>(null)
