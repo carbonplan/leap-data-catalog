@@ -119,7 +119,6 @@ export const FeedstockStore: React.FC<{
                   key={`${store.url}-${JSON.stringify(
                     store.xarray_open_kwargs,
                   )}`}
-                  store={store}
                   serverDataPromise={() => serverDataPromise}
                 />
               </Suspense>
