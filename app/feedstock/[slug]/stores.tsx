@@ -78,7 +78,7 @@ export const FeedstockStore: React.FC<{
                 </Text>
               </Box>
 
-              <TooltipWrapper tooltip={tooltipContent} color={color}>
+              <TooltipWrapper isExpanded tooltip={tooltipContent} color={color}>
                 <DataViewer store={store} color={color} />
               </TooltipWrapper>
             </Box>
