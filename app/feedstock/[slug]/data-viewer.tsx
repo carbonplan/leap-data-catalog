@@ -3,6 +3,7 @@ import { Store } from '@/types/types'
 import { Button } from '@carbonplan/components'
 import { Arrow, RotatingArrow } from '@carbonplan/icons'
 import React from 'react'
+import { Box } from 'theme-ui'
 
 interface DataViewerProps {
   store: Store
@@ -16,7 +17,7 @@ export const DataViewer: React.FC<DataViewerProps> = ({ store, color }) => {
 
   const enabled = store.public && store.geospatial
 
-  return (
+  return enabled ? (
     <Button
       href={`https://ncview-js.staging.carbonplan.org/?dataset=${
         pyramid || url
@@ -52,5 +53,9 @@ export const DataViewer: React.FC<DataViewerProps> = ({ store, color }) => {
     >
       Open in Data Viewer
     </Button>
+  ) : (
+    <Box sx={{ fontSize: [1, 1, 1, 2] }}>
+      Dataset incompatible with Data Viewer
+    </Box>
   )
 }
