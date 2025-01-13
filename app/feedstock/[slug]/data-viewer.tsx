@@ -54,7 +54,7 @@ export const DataViewer: React.FC<DataViewerProps> = ({ store, color }) => {
       Open in Data Viewer
     </Button>
   ) : (
-    <Box sx={{ fontSize: [2, 2, 2, 3] }}>
+    <Box sx={{ fontSize: [1, 1, 1, 2] }}>
       Dataset incompatible with Data Viewer
     </Box>
   )
