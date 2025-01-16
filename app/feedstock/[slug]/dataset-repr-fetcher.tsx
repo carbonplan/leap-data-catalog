@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DatasetRepr } from './dataset-repr'
 
 export default function DatasetReprFetcher({
@@ -10,8 +10,10 @@ export default function DatasetReprFetcher({
 }) {
   const [data, setData] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    setIsLoading(true)
     serverDataPromise()
       .then((response) => {
         setData(response.data)
@@ -20,11 +22,14 @@ export default function DatasetReprFetcher({
       .catch((err) => {
         setError(err.message)
       })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [serverDataPromise])
 
-  return (
-    <Suspense fallback={<div>Loading dataset representation...</div>}>
-      <DatasetRepr data={data} error={error} />
-    </Suspense>
-  )
+  if (isLoading) {
+    return <div>Loading dataset representation...</div>
+  }
+
+  return <DatasetRepr data={data} error={error} />
 }
