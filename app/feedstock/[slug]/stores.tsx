@@ -154,9 +154,9 @@ export const FeedstockStores: React.FC<{
             <Column start={[1, 1, 2, 2]} width={[6, 4, 4, 5]}>
               <Box sx={{ mt: 2, fontSize: [1, 1, 1, 2] }}>
                 Due to the large number of data stores associated with the
-                feedstock, we've opted not to list them individually here.
+                feedstock, we have opted not to list them individually here.
                 Instead, you can access information about the data stores by
-                visiting the feedstock's GitHub repository linked below.
+                visiting the feedstock&apos;s GitHub repository linked below.
               </Box>
             </Column>
           </Row>
