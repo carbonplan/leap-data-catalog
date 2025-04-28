@@ -2,10 +2,10 @@
 
 import { FeedstockCard } from '@/components/feedstock-card'
 import { SearchBox } from '@/components/search-box'
+import { TagFilter } from '@/components/tag-filter'
 import { Feedstock } from '@/types/types'
 import { Column, Row } from '@carbonplan/components'
 import { Suspense, useMemo, useState } from 'react'
-import Select, { MultiValue } from 'react-select'
 import { Box, Text, Container } from 'theme-ui'
 
 const FeedstockList = ({
@@ -73,14 +73,9 @@ type CatalogProps = {
   catalog?: string
 }
 
-type TagOption = {
-  value: string
-  label: string
-}
-
 export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
   const [search, setSearch] = useState('')
-  const [selectedTags, setSelectedTags] = useState<MultiValue<TagOption>>([])
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
 
   const tags = useMemo(() => {
     const allTags = feedstocks.reduce((accum, f) => {
@@ -88,15 +83,8 @@ export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
       return accum
     }, new Set<string>())
 
-    return Array.from(allTags).map((tag) => ({
-      value: tag,
-      label: tag.toUpperCase(),
-    }))
+    return Array.from(allTags)
   }, [feedstocks])
-
-  const selectedTagValues = useMemo(() => {
-    return selectedTags.map((d) => d.value)
-  }, [selectedTags])
 
   if (error) {
     return (
@@ -124,11 +112,10 @@ export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
             </Column>
             <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]}>
               <SearchBox search={search} setSearch={setSearch} />
-              <Select
-                value={selectedTags}
-                onChange={setSelectedTags}
-                options={tags}
-                isMulti
+              <TagFilter
+                tags={tags}
+                selectedTags={selectedTags}
+                setSelectedTags={setSelectedTags}
               />
             </Column>
           </Row>
@@ -136,7 +123,7 @@ export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
           <Box mt={3}>
             <Suspense fallback={<Box />}>
               <FeedstockList
-                tags={selectedTagValues}
+                tags={selectedTags}
                 feedstocks={feedstocks}
                 search={search}
                 catalog={catalog}
