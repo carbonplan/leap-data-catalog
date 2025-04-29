@@ -98,7 +98,7 @@ export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
       <Container>
         <Box as='section' sx={{ pt: 8, pb: 10 }}>
           <Row columns={[6, 8, 12, 12]} sx={{ mb: 6 }}>
-            <Column start={1} width={[6, 4, 4, 4]}>
+            <Column start={1} width={[6, 6, 4, 4]}>
               <Text
                 sx={{
                   color: 'primary',
@@ -110,7 +110,11 @@ export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
                 Data Catalog
               </Text>
             </Column>
-            <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]}>
+            <Column
+              start={[1, 1, 5, 5]}
+              width={[6, 6, 6, 6]}
+              sx={{ mt: [3, 3, 0, 0] }}
+            >
               <SearchBox search={search} setSearch={setSearch} />
               <TagFilter
                 tags={tags}
