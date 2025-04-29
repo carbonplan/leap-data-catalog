@@ -24,6 +24,24 @@ const Filter = ({ sx }: BoxProps) => {
   )
 }
 
+const sx = {
+  badge: {
+    height: ['22px', '22px', '22px', '24px'],
+    lineHeight: ['22px', '22px', '22px', '24px'],
+    opacity: 0.7,
+  },
+  badgeButton: {
+    mt: ['-3px', '-3px', '-3px', '-1px'],
+    height: ['22px', '22px', '22px', '24px'],
+    lineHeight: ['22px', '22px', '22px', '24px'],
+  },
+  badgeButtonText: {
+    fontSize: [0, 0, 0, 1],
+    textTransform: 'uppercase' as const,
+    fontFamily: 'mono',
+    letterSpacing: 'mono',
+  },
+}
 interface TagFilterProps {
   tags: string[]
   selectedTags: string[]
@@ -56,7 +74,7 @@ export const TagFilter: React.FC<TagFilterProps> = ({
   )
 
   return (
-    <Box sx={{ position: 'relative', mt: 4 }}>
+    <Box sx={{ position: 'relative', mt: 3 }}>
       <Flex sx={{ gap: 2, flexWrap: 'wrap', alignItems: 'baseline' }}>
         <Button
           onClick={() => setOpen((o) => !o)}
@@ -66,11 +84,11 @@ export const TagFilter: React.FC<TagFilterProps> = ({
             fontFamily: 'mono',
             letterSpacing: 'mono',
             textTransform: 'uppercase',
-            fontSize: 1,
-            minHeight: 24,
+            fontSize: [0, 0, 0, 1],
+            minHeight: [24, 24, 24, 26],
             color: open ? 'primary' : undefined,
           }}
-          suffix={<Filter sx={{ mt: '-2px' }} />}
+          suffix={<Filter sx={{ mt: '1px' }} />}
         >
           Filter by tag
         </Button>
@@ -79,18 +97,16 @@ export const TagFilter: React.FC<TagFilterProps> = ({
           <>
             {selectedTags.map((tag, i) => (
               <Flex key={tag} sx={{ gap: 2, flexWrap: 'nowrap' }}>
-                <Badge sx={{ opacity: 0.7 }}>
+                <Badge sx={sx.badge}>
                   <Button
-                    sx={{
-                      fontFamily: 'mono',
-                      fontSize: 1,
-                      textTransform: 'uppercase',
-                      py: '3px',
-                    }}
-                    suffix={<X sx={{ height: 10, width: 10 }} />}
+                    sx={sx.badgeButton}
+                    suffix={<X sx={{ height: 10, width: 10, mt: '-1px' }} />}
                     onClick={() => removeTag(tag)}
+                    size='xs'
                   >
-                    {tag}
+                    <Box as='span' sx={sx.badgeButtonText}>
+                      {tag}
+                    </Box>
                   </Button>
                 </Badge>
                 {i === selectedTags.length - 1 && (
@@ -152,19 +168,26 @@ export const TagFilter: React.FC<TagFilterProps> = ({
             </IconButton>
           </Flex>
 
-          <Flex sx={{ flexWrap: 'wrap', mt: -4, gap: 2, px: 2, pb: 3 }}>
+          <Flex
+            sx={{
+              flexWrap: 'wrap',
+              mt: -4,
+              gap: 2,
+              pl: 2,
+              pr: [2, 2, 2, 4],
+              pb: [3, 3, 3, 4],
+            }}
+          >
             {selectableTags.map((tag) => (
-              <Badge key={tag} sx={{ opacity: 0.7 }}>
+              <Badge key={tag} sx={sx.badge}>
                 <Button
-                  sx={{
-                    fontFamily: 'mono',
-                    fontSize: 1,
-                    py: '3px',
-                    textTransform: 'uppercase',
-                  }}
+                  sx={sx.badgeButton}
                   onClick={() => addTag(tag)}
+                  size='xs'
                 >
-                  {tag}
+                  <Box as='span' sx={sx.badgeButtonText}>
+                    {tag}
+                  </Box>
                 </Button>
               </Badge>
             ))}
