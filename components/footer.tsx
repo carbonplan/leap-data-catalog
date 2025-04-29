@@ -9,7 +9,7 @@ export const Footer = () => {
   return (
     <Container as='footer' sx={{ bg: 'hinted', py: 4, mt: 4 }}>
       <Row>
-        <Column start={[1, 1, 1, 2]} width={[3, 3, 3, 3]}>
+        <Column start={[1, 1, 1, 1]} width={[3, 3, 3, 3]}>
           <Link
             href='https://leap.columbia.edu/'
             style={{

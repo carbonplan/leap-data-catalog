@@ -2,6 +2,7 @@
 
 import { FeedstockCard } from '@/components/feedstock-card'
 import { SearchBox } from '@/components/search-box'
+import { TagFilter } from '@/components/tag-filter'
 import { Feedstock } from '@/types/types'
 import { Column, Row } from '@carbonplan/components'
 import { Suspense, useMemo, useState } from 'react'
@@ -10,10 +11,12 @@ import { Box, Text, Container } from 'theme-ui'
 const FeedstockList = ({
   feedstocks,
   search,
+  tags,
   catalog,
 }: {
   feedstocks: Feedstock[]
   search: string
+  tags: string[]
   catalog?: string
 }) => {
   const filteredFeedstocks = useMemo(() => {
@@ -21,19 +24,27 @@ const FeedstockList = ({
       return []
     }
 
-    if (!search) {
-      return feedstocks
+    let result = feedstocks
+
+    if (search) {
+      const re = new RegExp(search, 'i')
+
+      result = result.filter(
+        (d: Feedstock) =>
+          d.title.match(re) ||
+          d.tags?.some((tag) => tag.match(re)) ||
+          d.description.match(re),
+      )
     }
 
-    const re = new RegExp(search, 'i')
+    if (tags.length > 0) {
+      result = result.filter((d: Feedstock) =>
+        tags.find((tag) => d.tags?.includes(tag)),
+      )
+    }
 
-    return feedstocks.filter(
-      (d: Feedstock) =>
-        d.title.match(re) ||
-        d.tags?.some((tag) => tag.match(re)) ||
-        d.description.match(re),
-    )
-  }, [feedstocks, search])
+    return result
+  }, [feedstocks, search, tags])
 
   if (!feedstocks || feedstocks.length === 0) {
     return <Box />
@@ -64,6 +75,16 @@ type CatalogProps = {
 
 export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
   const [search, setSearch] = useState('')
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
+
+  const tags = useMemo(() => {
+    const allTags = feedstocks.reduce((accum, f) => {
+      f.tags?.forEach((tag) => accum.add(tag))
+      return accum
+    }, new Set<string>())
+
+    return Array.from(allTags)
+  }, [feedstocks])
 
   if (error) {
     return (
@@ -75,9 +96,9 @@ export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
   return (
     <Box>
       <Container>
-        <Box as='section' py={10}>
+        <Box as='section' sx={{ pt: 8, pb: 10 }}>
           <Row columns={[6, 8, 12, 12]} sx={{ mb: 6 }}>
-            <Column start={1} width={[6, 4, 4, 4]}>
+            <Column start={1} width={[6, 6, 4, 4]}>
               <Text
                 sx={{
                   color: 'primary',
@@ -89,14 +110,24 @@ export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
                 Data Catalog
               </Text>
             </Column>
-            <Column start={[1, 5, 5, 5]} width={[6, 4, 6, 6]}>
+            <Column
+              start={[1, 1, 5, 5]}
+              width={[6, 6, 6, 6]}
+              sx={{ mt: [3, 3, 0, 0] }}
+            >
               <SearchBox search={search} setSearch={setSearch} />
+              <TagFilter
+                tags={tags}
+                selectedTags={selectedTags}
+                setSelectedTags={setSelectedTags}
+              />
             </Column>
           </Row>
 
           <Box mt={3}>
             <Suspense fallback={<Box />}>
               <FeedstockList
+                tags={selectedTags}
                 feedstocks={feedstocks}
                 search={search}
                 catalog={catalog}

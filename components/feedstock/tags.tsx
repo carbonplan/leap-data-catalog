@@ -26,13 +26,19 @@ export const Tags: React.FC<TagsProps> = ({ tags, sx }) => {
             fontSize: [0, 0, 0, 1],
             height: ['22px', '22px', '22px', '24px'],
             lineHeight: ['22px', '22px', '22px', '24px'],
-            textTransform: 'uppercase',
-            fontFamily: 'mono',
-            letterSpacing: 'mono',
             opacity: 0.7,
           }}
         >
-          {tag}
+          <Box
+            as='span'
+            sx={{
+              textTransform: 'uppercase',
+              fontFamily: 'mono',
+              letterSpacing: 'mono',
+            }}
+          >
+            {tag}
+          </Box>
         </Badge>
       ))}
     </Flex>

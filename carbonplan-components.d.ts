@@ -29,6 +29,7 @@ declare module '@carbonplan/icons' {
   export function Down(props: any): JSX.Element
   export function Info(props: any): JSX.Element
   export function Left(props: any): JSX.Element
+  export function X(props: any): JSX.Element
   // Add more component declarations as needed
 }
 
