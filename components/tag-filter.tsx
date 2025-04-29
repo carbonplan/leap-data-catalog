@@ -67,12 +67,53 @@ export const TagFilter: React.FC<TagFilterProps> = ({
             letterSpacing: 'mono',
             textTransform: 'uppercase',
             fontSize: 1,
+            minHeight: 24,
+            color: open ? 'primary' : undefined,
           }}
           suffix={<Filter sx={{ mt: '-2px' }} />}
         >
           Filter by tag
         </Button>
+
+        {selectedTags.length > 0 && (
+          <>
+            {selectedTags.map((tag, i) => (
+              <Flex key={tag} sx={{ gap: 2, flexWrap: 'nowrap' }}>
+                <Badge sx={{ opacity: 0.7 }}>
+                  <Button
+                    sx={{
+                      fontFamily: 'mono',
+                      fontSize: 1,
+                      textTransform: 'uppercase',
+                      py: '3px',
+                    }}
+                    suffix={<X sx={{ height: 10, width: 10 }} />}
+                    onClick={() => removeTag(tag)}
+                  >
+                    {tag}
+                  </Button>
+                </Badge>
+                {i === selectedTags.length - 1 && (
+                  <Button
+                    size='xs'
+                    inverted
+                    sx={{
+                      fontFamily: 'mono',
+                      letterSpacing: 'mono',
+                      textTransform: 'uppercase',
+                      fontSize: 0,
+                    }}
+                    onClick={() => setSelectedTags([])}
+                  >
+                    Clear
+                  </Button>
+                )}
+              </Flex>
+            ))}
+          </>
+        )}
       </Flex>
+
       {open && (
         <Box
           sx={{
@@ -89,28 +130,7 @@ export const TagFilter: React.FC<TagFilterProps> = ({
             zIndex: 1,
           }}
         >
-          <Flex sx={{ justifyContent: 'space-between' }}>
-            <Flex>
-              <Box sx={{ fontFamily: 'mono', fontSize: 1, p: 2 }}>
-                {selectedTags.length > 0 ? 'Active tags' : 'Select tags'}
-              </Box>
-              {selectedTags.length > 0 && (
-                <Button
-                  size='xs'
-                  inverted
-                  sx={{
-                    fontFamily: 'mono',
-                    letterSpacing: 'mono',
-                    textTransform: 'uppercase',
-                    fontSize: 0,
-                  }}
-                  onClick={() => setSelectedTags([])}
-                >
-                  Clear
-                </Button>
-              )}
-            </Flex>
-
+          <Flex sx={{ justifyContent: 'flex-end' }}>
             <IconButton
               role='button'
               aria-label='Close'
@@ -132,33 +152,7 @@ export const TagFilter: React.FC<TagFilterProps> = ({
             </IconButton>
           </Flex>
 
-          {selectedTags.length > 0 && (
-            <>
-              <Flex sx={{ flexWrap: 'wrap', gap: 2, px: 2, pb: 3 }}>
-                {selectedTags.map((tag) => (
-                  <Badge key={tag} sx={{ opacity: 0.7 }}>
-                    <Button
-                      sx={{
-                        fontFamily: 'mono',
-                        fontSize: 1,
-                        textTransform: 'uppercase',
-                        py: '3px',
-                      }}
-                      suffix={<X sx={{ height: 10, width: 10 }} />}
-                      onClick={() => removeTag(tag)}
-                    >
-                      {tag}
-                    </Button>
-                  </Badge>
-                ))}
-              </Flex>
-              <Box sx={{ fontFamily: 'mono', fontSize: 1, p: 2 }}>
-                Select tags
-              </Box>
-            </>
-          )}
-
-          <Flex sx={{ flexWrap: 'wrap', gap: 2, px: 2, pb: 3 }}>
+          <Flex sx={{ flexWrap: 'wrap', mt: -4, gap: 2, px: 2, pb: 3 }}>
             {selectableTags.map((tag) => (
               <Badge key={tag} sx={{ opacity: 0.7 }}>
                 <Button
