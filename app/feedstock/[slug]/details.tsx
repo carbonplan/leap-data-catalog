@@ -25,7 +25,7 @@ export const FeedstockDetails: React.FC<{ feedstock: Feedstock }> = ({
           />
         </Column>
         <Column start={[1, 1, 2, 2]} width={[6, 4, 3, 3]}>
-          <Repository metaURL={feedstock['ncviewjs:meta_yaml_url']} />
+          <Repository metaURL={feedstock.feedstock} />
         </Column>
         <Column start={[1, 5, 7, 7]} width={[6, 4, 3, 3]}>
           <Providers providers={feedstock.provenance?.providers} />

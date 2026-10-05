@@ -3,13 +3,12 @@
 import { TooltipWrapper } from '@/components/tooltip-wrapper'
 import { Store } from '@/types/types'
 import { Button, Column, Expander, Row } from '@carbonplan/components'
-import React, { Suspense, useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { Box, Text } from 'theme-ui'
 import { CodeSnippet } from './code-snippet'
 import { DataViewer } from './data-viewer'
-import DatasetReprFetcher from './dataset-repr-fetcher'
-import DatasetReprFetcherServer from './dataset-repr-fetcher-server'
+import { ZarrMapViewer } from './zarr-map-viewer'
 
 const labelStyle = {
   color: 'muted',
@@ -24,19 +23,13 @@ export const FeedstockStore: React.FC<{
   color: string
 }> = ({ store, color }) => {
   const [expanded, setExpanded] = useState(false)
-
-  const serverDataPromise = useMemo(
-    () => DatasetReprFetcherServer({ store }),
-    [store.url, store.xarray_open_kwargs],
-  )
+  const [showMap, setShowMap] = useState(false)
 
   const tooltipContent = !store.public
     ? 'Private dataset. Access requires credentials or a Columbia-LEAP JupyterHub server.'
     : store.geospatial
       ? ''
       : 'This dataset contains non-geospatial data not supported by the data viewer.'
-
-  const metadataTooltipContent = store.public ? '' : tooltipContent
 
   return (
     <Box sx={{ mb: 4 }}>
@@ -79,7 +72,12 @@ export const FeedstockStore: React.FC<{
               </Box>
 
               <TooltipWrapper isExpanded tooltip={tooltipContent} color={color}>
-                <DataViewer store={store} color={color} />
+                <DataViewer
+                  store={store}
+                  color={color}
+                  showMap={showMap}
+                  onToggle={() => setShowMap((prev) => !prev)}
+                />
               </TooltipWrapper>
             </Box>
           </Column>
@@ -93,38 +91,23 @@ export const FeedstockStore: React.FC<{
                   Load Dataset
                 </Text>
               </Box>
-              <CodeSnippet
-                url={store.url}
-                color={color}
-                xarrayOpenKwargs={store.xarray_open_kwargs}
-              />
-            </Box>
-          </Column>
-
-          <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
-            <Box sx={{ mt: 2 }}>
-              <TooltipWrapper tooltip={metadataTooltipContent} color={color}>
-                <Box sx={{ mb: 2 }}>
-                  <Text
-                    // @ts-ignore
-                    sx={labelStyle}
-                  >
-                    Metadata
-                  </Text>
-                </Box>
-              </TooltipWrapper>
-
-              <Suspense fallback={<div>Loading dataset representation...</div>}>
-                <DatasetReprFetcher
-                  key={`${store.url}-${JSON.stringify(
-                    store.xarray_open_kwargs,
-                  )}`}
-                  serverDataPromise={() => serverDataPromise}
-                />
-              </Suspense>
+              <CodeSnippet store={store} color={color} />
             </Box>
           </Column>
         </Row>
+
+        {showMap && (
+          <Row sx={{ mt: 3 }}>
+            <Column start={[1, 1, 2, 2]} width={[6, 8, 10, 10]}>
+              <ZarrMapViewer
+                url={store.url}
+                format={store.format}
+                color={color}
+                bbox={store.bbox}
+              />
+            </Column>
+          </Row>
+        )}
       </AnimateHeight>
     </Box>
   )
@@ -145,7 +128,7 @@ export const FeedstockStores: React.FC<{
       </Row>
 
       {stores ? (
-        stores.map((store, index) => (
+        stores.map((store) => (
           <FeedstockStore key={store.id} store={store} color={color} />
         ))
       ) : (

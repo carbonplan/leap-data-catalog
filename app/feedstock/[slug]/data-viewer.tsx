@@ -1,61 +1,81 @@
 'use client'
 import { Store } from '@/types/types'
 import { Button } from '@carbonplan/components'
-import { Arrow, RotatingArrow } from '@carbonplan/icons'
+import { RotatingArrow } from '@carbonplan/icons'
 import React from 'react'
 import { Box } from 'theme-ui'
 
 interface DataViewerProps {
   store: Store
   color: string
+  showMap: boolean
+  onToggle: () => void
 }
 
-export const DataViewer: React.FC<DataViewerProps> = ({ store, color }) => {
-  const { id, name, url, rechunking } = store
-  const pyramid =
-    rechunking && rechunking.length > 0 ? rechunking[0].path : null
+export const DataViewer: React.FC<DataViewerProps> = ({
+  store,
+  color,
+  showMap,
+  onToggle,
+}) => {
+  const { url, format } = store
+
+  // csv (or other tabular) data: just link to the file.
+  if (format === 'csv') {
+    return (
+      <Box>
+        <Button
+          href={url}
+          target='_blank'
+          rel='noopener noreferrer'
+          suffix={<RotatingArrow sx={{ transform: 'translateY(-6%)' }} />}
+          sx={{
+            fontSize: [0, 0, 0, 1],
+            letterSpacing: 'mono',
+            textTransform: 'uppercase',
+            fontFamily: 'mono',
+            color,
+            cursor: 'pointer',
+          }}
+        >
+          Download CSV
+        </Button>
+      </Box>
+    )
+  }
 
   const enabled = store.public && store.geospatial
 
-  return enabled ? (
-    <Button
-      href={`https://ncview-js.staging.carbonplan.org/?dataset=${
-        pyramid || url
-      }`}
-      target='_blank'
-      rel='noopener noreferrer'
-      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!enabled) {
-          e.preventDefault()
-        }
-      }}
-      suffix={
-        enabled ? (
-          <RotatingArrow
-            sx={{
-              transform: ['translateY(-6%)'],
-            }}
-          />
-        ) : (
-          <Arrow />
-        )
-      }
-      sx={{
-        fontSize: [0, 0, 0, 1],
-        letterSpacing: 'mono',
-        textTransform: 'uppercase',
-        fontFamily: 'mono',
-        mt: 3,
-        mb: 2,
-        cursor: enabled ? 'pointer' : 'not-allowed',
-        color: enabled ? color : 'secondary',
-      }}
-    >
-      Open in Data Viewer
-    </Button>
-  ) : (
-    <Box sx={{ fontSize: [1, 1, 1, 2] }}>
-      Dataset incompatible with Data Viewer
+  if (!enabled) {
+    return (
+      <Box sx={{ fontSize: [1, 1, 1, 2] }}>
+        Dataset incompatible with Data Viewer
+      </Box>
+    )
+  }
+
+  return (
+    <Box>
+      <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap', mt: 3, mb: 2 }}>
+        <Button
+          onClick={onToggle}
+          suffix={
+            <RotatingArrow
+              sx={{ transform: showMap ? 'rotate(90deg)' : 'translateY(-6%)' }}
+            />
+          }
+          sx={{
+            fontSize: [0, 0, 0, 1],
+            letterSpacing: 'mono',
+            textTransform: 'uppercase',
+            fontFamily: 'mono',
+            color,
+            cursor: 'pointer',
+          }}
+        >
+          {showMap ? 'Hide Map Viewer' : 'Preview in Map Viewer'}
+        </Button>
+      </Box>
     </Box>
   )
 }

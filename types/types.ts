@@ -1,33 +1,31 @@
-interface Rechunking {
-  path: string
-}
+export type StoreFormat = 'icechunk' | 'zarr' | 'csv'
 
-interface Dataset {
-  id: string
-  name?: string
-  url: string
-  'ncviewjs:rechunking'?: Rechunking[]
-  public?: boolean
-  geospatial?: boolean
-}
-
-export interface XarrayOpenKwargsType {
-  engine: string
-  chunks: Record<string, any>
+export interface StorageConfig {
+  type?: string
+  bucket?: string
+  prefix?: string
+  region?: string
 }
 
 export interface Store {
   id: string
   name?: string
+  // Location of the data store (icechunk repo URL, zarr store URL, or csv URL).
   url: string
-  rechunking?: { [key: string]: string }[]
-  'ncviewjs:rechunking'?: Rechunking[]
+  format: StoreFormat
+  // Source feedstock this dataset came from (repo URL or slug).
+  feedstock?: string
+  // icechunk branch this entry maps to (basal catalog branch name).
+  branch?: string
   public?: boolean
   geospatial?: boolean
-
+  variables?: string[]
+  // [xMin, yMin, xMax, yMax]
+  bbox?: [number, number, number, number]
   last_updated?: string
-
-  xarray_open_kwargs: XarrayOpenKwargsType
+  // Original catalog location (e.g. s3://bucket/prefix), pre-HTTP-resolution.
+  location?: string
+  storageConfig?: StorageConfig
 }
 
 export interface Link {
@@ -67,8 +65,8 @@ export interface Feedstock {
   tags?: string[]
   links?: Link[]
   stores?: Store[]
-  meta_yaml_url?: string
-  'ncviewjs:meta_yaml_url'?: string
+  // Link back to the source feedstock repository.
+  feedstock?: string
   slug: string
   color: string
 }

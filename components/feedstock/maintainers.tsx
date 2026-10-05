@@ -7,8 +7,9 @@ interface MaintainersProps {
 }
 
 export const Maintainers: React.FC<MaintainersProps> = ({ maintainers }) => {
-  // Sort maintainers by name
-  const sortedMaintainers = maintainers.sort((a, b) =>
+  if (!maintainers || maintainers.length === 0) return null
+
+  const sortedMaintainers = [...maintainers].sort((a, b) =>
     a.name.localeCompare(b.name),
   )
 
@@ -28,26 +29,32 @@ export const Maintainers: React.FC<MaintainersProps> = ({ maintainers }) => {
         </Text>
       </Box>
 
-      <Flex sx={{ flexDirection: 'row', gap: 2 }}>
-        {sortedMaintainers.map((maintainer) => (
-          <Link
-            key={maintainer.name}
-            href={`https://github.com/${maintainer.github}`}
-            target='_blank'
-            rel='noopener noreferrer'
-            sx={{ textDecoration: 'none' }}
-          >
-            <Flex
-              sx={{ flexDirection: 'column', gap: 2, alignItems: 'center' }}
+      <Flex sx={{ flexDirection: 'row', gap: 2, alignItems: 'center' }}>
+        {sortedMaintainers.map((maintainer) =>
+          maintainer.github ? (
+            <Link
+              key={maintainer.name}
+              href={`https://github.com/${maintainer.github}`}
+              target='_blank'
+              rel='noopener noreferrer'
+              sx={{ textDecoration: 'none' }}
             >
-              <Avatar
-                src={`https://github.com/${maintainer.github}.png`}
-                alt={`${maintainer.name}'s avatar`}
-                sx={{ width: 48, height: 48, borderRadius: '50%' }}
-              />
-            </Flex>
-          </Link>
-        ))}
+              <Flex
+                sx={{ flexDirection: 'column', gap: 2, alignItems: 'center' }}
+              >
+                <Avatar
+                  src={`https://github.com/${maintainer.github}.png`}
+                  alt={`${maintainer.name}'s avatar`}
+                  sx={{ width: 48, height: 48, borderRadius: '50%' }}
+                />
+              </Flex>
+            </Link>
+          ) : (
+            <Text key={maintainer.name} sx={{ fontSize: [1, 1, 1, 2] }}>
+              {maintainer.name}
+            </Text>
+          ),
+        )}
       </Flex>
     </Box>
   )
