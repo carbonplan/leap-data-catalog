@@ -5,6 +5,8 @@ export interface StorageConfig {
   bucket?: string
   prefix?: string
   region?: string
+  // S3-compatible endpoint (e.g. OSN); unset for AWS/GCS.
+  endpoint?: string
 }
 
 export interface Store {
@@ -15,8 +17,6 @@ export interface Store {
   format: StoreFormat
   // Source feedstock this dataset came from (repo URL or slug).
   feedstock?: string
-  // icechunk branch this entry maps to (basal catalog branch name).
-  branch?: string
   public?: boolean
   geospatial?: boolean
   variables?: string[]
@@ -26,6 +26,10 @@ export interface Store {
   // Original catalog location (e.g. s3://bucket/prefix), pre-HTTP-resolution.
   location?: string
   storageConfig?: StorageConfig
+  // Multiscale pyramid (topozarr) used by the map viewer instead of `url`.
+  vizUrl?: string
+  // Virtual icechunk store (chunks in external files); not browser-readable.
+  virtual?: boolean
 }
 
 export interface Link {

@@ -16,6 +16,7 @@
     "@carbonplan/zarr-layer": "^0.5.0",
     "@next/third-parties": "^16.2.4",
     "@theme-ui/color": "^0.17.4",
+    "hyparquet": "^1.31.2",
     "icechunk-js": "^0.6.0",
     "maplibre-gl": "^5.24.0",
     "next": "16.2.6",

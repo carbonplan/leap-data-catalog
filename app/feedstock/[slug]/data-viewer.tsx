@@ -44,7 +44,7 @@ export const DataViewer: React.FC<DataViewerProps> = ({
     )
   }
 
-  const enabled = store.public && store.geospatial
+  const enabled = store.public && store.geospatial && !store.virtual
 
   if (!enabled) {
     return (

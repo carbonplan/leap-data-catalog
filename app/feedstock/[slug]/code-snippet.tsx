@@ -26,6 +26,16 @@ storage = icechunk.s3_storage(...)  # configure for the store location`
     anonymous=True,
 )`
   }
+  if (cfg?.endpoint) {
+    return `storage = icechunk.s3_storage(
+    bucket='${bucket}',
+    prefix='${prefix}',
+    endpoint_url='${cfg.endpoint}',
+    region='${cfg.region ?? 'us-east-1'}',
+    force_path_style=True,
+    anonymous=True,
+)`
+  }
   return `storage = icechunk.s3_storage(
     bucket='${bucket}',
     prefix='${prefix}',
