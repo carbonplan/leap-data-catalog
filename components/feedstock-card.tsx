@@ -2,6 +2,7 @@
 
 import { Thumbnail } from '@/components/feedstock'
 import { Feedstock } from '@/types/types'
+import { formatMeta } from '@/utils/format'
 import { alpha } from '@theme-ui/color'
 import Link from 'next/link'
 import { Box, Flex, Text } from 'theme-ui'
@@ -15,8 +16,12 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({
   feedstock,
   catalog,
 }) => {
-  const { slug, description, provenance, tags, thumbnail, color, title } =
-    feedstock
+  const { slug, description, summary, thumbnail, color, title } = feedstock
+  const badges = [
+    feedstock.source === 'dynamical' && 'dynamical.org',
+    feedstock.mapPreview && 'map preview',
+    (feedstock.stores?.length ?? 0) > 1 && `${feedstock.stores?.length} stores`,
+  ].filter(Boolean) as string[]
 
   const truncateDescription = (text: string, maxLength: number) => {
     if (text.length <= maxLength) {
@@ -25,7 +30,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({
     return text.slice(0, maxLength).trim() + '...'
   }
 
-  const truncatedDescription = truncateDescription(description, 200)
+  const truncatedDescription = summary ?? truncateDescription(description, 160)
 
   return (
     <Link
@@ -55,7 +60,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({
         }}
       >
         <Box sx={{ flex: '0 0 auto', position: 'relative' }}>
-          <Thumbnail url={thumbnail} color={color} tags={tags} />
+          <Thumbnail url={thumbnail} color={color} tags={feedstock.domain} />
         </Box>
 
         <Flex
@@ -88,10 +93,33 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({
             </Flex>
 
             <Box sx={{ mb: 2 }}>
-              <Text sx={{ fontSize: [2, 2, 2, 3] }}>
+              <Text
+                sx={{
+                  fontSize: [2, 2, 2, 3],
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                }}
+              >
                 {truncatedDescription}
               </Text>
             </Box>
+          </Box>
+          <Box
+            sx={{
+              fontFamily: 'mono',
+              letterSpacing: 'mono',
+              fontSize: [0, 0, 0, 1],
+              color: 'secondary',
+              textTransform: 'uppercase',
+              mt: 2,
+            }}
+          >
+            <Box>{formatMeta(feedstock)}</Box>
+            {badges.length > 0 && (
+              <Box sx={{ mt: 1 }}>{badges.join(' · ')}</Box>
+            )}
           </Box>
         </Flex>
       </Box>
