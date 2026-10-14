@@ -172,6 +172,11 @@ def prepare(ds: xr.Dataset, x: str, y: str, crs: str) -> xr.Dataset:
         v.encoding = keep[n]
         if n in f64 and v.encoding.get("dtype") == np.float64:
             v.encoding["dtype"] = np.dtype("float32")
+    # float32 axes (chirps, modis) jitter ~1e-4 cell; topozarr needs exact spacing. plan() already rejected >1%.
+    for d in (x, y):
+        v = ds[d].values.astype("float64")
+        ds = ds.assign_coords({d: (d, np.linspace(v[0], v[-1], v.size), ds[d].attrs)})
+        ds[d].encoding = {}
     return ds.proj.assign_crs(spatial_ref=crs, allow_override=True)
 
 
