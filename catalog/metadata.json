@@ -1,0 +1,7847 @@
+{
+ "caravan": {
+  "attrs": {},
+  "dims": {
+   "basin_id": 16299,
+   "date": 27027
+  },
+  "nbytes": 70482568680,
+  "storage_nbytes": 24907927168,
+  "variables": {
+   "dewpoint_temperature_2m_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "dewpoint_temperature_2m_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "dewpoint_temperature_2m_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "potential_evaporation_sum_ERA5_LAND": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "potential_evaporation_sum_FAO_PENMAN_MONTEITH": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "snow_depth_water_equivalent_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "snow_depth_water_equivalent_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "snow_depth_water_equivalent_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "streamflow": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "surface_net_solar_radiation_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "surface_net_solar_radiation_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "surface_net_solar_radiation_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "surface_net_thermal_radiation_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "surface_net_thermal_radiation_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "surface_net_thermal_radiation_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "surface_pressure_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "surface_pressure_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "surface_pressure_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "temperature_2m_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "temperature_2m_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "temperature_2m_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "total_precipitation_sum": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "u_component_of_wind_10m_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "u_component_of_wind_10m_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "u_component_of_wind_10m_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "v_component_of_wind_10m_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "v_component_of_wind_10m_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "v_component_of_wind_10m_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_1_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_1_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_1_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_2_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_2_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_2_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_3_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_3_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_3_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_4_max": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_4_mean": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   },
+   "volumetric_soil_water_layer_4_min": {
+    "dims": [
+     "basin_id",
+     "date"
+    ]
+   }
+  }
+ },
+ "casm": {
+  "attrs": {},
+  "bbox": [
+   -180.0,
+   -55.177,
+   180.0,
+   79.567
+  ],
+  "dims": {
+   "lat": 511,
+   "lon": 1298,
+   "time": 2210
+  },
+  "end": "2020-08-31T00:00:00Z",
+  "nbytes": 46907052312,
+  "spatial_resolution": "0.222\u00b0",
+  "start": "2002-06-19T00:00:00Z",
+  "storage_nbytes": 10780000000,
+  "time_resolution": "3d",
+  "variables": {
+   "CASM_soil_moisture": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "CASM soil moisture in the top soil layer",
+    "units": "m^3/m^3"
+   },
+   "data_uncertainty": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "example aleatoric uncertainty for small (<10%) perturbation in the input data",
+    "units": "m^3/m^3"
+   },
+   "seasonal_cycle": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "calculated auxiliary variable representing SM seasonal cycle",
+    "units": "m^3/m^3"
+   },
+   "structural_uncertainty": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "epistemic uncertainty",
+    "units": "m^3/m^3"
+   }
+  }
+ },
+ "ceres-ebaf-annual": {
+  "attrs": {},
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "lat": 180,
+   "lon": 360,
+   "year": 27
+  },
+  "nbytes": 314930384,
+  "spatial_resolution": "1\u00b0",
+  "variables": {
+   "cldarea_total_daynight_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Area Fraction, Annual Climatology",
+    "units": "percent"
+   },
+   "cldpress_total_daynight_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Effective Pressure, Annual Climatology",
+    "units": "hPa"
+   },
+   "cldtau_total_day_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Visible Optical Depth, Annual Climatology",
+    "units": "dimensionless"
+   },
+   "cldtemp_total_daynight_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Effective Temperature, Annual Climatology",
+    "units": "K"
+   },
+   "sfc_cre_net_lw_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Longwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_cre_net_sw_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Shortwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_cre_net_tot_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Total Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_clr_c_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_clr_t_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_clr_c_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_clr_t_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_clr_c_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_clr_t_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_clr_c_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_clr_t_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_clr_c_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_clr_t_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_clr_c_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_clr_t_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_clr_c_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_clr_t_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Annual Climatology",
+    "units": "W m-2"
+   },
+   "sfc_t_skin": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Skin Temperature (from surface upwelling longwave), All-Sky conditions, Annual Climatology",
+    "units": "K"
+   },
+   "solar_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Incoming Solar Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_albedo_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Albedo, All-Sky conditions, Annual Climatology",
+    "units": "percent"
+   },
+   "toa_albedo_clr_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Albedo, Clear-Sky (for cloud-free areas of region) conditions, Annual Climatology",
+    "units": "percent"
+   },
+   "toa_cre_lw_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Longwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_cre_net_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Net Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_cre_sw_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Shortwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_lw_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_lw_clr_c_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_lw_clr_t_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_net_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_net_clr_c_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_net_clr_t_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_sw_all_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_sw_clr_c_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_sw_clr_t_mon": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Annual Climatology",
+    "units": "W m-2"
+   },
+   "toa_t_eff": {
+    "dims": [
+     "year",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Effective Emission Temperature (from TOA longwave), All-Sky conditions, Annual Climatology",
+    "units": "K"
+   }
+  }
+ },
+ "ceres-ebaf-clim-monthly": {
+  "attrs": {},
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "lat": 180,
+   "lon": 360,
+   "month": 12
+  },
+  "nbytes": 139970264,
+  "spatial_resolution": "1\u00b0",
+  "variables": {
+   "cldarea_total_daynight_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Area Fraction, Monthly Climatology",
+    "units": "percent"
+   },
+   "cldpress_total_daynight_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Effective Pressure, Monthly Climatology",
+    "units": "hPa"
+   },
+   "cldtau_total_day_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Visible Optical Depth, Monthly Climatology",
+    "units": "dimensionless"
+   },
+   "cldtemp_total_daynight_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Effective Temperature, Monthly Climatology",
+    "units": "K"
+   },
+   "sfc_cre_net_lw_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Longwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_cre_net_sw_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Shortwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_cre_net_tot_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Total Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_clr_c_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_clr_t_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_clr_c_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_clr_t_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_clr_c_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_clr_t_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_clr_c_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_clr_t_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_clr_c_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_clr_t_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_clr_c_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_clr_t_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_clr_c_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_clr_t_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "sfc_t_skin": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Skin Temperature (from surface upwelling longwave), All-Sky conditions, Monthly Climatology",
+    "units": "K"
+   },
+   "solar_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Incoming Solar Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_albedo_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Albedo, All-Sky conditions, Monthly Climatology",
+    "units": "percent"
+   },
+   "toa_albedo_clr_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Albedo, Clear-Sky (for cloud-free areas of region) conditions, Monthly Climatology",
+    "units": "percent"
+   },
+   "toa_cre_lw_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Longwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_cre_net_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Net Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_cre_sw_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Shortwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_lw_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_lw_clr_c_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_lw_clr_t_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_net_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_net_clr_c_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_net_clr_t_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_sw_all_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_sw_clr_c_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_sw_clr_t_mon": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Monthly Climatology",
+    "units": "W m-2"
+   },
+   "toa_t_eff": {
+    "dims": [
+     "month",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Effective Emission Temperature (from TOA longwave), All-Sky conditions, Monthly Climatology",
+    "units": "K"
+   }
+  }
+ },
+ "ceres-ebaf-clim-seasonal": {
+  "attrs": {},
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "lat": 180,
+   "lon": 360,
+   "season": 4
+  },
+  "nbytes": 46658232,
+  "spatial_resolution": "1\u00b0",
+  "variables": {
+   "cldarea_total_daynight_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Area Fraction, Seasonal Climatology",
+    "units": "percent"
+   },
+   "cldpress_total_daynight_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Effective Pressure, Seasonal Climatology",
+    "units": "hPa"
+   },
+   "cldtau_total_day_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Visible Optical Depth, Seasonal Climatology",
+    "units": "dimensionless"
+   },
+   "cldtemp_total_daynight_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Effective Temperature, Seasonal Climatology",
+    "units": "K"
+   },
+   "sfc_cre_net_lw_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Longwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_cre_net_sw_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Shortwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_cre_net_tot_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Total Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_clr_c_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_clr_t_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_clr_c_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_clr_t_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_clr_c_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_clr_t_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_clr_c_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_clr_t_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_clr_c_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_clr_t_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_clr_c_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_clr_t_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_clr_c_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_clr_t_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "sfc_t_skin": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Skin Temperature (from surface upwelling longwave), All-Sky conditions, Seasonal Climatology",
+    "units": "K"
+   },
+   "solar_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Incoming Solar Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_albedo_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Albedo, All-Sky conditions, Seasonal Climatology",
+    "units": "percent"
+   },
+   "toa_albedo_clr_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Albedo, Clear-Sky (for cloud-free areas of region) conditions, Seasonal Climatology",
+    "units": "percent"
+   },
+   "toa_cre_lw_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Longwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_cre_net_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Net Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_cre_sw_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Shortwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_lw_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_lw_clr_c_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_lw_clr_t_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_net_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_net_clr_c_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_net_clr_t_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_sw_all_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_sw_clr_c_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_sw_clr_t_mon": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Seasonal Climatology",
+    "units": "W m-2"
+   },
+   "toa_t_eff": {
+    "dims": [
+     "season",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Effective Emission Temperature (from TOA longwave), All-Sky conditions, Seasonal Climatology",
+    "units": "K"
+   }
+  }
+ },
+ "ceres-ebaf-monthly": {
+  "attrs": {
+   "institution": "NASA Langley Research Center",
+   "title": "CERES EBAF TOA and Surface Fluxes. Monthly Averages and 07/2005 to 06/2015 Climatology."
+  },
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "lat": 180,
+   "lon": 360,
+   "time": 313
+  },
+  "end": "2026-03-15T00:00:00Z",
+  "nbytes": 3650836672,
+  "spatial_resolution": "1\u00b0",
+  "start": "2000-03-15T00:00:00Z",
+  "time_resolution": "monthly",
+  "variables": {
+   "cldarea_total_daynight_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Area Fraction, Daytime-and-Nighttime conditions, Monthly Means",
+    "units": "percent"
+   },
+   "cldpress_total_daynight_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Effective Pressure, Daytime-and-Nighttime conditions, Monthly Means",
+    "units": "hPa"
+   },
+   "cldtau_total_day_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Visible Optical Depth, Daytime conditions, Monthly Means",
+    "units": "dimensionless"
+   },
+   "cldtemp_total_daynight_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Effective Temperature, Daytime-and-Nighttime conditions, Monthly Means",
+    "units": "K"
+   },
+   "sfc_cre_net_lw_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Longwave Flux, (uses Clear-Sky for total region), Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_cre_net_sw_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Shortwave Flux, (uses Clear-Sky for total region), Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_cre_net_tot_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Total Flux, (uses Clear-Sky for total region), Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, All-Sky conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_clr_c_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_clr_t_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Clear-Sky (for total region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, All-Sky conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_clr_c_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_clr_t_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Clear-Sky (for total region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, All-Sky conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_clr_c_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_clr_t_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Clear-Sky (for total region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, All-Sky conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_clr_c_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_clr_t_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Clear-Sky (for total region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, All-Sky conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_clr_c_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_clr_t_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Clear-Sky (for total region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, All-Sky conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_clr_c_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_clr_t_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Clear-Sky (for total region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, All-Sky conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_clr_c_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_clr_t_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Clear-Sky (for total region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "sfc_t_skin": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Skin Temperature (from surface upwelling longwave), All-Sky conditions, Monthly Means",
+    "units": "K"
+   },
+   "solar_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Incoming Solar Flux, Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_albedo_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Albedo, All-Sky conditions, Monthly Means",
+    "units": "percent"
+   },
+   "toa_albedo_clr_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Albedo, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "percent"
+   },
+   "toa_cre_lw_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Longwave Flux, (uses Clear-Sky for total region), Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_cre_net_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Net Flux, (uses Clear-Sky for total region), Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_cre_sw_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Shortwave Flux, (uses Clear-Sky for total region), Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_lw_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, All-Sky conditions, Monthly Means ",
+    "units": "W m-2"
+   },
+   "toa_lw_clr_c_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_lw_clr_t_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Clear-Sky (for total region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_net_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, All-Sky conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_net_clr_c_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_net_clr_t_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Clear-Sky (for total region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_sw_all_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, All-Sky conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_sw_clr_c_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Clear-Sky (for cloud-free areas of region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_sw_clr_t_mon": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Clear-Sky (for total region) conditions, Monthly Means",
+    "units": "W m-2"
+   },
+   "toa_t_eff": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Effective Emission Temperature (from TOA longwave), All-Sky conditions, Monthly Means",
+    "units": "K"
+   }
+  }
+ },
+ "ceres-ebaf-record-mean": {
+  "attrs": {},
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "lat": 180,
+   "lon": 360
+  },
+  "nbytes": 11666168,
+  "spatial_resolution": "1\u00b0",
+  "variables": {
+   "cldarea_total_daynight_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Area Fraction, Record Mean",
+    "units": "percent"
+   },
+   "cldpress_total_daynight_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Effective Pressure, Record Mean",
+    "units": "hPa"
+   },
+   "cldtau_total_day_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Visible Optical Depth, Record Mean",
+    "units": "dimensionless"
+   },
+   "cldtemp_total_daynight_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Cloud Effective Temperature, Record Mean",
+    "units": "K"
+   },
+   "sfc_cre_net_lw_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Longwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_cre_net_sw_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Shortwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_cre_net_tot_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Cloud Radiative Effects Net Total Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_clr_c_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_lw_down_clr_t_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Down, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_clr_c_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_lw_up_clr_t_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Longwave Flux Up, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_clr_c_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_net_lw_clr_t_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Longwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_clr_c_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_net_sw_clr_t_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Shortwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_clr_c_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_net_tot_clr_t_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Net Total Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_clr_c_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_sw_down_clr_t_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Down, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_clr_c_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_sw_up_clr_t_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Shortwave Flux Up, Record Mean",
+    "units": "W m-2"
+   },
+   "sfc_t_skin": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface Skin Temperature (from surface upwelling longwave), All-Sky conditions, Record Mean",
+    "units": "K"
+   },
+   "solar_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Incoming Solar Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_albedo_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Albedo, All-Sky conditions, Record Mean",
+    "units": "percent"
+   },
+   "toa_albedo_clr_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Albedo, Clear-Sky (for cloud-free areas of region) conditions, Record Mean",
+    "units": "percent"
+   },
+   "toa_cre_lw_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Longwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_cre_net_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Net Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_cre_sw_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Cloud Radiative Effects Shortwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_lw_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_lw_clr_c_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_lw_clr_t_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Longwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_net_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_net_clr_c_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_net_clr_t_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Net Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_sw_all_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_sw_clr_c_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_sw_clr_t_mon": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Top of The Atmosphere Shortwave Flux, Record Mean",
+    "units": "W m-2"
+   },
+   "toa_t_eff": {
+    "dims": [
+     "lat",
+     "lon"
+    ],
+    "long_name": "Effective Emission Temperature (from TOA longwave), All-Sky conditions, Record Mean",
+    "units": "K"
+   }
+  }
+ },
+ "chirps-daily": {
+  "attrs": {
+   "institution": "Climate Hazards Group.  University of California at Santa Barbara",
+   "title": "CHIRPS Version 2.0"
+  },
+  "bbox": [
+   -180.0,
+   -49.975,
+   180.0,
+   49.975
+  ],
+  "dims": {
+   "latitude": 2000,
+   "longitude": 7200,
+   "time": 16010
+  },
+  "end": "2024-10-31T00:00:00Z",
+  "nbytes": 922176164880,
+  "spatial_resolution": "0.05\u00b0",
+  "start": "1981-01-01T00:00:00Z",
+  "storage_nbytes": 64801370576,
+  "time_resolution": "daily",
+  "variables": {
+   "precip": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Climate Hazards group InfraRed Precipitation with Stations",
+    "units": "mm/day"
+   }
+  }
+ },
+ "climsim-lowres": {
+  "attrs": {},
+  "dims": {
+   "lev": 60,
+   "ncol": 384,
+   "time": 210240
+  },
+  "end": "0009-01-31T23:40:00Z",
+  "nbytes": 398497305600,
+  "start": "0001-02-01T00:00:00Z",
+  "storage_nbytes": 297891504177,
+  "time_resolution": "0.333333h",
+  "variables": {
+   "cam_in_ALDIF": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Albedo for diffuse longwave radiation"
+   },
+   "cam_in_ALDIR": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Albedo for direct longwave radiation"
+   },
+   "cam_in_ASDIF": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Albedo for diffuse shortwave radiation"
+   },
+   "cam_in_ASDIR": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Albedo for direct shortwave radiation"
+   },
+   "cam_in_ICEFRAC": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Sea-ice areal fraction"
+   },
+   "cam_in_LANDFRAC": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Land areal fraction"
+   },
+   "cam_in_LWUP": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Upward longwave flux",
+    "units": "W/m2"
+   },
+   "cam_in_OCNFRAC": {
+    "dims": [
+     "time",
+     "ncol"
+    ]
+   },
+   "cam_in_SNOWHICE": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Snow depth over ice",
+    "units": "m"
+   },
+   "cam_in_SNOWHLAND": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Snow depth over land (liquid water equivalent)",
+    "units": "m"
+   },
+   "pbuf_CH4": {
+    "dims": [
+     "time",
+     "lev",
+     "ncol"
+    ],
+    "long_name": "CH4 volume mixing ratio",
+    "units": "mol/mol"
+   },
+   "pbuf_COSZRS": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Cosine of solar zenith angle"
+   },
+   "pbuf_LHFLX": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Surface latent heat flux",
+    "units": "W/m2"
+   },
+   "pbuf_N2O": {
+    "dims": [
+     "time",
+     "lev",
+     "ncol"
+    ],
+    "long_name": "N2O volume mixing ratio",
+    "units": "mol/mol"
+   },
+   "pbuf_SHFLX": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Surface sensible heat flux",
+    "units": "W/m2"
+   },
+   "pbuf_SOLIN": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Solar insolation",
+    "units": "W/m2"
+   },
+   "pbuf_TAUX": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Zonal surface stress",
+    "units": "N/m2"
+   },
+   "pbuf_TAUY": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Meridional surface stress",
+    "units": "N/m2"
+   },
+   "pbuf_ozone": {
+    "dims": [
+     "time",
+     "lev",
+     "ncol"
+    ],
+    "long_name": "Ozone volume mixing ratio",
+    "units": "mol/mol"
+   },
+   "state_pmid": {
+    "dims": [
+     "time",
+     "lev",
+     "ncol"
+    ],
+    "long_name": "Mid-level pressure",
+    "units": "Pa"
+   },
+   "state_ps": {
+    "dims": [
+     "time",
+     "ncol"
+    ],
+    "long_name": "Surface pressure",
+    "units": "Pa"
+   },
+   "state_q0001": {
+    "dims": [
+     "time",
+     "lev",
+     "ncol"
+    ],
+    "long_name": "Specific humidity",
+    "units": "kg/kg"
+   },
+   "state_q0002": {
+    "dims": [
+     "time",
+     "lev",
+     "ncol"
+    ],
+    "long_name": "Cloud liquid mixing ratio",
+    "units": "kg/kg"
+   },
+   "state_q0003": {
+    "dims": [
+     "time",
+     "lev",
+     "ncol"
+    ],
+    "long_name": "Cloud ice mixing ratio",
+    "units": "kg/kg"
+   },
+   "state_t": {
+    "dims": [
+     "time",
+     "lev",
+     "ncol"
+    ],
+    "long_name": "Air temperature",
+    "units": "K"
+   },
+   "state_u": {
+    "dims": [
+     "time",
+     "lev",
+     "ncol"
+    ],
+    "long_name": "Zonal wind speed",
+    "units": "m/s"
+   },
+   "state_v": {
+    "dims": [
+     "time",
+     "lev",
+     "ncol"
+    ],
+    "long_name": "Meridional wind speed",
+    "units": "m/s"
+   },
+   "tod": {
+    "dims": [
+     "time"
+    ]
+   },
+   "ymd": {
+    "dims": [
+     "time"
+    ]
+   }
+  }
+ },
+ "cm26-control-atmosphere": {
+  "attrs": {
+   "title": "CM2.6_miniBling"
+  },
+  "bbox": [
+   -180.0,
+   -89.75,
+   180.0,
+   89.75
+  ],
+  "dims": {
+   "bnds": 2,
+   "grid_xt": 576,
+   "grid_yt": 360,
+   "time": 29586
+  },
+  "end": "0200-12-31T12:00:00Z",
+  "nbytes": 1006133728032,
+  "spatial_resolution": "0.5\u00b0",
+  "start": "0120-01-01T12:00:00Z",
+  "storage_nbytes": 705367513120,
+  "time_resolution": "daily",
+  "variables": {
+   "WVP": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "Column integrated water vapor",
+    "units": "kg/m2"
+   },
+   "average_DT": {
+    "dims": [
+     "time"
+    ],
+    "long_name": "Length of average period",
+    "units": "days"
+   },
+   "average_T1": {
+    "dims": [
+     "time"
+    ],
+    "long_name": "Start time for average period"
+   },
+   "average_T2": {
+    "dims": [
+     "time"
+    ],
+    "long_name": "End time for average period"
+   },
+   "evap": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "evaporation rate",
+    "units": "kg/m2/s"
+   },
+   "grid_xt_bnds": {
+    "dims": [
+     "grid_xt",
+     "bnds"
+    ],
+    "long_name": "T-cell longitude",
+    "units": "degrees_E"
+   },
+   "grid_yt_bnds": {
+    "dims": [
+     "grid_yt",
+     "bnds"
+    ],
+    "long_name": "T-cell latitude",
+    "units": "degrees_N"
+   },
+   "h250": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "250-mb hght",
+    "units": "m"
+   },
+   "h500": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "500-mb hght",
+    "units": "m"
+   },
+   "h700": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "700-mb hght",
+    "units": "m"
+   },
+   "h850": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "850-mb hght",
+    "units": "m"
+   },
+   "lwdn_sfc": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "LW flux down at surface",
+    "units": "watts/m2"
+   },
+   "lwup_sfc": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "LW flux up at surface",
+    "units": "watts/m2"
+   },
+   "olr": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "outgoing longwave radiation",
+    "units": "watts/m2"
+   },
+   "prec_ls": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "Precipitation rate from strat cloud",
+    "units": "kg/m2/s"
+   },
+   "precip": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "Total precipitation rate",
+    "units": "kg/m2/s"
+   },
+   "ps": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "surface pressure",
+    "units": "Pa"
+   },
+   "q250": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "250-mb specific humidity",
+    "units": "kg/kg"
+   },
+   "q500": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "500-mb specific humidity",
+    "units": "kg/kg"
+   },
+   "q700": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "700-mb specific humidity",
+    "units": "kg/kg"
+   },
+   "q850": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "850-mb specific humidity",
+    "units": "kg/kg"
+   },
+   "q_ref": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "specific humidity at 2 m",
+    "units": "kg/kg"
+   },
+   "rh_ref": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "relative humidity at 2 m",
+    "units": "percent"
+   },
+   "slp": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "sea-level pressure",
+    "units": "mb"
+   },
+   "snow_ls": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "Frozen precip rate from strat cloud",
+    "units": "kg/m2/s"
+   },
+   "snow_tot": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "Frozen precip rate from all sources",
+    "units": "kg(h2o)/m2/s"
+   },
+   "swdn_sfc": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "SW flux down at surface",
+    "units": "watts/m2"
+   },
+   "t250": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "250-mb temperature",
+    "units": "K"
+   },
+   "t500": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "500-mb temperature",
+    "units": "K"
+   },
+   "t700": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "700-mb temperature",
+    "units": "K"
+   },
+   "t850": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "850-mb temperature",
+    "units": "K"
+   },
+   "t_ref": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "temperature at 2 m",
+    "units": "deg_k"
+   },
+   "t_ref_max": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "temperature at 2 m",
+    "units": "deg_k"
+   },
+   "t_ref_min": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "temperature at 2 m",
+    "units": "deg_k"
+   },
+   "time_bounds": {
+    "dims": [
+     "time",
+     "bnds"
+    ],
+    "long_name": "time axis boundaries",
+    "units": "days"
+   },
+   "u250": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "250-mb u-wind",
+    "units": "1/s"
+   },
+   "u500": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "500-mb u-wind",
+    "units": "1/s"
+   },
+   "u700": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "700-mb u-wind",
+    "units": "1/s"
+   },
+   "u850": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "850-mb u-wind",
+    "units": "1/s"
+   },
+   "u_ref": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "zonal wind component at 10 m",
+    "units": "m/s"
+   },
+   "v250": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "250-mb v-wind",
+    "units": "1/s"
+   },
+   "v500": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "500-mb v-wind",
+    "units": "1/s"
+   },
+   "v700": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "700-mb v-wind",
+    "units": "1/s"
+   },
+   "v850": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "850-mb v-wind",
+    "units": "1/s"
+   },
+   "v_ref": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "meridional wind component at 10 m",
+    "units": "m/s"
+   },
+   "wind": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "wind speed for flux calculations",
+    "units": "m/s"
+   },
+   "wind_max": {
+    "dims": [
+     "time",
+     "grid_yt",
+     "grid_xt"
+    ],
+    "long_name": "wind speed for flux calculations",
+    "units": "m/s"
+   }
+  }
+ },
+ "cm26-control-ocean": {
+  "attrs": {
+   "title": "CM2.6_miniBling"
+  },
+  "bbox": [
+   -180.0,
+   -81.1086,
+   180.0,
+   89.9789
+  ],
+  "dims": {
+   "nv": 2,
+   "st_ocean_sub01": 1,
+   "time": 7305,
+   "xt_ocean": 3600,
+   "xu_ocean": 3600,
+   "yt_ocean": 2700,
+   "yu_ocean": 2700
+  },
+  "end": "0200-12-31T12:00:00Z",
+  "nbytes": 3976257759264,
+  "spatial_resolution": "0.0562\u00b0",
+  "start": "0181-01-01T12:00:00Z",
+  "storage_nbytes": 1842878464841,
+  "time_resolution": "daily",
+  "variables": {
+   "biomass_p": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "Surface Biomass-P concentration",
+    "units": "mol kg-1"
+   },
+   "chl": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "Surface Chl concentration",
+    "units": "mol kg-1"
+   },
+   "dic": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "Surface DIC concentration",
+    "units": "mol kg-1"
+   },
+   "htotal": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "Surface H+ concentration",
+    "units": "mol kg-1"
+   },
+   "irr_mix": {
+    "dims": [
+     "time",
+     "st_ocean_sub01",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "Mixed layer light",
+    "units": "W m-2"
+   },
+   "kw": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "Gas Exchange piston velocity fordic",
+    "units": "m/sec"
+   },
+   "o2": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "Surface O2 concentration",
+    "units": "mol kg-1"
+   },
+   "po4": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "Surface PO4 concentration",
+    "units": "mol kg-1"
+   },
+   "sea_level": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "effective sea level (eta_t + patm/(rho0*g)) on T cells",
+    "units": "meter"
+   },
+   "sea_level_sq": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "square of effective sea level (eta_t + patm/(rho0*g)) on T cells",
+    "units": "m^2"
+   },
+   "surface_salt": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "Practical Salinity",
+    "units": "psu"
+   },
+   "surface_temp": {
+    "dims": [
+     "time",
+     "yt_ocean",
+     "xt_ocean"
+    ],
+    "long_name": "Potential temperature",
+    "units": "degrees C"
+   },
+   "usurf": {
+    "dims": [
+     "time",
+     "yu_ocean",
+     "xu_ocean"
+    ],
+    "units": "m/sec"
+   },
+   "vsurf": {
+    "dims": [
+     "time",
+     "yu_ocean",
+     "xu_ocean"
+    ],
+    "units": "m/sec"
+   }
+  }
+ },
+ "enatl60-600m": {
+  "attrs": {},
+  "dims": {
+   "time": 365,
+   "x": 8354,
+   "y": 4729
+  },
+  "nbytes": 173352617608,
+  "storage_nbytes": 53872017062,
+  "variables": {
+   "vosaline": {
+    "dims": [
+     "time",
+     "y",
+     "x"
+    ],
+    "long_name": "salinity",
+    "units": "1e-3"
+   },
+   "votemper": {
+    "dims": [
+     "time",
+     "y",
+     "x"
+    ],
+    "long_name": "temperature",
+    "units": "degC"
+   },
+   "vovecrtz": {
+    "dims": [
+     "time",
+     "y",
+     "x"
+    ],
+    "long_name": "ocean vertical velocity",
+    "units": "m/s"
+   }
+  }
+ },
+ "enatl60-60m": {
+  "attrs": {},
+  "dims": {
+   "time": 365,
+   "x": 8354,
+   "y": 4729
+  },
+  "end": "2010-06-30T12:00:00Z",
+  "nbytes": 346389189608,
+  "start": "2009-07-01T12:00:00Z",
+  "storage_nbytes": 139226365863,
+  "time_resolution": "daily",
+  "variables": {
+   "vosaline": {
+    "dims": [
+     "time",
+     "y",
+     "x"
+    ],
+    "long_name": "salinity",
+    "units": "1e-3"
+   },
+   "votemper": {
+    "dims": [
+     "time",
+     "y",
+     "x"
+    ],
+    "long_name": "temperature",
+    "units": "degC"
+   },
+   "vovecrtz": {
+    "dims": [
+     "time",
+     "y",
+     "x"
+    ],
+    "long_name": "ocean vertical velocity",
+    "units": "m/s"
+   }
+  }
+ },
+ "era5-model-levels": {
+  "attrs": {},
+  "bbox": [
+   -180.0,
+   -90.0,
+   180.0,
+   90.0
+  ],
+  "dims": {
+   "hybrid": 137,
+   "latitude": 721,
+   "longitude": 1440,
+   "time": 1323648
+  },
+  "end": "2050-12-31T23:00:00Z",
+  "nbytes": 10543355716515816,
+  "spatial_resolution": "0.25\u00b0",
+  "start": "1900-01-01T00:00:00Z",
+  "time_resolution": "1h",
+  "variables": {
+   "divergence": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Divergence",
+    "units": "s**-1"
+   },
+   "fraction_of_cloud_cover": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Fraction of cloud cover",
+    "units": "(0 - 1)"
+   },
+   "geopotential": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Geopotential",
+    "units": "m**2 s**-2"
+   },
+   "ozone_mass_mixing_ratio": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Ozone mass mixing ratio",
+    "units": "kg kg**-1"
+   },
+   "specific_cloud_ice_water_content": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Specific cloud ice water content",
+    "units": "kg kg**-1"
+   },
+   "specific_cloud_liquid_water_content": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Specific cloud liquid water content",
+    "units": "kg kg**-1"
+   },
+   "specific_humidity": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Specific humidity",
+    "units": "kg kg**-1"
+   },
+   "specific_rain_water_content": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Specific rain water content",
+    "units": "kg kg**-1"
+   },
+   "specific_snow_water_content": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Specific snow water content",
+    "units": "kg kg**-1"
+   },
+   "temperature": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Temperature",
+    "units": "K"
+   },
+   "u_component_of_wind": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "U component of wind",
+    "units": "m s**-1"
+   },
+   "v_component_of_wind": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "V component of wind",
+    "units": "m s**-1"
+   },
+   "vertical_velocity": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical velocity",
+    "units": "Pa s**-1"
+   },
+   "vorticity": {
+    "dims": [
+     "time",
+     "hybrid",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vorticity (relative)",
+    "units": "s**-1"
+   }
+  }
+ },
+ "era5-single-pressure-levels": {
+  "attrs": {},
+  "bbox": [
+   -180.0,
+   -90.0,
+   180.0,
+   90.0
+  ],
+  "dims": {
+   "latitude": 721,
+   "level": 37,
+   "longitude": 1440,
+   "time": 1323648
+  },
+  "end": "2050-12-31T23:00:00Z",
+  "nbytes": 3677531276113644,
+  "spatial_resolution": "0.25\u00b0",
+  "start": "1900-01-01T00:00:00Z",
+  "time_resolution": "1h",
+  "variables": {
+   "100m_u_component_of_wind": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "100 metre U wind component",
+    "units": "m s**-1"
+   },
+   "100m_v_component_of_wind": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "100 metre V wind component",
+    "units": "m s**-1"
+   },
+   "10m_u_component_of_neutral_wind": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Neutral wind at 10 m u-component",
+    "units": "m s**-1"
+   },
+   "10m_u_component_of_wind": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "10 metre U wind component",
+    "units": "m s**-1"
+   },
+   "10m_v_component_of_neutral_wind": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Neutral wind at 10 m v-component",
+    "units": "m s**-1"
+   },
+   "10m_v_component_of_wind": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "10 metre V wind component",
+    "units": "m s**-1"
+   },
+   "10m_wind_gust_since_previous_post_processing": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "10 metre wind gust since previous post-processing",
+    "units": "m s**-1"
+   },
+   "2m_dewpoint_temperature": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "2 metre dewpoint temperature",
+    "units": "K"
+   },
+   "2m_temperature": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "2 metre temperature",
+    "units": "K"
+   },
+   "air_density_over_the_oceans": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Air density over the oceans",
+    "units": "kg m**-3"
+   },
+   "angle_of_sub_gridscale_orography": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Angle of sub-gridscale orography",
+    "units": "radians"
+   },
+   "anisotropy_of_sub_gridscale_orography": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Anisotropy of sub-gridscale orography",
+    "units": "~"
+   },
+   "benjamin_feir_index": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Benjamin-Feir index",
+    "units": "dimensionless"
+   },
+   "boundary_layer_dissipation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Boundary layer dissipation",
+    "units": "J m**-2"
+   },
+   "boundary_layer_height": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Boundary layer height",
+    "units": "m"
+   },
+   "charnock": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Charnock",
+    "units": "~"
+   },
+   "clear_sky_direct_solar_radiation_at_surface": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Clear-sky direct solar radiation at surface",
+    "units": "J m**-2"
+   },
+   "cloud_base_height": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Cloud base height",
+    "units": "m"
+   },
+   "coefficient_of_drag_with_waves": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Coefficient of drag with waves",
+    "units": "dimensionless"
+   },
+   "convective_available_potential_energy": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Convective available potential energy",
+    "units": "J kg**-1"
+   },
+   "convective_inhibition": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Convective inhibition",
+    "units": "J kg**-1"
+   },
+   "convective_precipitation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Convective precipitation",
+    "units": "m"
+   },
+   "convective_rain_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Convective rain rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "convective_snowfall": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Convective snowfall",
+    "units": "m of water equivalent"
+   },
+   "convective_snowfall_rate_water_equivalent": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Convective snowfall rate water equivalent",
+    "units": "kg m**-2 s**-1"
+   },
+   "downward_uv_radiation_at_the_surface": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Downward UV radiation at the surface",
+    "units": "J m**-2"
+   },
+   "duct_base_height": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Duct base height",
+    "units": "m"
+   },
+   "eastward_gravity_wave_surface_stress": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Eastward gravity wave surface stress",
+    "units": "N m**-2 s"
+   },
+   "eastward_turbulent_surface_stress": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Eastward turbulent surface stress",
+    "units": "N m**-2 s"
+   },
+   "evaporation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Evaporation",
+    "units": "m of water equivalent"
+   },
+   "forecast_albedo": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Forecast albedo",
+    "units": "(0 - 1)"
+   },
+   "forecast_logarithm_of_surface_roughness_for_heat": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Forecast logarithm of surface roughness for heat",
+    "units": "~"
+   },
+   "forecast_surface_roughness": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Forecast surface roughness",
+    "units": "m"
+   },
+   "fraction_of_cloud_cover": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Fraction of cloud cover",
+    "units": "(0 - 1)"
+   },
+   "free_convective_velocity_over_the_oceans": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Free convective velocity over the oceans",
+    "units": "m s**-1"
+   },
+   "friction_velocity": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Friction velocity",
+    "units": "m s**-1"
+   },
+   "geopotential": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Geopotential",
+    "units": "m**2 s**-2"
+   },
+   "geopotential_at_surface": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Geopotential",
+    "units": "m**2 s**-2"
+   },
+   "gravity_wave_dissipation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Gravity wave dissipation",
+    "units": "J m**-2"
+   },
+   "high_cloud_cover": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "High cloud cover",
+    "units": "(0 - 1)"
+   },
+   "high_vegetation_cover": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "High vegetation cover",
+    "units": "(0 - 1)"
+   },
+   "ice_temperature_layer_1": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Ice temperature layer 1",
+    "units": "K"
+   },
+   "ice_temperature_layer_2": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Ice temperature layer 2",
+    "units": "K"
+   },
+   "ice_temperature_layer_3": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Ice temperature layer 3",
+    "units": "K"
+   },
+   "ice_temperature_layer_4": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Ice temperature layer 4",
+    "units": "K"
+   },
+   "instantaneous_10m_wind_gust": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Instantaneous 10 metre wind gust",
+    "units": "m s**-1"
+   },
+   "instantaneous_eastward_turbulent_surface_stress": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Instantaneous eastward turbulent surface stress",
+    "units": "N m**-2"
+   },
+   "instantaneous_large_scale_surface_precipitation_fraction": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Instantaneous large-scale surface precipitation fraction",
+    "units": "(0 - 1)"
+   },
+   "instantaneous_moisture_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Instantaneous moisture flux",
+    "units": "kg m**-2 s**-1"
+   },
+   "instantaneous_northward_turbulent_surface_stress": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Instantaneous northward turbulent surface stress",
+    "units": "N m**-2"
+   },
+   "instantaneous_surface_sensible_heat_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Instantaneous surface sensible heat flux",
+    "units": "W m**-2"
+   },
+   "k_index": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "K index",
+    "units": "K"
+   },
+   "lake_bottom_temperature": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Lake bottom temperature",
+    "units": "K"
+   },
+   "lake_cover": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Lake cover",
+    "units": "(0 - 1)"
+   },
+   "lake_depth": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Lake total depth",
+    "units": "m"
+   },
+   "lake_ice_depth": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Lake ice total depth",
+    "units": "m"
+   },
+   "lake_ice_temperature": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Lake ice surface temperature",
+    "units": "K"
+   },
+   "lake_mix_layer_depth": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Lake mix-layer depth",
+    "units": "m"
+   },
+   "lake_mix_layer_temperature": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Lake mix-layer temperature",
+    "units": "K"
+   },
+   "lake_shape_factor": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Lake shape factor",
+    "units": "dimensionless"
+   },
+   "lake_total_layer_temperature": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Lake total layer temperature",
+    "units": "K"
+   },
+   "land_sea_mask": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Land-sea mask",
+    "units": "(0 - 1)"
+   },
+   "large_scale_precipitation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Large-scale precipitation",
+    "units": "m"
+   },
+   "large_scale_precipitation_fraction": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Large-scale precipitation fraction",
+    "units": "s"
+   },
+   "large_scale_rain_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Large scale rain rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "large_scale_snowfall": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Large-scale snowfall",
+    "units": "m of water equivalent"
+   },
+   "large_scale_snowfall_rate_water_equivalent": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Large scale snowfall rate water equivalent",
+    "units": "kg m**-2 s**-1"
+   },
+   "leaf_area_index_high_vegetation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Leaf area index, high vegetation",
+    "units": "m**2 m**-2"
+   },
+   "leaf_area_index_low_vegetation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Leaf area index, low vegetation",
+    "units": "m**2 m**-2"
+   },
+   "low_cloud_cover": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Low cloud cover",
+    "units": "(0 - 1)"
+   },
+   "low_vegetation_cover": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Low vegetation cover",
+    "units": "(0 - 1)"
+   },
+   "maximum_2m_temperature_since_previous_post_processing": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Maximum temperature at 2 metres since previous post-processing",
+    "units": "K"
+   },
+   "maximum_individual_wave_height": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Maximum individual wave height",
+    "units": "m"
+   },
+   "maximum_total_precipitation_rate_since_previous_post_processing": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Maximum total precipitation rate since previous post-processing",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_boundary_layer_dissipation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean boundary layer dissipation",
+    "units": "W m**-2"
+   },
+   "mean_convective_precipitation_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean convective precipitation rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_convective_snowfall_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean convective snowfall rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_direction_of_total_swell": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean direction of total swell",
+    "units": "degrees"
+   },
+   "mean_direction_of_wind_waves": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean direction of wind waves",
+    "units": "degrees"
+   },
+   "mean_eastward_gravity_wave_surface_stress": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean eastward gravity wave surface stress",
+    "units": "N m**-2"
+   },
+   "mean_eastward_turbulent_surface_stress": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean eastward turbulent surface stress",
+    "units": "N m**-2"
+   },
+   "mean_evaporation_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean evaporation rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_gravity_wave_dissipation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean gravity wave dissipation",
+    "units": "W m**-2"
+   },
+   "mean_large_scale_precipitation_fraction": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean large-scale precipitation fraction",
+    "units": "Proportion"
+   },
+   "mean_large_scale_precipitation_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean large-scale precipitation rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_large_scale_snowfall_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean large-scale snowfall rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_northward_gravity_wave_surface_stress": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean northward gravity wave surface stress",
+    "units": "N m**-2"
+   },
+   "mean_northward_turbulent_surface_stress": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean northward turbulent surface stress",
+    "units": "N m**-2"
+   },
+   "mean_period_of_total_swell": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean period of total swell",
+    "units": "s"
+   },
+   "mean_period_of_wind_waves": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean period of wind waves",
+    "units": "s"
+   },
+   "mean_potential_evaporation_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean potential evaporation rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_runoff_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean runoff rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_sea_level_pressure": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean sea level pressure",
+    "units": "Pa"
+   },
+   "mean_snow_evaporation_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean snow evaporation rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_snowfall_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean snowfall rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_snowmelt_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean snowmelt rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_square_slope_of_waves": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean square slope of waves",
+    "units": "dimensionless"
+   },
+   "mean_sub_surface_runoff_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean sub-surface runoff rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_surface_direct_short_wave_radiation_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface direct short-wave radiation flux",
+    "units": "W m**-2"
+   },
+   "mean_surface_direct_short_wave_radiation_flux_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface direct short-wave radiation flux, clear sky",
+    "units": "W m**-2"
+   },
+   "mean_surface_downward_long_wave_radiation_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface downward long-wave radiation flux",
+    "units": "W m**-2"
+   },
+   "mean_surface_downward_long_wave_radiation_flux_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface downward long-wave radiation flux, clear sky",
+    "units": "W m**-2"
+   },
+   "mean_surface_downward_short_wave_radiation_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface downward short-wave radiation flux",
+    "units": "W m**-2"
+   },
+   "mean_surface_downward_short_wave_radiation_flux_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface downward short-wave radiation flux, clear sky",
+    "units": "W m**-2"
+   },
+   "mean_surface_downward_uv_radiation_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface downward UV radiation flux",
+    "units": "W m**-2"
+   },
+   "mean_surface_latent_heat_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface latent heat flux",
+    "units": "W m**-2"
+   },
+   "mean_surface_net_long_wave_radiation_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface net long-wave radiation flux",
+    "units": "W m**-2"
+   },
+   "mean_surface_net_long_wave_radiation_flux_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface net long-wave radiation flux, clear sky",
+    "units": "W m**-2"
+   },
+   "mean_surface_net_short_wave_radiation_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface net short-wave radiation flux",
+    "units": "W m**-2"
+   },
+   "mean_surface_net_short_wave_radiation_flux_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface net short-wave radiation flux, clear sky",
+    "units": "W m**-2"
+   },
+   "mean_surface_runoff_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface runoff rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_surface_sensible_heat_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean surface sensible heat flux",
+    "units": "W m**-2"
+   },
+   "mean_top_downward_short_wave_radiation_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean top downward short-wave radiation flux",
+    "units": "W m**-2"
+   },
+   "mean_top_net_long_wave_radiation_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean top net long-wave radiation flux",
+    "units": "W m**-2"
+   },
+   "mean_top_net_long_wave_radiation_flux_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean top net long-wave radiation flux, clear sky",
+    "units": "W m**-2"
+   },
+   "mean_top_net_short_wave_radiation_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean top net short-wave radiation flux",
+    "units": "W m**-2"
+   },
+   "mean_top_net_short_wave_radiation_flux_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean top net short-wave radiation flux, clear sky",
+    "units": "W m**-2"
+   },
+   "mean_total_precipitation_rate": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean total precipitation rate",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_vertical_gradient_of_refractivity_inside_trapping_layer": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean vertical gradient of refractivity inside trapping layer",
+    "units": "m**-1"
+   },
+   "mean_vertically_integrated_moisture_divergence": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean vertically integrated moisture divergence",
+    "units": "kg m**-2 s**-1"
+   },
+   "mean_wave_direction": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave direction",
+    "units": "Degree true"
+   },
+   "mean_wave_direction_of_first_swell_partition": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave direction of first swell partition",
+    "units": "degrees"
+   },
+   "mean_wave_direction_of_second_swell_partition": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave direction of second swell partition",
+    "units": "degrees"
+   },
+   "mean_wave_direction_of_third_swell_partition": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave direction of third swell partition",
+    "units": "degrees"
+   },
+   "mean_wave_period": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave period",
+    "units": "s"
+   },
+   "mean_wave_period_based_on_first_moment": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave period based on first moment",
+    "units": "s"
+   },
+   "mean_wave_period_based_on_first_moment_for_swell": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave period based on first moment for swell",
+    "units": "s"
+   },
+   "mean_wave_period_based_on_first_moment_for_wind_waves": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave period based on first moment for wind waves",
+    "units": "s"
+   },
+   "mean_wave_period_based_on_second_moment_for_swell": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave period based on second moment for swell",
+    "units": "s"
+   },
+   "mean_wave_period_based_on_second_moment_for_wind_waves": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave period based on second moment for wind waves",
+    "units": "s"
+   },
+   "mean_wave_period_of_first_swell_partition": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave period of first swell partition",
+    "units": "s"
+   },
+   "mean_wave_period_of_second_swell_partition": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave period of second swell partition",
+    "units": "s"
+   },
+   "mean_wave_period_of_third_swell_partition": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean wave period of third swell partition",
+    "units": "s"
+   },
+   "mean_zero_crossing_wave_period": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Mean zero-crossing wave period",
+    "units": "s"
+   },
+   "medium_cloud_cover": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Medium cloud cover",
+    "units": "(0 - 1)"
+   },
+   "minimum_2m_temperature_since_previous_post_processing": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Minimum temperature at 2 metres since previous post-processing",
+    "units": "K"
+   },
+   "minimum_total_precipitation_rate_since_previous_post_processing": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Minimum total precipitation rate since previous post-processing",
+    "units": "kg m**-2 s**-1"
+   },
+   "minimum_vertical_gradient_of_refractivity_inside_trapping_layer": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Minimum vertical gradient of refractivity inside trapping layer",
+    "units": "m**-1"
+   },
+   "model_bathymetry": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Model bathymetry",
+    "units": "m"
+   },
+   "near_ir_albedo_for_diffuse_radiation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Near IR albedo for diffuse radiation",
+    "units": "(0 - 1)"
+   },
+   "near_ir_albedo_for_direct_radiation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Near IR albedo for direct radiation",
+    "units": "(0 - 1)"
+   },
+   "normalized_energy_flux_into_ocean": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Normalized energy flux into ocean",
+    "units": "dimensionless"
+   },
+   "normalized_energy_flux_into_waves": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Normalized energy flux into waves",
+    "units": "dimensionless"
+   },
+   "normalized_stress_into_ocean": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Normalized stress into ocean",
+    "units": "dimensionless"
+   },
+   "northward_gravity_wave_surface_stress": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Northward gravity wave surface stress",
+    "units": "N m**-2 s"
+   },
+   "northward_turbulent_surface_stress": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Northward turbulent surface stress",
+    "units": "N m**-2 s"
+   },
+   "ocean_surface_stress_equivalent_10m_neutral_wind_direction": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "10 metre wind direction",
+    "units": "degrees"
+   },
+   "ocean_surface_stress_equivalent_10m_neutral_wind_speed": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "10 metre wind speed",
+    "units": "m s**-1"
+   },
+   "ozone_mass_mixing_ratio": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Ozone mass mixing ratio",
+    "units": "kg kg**-1"
+   },
+   "peak_wave_period": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Peak wave period",
+    "units": "s"
+   },
+   "period_corresponding_to_maximum_individual_wave_height": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Period corresponding to maximum individual wave height",
+    "units": "s"
+   },
+   "potential_evaporation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Potential evaporation",
+    "units": "m"
+   },
+   "potential_vorticity": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Potential vorticity",
+    "units": "K m**2 kg**-1 s**-1"
+   },
+   "precipitation_type": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Precipitation type",
+    "units": "code table (4.201)"
+   },
+   "runoff": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Runoff",
+    "units": "m"
+   },
+   "sea_ice_cover": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Sea ice area fraction",
+    "units": "(0 - 1)"
+   },
+   "sea_surface_temperature": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Sea surface temperature",
+    "units": "K"
+   },
+   "significant_height_of_combined_wind_waves_and_swell": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Significant height of combined wind waves and swell",
+    "units": "m"
+   },
+   "significant_height_of_total_swell": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Significant height of total swell",
+    "units": "m"
+   },
+   "significant_height_of_wind_waves": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Significant height of wind waves",
+    "units": "m"
+   },
+   "significant_wave_height_of_first_swell_partition": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Significant wave height of first swell partition",
+    "units": "m"
+   },
+   "significant_wave_height_of_second_swell_partition": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Significant wave height of second swell partition",
+    "units": "m"
+   },
+   "significant_wave_height_of_third_swell_partition": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Significant wave height of third swell partition",
+    "units": "m"
+   },
+   "skin_reservoir_content": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Skin reservoir content",
+    "units": "m of water equivalent"
+   },
+   "skin_temperature": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Skin temperature",
+    "units": "K"
+   },
+   "slope_of_sub_gridscale_orography": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Slope of sub-gridscale orography",
+    "units": "~"
+   },
+   "snow_albedo": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Snow albedo",
+    "units": "(0 - 1)"
+   },
+   "snow_density": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Snow density",
+    "units": "kg m**-3"
+   },
+   "snow_depth": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Snow depth",
+    "units": "m of water equivalent"
+   },
+   "snow_evaporation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Snow evaporation",
+    "units": "m of water equivalent"
+   },
+   "snowfall": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Snowfall",
+    "units": "m of water equivalent"
+   },
+   "snowmelt": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Snowmelt",
+    "units": "m of water equivalent"
+   },
+   "soil_temperature_level_1": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Soil temperature level 1",
+    "units": "K"
+   },
+   "soil_temperature_level_2": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Soil temperature level 2",
+    "units": "K"
+   },
+   "soil_temperature_level_3": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Soil temperature level 3",
+    "units": "K"
+   },
+   "soil_temperature_level_4": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Soil temperature level 4",
+    "units": "K"
+   },
+   "soil_type": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Soil type",
+    "units": "~"
+   },
+   "specific_cloud_ice_water_content": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Specific cloud ice water content",
+    "units": "kg kg**-1"
+   },
+   "specific_cloud_liquid_water_content": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Specific cloud liquid water content",
+    "units": "kg kg**-1"
+   },
+   "specific_humidity": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Specific humidity",
+    "units": "kg kg**-1"
+   },
+   "standard_deviation_of_filtered_subgrid_orography": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Standard deviation of filtered subgrid orography",
+    "units": "m"
+   },
+   "standard_deviation_of_orography": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Standard deviation of orography",
+    "units": "m"
+   },
+   "sub_surface_runoff": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Sub-surface runoff",
+    "units": "m"
+   },
+   "surface_latent_heat_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface latent heat flux",
+    "units": "J m**-2"
+   },
+   "surface_net_solar_radiation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface net solar radiation",
+    "units": "J m**-2"
+   },
+   "surface_net_solar_radiation_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface net solar radiation, clear sky",
+    "units": "J m**-2"
+   },
+   "surface_net_thermal_radiation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface net thermal radiation",
+    "units": "J m**-2"
+   },
+   "surface_net_thermal_radiation_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface net thermal radiation, clear sky",
+    "units": "J m**-2"
+   },
+   "surface_pressure": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface pressure",
+    "units": "Pa"
+   },
+   "surface_runoff": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface runoff",
+    "units": "m"
+   },
+   "surface_sensible_heat_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface sensible heat flux",
+    "units": "J m**-2"
+   },
+   "surface_solar_radiation_downward_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface solar radiation downward clear-sky",
+    "units": "J m**-2"
+   },
+   "surface_solar_radiation_downwards": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface solar radiation downwards",
+    "units": "J m**-2"
+   },
+   "surface_thermal_radiation_downward_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface thermal radiation downward clear-sky",
+    "units": "J m**-2"
+   },
+   "surface_thermal_radiation_downwards": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Surface thermal radiation downwards",
+    "units": "J m**-2"
+   },
+   "temperature": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Temperature",
+    "units": "K"
+   },
+   "temperature_of_snow_layer": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Temperature of snow layer",
+    "units": "K"
+   },
+   "toa_incident_solar_radiation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "TOA incident solar radiation",
+    "units": "J m**-2"
+   },
+   "top_net_solar_radiation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Top net solar radiation",
+    "units": "J m**-2"
+   },
+   "top_net_solar_radiation_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Top net solar radiation, clear sky",
+    "units": "J m**-2"
+   },
+   "top_net_thermal_radiation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Top net thermal radiation",
+    "units": "J m**-2"
+   },
+   "top_net_thermal_radiation_clear_sky": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Top net thermal radiation, clear sky",
+    "units": "J m**-2"
+   },
+   "total_cloud_cover": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total cloud cover",
+    "units": "(0 - 1)"
+   },
+   "total_column_cloud_ice_water": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total column cloud ice water",
+    "units": "kg m**-2"
+   },
+   "total_column_cloud_liquid_water": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total column cloud liquid water",
+    "units": "kg m**-2"
+   },
+   "total_column_ozone": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total column ozone",
+    "units": "kg m**-2"
+   },
+   "total_column_rain_water": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total column rain water",
+    "units": "kg m**-2"
+   },
+   "total_column_snow_water": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total column snow water",
+    "units": "kg m**-2"
+   },
+   "total_column_supercooled_liquid_water": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total column supercooled liquid water",
+    "units": "kg m**-2"
+   },
+   "total_column_water": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total column water",
+    "units": "kg m**-2"
+   },
+   "total_column_water_vapour": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total column vertically-integrated water vapour",
+    "units": "kg m**-2"
+   },
+   "total_precipitation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total precipitation",
+    "units": "m"
+   },
+   "total_sky_direct_solar_radiation_at_surface": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total sky direct solar radiation at surface",
+    "units": "J m**-2"
+   },
+   "total_totals_index": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Total totals index",
+    "units": "K"
+   },
+   "trapping_layer_base_height": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Trapping layer base height",
+    "units": "m"
+   },
+   "trapping_layer_top_height": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Trapping layer top height",
+    "units": "m"
+   },
+   "type_of_high_vegetation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Type of high vegetation",
+    "units": "~"
+   },
+   "type_of_low_vegetation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Type of low vegetation",
+    "units": "~"
+   },
+   "u_component_of_wind": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "U component of wind",
+    "units": "m s**-1"
+   },
+   "u_component_stokes_drift": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "U-component stokes drift",
+    "units": "m s**-1"
+   },
+   "uv_visible_albedo_for_diffuse_radiation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "UV visible albedo for diffuse radiation",
+    "units": "(0 - 1)"
+   },
+   "uv_visible_albedo_for_direct_radiation": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "UV visible albedo for direct radiation",
+    "units": "(0 - 1)"
+   },
+   "v_component_of_wind": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "V component of wind",
+    "units": "m s**-1"
+   },
+   "v_component_stokes_drift": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "V-component stokes drift",
+    "units": "m s**-1"
+   },
+   "vertical_integral_of_divergence_of_cloud_frozen_water_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of divergence of cloud frozen water flux",
+    "units": "kg m**-2 s**-1"
+   },
+   "vertical_integral_of_divergence_of_cloud_liquid_water_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of divergence of cloud liquid water flux",
+    "units": "kg m**-2 s**-1"
+   },
+   "vertical_integral_of_divergence_of_geopotential_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of divergence of geopotential flux",
+    "units": "W m**-2"
+   },
+   "vertical_integral_of_divergence_of_kinetic_energy_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of divergence of kinetic energy flux",
+    "units": "W m**-2"
+   },
+   "vertical_integral_of_divergence_of_mass_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of divergence of mass flux",
+    "units": "kg m**-2 s**-1"
+   },
+   "vertical_integral_of_divergence_of_moisture_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of divergence of moisture flux",
+    "units": "kg m**-2 s**-1"
+   },
+   "vertical_integral_of_divergence_of_ozone_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of divergence of ozone flux",
+    "units": "kg m**-2 s**-1"
+   },
+   "vertical_integral_of_divergence_of_thermal_energy_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of divergence of thermal energy flux",
+    "units": "W m**-2"
+   },
+   "vertical_integral_of_divergence_of_total_energy_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of divergence of total energy flux",
+    "units": "W m**-2"
+   },
+   "vertical_integral_of_eastward_cloud_frozen_water_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of eastward cloud frozen water flux",
+    "units": "kg m**-1 s**-1"
+   },
+   "vertical_integral_of_eastward_cloud_liquid_water_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of eastward cloud liquid water flux",
+    "units": "kg m**-1 s**-1"
+   },
+   "vertical_integral_of_eastward_geopotential_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of eastward geopotential flux",
+    "units": "W m**-1"
+   },
+   "vertical_integral_of_eastward_heat_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of eastward heat flux",
+    "units": "W m**-1"
+   },
+   "vertical_integral_of_eastward_kinetic_energy_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of eastward kinetic energy flux",
+    "units": "W m**-1"
+   },
+   "vertical_integral_of_eastward_mass_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of eastward mass flux",
+    "units": "kg m**-1 s**-1"
+   },
+   "vertical_integral_of_eastward_ozone_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of eastward ozone flux",
+    "units": "kg m**-1 s**-1"
+   },
+   "vertical_integral_of_eastward_total_energy_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of eastward total energy flux",
+    "units": "W m**-1"
+   },
+   "vertical_integral_of_eastward_water_vapour_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of eastward water vapour flux",
+    "units": "kg m**-1 s**-1"
+   },
+   "vertical_integral_of_energy_conversion": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of energy conversion",
+    "units": "W m**-2"
+   },
+   "vertical_integral_of_kinetic_energy": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of kinetic energy",
+    "units": "J m**-2"
+   },
+   "vertical_integral_of_mass_of_atmosphere": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of mass of atmosphere",
+    "units": "kg m**-2"
+   },
+   "vertical_integral_of_mass_tendency": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of mass tendency",
+    "units": "kg m**-2 s**-1"
+   },
+   "vertical_integral_of_northward_cloud_frozen_water_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of northward cloud frozen water flux ",
+    "units": "kg m**-1 s**-1"
+   },
+   "vertical_integral_of_northward_cloud_liquid_water_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of northward cloud liquid water flux",
+    "units": "kg m**-1 s**-1"
+   },
+   "vertical_integral_of_northward_geopotential_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of northward geopotential flux",
+    "units": "W m**-1"
+   },
+   "vertical_integral_of_northward_heat_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of northward heat flux",
+    "units": "W m**-1"
+   },
+   "vertical_integral_of_northward_kinetic_energy_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of northward kinetic energy flux",
+    "units": "W m**-1"
+   },
+   "vertical_integral_of_northward_mass_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of northward mass flux",
+    "units": "kg m**-1 s**-1"
+   },
+   "vertical_integral_of_northward_ozone_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of northward ozone flux",
+    "units": "kg m**-1 s**-1"
+   },
+   "vertical_integral_of_northward_total_energy_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of northward total energy flux",
+    "units": "W m**-1"
+   },
+   "vertical_integral_of_northward_water_vapour_flux": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of northward water vapour flux",
+    "units": "kg m**-1 s**-1"
+   },
+   "vertical_integral_of_potential_and_internal_energy": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of potential+internal energy",
+    "units": "J m**-2"
+   },
+   "vertical_integral_of_potential_internal_and_latent_energy": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of potential+internal+latent energy",
+    "units": "J m**-2"
+   },
+   "vertical_integral_of_temperature": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of temperature",
+    "units": "K kg m**-2"
+   },
+   "vertical_integral_of_thermal_energy": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of thermal energy",
+    "units": "J m**-2"
+   },
+   "vertical_integral_of_total_energy": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical integral of total energy",
+    "units": "J m**-2"
+   },
+   "vertical_velocity": {
+    "dims": [
+     "time",
+     "level",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertical velocity",
+    "units": "Pa s**-1"
+   },
+   "vertically_integrated_moisture_divergence": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Vertically integrated moisture divergence",
+    "units": "kg m**-2"
+   },
+   "volumetric_soil_water_layer_1": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Volumetric soil water layer 1",
+    "units": "m**3 m**-3"
+   },
+   "volumetric_soil_water_layer_2": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Volumetric soil water layer 2",
+    "units": "m**3 m**-3"
+   },
+   "volumetric_soil_water_layer_3": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Volumetric soil water layer 3",
+    "units": "m**3 m**-3"
+   },
+   "volumetric_soil_water_layer_4": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Volumetric soil water layer 4",
+    "units": "m**3 m**-3"
+   },
+   "wave_spectral_directional_width": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Wave spectral directional width",
+    "units": "radians"
+   },
+   "wave_spectral_directional_width_for_swell": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Wave spectral directional width for swell",
+    "units": "radians"
+   },
+   "wave_spectral_directional_width_for_wind_waves": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Wave spectral directional width for wind waves",
+    "units": "radians"
+   },
+   "wave_spectral_kurtosis": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Wave spectral kurtosis",
+    "units": "dimensionless"
+   },
+   "wave_spectral_peakedness": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Wave spectral peakedness",
+    "units": "dimensionless"
+   },
+   "wave_spectral_skewness": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Wave Spectral Skewness",
+    "units": "dimensionless"
+   },
+   "zero_degree_level": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "0 degrees C isothermal level (atm)",
+    "units": "m"
+   }
+  }
+ },
+ "glab-vod": {
+  "attrs": {},
+  "bbox": [
+   -180.0,
+   -51.9042,
+   180.0,
+   75.9179
+  ],
+  "dims": {
+   "lat": 505,
+   "lon": 1246,
+   "time": 377
+  },
+  "end": "2020-12-23T00:00:00Z",
+  "nbytes": 3795532384,
+  "spatial_resolution": "0.218\u00b0",
+  "start": "2002-06-19T00:00:00Z",
+  "storage_nbytes": 625364053,
+  "time_resolution": "18d",
+  "variables": {
+   "VOD": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "mean VOD from an ensemble of NN, full signal",
+    "units": "unitless"
+   },
+   "VOD_residual": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "residual part of the VOD signal, full signal minus seasonal cycle",
+    "units": "unitless"
+   },
+   "VOD_residual_std": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "the standard deviation of the residual part of the VOD signal",
+    "units": "unitless"
+   },
+   "VOD_std": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "VOD standard deviation, based on the ensemble NN output",
+    "units": "unitless"
+   }
+  }
+ },
+ "glad-lclu": {
+  "attrs": {
+   "license": "CC BY 4.0"
+  },
+  "bbox": [
+   -180.0,
+   -59.9999,
+   180.0,
+   79.9999
+  ],
+  "dims": {
+   "x": 1440000,
+   "y": 560000,
+   "year": 5
+  },
+  "nbytes": 4032016000048,
+  "spatial_resolution": "0.00025\u00b0",
+  "storage_nbytes": 271756519941,
+  "variables": {
+   "lclu": {
+    "dims": [
+     "year",
+     "y",
+     "x"
+    ]
+   }
+  }
+ },
+ "gotm-raw": {
+  "attrs": {
+   "description": "Training data, raw. Does not have adjusted boundary layer depths, hbls."
+  },
+  "dims": {
+   "indexes": 2500000,
+   "sigma": 16
+  },
+  "nbytes": 480000000,
+  "storage_nbytes": 287626972,
+  "variables": {
+   "SF": {
+    "dims": [
+     "indexes",
+     "sigma"
+    ]
+   },
+   "b0": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "h": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "heat": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "kappa_max": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "l": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "lat": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "tx": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "ustar": {
+    "dims": [
+     "indexes"
+    ]
+   }
+  }
+ },
+ "gotm-sf": {
+  "attrs": {
+   "description": "Training data for SF. Has adjusted boundary layer depths, hbls. Has data with abs(heat_flux) < 610 Wm-2 and wind stress <= 1.2 Nm-2 and hbl > 5 and hbl <750. The fill_gaps functions fills around lower limit 20m and upper limit 300m."
+  },
+  "dims": {
+   "indexes": 1335185,
+   "sigma": 16
+  },
+  "nbytes": 245674040,
+  "storage_nbytes": 138542112,
+  "variables": {
+   "SF": {
+    "dims": [
+     "indexes",
+     "sigma"
+    ]
+   },
+   "b0": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "h": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "heat": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "l": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "lat": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "tx": {
+    "dims": [
+     "indexes"
+    ]
+   },
+   "ustar": {
+    "dims": [
+     "indexes"
+    ]
+   }
+  }
+ },
+ "gpcp-daily": {
+  "attrs": {
+   "institution": "ACADEMIC > UMD/ESSIC > Earth System Science Interdisciplinary Center, University of Maryland",
+   "license": "No constraints on data access or use.",
+   "references": "Huffman et al. 1997, http://dx.doi.org/10.1175/1520-0477(1997)078<0005:TGPCPG>2.0.CO;2; Adler et al. 2003, http://dx.doi.org/10.1175/1525-7541(2003)004<1147:TVGPCP>2.0.CO;2; Huffman et al. 2009, http://dx.doi.org/10.1029/2009GL040000; Adler et al. 2017, Global Precipitation Climatology Project (GPCP) Daily Analysis: Climate Algorithm Theoretical Basis Document (C-ATBD)",
+   "summary": "Global Precipitation Climatology Project (GPCP) Daily Version 1.3 gridded, merged satellite/gauge precipitation Climate data Record (CDR) from 1996 to present.",
+   "title": "Global Precipitation Climatatology Project (GPCP) Climate Data Record (CDR), Daily V1.3"
+  },
+  "bbox": [
+   -180.0,
+   -90.0,
+   180.0,
+   89.0
+  ],
+  "dims": {
+   "latitude": 180,
+   "longitude": 360,
+   "nv": 2,
+   "time": 10378
+  },
+  "end": "2025-02-28T00:00:00Z",
+  "nbytes": 2690233152,
+  "spatial_resolution": "1\u00b0",
+  "start": "1996-10-01T00:00:00Z",
+  "storage_nbytes": 1283754825,
+  "time_resolution": "daily",
+  "variables": {
+   "lat_bounds": {
+    "dims": [
+     "latitude",
+     "nv"
+    ]
+   },
+   "lon_bounds": {
+    "dims": [
+     "longitude",
+     "nv"
+    ]
+   },
+   "precip": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "NOAA Climate Data Record (CDR) of Daily GPCP Satellite-Gauge Combined Precipitation",
+    "units": "mm/day"
+   },
+   "time_bounds": {
+    "dims": [
+     "time",
+     "nv"
+    ]
+   }
+  }
+ },
+ "grace-tws": {
+  "attrs": {
+   "institution": "NASA/JPL",
+   "license": "https://science.nasa.gov/earth-science/earth-science-data/data-information-policy",
+   "references": "Cooley, Landerer (2019), GRACE/GRACE-FO Level-3 Data Product User Handbook, JPL-D-103133.",
+   "summary": "Gridded surface mass anomalies, derived from Spherical harmonic coefficients representing an estimate of Earth's mean gravity field during the specified timespan derived from GRACE mission measurements.  These grids represent the full magnitude of land hydrology and land ice.  Further, they contain atmospheric and oceanic processes not captured in the accompanying GAC product.",
+   "title": "GRACE-FO Water-Equivalent-Thickness Surface-Mass Anomaly; JPL RL06"
+  },
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "bounds": 2,
+   "lat": 180,
+   "lon": 360,
+   "time": 163
+  },
+  "end": "2017-06-11T00:00:00Z",
+  "nbytes": 169015272,
+  "spatial_resolution": "1\u00b0",
+  "start": "2002-04-17T12:00:00Z",
+  "storage_nbytes": 68734592,
+  "time_resolution": "monthly",
+  "variables": {
+   "lat_bounds": {
+    "dims": [
+     "lat",
+     "bounds"
+    ],
+    "long_name": "latitude boundaries",
+    "units": "degrees_north"
+   },
+   "lon_bounds": {
+    "dims": [
+     "lon",
+     "bounds"
+    ],
+    "long_name": "longitude boundaries",
+    "units": "degrees_east"
+   },
+   "lwe_thickness": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Liquid_Water_Equivalent_Thickness",
+    "units": "m"
+   },
+   "time_bounds": {
+    "dims": [
+     "time",
+     "bounds"
+    ],
+    "long_name": "time bounds for each time value, i.e. the first day and last day included in the monthly solution"
+   },
+   "uncertainty": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "uncertainty",
+    "units": "m"
+   }
+  }
+ },
+ "lcspp-avhrr": {
+  "attrs": {
+   "title": "Long-term Continuous SIF-informed Photosynthesis Proxy reconstructed with calibrated AVHRR surface reflectance (LCSPP-AVHRR)"
+  },
+  "bbox": [
+   -180.0,
+   -89.975,
+   180.0,
+   89.975
+  ],
+  "dims": {
+   "lat": 3600,
+   "lon": 7200,
+   "time": 1008
+  },
+  "end": "2023-12-23T00:00:00Z",
+  "nbytes": 339655774464,
+  "spatial_resolution": "0.05\u00b0",
+  "start": "1982-01-08T00:00:00Z",
+  "storage_nbytes": 62722084136,
+  "time_resolution": "15d",
+  "variables": {
+   "lcspp_all_daily": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "all-sky daily average LCSPP weighted by ERA5 SSRD",
+    "units": "mW m-2 nm-1 sr-1"
+   },
+   "lcspp_clear_daily": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "daily clear-sky predicted LCSPP adjusted by cosine solar zenith angle",
+    "units": "mW m-2 nm-1 sr-1"
+   },
+   "lcspp_clear_inst": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "instantaneous clear-sky predicted LCSPP",
+    "units": "mW m-2 nm-1 sr-1"
+   },
+   "lcspp_qa": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Gapfill Quality for LCSPP"
+   }
+  }
+ },
+ "ldeo-hpd-annual": {
+  "attrs": {},
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "lat": 180,
+   "lon": 360,
+   "time": 29,
+   "type": 2
+  },
+  "end": "2018-07-02T12:00:00Z",
+  "nbytes": 15036096,
+  "spatial_resolution": "1\u00b0",
+  "start": "1990-07-02T12:00:00Z",
+  "time_resolution": "annual",
+  "variables": {
+   "sfco2": {
+    "dims": [
+     "type",
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Surface ocean fCO2",
+    "units": "uatm"
+   }
+  }
+ },
+ "ldeo-hpd-monthly": {
+  "attrs": {
+   "institution": "Lamont Doherty Earth Observatory at Columbia",
+   "title": "LDEO-HPD"
+  },
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "lat": 180,
+   "lon": 360,
+   "time": 768
+  },
+  "end": "2022-12-15T00:00:00Z",
+  "nbytes": 398139504,
+  "spatial_resolution": "1\u00b0",
+  "start": "1959-01-15T00:00:00Z",
+  "time_resolution": "monthly",
+  "variables": {
+   "fgco2": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "units": "mol m-2 s-1"
+   },
+   "sfco2": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "units": "uatm"
+   }
+  }
+ },
+ "llc4320-agulhas": {
+  "attrs": {},
+  "dims": {
+   "i": 720,
+   "i_g": 720,
+   "j": 1146,
+   "j_g": 1146,
+   "k": 45,
+   "k_l": 45,
+   "time": 859
+  },
+  "end": "2012-11-15T05:30:00Z",
+  "nbytes": 649732531148,
+  "start": "2011-09-13T05:30:00Z",
+  "storage_nbytes": 479680493140,
+  "time_resolution": "12h",
+  "variables": {
+   "KPPhbl": {
+    "dims": [
+     "time",
+     "j",
+     "i"
+    ],
+    "long_name": "KPP boundary layer depth, bulk Ri criterion",
+    "units": "m"
+   },
+   "Salt": {
+    "dims": [
+     "time",
+     "k",
+     "j",
+     "i"
+    ],
+    "long_name": "Salinity",
+    "units": "psu"
+   },
+   "Theta": {
+    "dims": [
+     "time",
+     "k",
+     "j",
+     "i"
+    ],
+    "long_name": "Potential Temperature",
+    "units": "degC"
+   },
+   "U": {
+    "dims": [
+     "time",
+     "k",
+     "j",
+     "i_g"
+    ],
+    "long_name": "Zonal Component of Velocity",
+    "units": "m s-1"
+   },
+   "V": {
+    "dims": [
+     "time",
+     "k",
+     "j_g",
+     "i"
+    ],
+    "long_name": "Meridional Component of Velocity",
+    "units": "m s-1"
+   },
+   "W": {
+    "dims": [
+     "time",
+     "k_l",
+     "j",
+     "i"
+    ],
+    "long_name": "Vertical Component of Velocity",
+    "units": "m s-1"
+   },
+   "oceQnet": {
+    "dims": [
+     "time",
+     "j",
+     "i"
+    ],
+    "long_name": "net surface heat flux into the ocean (+=down), >0 increases theta",
+    "units": "W/m^2"
+   },
+   "oceTAUX": {
+    "dims": [
+     "time",
+     "j",
+     "i_g"
+    ],
+    "long_name": "zonal surface wind stress, >0 increases uVel",
+    "units": "N/m^2"
+   },
+   "oceTAUY": {
+    "dims": [
+     "time",
+     "j_g",
+     "i"
+    ],
+    "long_name": "meridional surf. wind stress, >0 increases vVel",
+    "units": "N/m^2"
+   }
+  }
+ },
+ "metaflux-daily": {
+  "attrs": {
+   "description": "Upscaled global product of GPP and Reco (a combination of autotrophic and heterotrophic respiration) using meta-learning. 206 FLUXNET2015 stations are used to train each variable independently. We use the nighttime-partition for both GPP (GPP_NT) and Reco (RECO_NT). The inputs used are precipitation, vapor pressure deficit (VPD), 2-m air temperature from ERA5 reanalysis data, and LAI + EVI from MODIS. The global product is currently available at 0.25-degree resolution for the year 2001-2022 at a monthly scale"
+  },
+  "bbox": [
+   -180.0,
+   -90.0,
+   180.0,
+   89.75
+  ],
+  "dims": {
+   "lat": 720,
+   "lon": 1440,
+   "time": 7670
+  },
+  "end": "2021-12-31T00:00:00Z",
+  "nbytes": 254472270640,
+  "spatial_resolution": "0.25\u00b0",
+  "start": "2001-01-01T00:00:00Z",
+  "storage_nbytes": 55558889160,
+  "time_resolution": "daily",
+  "variables": {
+   "GPP": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Gross Primary Production (GPP) ensemble mean",
+    "units": "$gCm^{-2}d^{-1}$"
+   },
+   "GPP_std": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Gross Primary Production (GPP) ensemble uncertainty",
+    "units": "$gCm^{-2}d^{-1}$"
+   },
+   "RECO": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Ecosystem Respiration (Reco) ensemble mean",
+    "units": "$gCm^{-2}d^{-1}$"
+   },
+   "RECO_std": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Ecosystem Respiration (Reco) ensemble uncertainty",
+    "units": "$gCm^{-2}d^{-1}$"
+   }
+  }
+ },
+ "metaflux-monthly": {
+  "attrs": {
+   "description": "Upscaled global product of GPP and Reco (a combination of autotrophic and heterotrophic respiration) using meta-learning. 206 FLUXNET2015 stations are used to train each variable independently. We use the nighttime-partition for both GPP (GPP_NT) and Reco (RECO_NT). The inputs used are precipitation, vapor pressure deficit (VPD), 2-m air temperature from ERA5 reanalysis data, and LAI + EVI from MODIS. The global product is currently available at 0.25-degree resolution for the year 2001-2022 at a monthly scale"
+  },
+  "bbox": [
+   -180.0,
+   -89.75,
+   180.0,
+   90.0
+  ],
+  "dims": {
+   "latitude": 720,
+   "longitude": 1440,
+   "time": 252
+  },
+  "end": "2021-12-01T00:00:00Z",
+  "nbytes": 8360765856,
+  "spatial_resolution": "0.25\u00b0",
+  "start": "2001-01-01T00:00:00Z",
+  "storage_nbytes": 1828195367,
+  "time_resolution": "monthly",
+  "variables": {
+   "GPP": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Gross Primary Production (GPP) ensemble mean",
+    "units": "$gCm^{-2}d^{-1}$"
+   },
+   "GPP_std": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Gross Primary Production (GPP) ensemble uncertainty",
+    "units": "$gCm^{-2}d^{-1}$"
+   },
+   "RECO": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Ecosystem Respiration (Reco) ensemble mean",
+    "units": "$gCm^{-2}d^{-1}$"
+   },
+   "RECO_std": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ],
+    "long_name": "Ecosystem Respiration (Reco) ensemble uncertainty",
+    "units": "$gCm^{-2}d^{-1}$"
+   }
+  }
+ },
+ "modis-lai": {
+  "attrs": {
+   "institution": "Land-Atmosphere Interaction Research Group at Sun Yat-sen University (http://globalchange.bnu.edu.cn)",
+   "title": "LAI data sets for land surface and climate modelling"
+  },
+  "bbox": [
+   -180.0,
+   -89.975,
+   180.0,
+   89.975
+  ],
+  "dims": {
+   "lat": 3600,
+   "lon": 7200,
+   "time": 874
+  },
+  "end": "2020-12-26T00:00:00Z",
+  "nbytes": 90616370192,
+  "spatial_resolution": "0.05\u00b0",
+  "start": "2002-01-01T00:00:00Z",
+  "storage_nbytes": 16415910311,
+  "time_resolution": "8d",
+  "variables": {
+   "lai": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "leaf area index",
+    "units": "m2/m2"
+   }
+  }
+ },
+ "nasa-rasi-historical": {
+  "attrs": {},
+  "bbox": [
+   -109.55,
+   23.95,
+   -96.45,
+   39.05
+  ],
+  "dims": {
+   "lat": 152,
+   "lon": 132,
+   "percentile": 5,
+   "time": 780
+  },
+  "end": "2014-12-01T00:00:00Z",
+  "nbytes": 2503994596,
+  "spatial_resolution": "0.1\u00b0",
+  "start": "1950-01-01T00:00:00Z",
+  "storage_nbytes": 80823,
+  "time_resolution": "monthly",
+  "variables": {
+   "AvgSurfT_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics: surface temperature",
+    "units": "K"
+   },
+   "Qs_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics: surface runoff",
+    "units": "kg m-2"
+   },
+   "Qsb_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics: subsurface runoff amount",
+    "units": "kg m-2"
+   },
+   "RZSM_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics: root zone soil moisture content",
+    "units": "m3 m-3"
+   },
+   "SWE_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics: snow water equivalent",
+    "units": "kg m-2"
+   },
+   "SnowDepth_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics: snow depth",
+    "units": "m"
+   },
+   "Snowf_percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   },
+   "TotalPrecip_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   }
+  }
+ },
+ "nasa-rasi-ssp245": {
+  "attrs": {},
+  "bbox": [
+   -109.55,
+   23.95,
+   -96.45,
+   39.05
+  ],
+  "dims": {
+   "lat": 152,
+   "lon": 132,
+   "percentile": 5,
+   "time": 1020
+  },
+  "end": "2099-12-01T00:00:00Z",
+  "nbytes": 3274454116,
+  "spatial_resolution": "0.1\u00b0",
+  "start": "2015-01-01T00:00:00Z",
+  "storage_nbytes": 102049,
+  "time_resolution": "monthly",
+  "variables": {
+   "AvgSurfT_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "K"
+   },
+   "Qs_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   },
+   "Qsb_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   },
+   "RZSM_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics: root zone soil moisture content",
+    "units": "m3 m-3"
+   },
+   "SWE_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   },
+   "SnowDepth_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "m"
+   },
+   "Snowf_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   },
+   "TotalPrecip_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   }
+  }
+ },
+ "nasa-rasi-ssp585": {
+  "attrs": {},
+  "bbox": [
+   -109.55,
+   23.95,
+   -96.45,
+   39.05
+  ],
+  "dims": {
+   "lat": 152,
+   "lon": 132,
+   "percentile": 5,
+   "time": 984
+  },
+  "end": "2096-12-01T00:00:00Z",
+  "nbytes": 3158885188,
+  "spatial_resolution": "0.1\u00b0",
+  "start": "2015-01-01T00:00:00Z",
+  "storage_nbytes": 99369,
+  "time_resolution": "monthly",
+  "variables": {
+   "AvgSurfT_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "K"
+   },
+   "Qs_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   },
+   "Qsb_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   },
+   "RZSM_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics: root zone soil moisture content",
+    "units": "m m-3"
+   },
+   "SWE_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   },
+   "SnowDepth_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "m"
+   },
+   "Snowf_percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   },
+   "TotalPrecip_Percentiles": {
+    "dims": [
+     "time",
+     "percentile",
+     "lat",
+     "lon"
+    ],
+    "long_name": "Robust Dispersion Statistics",
+    "units": "kg m-2"
+   }
+  }
+ },
+ "ostia": {
+  "attrs": {
+   "institution": "UKMO",
+   "license": "These data are available free of charge under the CMEMS data policy",
+   "references": "Donlon, C.J., Martin, M., Stark, J.D., Roberts-Jones, J., Fiedler, E., Wimmer, W., 2011. The Operational Sea Surface Temperature and Sea Ice Analysis (OSTIA). Remote Sensing of the Environment",
+   "summary": "A merged, multi-sensor L4 Foundation SST product",
+   "title": "Global SST & Sea Ice Analysis, L4 OSTIA, 0.05 deg daily (METOFFICE-GLO-SST-L4-REP-OBS-SST-V2)"
+  },
+  "bbox": [
+   -180.0,
+   -89.975,
+   180.0,
+   89.975
+  ],
+  "dims": {
+   "lat": 3600,
+   "lon": 7200,
+   "time": 15340
+  },
+  "end": "2023-12-31T12:00:00Z",
+  "nbytes": 11133158565920,
+  "spatial_resolution": "0.05\u00b0",
+  "start": "1982-01-01T12:00:00Z",
+  "storage_nbytes": 245626914510,
+  "time_resolution": "daily",
+  "variables": {
+   "analysed_sst": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "analysed sea surface temperature",
+    "units": "kelvin"
+   },
+   "analysis_error": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "estimated error standard deviation of analysed_sst",
+    "units": "kelvin"
+   },
+   "mask": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "land sea ice lake bit mask"
+   },
+   "sea_ice_fraction": {
+    "dims": [
+     "time",
+     "lat",
+     "lon"
+    ],
+    "long_name": "sea ice area fraction",
+    "units": "1"
+   }
+  }
+ },
+ "pco2-testbed-canesm2": {
+  "attrs": {
+   "institution": "CCCma (Canadian Centre for Climate Modelling and Analysis, Victoria, BC, Canada)",
+   "references": "http://www.cccma.ec.gc.ca/models",
+   "title": "CanESM2 model output prepared for CanSISE historical run"
+  },
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "bnds": 2,
+   "member": 25,
+   "time": 421,
+   "xlon": 360,
+   "ylat": 180
+  },
+  "end": "2017-01-16T12:00:00Z",
+  "nbytes": 70930557488,
+  "spatial_resolution": "1\u00b0",
+  "start": "1982-01-16T12:00:00Z",
+  "storage_nbytes": 12981823368,
+  "time_resolution": "monthly",
+  "variables": {
+   "Chl": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Total Chlorophyll Mass Concentration at Surface",
+    "units": "mg m-3"
+   },
+   "Chl_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Total Chlorophyll Mass Concentration at Surface",
+    "units": "mg m-3"
+   },
+   "MLD": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Ocean Mixed Layer Thickness Defined by Sigma T",
+    "units": "m"
+   },
+   "MLD_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Ocean Mixed Layer Thickness Defined by Sigma T",
+    "units": "m"
+   },
+   "SSS": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Sea Surface Salinity",
+    "units": "psu"
+   },
+   "SSS_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Sea Surface Salinity",
+    "units": "psu"
+   },
+   "SST": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Sea Surface Temperature",
+    "units": "degC"
+   },
+   "SST_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Sea Surface Temperature",
+    "units": "degC"
+   },
+   "U10": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Wind speed at 10m",
+    "units": "m s-1"
+   },
+   "U10_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Wind speed at 10m",
+    "units": "m s-1"
+   },
+   "iceFrac": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Sea Ice Area Fraction",
+    "units": "%"
+   },
+   "iceFrac_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Sea Ice Area Fraction",
+    "units": "%"
+   },
+   "pATM": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Surface Air Pressure",
+    "units": "atmospheres"
+   },
+   "pATM_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Surface Air Pressure",
+    "units": "Pa"
+   },
+   "pCO2": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Surface Aqueous Partial Pressure of CO2",
+    "units": "uatm"
+   },
+   "pCO2_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Surface Aqueous Partial Pressure of CO2",
+    "units": "uatm"
+   },
+   "socat_mask": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ]
+   },
+   "time_bnds": {
+    "dims": [
+     "member",
+     "time",
+     "bnds"
+    ]
+   },
+   "tmnth": {
+    "dims": [
+     "member",
+     "time"
+    ]
+   },
+   "xlon_bnds": {
+    "dims": [
+     "member",
+     "xlon",
+     "bnds"
+    ]
+   },
+   "ylat_bnds": {
+    "dims": [
+     "member",
+     "ylat",
+     "bnds"
+    ]
+   }
+  }
+ },
+ "pco2-testbed-cesm": {
+  "attrs": {
+   "title": "b.e11.B20TRC5CNBDRD.f09_g16.002"
+  },
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "bnds": 2,
+   "member": 24,
+   "time": 421,
+   "xlon": 360,
+   "ylat": 180
+  },
+  "end": "2017-02-01T00:00:00Z",
+  "nbytes": 78569202936,
+  "spatial_resolution": "1\u00b0",
+  "start": "1982-02-01T00:00:00Z",
+  "storage_nbytes": 15204100125,
+  "time_resolution": "monthly",
+  "variables": {
+   "Chl": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "total (diat,diaz,sp) phytoplankton Chlorophyll",
+    "units": "mg/m^3"
+   },
+   "Chl_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "total (diat,diaz,sp) phytoplankton Chlorophyll",
+    "units": "mg/m^3"
+   },
+   "FG_CO2": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "DIC Surface Gas Flux",
+    "units": "mmol/m^3 cm/s"
+   },
+   "FG_CO2_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "DIC Surface Gas Flux",
+    "units": "mmol/m^3 cm/s"
+   },
+   "MLD": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Mixed-Layer Depth",
+    "units": "m"
+   },
+   "MLD_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Mixed-Layer Depth",
+    "units": "m"
+   },
+   "SSS": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Sea Surface Salinity",
+    "units": "gram/kilogram"
+   },
+   "SSS_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Sea Surface Salinity",
+    "units": "gram/kilogram"
+   },
+   "SST": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Potential Temperature",
+    "units": "degC"
+   },
+   "SST_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Potential Temperature",
+    "units": "degC"
+   },
+   "U10": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "10m wind speed",
+    "units": "m/s"
+   },
+   "U10_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "10m wind speed",
+    "units": "m/s"
+   },
+   "XCO2": {
+    "dims": [
+     "member",
+     "time"
+    ],
+    "long_name": "Atmospheric CO2",
+    "units": "ppmv"
+   },
+   "iceFrac": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Ice Fraction from Coupler",
+    "units": "fraction"
+   },
+   "iceFrac_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Ice Fraction from Coupler",
+    "units": "fraction"
+   },
+   "pATM": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Atmospheric Pressure for ecosys fluxes",
+    "units": "atmospheres"
+   },
+   "pATM_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Atmospheric Pressure for ecosys fluxes",
+    "units": "atmospheres"
+   },
+   "pCO2": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ]
+   },
+   "pCO2_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ]
+   },
+   "socat_mask": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ]
+   },
+   "time_bnds": {
+    "dims": [
+     "member",
+     "time",
+     "bnds"
+    ]
+   },
+   "tmnth": {
+    "dims": [
+     "member",
+     "time"
+    ]
+   },
+   "xlon_bnds": {
+    "dims": [
+     "member",
+     "xlon",
+     "bnds"
+    ]
+   },
+   "ylat_bnds": {
+    "dims": [
+     "member",
+     "ylat",
+     "bnds"
+    ]
+   }
+  }
+ },
+ "pco2-testbed-gfdl": {
+  "attrs": {
+   "title": "ESM2M-C1_all_historical_HC2_ens101"
+  },
+  "bbox": [
+   -180.0,
+   -89.5,
+   180.0,
+   89.5
+  ],
+  "dims": {
+   "bnds": 2,
+   "member": 24,
+   "time": 421,
+   "xlon": 360,
+   "ylat": 180
+  },
+  "end": "2017-01-16T12:00:00Z",
+  "nbytes": 78568955048,
+  "spatial_resolution": "1\u00b0",
+  "start": "1982-01-16T12:00:00Z",
+  "storage_nbytes": 13940801196,
+  "time_resolution": "monthly",
+  "variables": {
+   "Chl": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Surface Chl",
+    "units": "ug kg-1"
+   },
+   "Chl_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Surface Chl",
+    "units": "ug kg-1"
+   },
+   "MLD": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "mixed layer depth determined by density criteria",
+    "units": "m"
+   },
+   "MLD_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "mixed layer depth determined by density criteria",
+    "units": "m"
+   },
+   "SSS": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Practical Salinity",
+    "units": "psu"
+   },
+   "SSS_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Practical Salinity",
+    "units": "psu"
+   },
+   "SST": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Potential temperature",
+    "units": "degC"
+   },
+   "SST_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Potential temperature",
+    "units": "degrees K"
+   },
+   "U10": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "zonal wind component at 10 m",
+    "units": "m/s"
+   },
+   "U10_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "zonal wind component at 10 m",
+    "units": "m/s"
+   },
+   "iceFrac": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "ice modeled",
+    "units": "0 or 1"
+   },
+   "iceFrac_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "ice modeled",
+    "units": "0 or 1"
+   },
+   "pATM": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "surface pressure",
+    "units": "atmospheres"
+   },
+   "pATM_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "surface pressure",
+    "units": "Pa"
+   },
+   "pCO2": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Oceanic pCO2",
+    "units": "uatm"
+   },
+   "pCO2ATM": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "PCO2SURF[D=2]-DIC_DELTAP[D=1]"
+   },
+   "pCO2ATM_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "PCO2SURF[D=2]-DIC_DELTAP[D=1]"
+   },
+   "pCO2_socat": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ],
+    "long_name": "Oceanic pCO2",
+    "units": "uatm"
+   },
+   "socat_mask": {
+    "dims": [
+     "member",
+     "time",
+     "ylat",
+     "xlon"
+    ]
+   },
+   "time_bnds": {
+    "dims": [
+     "member",
+     "time",
+     "bnds"
+    ]
+   },
+   "tmnth": {
+    "dims": [
+     "member",
+     "time"
+    ]
+   }
+  }
+ },
+ "pisco-eo": {
+  "attrs": {},
+  "bbox": [
+   -81.4,
+   -18.59,
+   -67.19,
+   1.22
+  ],
+  "dims": {
+   "latitude": 1982,
+   "longitude": 1422,
+   "time": 13149
+  },
+  "end": "2016-12-31T00:00:00Z",
+  "nbytes": 148236909208,
+  "spatial_resolution": "0.01\u00b0",
+  "start": "1981-01-01T00:00:00Z",
+  "storage_nbytes": 31753769678,
+  "time_resolution": "daily",
+  "variables": {
+   "eo": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ]
+   }
+  }
+ },
+ "pisco-tmax": {
+  "attrs": {},
+  "bbox": [
+   -81.355,
+   -18.625,
+   -67.155,
+   1.175
+  ],
+  "dims": {
+   "latitude": 199,
+   "longitude": 143,
+   "time": 14610
+  },
+  "end": "2020-12-31T00:00:00Z",
+  "nbytes": 1663146696,
+  "spatial_resolution": "0.1\u00b0",
+  "start": "1981-01-01T00:00:00Z",
+  "storage_nbytes": 674382762,
+  "time_resolution": "daily",
+  "variables": {
+   "tmax": {
+    "dims": [
+     "time",
+     "latitude",
+     "longitude"
+    ]
+   }
+  }
+ },
+ "srtm-dem": {
+  "attrs": {},
+  "dims": {
+   "lat": 3601,
+   "lon": 3601,
+   "tile_id": 32,
+   "time": 1,
+   "x": 3601,
+   "y": 3601
+  },
+  "end": "2000-02-11T00:00:00Z",
+  "nbytes": 1661645704,
+  "start": "2000-02-11T00:00:00Z",
+  "storage_nbytes": 556279810,
+  "variables": {
+   "elevation": {
+    "dims": [
+     "tile_id",
+     "y",
+     "x"
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "climsim-lowres": {
+  "href": "s3://leap-pangeo-pipeline/arco/climsim-lowres.icechunk",
+  "layout": "upgrade",
+  "objects": 4564,
+  "seconds": 93,
+  "status": "built"
+ },
+ "corrdiff-nyc": {
+  "groups": 46,
+  "href": "s3://leap-pangeo-pipeline/arco/corrdiff-nyc.icechunk",
+  "layout": "virtual",
+  "seconds": 303,
+  "status": "built"
+ },
+ "enatl60-60m": {
+  "href": "s3://leap-pangeo-pipeline/arco/enatl60-60m.icechunk",
+  "layout": "upgrade",
+  "objects": 5123,
+  "seconds": 85,
+  "status": "built"
+ },
+ "gotm-raw": {
+  "gb": 0.5,
+  "href": "s3://leap-pangeo-pipeline/arco/gotm-raw.icechunk",
+  "layout": "copy",
+  "seconds": 160,
+  "status": "built"
+ },
+ "gotm-sf": {
+  "gb": 0.2,
+  "href": "s3://leap-pangeo-pipeline/arco/gotm-sf.icechunk",
+  "layout": "copy",
+  "seconds": 81,
+  "status": "built"
+ },
+ "gpcp-daily": {
+  "clims": 1,
+  "crs": "EPSG:4326",
+  "gb": 2.7,
+  "href": "s3://leap-pangeo-pipeline/arco/gpcp-daily.icechunk",
+  "layout": "flat",
+  "seconds": 667,
+  "status": "built",
+  "x_dim": "longitude",
+  "y_dim": "latitude"
+ },
+ "grace-tws": {
+  "clims": 2,
+  "crs": "EPSG:4326",
+  "gb": 0.2,
+  "href": "s3://leap-pangeo-pipeline/arco/grace-tws.icechunk",
+  "layout": "flat",
+  "seconds": 35,
+  "status": "built",
+  "x_dim": "lon",
+  "y_dim": "lat"
+ },
+ "llc4320-agulhas": {
+  "groups": 1,
+  "href": "s3://leap-pangeo-pipeline/arco/llc4320-agulhas.icechunk",
+  "layout": "virtual",
+  "seconds": 17,
+  "status": "built"
+ }
+}
