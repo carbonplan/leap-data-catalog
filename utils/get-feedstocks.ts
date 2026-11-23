@@ -1,7 +1,7 @@
 import { Feedstock, Provider, Store } from '@/types/types'
 import { getColor } from '@/utils/colors'
 import { getThumbnail } from '@/utils/thumbnail'
-import { asyncBufferFromUrl, parquetReadObjects } from 'hyparquet'
+import { parquetReadObjects } from 'hyparquet'
 
 const defaultCatalogUrl =
   'https://nyu1.osn.mghpcc.org/leap-pangeo-pipeline/catalog/catalog.parquet'
@@ -14,6 +14,7 @@ interface StacAsset {
   title?: string
   type?: string
   alternate?: { [scheme: string]: { href: string } | null }
+  'leap:virtual'?: boolean
 }
 
 interface StacLink {
@@ -42,6 +43,7 @@ function toStore(key: string, asset: Nullable<StacAsset>): Store {
     url: asset.href!,
     nativeUrl: native || asset.href!,
     format: asset.type?.includes('icechunk') ? 'icechunk' : 'zarr',
+    virtual: asset['leap:virtual'] ?? false,
     public: true,
     geospatial: true,
     xarray_open_kwargs: { engine: 'zarr', chunks: {} },
@@ -90,7 +92,10 @@ export async function getFeedstocks(catalog?: string): Promise<Feedstock[]> {
     catalog || process.env.NEXT_PUBLIC_CATALOG_URL || defaultCatalogUrl
 
   try {
-    const file = await asyncBufferFromUrl({ url })
+    // The file is small (~80 KB): fetch it whole so Next caches it for an hour.
+    const res = await fetch(url, { next: { revalidate: 3600 } })
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
+    const file = await res.arrayBuffer()
     const items = (await parquetReadObjects({ file })) as StacItem[]
     return items.map((item) => toFeedstock(item, url))
   } catch (error) {

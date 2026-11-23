@@ -22,7 +22,14 @@ const openSnippet = (store: Store) =>
 import xarray as xr
 
 storage = ${icechunkStorage(store)}
-repo = icechunk.Repository.open(storage)
+${
+  store.virtual
+    ? `# Virtual store: allow anonymous reads of the chunk containers it references.
+config = icechunk.Repository.fetch_config(storage)
+creds = icechunk.containers_credentials({p: icechunk.s3_anonymous_credentials() for p in config.virtual_chunk_containers})
+repo = icechunk.Repository.open(storage, authorize_virtual_chunk_access=creds)`
+    : 'repo = icechunk.Repository.open(storage)'
+}
 session = repo.readonly_session('main')
 ds = xr.open_zarr(session.store)
 `

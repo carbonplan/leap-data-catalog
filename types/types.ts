@@ -22,6 +22,7 @@ export interface Store {
   url: string
   nativeUrl?: string
   format?: 'zarr' | 'icechunk'
+  virtual?: boolean
   rechunking?: { [key: string]: string }[]
   'ncviewjs:rechunking'?: Rechunking[]
   public?: boolean
