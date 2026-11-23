@@ -12,7 +12,7 @@ Last updated: 2026-11-23
 | 0.5 | Design research notes (no code) | 3.1 | - | [x] `docs/design-research.md` |
 | 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash) |
 | 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [~] done and reviewed, local only; push + PR + merge wait on user go |
-| 3 | zarr-layer viewer on current stores, ncview-js link removed | 5.1 | `modernize-03-viewer` | [~] handed to an agent |
+| 3 | zarr-layer viewer on current stores, ncview-js link removed | 5.1 | `modernize-03-viewer` | [~] done and reviewed, local only (stacked on PR 2); push + PR wait on user go |
 | 4 | Merge dynamical.org STAC; scheduled rebuild | 2.1 | `modernize-04-dynamical` | [ ] |
 | 5 | Metadata enrichment (datacube), editorial pass, remove html-reprs | 2.2 | `modernize-05-metadata` | [ ] |
 | 6 | Search, facets, featured ranking | 3.1 | `modernize-06-search` | [ ] |
@@ -133,7 +133,11 @@ These are single-branch repos. PR 7 decides whether to keep them, add a `viz` br
 - **CASM:** the old `CASM/casm.zarr` was all NaN and has been deleted. The real data is `CASM/obstore/casm.zarr`, and the raw `.nc` files are in `leap-pangeo-manual/CASM`. Invalid or empty stores may be wiped.
 - **Virtualizing a zarr v2 source** with `ZarrParser` needs `arro3-core`.
 - **Dotted bucket names** break virtual-hosted TLS. Use path-style https URLs for them (see `asset()` on the reference branch).
-- **CORS:** every https href the browser reads needs a CORS rule on its bucket. `build_catalog.py` on the reference branch has a `browser_readable()` preflight check to reuse.
+- **CORS on OSN:**
+  - Simple GETs, including a bounded `Range: bytes=a-b` (CORS-safelisted), get `access-control-allow-origin: *` from any origin.
+  - Preflights (OPTIONS) return 403 unless the origin is `https://catalog.leap.columbia.edu` and no headers are requested. So a suffix range `bytes=-N` or any custom header fails everywhere, including production.
+  - Chromium on localhost: no range gives 200, `bytes=0-10` gives 206, `bytes=-10` fails to fetch.
+- **CORS elsewhere:** every https href the browser reads needs a CORS rule on its bucket. `build_catalog.py` on the reference branch has a `browser_readable()` preflight check to reuse.
 - **lat/lon jitter:** float32-jittered lat/lon must be snapped to an exact linspace before topozarr. See the reference branch's commit `87e073e`.
 
 ---
@@ -237,7 +241,7 @@ Follow-ups (2026-11-23):
 - [x] Step 0.5 notes: `docs/design-research.md`.
 - [x] CORS check. Preflight from `http://localhost:3000` and Vercel preview origins returns 403; only `https://catalog.leap.columbia.edu` is allowed. The pipeline key gets AccessDenied on `GetBucketCors`, so it cannot change the rule either; that needs the OSN/LEAP bucket admins.
   - PR 2 is not blocked: `getFeedstocks` runs in server components (`app/page.tsx`, `app/feedstock/[slug]/page.tsx`), and server fetches do not use CORS. Keep the parquet read server-side.
-  - PR 3 is affected: the viewer reads stores from the browser, so on localhost and Vercel previews it fails for OSN stores. Options: ask the admins to add `http://localhost:3000` and the preview origin, or route dev reads through a Next.js rewrite proxy. Decide at the start of PR 3.
+  - PR 3 turned out not to be affected; see "PR 3 implementation notes". Browser reads skip the preflight.
 
 Tests: `uv run pytest tests/test_build_catalog.py` runs 14 tests offline. Schemas are vendored in `tests/schemas/` with a `manifest.json` mapping each URL to its file. To refresh them, re-crawl `item.json` and the extension schemas.
 
@@ -324,14 +328,46 @@ TODO:
 - Remove the ncview-js link (`data-viewer.tsx`). After this PR nothing in the app uses zarr-proxy.
 
 Decisions made at the start of PR 3 (2026-11-23):
-- **CORS: use a dev and preview proxy.** Do not ask the admins.
-  - `next.config.mjs` rewrites `/osn/:path*` to `https://nyu1.osn.mghpcc.org/:path*`.
-  - The viewer rewrites OSN hrefs to `/osn/...` unless the page origin is `https://catalog.leap.columbia.edu`, which OSN CORS already allows.
-  - Non-OSN buckets (AWS, GCS) use their own CORS. Each candidate store is preflight-checked from `https://catalog.leap.columbia.edu` and `http://localhost:3000`, and the results are recorded here.
-  - Revert by deleting the rewrite and the href swap.
-- **The `viewer: true` flag goes on stores in `datasets.yaml`.** `build_catalog.py` copies it to `leap:viewer`. A store is set only after a lazy metadata probe: rectilinear lat/lon, chunks of 1-2 MB or less (or a v3 shard read the viewer can use), and CORS-readable.
-- **icechunk stores:** read them with `icechunk-js`, as the reference viewer does. Avoid `getSnapshotMetadata()` (see Known gotchas).
-- **Local testing before upload:** serve a local build over http, for example `uv run python -m http.server` in a scratch dir holding `catalog.parquet`, and set `NEXT_PUBLIC_CATALOG_URL` to it. Uploading the new parquet to OSN needs the user's go.
+- **CORS: read directly, no proxy.** The proxy planned at the start was built, then removed in review (`d86cb12`). The viewer's requests (icechunk-js + zarr-layer) are all CORS-safelisted (none, or bounded Range), and OSN answers them with `allow-origin: *`. See "Known gotchas". The browser test from localhost read every flagged store directly.
+- **The `viewer: true` flag goes on stores in `datasets.yaml`.** `build_catalog.py` copies it to `leap:viewer`.
+- **Local testing before upload:** serve a local build over http and set `NEXT_PUBLIC_CATALOG_URL` to it. After rebuilding the parquet, delete `.next/cache/fetch-cache`. Uploading to OSN needs the user's go.
+
+### PR 3 implementation notes (2026-11-23)
+
+What was built (an agent wrote it and the lead reviewed it; 4 commits on `modernize-03-viewer`, stacked on `modernize-02-web-stac`):
+- `app/feedstock/[slug]/zarr-map-viewer.tsx`: maplibre + `@carbonplan/zarr-layer` + `icechunk-js`, loaded with `next/dynamic` and `ssr: false`. It has a variable select, a colorbar with a range control, and a slider for each non-spatial dim.
+  - Icechunk only, EPSG:4326 only; `zarrita` and `crs.ts` are not ported.
+  - It mounts only when the store expander is open.
+- `utils/store-schema.ts`: `arraysFromStore()` reads per-node metadata and avoids `getSnapshotMetadata()`.
+- `data-viewer.tsx`: the ncview-js link is gone. Nothing references zarr-proxy any more; the only remaining hit is a README link to the ncview-js issues page.
+- Deps: `@carbonplan/zarr-layer` ^0.11, `maplibre-gl` ^5.24, `icechunk-js` ^0.6.
+
+Viewer stores (8). Each passed a lazy metadata probe: 1-D lat/lon, chunks of 0.5 MB or less, on OSN.
+- gpcp-daily, metaflux daily and monthly, grace-tws, glab-vod, lcspp-avhrr (about 265 requests per view, so slow), pisco eo and tmax.
+
+Rejected, with the reason:
+- Chunks too big: era5, chirps, casm, modis-lai, ldeo-hpd.
+- Curvilinear or 2-D coords: cm26, llc4320, enatl60, corrdiff, srtm.
+- Not a lat/lon grid: climsim, gotm, caravan.
+- No CORS: ldeo-hpd, glad-lclu.
+- Unknown dim names: pco2-testbed (`ylat`/`xlon`).
+- Groups not supported by the viewer: ceres-ebaf. Chunks are 0.26 MB, so this is a cheap win once group support exists.
+- nex-gddp: 1,414 arrays in groups.
+- OSTIA: empty store.
+- nasa-rasi: unverified. CORS and chunks are fine, but the virtual chunk read drew a near-blank canvas.
+
+Verified:
+- `npm run build` passes; `uv run pytest tests/` gives 15 passed.
+- Playwright from `http://localhost:3000` with no proxy: all 8 stores create a map canvas and every OSN data request succeeds.
+  - The only failures are the old `html-reprs.fly.dev` calls, which fail from localhost.
+  - Canvas dumps for gpcp, grace, glab and lcspp show real colour variation (hundreds of colours).
+  - metaflux and pisco show 2 colours, which is consistent with the 0-1 default range saturating. Check by eye.
+
+Open issues (for PR 5 or PR 7):
+- The default colour range is 0-1 when the metadata has no `valid_min`/`valid_max`, so several variables saturate until the range is dragged. Use per-variable defaults.
+- The map does not fit to the dataset bbox.
+- ceres-ebaf needs group support. pco2-testbed needs `ylat`/`xlon` added to the LAT/LON dim sets.
+- The viewer flags only reach production after a parquet rebuild and upload. That needs the user's go.
 
 ## PR 4 (2.1): merge dynamical.org STAC; scheduled rebuild
 
@@ -395,6 +431,6 @@ Decisions made at the start of PR 3 (2026-11-23):
 ## Open questions
 
 - The spacetimer API and its recommended encodings (PR 7).
-- OSN CORS denies localhost and Vercel preview origins; only the production origin passes. Who can add origins, and should we ask (PR 3)?
+- OSN CORS preflights deny every origin except production and allow no request headers. Simple GETs work everywhere, so this only matters if a client starts sending suffix ranges or custom headers. Ask the admins to allow `Range` in preflights? (low priority)
 - Which OSN key the GitHub Action uses (PR 4).
 - Whether to keep, add a `viz` branch to, or rebuild the 8 existing single-branch ARCO repos (PR 7).
