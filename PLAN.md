@@ -13,13 +13,14 @@ Last updated: 2026-11-23
 | 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash) |
 | 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [x] merged into `modernize` (#186) |
 | 3 | zarr-layer viewer on current stores, ncview-js link removed | 5.1 | `modernize-03-viewer` | [x] merged into `modernize` (#187) |
+| 3.5 | Quick UI fixes from the first review | - | `modernize-03b-ui-fixes` | [~] built locally, not committed; parquet not re-uploaded |
 | 4 | Merge dynamical.org STAC; scheduled rebuild | 2.1 | `modernize-04-dynamical` | [ ] |
-| 5 | Metadata enrichment (datacube), editorial pass, remove html-reprs | 2.2 | `modernize-05-metadata` | [ ] |
+| 5 | Metadata enrichment (datacube), editorial pass, variable table | 2.2 | `modernize-05-metadata` | [ ] |
 | 6 | Search, facets, featured ranking | 3.1 | `modernize-06-search` | [ ] |
 | 7 | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint | 4.1, 4.2, 5.2 | `modernize-07-arco` | [ ] |
 | 8 | Shut down the fly.io services | 5.3 | - | [ ] |
 
-Next up: PR 4. It merges in dynamical.org and adds a scheduled rebuild, and it needs a decision on which OSN key the GitHub Action uses.
+Next up: finish PR 3.5. Commit (leave out the auto-edited `next-env.d.ts` and `tsconfig.json`), open the PR against `modernize`, and upload the rebuilt `catalog.parquet` to OSN after the user's go. Then PR 4, which merges in dynamical.org and adds a scheduled rebuild, and it needs a decision on which OSN key the GitHub Action uses.
 Small follow-ups:
 - eslint 10 vs `eslint-config-next` peer warnings and Node 23 engine warnings. Pin eslint 9 or use Node 22/24.
 - The OSTIA store is empty.
@@ -264,7 +265,7 @@ Tests: `uv run pytest tests/test_build_catalog.py` runs 14 tests offline. Schema
   - DuckDB `read_parquet` over https
   - opening a found asset with xarray
 - Add an "Open in stac-map" link pointing at the parquet URL.
-- html-reprs stays until PR 5.
+- html-reprs stays until PR 5. (Superseded: removed in PR 3.5.)
 
 Added after PR 1 and step 0.5 (2026-11-23):
 - **Read the parquet on the server.** Keep `getFeedstocks` in server components (`app/page.tsx`, `app/feedstock/[slug]/page.tsx`). OSN CORS only allows `https://catalog.leap.columbia.edu`, so a browser read fails on localhost and Vercel previews.
@@ -374,6 +375,26 @@ Open issues (for PR 5 or PR 7):
 - ceres-ebaf needs group support. pco2-testbed needs `ylat`/`xlon` added to the LAT/LON dim sets.
 - Catalog rebuilt from `modernize-03-viewer` and uploaded 2026-11-23: 84674 bytes, 25 items, 8 `leap:viewer` assets. The live site reads it only once PR 2 is deployed.
 
+## PR 3.5: quick UI fixes from the first review (2026-11-23)
+
+From the user's first click-through of the local app. Small, bounded fixes only; design changes go to the UI/UX review in PR 6. All four are done; see the implementation notes below for what was actually built.
+- **Next.js dev overlay shows "1 issue".** Open the overlay, record the error, fix it. Likely a hydration or key warning; unknown until read.
+- **Metadata panel fails** with "Failed to load dataset representation: NetworkError". Cause: it calls `html-reprs.fly.dev` (`utils/get-xarray-html-repr.ts`), not OSN, so the OSN CORS fix does not help. Fix now: hide the panel (or show "coming soon"). PR 5 replaces it with a `cube:*` table and PR 8 shuts the service down.
+- **"Access Data" section on a detail page (e.g. OSTIA).** The asset key renders as all-caps `DATA`. Make "Access Data" itself the expander/button and show the asset title, not the raw key (`app/feedstock/[slug]/stores.tsx:148`).
+- **"Open in stac-map" draws the catalog wrong.** Bboxes in the parquet are valid (checked 2026-11-23), but 23 of 25 are global (-180..180, about -90..90), and stac-map draws those as thin lines along the antimeridian on its globe. Try: check the WKB geometry, densify the global polygon or clamp latitude to about +-85. If stac-map still cannot draw global footprints, remove the link (`app/feedstock/[slug]/details.tsx:39`).
+
+Done when: `npm run build` passes; `npm run dev` shows no Next.js issue badge; OSTIA and gpcp-daily detail pages show no error panel.
+
+### PR 3.5 implementation notes (2026-11-23)
+
+- **Next.js issue:** `legacyBehavior` on the card `<Link>` (deprecated in Next 16). `components/feedstock-card.tsx` now uses a plain `<Link>` with an inline style; theme-ui `Box as={Link}` fails typecheck on `href`.
+- **Metadata panel:** the html-repr code is deleted, not hidden: `utils/get-xarray-html-repr.ts` and `app/feedstock/[slug]/dataset-repr*.tsx`. PR 5 only adds the `cube:*` table.
+- **Access Data:** with one store, "Access Data" is the expander itself. With several, the header stays and each expander shows the asset title. No uppercase.
+- **stac-map:** the cause is the 4-corner polygon. On a globe, every corner of a global box sits on the antimeridian, so it draws as a line. `build_catalog.py` `footprint()` now adds a vertex every 10 degrees; `bbox` is unchanged.
+  - Checked in Chrome by swapping the local build in for the OSN URL (Playwright route): global boxes draw as outlines along latitude lines.
+  - The live link stays broken until the rebuilt parquet is uploaded to OSN (needs the user's go).
+- Verified: `uv run pytest tests/` gives 16 passed; `npm run build` passes; Playwright on `/`, ostia, gpcp-daily and metaflux shows no console errors and no issue badge.
+
 ## PR 4 (2.1): merge dynamical.org STAC; scheduled rebuild
 
 - In `build_catalog.py`, crawl `https://stac.dynamical.org/catalog.json` and convert its Collections to Items.
@@ -389,7 +410,7 @@ Open issues (for PR 5 or PR 7):
   - Results go to `catalog/metadata.json`. Values in `datasets.yaml` override them.
   - Vendor the datacube schema for the tests.
 - Editorial pass on titles, summaries and descriptions. The user reviews the wording.
-- Remove `utils/get-xarray-html-repr.ts` and `app/feedstock/[slug]/dataset-repr*.tsx`. Replace them with a variable and dimension table built from `cube:*`.
+- Add a variable and dimension table built from `cube:*` where the html-repr panel was (the html-repr code was removed in PR 3.5).
 
 ## PR 6 (3.1): search, facets, featured
 
@@ -402,6 +423,17 @@ Open issues (for PR 5 or PR 7):
   - Select-only facet chips.
   - Featured items first, then alphabetical.
   - Update `components/catalog.tsx`, `components/search-box.tsx` and `components/tag-filter.tsx`.
+
+UI/UX review items (user feedback, 2026-11-23):
+- **Catalog-level snippet on the home page.** A code block near the top: the catalog parquet URL plus a short `rustac` search (keyword via CQL2, bbox). It shows users the catalog is a STAC file they can query directly.
+- **Rethink the "open" / "find" tabs on the detail page.** Users do not see a real difference between them. Options:
+  - One block: find the item, then open it, as a single script.
+  - Keep "open" as the main snippet and move "find" into an "about this catalog" note that links to the home page snippet.
+- **"find" output is opaque.** If it stays, show what it returns: print the item id/title and the resolved `href`, e.g.
+  `item = rustac.search_sync(CATALOG_URL, ids=["ostia"])[0]` then `print(item["assets"]["data"]["alternate"]["s3"]["href"])`.
+- **More card images.** `utils/thumbnail.ts` hashes each title into a pool of only 8 Unsplash photos, so 25 datasets (more after PR 4) repeat images often.
+  - Grow the pool to about 30, matching the current style: satellite/aerial Earth, clouds, ocean, ice, terrain. Unsplash license; keep the same URL params (`auto=format&fit=crop&q=80`).
+  - Optional: let an Item set its own image via a STAC asset with `roles: [thumbnail]` in `datasets.yaml`, falling back to the pool. dynamical.org Items may already carry one.
 
 ## PR 7 (4.1 + 4.2 + 5.2): icechunk 2 on OSN with time-series and viz branches
 

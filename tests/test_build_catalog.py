@@ -129,3 +129,11 @@ def test_parquet_roundtrip(items: list[dict], tmp_path: Path) -> None:
     hits = rustac.search_sync(str(out), ids=["ostia"])
     assert [h["id"] for h in hits] == ["ostia"]
     assert hits[0]["assets"]["data"]["alternate"]["s3"]["href"].startswith("s3://")
+
+
+def test_footprint_densified_and_closed() -> None:
+    ring = bc.footprint(-180, -90, 180, 90)
+    assert ring[0] == ring[-1] == [-180, -90]
+    assert len(ring) == 2 * (36 + 18) + 1
+    assert {tuple(p) for p in ring} >= {(-180, -90), (180, -90), (180, 90), (-180, 90)}
+    assert bc.footprint(0, 0, 1, 1) == [[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]

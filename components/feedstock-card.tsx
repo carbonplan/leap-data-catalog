@@ -32,74 +32,68 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({
       href={
         catalog ? `/feedstock/${slug}?catalog=${catalog}` : `/feedstock/${slug}`
       }
-      passHref
-      legacyBehavior
+      style={{
+        textDecoration: 'none',
+        color: 'inherit',
+        display: 'block',
+        height: '100%',
+      }}
     >
       <Box
-        as='a'
+        id={slug}
         sx={{
-          textDecoration: 'none',
-          color: 'inherit',
-          display: 'block',
           height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+          transition: 'all 0.3s ease',
+          m: -2,
+          p: 2,
+          ':hover': {
+            backgroundColor: alpha(color, 0.05),
+          },
         }}
       >
-        <Box
-          id={slug}
+        <Box sx={{ flex: '0 0 auto', position: 'relative' }}>
+          <Thumbnail url={thumbnail} color={color} tags={tags} />
+        </Box>
+
+        <Flex
           sx={{
-            height: '100%',
-            display: 'flex',
             flexDirection: 'column',
-            position: 'relative',
-            transition: 'all 0.3s ease',
-            m: -2,
-            p: 2,
-            ':hover': {
-              backgroundColor: alpha(color, 0.05),
-            },
+            flex: '1 1 auto',
+            justifyContent: 'space-between',
           }}
         >
-          <Box sx={{ flex: '0 0 auto', position: 'relative' }}>
-            <Thumbnail url={thumbnail} color={color} tags={tags} />
-          </Box>
-
-          <Flex
-            sx={{
-              flexDirection: 'column',
-              flex: '1 1 auto',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Box>
-              <Flex
+          <Box>
+            <Flex
+              sx={{
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                mt: 2,
+                mb: 2,
+              }}
+            >
+              <Box
                 sx={{
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  mt: 2,
+                  fontSize: [3, 3, 3, 4],
+                  fontFamily: 'heading',
                   mb: 2,
+                  pt: ['2px'],
+                  mt: 2,
                 }}
               >
-                <Box
-                  sx={{
-                    fontSize: [3, 3, 3, 4],
-                    fontFamily: 'heading',
-                    mb: 2,
-                    pt: ['2px'],
-                    mt: 2,
-                  }}
-                >
-                  <Box>{title}</Box>
-                </Box>
-              </Flex>
-
-              <Box sx={{ mb: 2 }}>
-                <Text sx={{ fontSize: [2, 2, 2, 3] }}>
-                  {truncatedDescription}
-                </Text>
+                <Box>{title}</Box>
               </Box>
+            </Flex>
+
+            <Box sx={{ mb: 2 }}>
+              <Text sx={{ fontSize: [2, 2, 2, 3] }}>
+                {truncatedDescription}
+              </Text>
             </Box>
-          </Flex>
-        </Box>
+          </Box>
+        </Flex>
       </Box>
     </Link>
   )

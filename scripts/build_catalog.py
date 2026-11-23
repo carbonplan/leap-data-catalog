@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import math
 from pathlib import Path
 
 import rustac
@@ -102,6 +103,19 @@ def links(entry: dict) -> list[dict]:
     return out
 
 
+def footprint(w: float, s: float, e: float, n: float, step: float = 10.0) -> list[list[float]]:
+    """Closed bbox ring with a vertex every `step` degrees; globe renderers (stac-map) collapse 4-corner global boxes to a line."""
+    nx, ny = max(1, math.ceil((e - w) / step)), max(1, math.ceil((n - s) / step))
+    xs = [w + (e - w) * i / nx for i in range(nx + 1)]
+    ys = [s + (n - s) * j / ny for j in range(ny + 1)]
+    return (
+        [[x, s] for x in xs]
+        + [[e, y] for y in ys[1:]]
+        + [[x, n] for x in reversed(xs[:-1])]
+        + [[w, y] for y in reversed(ys[:-1])]
+    )
+
+
 def item(entry: dict) -> dict:
     w, s, e, n = entry.get("bbox") or GLOBAL
     start, end = entry.get("start"), entry.get("end")
@@ -125,7 +139,7 @@ def item(entry: dict) -> dict:
         "stac_version": "1.1.0",
         "stac_extensions": STAC_EXTENSIONS,
         "id": entry["id"],
-        "geometry": {"type": "Polygon", "coordinates": [[[w, s], [e, s], [e, n], [w, n], [w, s]]]},
+        "geometry": {"type": "Polygon", "coordinates": [footprint(w, s, e, n)]},
         "bbox": [w, s, e, n],
         "properties": props,
         "links": links(entry),
