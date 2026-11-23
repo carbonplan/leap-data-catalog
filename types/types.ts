@@ -20,12 +20,13 @@ export interface Store {
   id: string
   name?: string
   url: string
+  nativeUrl?: string
+  format?: 'zarr' | 'icechunk'
+  virtual?: boolean
   rechunking?: { [key: string]: string }[]
   'ncviewjs:rechunking'?: Rechunking[]
   public?: boolean
   geospatial?: boolean
-
-  last_updated?: string
 
   xarray_open_kwargs: XarrayOpenKwargsType
 }
@@ -67,8 +68,8 @@ export interface Feedstock {
   tags?: string[]
   links?: Link[]
   stores?: Store[]
-  meta_yaml_url?: string
   'ncviewjs:meta_yaml_url'?: string
   slug: string
+  catalogUrl: string
   color: string
 }

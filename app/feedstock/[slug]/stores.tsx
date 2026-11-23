@@ -21,8 +21,10 @@ const labelStyle = {
 
 export const FeedstockStore: React.FC<{
   store: Store
+  itemId: string
+  catalogUrl: string
   color: string
-}> = ({ store, color }) => {
+}> = ({ store, itemId, catalogUrl, color }) => {
   const [expanded, setExpanded] = useState(false)
 
   const serverDataPromise = useMemo(
@@ -94,9 +96,10 @@ export const FeedstockStore: React.FC<{
                 </Text>
               </Box>
               <CodeSnippet
-                url={store.url}
+                store={store}
+                itemId={itemId}
+                catalogUrl={catalogUrl}
                 color={color}
-                xarrayOpenKwargs={store.xarray_open_kwargs}
               />
             </Box>
           </Column>
@@ -132,8 +135,10 @@ export const FeedstockStore: React.FC<{
 
 export const FeedstockStores: React.FC<{
   stores: Store[] | undefined
+  itemId: string
+  catalogUrl: string
   color: string
-}> = ({ stores, color }) => {
+}> = ({ stores, itemId, catalogUrl, color }) => {
   return (
     <>
       <Row>
@@ -146,7 +151,13 @@ export const FeedstockStores: React.FC<{
 
       {stores ? (
         stores.map((store, index) => (
-          <FeedstockStore key={store.id} store={store} color={color} />
+          <FeedstockStore
+            key={store.id}
+            store={store}
+            itemId={itemId}
+            catalogUrl={catalogUrl}
+            color={color}
+          />
         ))
       ) : (
         <Box sx={{ mb: 4 }}>
