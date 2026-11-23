@@ -12,7 +12,8 @@ type Props = {
 }
 
 export default async function HomePage({ searchParams }: Props) {
-  const { catalog } = await searchParams
+  const params = await searchParams
+  const { catalog } = params
   try {
     const feedstocks = catalog
       ? await getFeedstocks(catalog)
@@ -22,7 +23,7 @@ export default async function HomePage({ searchParams }: Props) {
       notFound()
     }
 
-    return <Catalog feedstocks={feedstocks} catalog={catalog} />
+    return <Catalog feedstocks={feedstocks} catalog={catalog} params={params} />
   } catch (error) {
     throw new Error(`${error}`)
   }

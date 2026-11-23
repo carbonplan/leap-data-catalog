@@ -111,6 +111,7 @@ interface ZarrMapViewerProps {
   format: StoreFormat
   color: string
   bbox?: [number, number, number, number]
+  group?: string
 }
 
 export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({
@@ -118,6 +119,7 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({
   format,
   color,
   bbox,
+  group,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const mapRef = useRef<any>(null)
@@ -134,16 +136,29 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({
   const [clim, setClim] = useState<[number, number]>([0, 1])
   const [sel, setSel] = useState<Record<string, number>>({})
   const [force, setForce] = useState(false) // opt-in to render an oversized-chunk var
+  // Per-variable topozarr `zarr-layer` hints (2/98th percentile clims) from the root/group attrs.
+  const [hints, setHints] = useState<
+    Record<string, { clim?: [number, number] }>
+  >({})
 
-  const renderables = useMemo(() => arrays.filter(renderable), [arrays])
+  // Arrays (incl. coords) of the selected group only; sibling groups share var names.
+  const groupArrays = useMemo(
+    () =>
+      group ? arrays.filter((a) => a.path.startsWith(`${group}/`)) : arrays,
+    [arrays, group],
+  )
+  const renderables = useMemo(
+    () => groupArrays.filter(renderable),
+    [groupArrays],
+  )
   const defaultVar = useMemo(() => pickDefault(renderables), [renderables])
   const current = useMemo(
     () => renderables.find((v) => v.path === variable) ?? defaultVar,
     [renderables, variable, defaultVar],
   )
   const crsInfo = useMemo(
-    () => (current ? resolveCrs(current, arrays) : null),
-    [current, arrays],
+    () => (current ? resolveCrs(current, groupArrays) : null),
+    [current, groupArrays],
   )
 
   // init selection when renderable set changes
@@ -151,14 +166,14 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({
     if (!current) return
     setVariable(current.path)
     setForce(false)
-    setClim(defaultClim(current))
+    setClim(hints[current.name]?.clim ?? defaultClim(current))
     const extra: Record<string, number> = {}
     current.dims.forEach((d) => {
       if (!isSpatial(d)) extra[d] = 0
     })
     setSel(extra)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [current?.path])
+  }, [current?.path, hints])
 
   // mount map + open store, walk schema
   useEffect(() => {
@@ -206,6 +221,10 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({
           const store = await openIcechunkStore(url, ac.signal)
           if (cancelled) return
           storeRef.current = store
+          const meta = store.getMetadata(group ? `/${group}` : '/') as {
+            attributes?: Record<string, unknown>
+          } | null
+          setHints((meta?.attributes?.['zarr-layer'] as typeof hints) ?? {})
           setArrays(arraysFromStore(store))
         } else {
           setArrays(await arraysFromZarr(url))
@@ -265,8 +284,21 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({
 
       const layer = new ZarrLayer({
         id: 'zarr',
-        ...(storeRef.current ? { store: storeRef.current } : { source: url }),
-        variable: current.path,
+        // zarr-layer 0.5 resolves coords from the store root, so scope the store to the group.
+        ...(storeRef.current
+          ? {
+              store: group
+                ? {
+                    get: (key: string, opts?: unknown) =>
+                      storeRef.current.get(`/${group}${key}`, opts),
+                    // sharded arrays need range reads
+                    getRange: (key: string, range: unknown, opts?: unknown) =>
+                      storeRef.current.getRange(`/${group}${key}`, range, opts),
+                  }
+                : storeRef.current,
+            }
+          : { source: group ? `${url.replace(/\/$/, '')}/${group}` : url }),
+        variable: group ? current.path.slice(group.length + 1) : current.path,
         zarrVersion: format === 'icechunk' ? 3 : undefined,
         colormap: COLORMAP,
         clim,

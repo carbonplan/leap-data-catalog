@@ -137,27 +137,43 @@ export const Catalog = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, selected, mapOnly, sort, view, catalog])
 
+  const re = useMemo(
+    () =>
+      search
+        ? new RegExp(search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i')
+        : null,
+    [search],
+  )
+  const textHit = (f: Feedstock) =>
+    !!re &&
+    [
+      f.title,
+      f.summary,
+      f.description,
+      f.spatialDomain,
+      ...f.domain,
+      ...f.kind,
+      ...(f.stores ?? []).map((s) => s.name),
+    ].some((t) => t && re.test(t))
+  const varHits = (f: Feedstock) =>
+    re
+      ? Array.from(
+          new Set(
+            (f.stores ?? []).flatMap((s) =>
+              (s.variables ?? [])
+                .filter((v) => re.test(v.name) || (v.long_name && re.test(v.long_name)))
+                .map((v) => v.name),
+            ),
+          ),
+        )
+      : []
+  // Variable names that explain a search hit the title/description doesn't.
+  const matchesFor = (f: Feedstock) =>
+    re && !textHit(f) ? varHits(f) : undefined
+
   const filtered = useMemo(() => {
-    const re = search
-      ? new RegExp(search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i')
-      : null
     return feedstocks
-      .filter(
-        (f) =>
-          !re ||
-          [
-            f.title,
-            f.summary,
-            f.description,
-            f.spatialDomain,
-            ...f.domain,
-            ...f.kind,
-            ...(f.stores ?? []).flatMap((s) => [
-              s.name,
-              ...(s.variables ?? []).flatMap((v) => [v.name, v.long_name]),
-            ]),
-          ].some((t) => t && re.test(t)),
-      )
+      .filter((f) => !re || textHit(f) || varHits(f).length > 0)
       .filter((f) =>
         FACETS.every(
           (facet) =>
@@ -168,7 +184,7 @@ export const Catalog = ({
       .filter((f) => !mapOnly || f.mapPreview)
       .sort(sorters[sort])
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feedstocks, search, selected, mapOnly, sort])
+  }, [feedstocks, re, selected, mapOnly, sort])
 
   const anyFilter = !!search || mapOnly || FACETS.some((f) => isFiltered(f))
 
@@ -203,7 +219,12 @@ export const Catalog = ({
         sx={{ gridAutoRows: '1fr' }}
       >
         {items.map((f) => (
-          <FeedstockCard key={f.slug} feedstock={f} catalog={catalog} />
+          <FeedstockCard
+            key={f.slug}
+            feedstock={f}
+            catalog={catalog}
+            matches={matchesFor(f)}
+          />
         ))}
       </Row>
     )

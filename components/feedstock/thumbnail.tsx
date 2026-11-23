@@ -14,7 +14,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({ url, color, tags }) => {
   return (
     <Box
       sx={{
-        height: ['200px', '200px', '200px', '300px'],
+        height: ['160px', '160px', '160px', '200px'],
         position: 'relative',
       }}
     >

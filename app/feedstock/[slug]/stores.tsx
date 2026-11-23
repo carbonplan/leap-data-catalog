@@ -13,7 +13,7 @@ import { Down } from '@carbonplan/icons'
 import React, { useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { Box, Text } from 'theme-ui'
-import { CodeSnippet } from './code-snippet'
+import { CodeSnippet, CopyButton } from './code-snippet'
 import { DataViewer } from './data-viewer'
 import { ZarrMapViewer } from './zarr-map-viewer'
 
@@ -50,9 +50,11 @@ export const FeedstockStore: React.FC<{
 
   const tooltipContent = !store.public
     ? 'Private dataset. Access requires credentials or a Columbia-LEAP JupyterHub server.'
-    : store.geospatial
-      ? ''
-      : 'This dataset contains non-geospatial data not supported by the data viewer.'
+    : !store.geospatial
+      ? 'This dataset contains non-geospatial data not supported by the data viewer.'
+      : store.cors === false
+        ? 'This bucket does not allow browser access (no CORS), so the map viewer cannot read it.'
+        : ''
 
   return (
     <Box sx={{ mb: 4 }}>
@@ -118,13 +120,16 @@ export const FeedstockStore: React.FC<{
           </Column>
           <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
             <Box sx={{ mt: 2 }}>
-              <Box sx={{ mb: 2 }}>
+              <Box
+                sx={{ mb: 2, display: 'flex', justifyContent: 'space-between' }}
+              >
                 <Text
                   // @ts-ignore
                   sx={labelStyle}
                 >
                   Load Dataset
                 </Text>
+                <CopyButton text={store.url} label='Copy URL' color={color} />
               </Box>
               <CodeSnippet store={store} color={color} />
             </Box>

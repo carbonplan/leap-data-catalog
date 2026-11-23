@@ -9,6 +9,13 @@ export interface StorageConfig {
   endpoint?: string
 }
 
+export interface Variable {
+  name: string
+  long_name?: string | null
+  units?: string | null
+  dims: string[]
+}
+
 export interface Store {
   id: string
   name?: string
@@ -19,7 +26,15 @@ export interface Store {
   feedstock?: string
   public?: boolean
   geospatial?: boolean
-  variables?: string[]
+  // Bucket allows browser reads (CORS); false blocks the map viewer.
+  cors?: boolean
+  mapPreview?: boolean
+  variables?: Variable[]
+  spatialResolution?: string
+  timeResolution?: string
+  // ISO datetimes; end unset = ongoing or unknown.
+  start?: string
+  end?: string
   // [xMin, yMin, xMax, yMax]
   bbox?: [number, number, number, number]
   last_updated?: string
@@ -28,8 +43,12 @@ export interface Store {
   storageConfig?: StorageConfig
   // Multiscale pyramid (topozarr) used by the map viewer instead of `url`.
   vizUrl?: string
+  // Zarr group within the store holding this dataset (e.g. 'climatology/monthly').
+  group?: string
   // Virtual icechunk store (chunks in external files); not browser-readable.
   virtual?: boolean
+  // Uncompressed size, from shape x dtype.
+  nbytes?: number
 }
 
 export interface Link {
@@ -73,4 +92,22 @@ export interface Feedstock {
   feedstock?: string
   slug: string
   color: string
+  // One-line summary for cards; `description` is the long form.
+  summary?: string
+  source: 'leap' | 'dynamical'
+  // Facets, from the catalog's controlled vocabularies.
+  domain: string[]
+  kind: string[]
+  coverage?: 'global' | 'regional'
+  spatialDomain?: string
+  spatialResolution?: string
+  timeResolution?: string
+  start?: string
+  end?: string
+  nVariables: number
+  // At least one store can open in the map viewer.
+  mapPreview: boolean
+  // Sum of store sizes (uncompressed); undefined when unknown.
+  nbytes?: number
+  featured: boolean
 }

@@ -3,8 +3,8 @@ import { parseBucketLocation } from '@/utils/store-url'
 import { Button } from '@carbonplan/components'
 import { Check, Down } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
-import React, { useState } from 'react'
-import { Box } from 'theme-ui'
+import React, { useRef, useState } from 'react'
+import { Box, ThemeUIStyleObject } from 'theme-ui'
 
 // Build the icechunk.Storage constructor call from catalog metadata, falling
 // back to a placeholder when the location has no s3/gcs form.
@@ -45,6 +45,7 @@ storage = icechunk.s3_storage(...)  # configure for the store location`
 }
 
 const getSnippet = (store: Store) => {
+  const group = store.group ? `, group='${store.group}'` : ''
   if (store.format === 'icechunk') {
     return `
 import icechunk
@@ -53,7 +54,7 @@ import xarray as xr
 ${icechunkStorage(store)}
 repo = icechunk.Repository.open(storage)
 session = repo.readonly_session(branch='main')
-ds = xr.open_zarr(session.store, consolidated=False)
+ds = xr.open_zarr(session.store${group}, consolidated=False)
 `
   }
   if (store.format === 'csv') {
@@ -67,8 +68,48 @@ df = pd.read_csv('${store.url}')
 import xarray as xr
 
 store = '${store.url}'
-ds = xr.open_dataset(store, engine='zarr')
+ds = xr.open_dataset(store, engine='zarr'${group})
 `
+}
+
+export const CopyButton: React.FC<{
+  text: string
+  label: string
+  color: string
+  sx?: ThemeUIStyleObject
+}> = ({ text, label, color, sx }) => {
+  const [copied, setCopied] = useState(false)
+  const tick = useRef<NodeJS.Timeout | null>(null)
+
+  const handleClick = () => {
+    navigator.clipboard.writeText(text)
+    if (tick.current) clearTimeout(tick.current)
+    setCopied(true)
+    tick.current = setTimeout(() => setCopied(false), 1000)
+  }
+
+  return (
+    <Button
+      sx={{
+        color: color,
+        fontSize: [0, 0, 0, 1],
+        letterSpacing: 'mono',
+        textTransform: 'uppercase',
+        fontFamily: 'mono',
+        ...sx,
+      }}
+      suffix={
+        copied ? (
+          <Check sx={{ transform: ['translateY(-15%)'] }} />
+        ) : (
+          <Down sx={{ transform: 'rotate(135deg) translateY(1px)' }} />
+        )
+      }
+      onClick={handleClick}
+    >
+      {copied ? 'Copied' : label}
+    </Button>
+  )
 }
 
 interface CodeSnippetProps {
@@ -76,59 +117,19 @@ interface CodeSnippetProps {
   color: string
 }
 
-export const CodeSnippet: React.FC<CodeSnippetProps> = ({ store, color }) => {
-  const [copied, setCopied] = useState(false)
-  const [tick, setTick] = useState<NodeJS.Timeout | null>(null)
-
-  const handleClick = () => {
-    navigator.clipboard.writeText(getSnippet(store))
-    if (tick) {
-      clearTimeout(tick)
-    }
-    setCopied(true)
-    const timeout = setTimeout(() => {
-      setCopied(false)
-    }, 1000)
-    setTick(timeout)
-  }
-
-  return (
-    <Box
-      sx={{
-        position: 'relative',
-        '& pre': { fontSize: '10px', my: 0 },
-      }}
-    >
-      <Button
-        sx={{
-          color: color,
-          fontSize: [0, 0, 0, 1],
-          letterSpacing: 'mono',
-          textTransform: 'uppercase',
-          fontFamily: 'mono',
-          position: 'absolute',
-          mt: 2,
-          mr: 2,
-          right: 0,
-          top: 0,
-        }}
-        suffix={
-          copied ? (
-            <Check
-              sx={{
-                transform: ['translateY(-15%)'],
-              }}
-            />
-          ) : (
-            <Down sx={{ transform: 'rotate(135deg) translateY(1px)' }} />
-          )
-        }
-        onClick={handleClick}
-      >
-        {copied ? 'Copied' : 'Copy'}
-      </Button>
-
-      <Code language='python'>{getSnippet(store)}</Code>
-    </Box>
-  )
-}
+export const CodeSnippet: React.FC<CodeSnippetProps> = ({ store, color }) => (
+  <Box
+    sx={{
+      position: 'relative',
+      '& pre': { fontSize: '10px', my: 0 },
+    }}
+  >
+    <CopyButton
+      text={getSnippet(store)}
+      label='Copy'
+      color={color}
+      sx={{ position: 'absolute', mt: 2, mr: 2, right: 0, top: 0 }}
+    />
+    <Code language='python'>{getSnippet(store)}</Code>
+  </Box>
+)

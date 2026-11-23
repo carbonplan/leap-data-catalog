@@ -20,6 +20,8 @@ declare module '@carbonplan/components' {
   export function Tooltip(props: any): JSX.Element
   export function Input(props: any): JSX.Element
   export function Colorbar(props: any): JSX.Element
+  export function Filter(props: any): JSX.Element
+  export function Select(props: any): JSX.Element
   // Add more component declarations as needed
 }
 

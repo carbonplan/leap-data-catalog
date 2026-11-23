@@ -10,11 +10,14 @@ import { Box, Flex, Text } from 'theme-ui'
 interface FeedstockCardProps {
   feedstock: Feedstock
   catalog?: string
+  // Variables that matched the search, shown when nothing else did.
+  matches?: string[]
 }
 
 export const FeedstockCard: React.FC<FeedstockCardProps> = ({
   feedstock,
   catalog,
+  matches,
 }) => {
   const { slug, description, summary, thumbnail, color, title } = feedstock
   const badges = [
@@ -117,6 +120,12 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({
             }}
           >
             <Box>{formatMeta(feedstock)}</Box>
+            {matches && matches.length > 0 && (
+              <Box sx={{ color: 'primary', mt: 1, textTransform: 'none' }}>
+                matches: {matches.slice(0, 3).join(', ')}
+                {matches.length > 3 && ` +${matches.length - 3}`}
+              </Box>
+            )}
             {badges.length > 0 && (
               <Box sx={{ mt: 1 }}>{badges.join(' · ')}</Box>
             )}

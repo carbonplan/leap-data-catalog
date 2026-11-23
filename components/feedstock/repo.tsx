@@ -18,8 +18,10 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
     return null
   }
 
-  const orgAndRepo = getOrgAndRepo(metaURL)
-  const githubUrl = `https://github.com/${orgAndRepo}`
+  const isGithub = metaURL.startsWith('https://github.com/')
+  const label = isGithub
+    ? getOrgAndRepo(metaURL)
+    : metaURL.replace(/^https?:\/\//, '').replace(/\/$/, '')
 
   return (
     <Box>
@@ -34,7 +36,7 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
             textTransform: 'uppercase',
           }}
         >
-          Repository
+          {isGithub ? 'Feedstock repository' : 'Source'}
         </Text>
       </Box>
 
@@ -42,14 +44,14 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
         size='xs'
         suffix={<RotatingArrow />}
         as={Link}
-        href={githubUrl}
+        href={metaURL}
         target='_blank'
         rel='noopener noreferrer'
         sx={{
           wordBreak: 'break-word',
         }}
       >
-        {orgAndRepo}
+        {label}
       </Button>
     </Box>
   )
