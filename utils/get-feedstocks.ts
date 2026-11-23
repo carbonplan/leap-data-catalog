@@ -15,6 +15,7 @@ interface StacAsset {
   type?: string
   alternate?: { [scheme: string]: { href: string } | null }
   'leap:virtual'?: boolean
+  'leap:viewer'?: boolean
 }
 
 interface StacLink {
@@ -44,6 +45,7 @@ function toStore(key: string, asset: Nullable<StacAsset>): Store {
     nativeUrl: native || asset.href!,
     format: asset.type?.includes('icechunk') ? 'icechunk' : 'zarr',
     virtual: asset['leap:virtual'] ?? false,
+    viewer: asset['leap:viewer'] ?? false,
     public: true,
     geospatial: true,
     xarray_open_kwargs: { engine: 'zarr', chunks: {} },

@@ -68,7 +68,7 @@ export const FeedstockStore: React.FC<{
         easing={'linear'}
       >
         <Row sx={{ mt: 4 }}>
-          <Column start={[1, 1, 2, 2]} width={[6, 4, 3, 3]}>
+          <Column start={[1, 1, 2, 2]} width={[6, 4, 5, 5]}>
             <Box sx={{ mt: 2 }}>
               <Box sx={{ mb: 2 }}>
                 {' '}
@@ -81,7 +81,8 @@ export const FeedstockStore: React.FC<{
               </Box>
 
               <TooltipWrapper isExpanded tooltip={tooltipContent} color={color}>
-                <DataViewer store={store} color={color} />
+                {/* mount lazily so collapsed stores do not fetch */}
+                {expanded && <DataViewer store={store} color={color} />}
               </TooltipWrapper>
             </Box>
           </Column>
