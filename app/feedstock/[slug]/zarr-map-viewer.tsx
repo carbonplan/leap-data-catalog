@@ -170,7 +170,11 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
         },
         onLoadingStateChange: (s: { loading: boolean; error?: Error | null }) =>
           setStatus(
-            s.error ? `error: ${s.error.message}` : s.loading ? 'loading...' : '',
+            s.error
+              ? `error: ${s.error.message}`
+              : s.loading
+                ? 'loading...'
+                : '',
           ),
       })
       map.addLayer(layer)
@@ -222,7 +226,12 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
           <Select
             value={current?.path}
             onChange={(e) => setVariable(e.target.value)}
-            sx={{ fontSize: 0, fontFamily: 'mono', width: 'auto', minWidth: 120 }}
+            sx={{
+              fontSize: 0,
+              fontFamily: 'mono',
+              width: 'auto',
+              minWidth: 120,
+            }}
           >
             {renderables.map((v) => (
               <option key={v.path} value={v.path}>
