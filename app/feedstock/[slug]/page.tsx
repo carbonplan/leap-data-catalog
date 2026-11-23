@@ -3,6 +3,8 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import ClientFeedstockPage from './client-feedstock-page'
 
+export const revalidate = 3600
+
 export async function generateStaticParams() {
   const feedstocks = await getFeedstocks()
   return feedstocks.map((feedstock) => ({

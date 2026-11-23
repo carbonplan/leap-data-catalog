@@ -1,40 +1,73 @@
-import { XarrayOpenKwargsType } from '@/types/types'
+import { Store } from '@/types/types'
 import { Button } from '@carbonplan/components'
 import { Check, Down } from '@carbonplan/icons'
 import { Code } from '@carbonplan/prism'
 import React, { useState } from 'react'
 import { Box } from 'theme-ui'
 
-const getSnippet = (url: string, xarrayOpenKwargs: XarrayOpenKwargsType) => `
+const icechunkStorage = (store: Store) => {
+  const s3 = new URL(store.nativeUrl!)
+  const https = new URL(store.url)
+  const prefix = s3.pathname.slice(1)
+  // AWS buckets need a region; S3-compatible hosts (OSN) need an endpoint.
+  const place = https.hostname.endsWith('amazonaws.com')
+    ? `region='${https.hostname.match(/s3\.([\w-]+)\.amazonaws/)?.[1]}'`
+    : `endpoint_url='${https.origin}'`
+  return `icechunk.s3_storage(bucket='${s3.hostname}', prefix='${prefix}', ${place}, anonymous=True)`
+}
+
+const openSnippet = (store: Store) =>
+  store.format === 'icechunk'
+    ? `import icechunk
 import xarray as xr
 
-store = '${url}'
-ds = xr.open_dataset(store, engine='${
-  xarrayOpenKwargs?.engine || 'zarr'
-}', chunks=${JSON.stringify(xarrayOpenKwargs?.chunks || {})})
+storage = ${icechunkStorage(store)}
+repo = icechunk.Repository.open(storage)
+session = repo.readonly_session('main')
+ds = xr.open_zarr(session.store)
+`
+    : `import xarray as xr
+
+ds = xr.open_zarr('${store.url}')
 `
 
+const findSnippet = (store: Store, itemId: string, catalogUrl: string) => {
+  const scheme = store.nativeUrl?.startsWith('gs://') ? 'gcs' : 's3'
+  const href =
+    store.nativeUrl && store.nativeUrl !== store.url
+      ? `["alternate"]["${scheme}"]["href"]`
+      : `["href"]`
+  return `import rustac
+
+item = rustac.search_sync('${catalogUrl}', ids=['${itemId}'])[0]
+href = item["assets"]["${store.id}"]${href}
+`
+}
+
+const tabs = ['open', 'find'] as const
+
 interface CodeSnippetProps {
-  url: string
+  store: Store
+  itemId: string
+  catalogUrl: string
   color: string
-  xarrayOpenKwargs: XarrayOpenKwargsType
 }
 
 export const CodeSnippet: React.FC<CodeSnippetProps> = ({
-  url,
+  store,
+  itemId,
+  catalogUrl,
   color,
-  xarrayOpenKwargs,
 }) => {
   const [copied, setCopied] = useState(false)
   const [tick, setTick] = useState<NodeJS.Timeout | null>(null)
+  const [tab, setTab] = useState<(typeof tabs)[number]>('open')
 
-  const handleClick = (url: string) => {
-    const blank = document.createElement('textarea')
-    document.body.appendChild(blank)
-    blank.value = getSnippet(url, xarrayOpenKwargs)
-    blank.select()
-    navigator.clipboard.writeText(blank.value)
-    document.body.removeChild(blank)
+  const snippet =
+    tab === 'open' ? openSnippet(store) : findSnippet(store, itemId, catalogUrl)
+
+  const handleClick = () => {
+    navigator.clipboard.writeText(snippet)
     if (tick) {
       clearTimeout(tick)
     }
@@ -52,6 +85,23 @@ export const CodeSnippet: React.FC<CodeSnippetProps> = ({
         '& pre': { fontSize: '10px', my: 0 },
       }}
     >
+      <Box sx={{ display: 'flex', gap: 3, mb: 1 }}>
+        {tabs.map((t) => (
+          <Button
+            key={t}
+            size='xs'
+            onClick={() => setTab(t)}
+            sx={{
+              color: t === tab ? color : 'secondary',
+              fontFamily: 'mono',
+              letterSpacing: 'mono',
+              textTransform: 'uppercase',
+            }}
+          >
+            {t}
+          </Button>
+        ))}
+      </Box>
       <Button
         sx={{
           color: color,
@@ -76,12 +126,12 @@ export const CodeSnippet: React.FC<CodeSnippetProps> = ({
             <Down sx={{ transform: 'rotate(135deg) translateY(1px)' }} />
           )
         }
-        onClick={() => handleClick(url)}
+        onClick={handleClick}
       >
         {copied ? 'Copied' : 'Copy'}
       </Button>
 
-      <Code language='python'>{getSnippet(url, xarrayOpenKwargs)}</Code>
+      <Code language='python'>{snippet}</Code>
     </Box>
   )
 }

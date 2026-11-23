@@ -7,6 +7,10 @@ interface MaintainersProps {
 }
 
 export const Maintainers: React.FC<MaintainersProps> = ({ maintainers }) => {
+  if (!maintainers.length) {
+    return null
+  }
+
   // Sort maintainers by name
   const sortedMaintainers = maintainers.sort((a, b) =>
     a.name.localeCompare(b.name),
