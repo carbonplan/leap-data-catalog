@@ -6,19 +6,19 @@ Last updated: 2026-11-23
 
 ## Status
 
-| #   | PR                                                              | Covers        | Branch                    | Status                                      |
-| --- | --------------------------------------------------------------- | ------------- | ------------------------- | ------------------------------------------- |
-| 0   | Housekeeping: save the reference branch, cut `modernize`        | -             | -                         | [x]                                         |
-| 0.5 | Design research notes (no code)                                 | 3.1           | -                         | [x] `docs/design-research.md`               |
-| 1   | STAC source of truth and stac-geoparquet build                  | 1.1           | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash)  |
-| 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`   | [x] merged into `modernize` (#186)          |
-| 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)          |
+| #   | PR                                                              | Covers        | Branch                    | Status                                          |
+| --- | --------------------------------------------------------------- | ------------- | ------------------------- | ----------------------------------------------- |
+| 0   | Housekeeping: save the reference branch, cut `modernize`        | -             | -                         | [x]                                             |
+| 0.5 | Design research notes (no code)                                 | 3.1           | -                         | [x] `docs/design-research.md`                   |
+| 1   | STAC source of truth and stac-geoparquet build                  | 1.1           | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash)      |
+| 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`   | [x] merged into `modernize` (#186)              |
+| 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)              |
 | 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [~] PR open (#188); parquet uploaded 2026-11-23 |
-| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [ ]                                         |
-| 5   | Metadata enrichment (datacube), editorial pass, variable table  | 2.2           | `modernize-05-metadata`   | [ ]                                         |
-| 6   | Search, facets, featured ranking                                | 3.1           | `modernize-06-search`     | [ ]                                         |
-| 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ]                                         |
-| 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                         |
+| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [ ]                                             |
+| 5   | Metadata enrichment (datacube), editorial pass, variable table  | 2.2           | `modernize-05-metadata`   | [ ]                                             |
+| 6   | Search, facets, featured ranking                                | 3.1           | `modernize-06-search`     | [ ]                                             |
+| 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ]                                             |
+| 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                             |
 
 Next up: merge PR 3.5 (#188) into `modernize`. The rebuilt `catalog.parquet` is on OSN (2026-11-23, 90062 bytes, 25 items, densified footprints). Then PR 4, which merges in dynamical.org and adds a scheduled rebuild, and it needs a decision on which OSN key the GitHub Action uses.
 Small follow-ups:
