@@ -38,3 +38,4 @@ __pycache__/
 
 # claude worktrees
 .claude/worktrees/
+tsconfig.tsbuildinfo

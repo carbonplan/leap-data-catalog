@@ -7,7 +7,7 @@
 import duckdb
 import rustac
 
-CATALOG = "https://nyu1.osn.mghpcc.org/leap-pangeo-pipeline/catalog/catalog.parquet"
+CATALOG = 'https://nyu1.osn.mghpcc.org/leap-pangeo-pipeline/catalog/catalog.parquet'
 
 
 def show(title: str, items: list[dict]) -> None:
@@ -24,13 +24,13 @@ def main() -> None:
     )
 
     show(
-        "bbox over the Agulhas region",
+        'bbox over the Agulhas region',
         rustac.search_sync(CATALOG, bbox=[15, -45, 30, -30]),
     )
 
     show(
-        "datetime overlapping 2020",
-        rustac.search_sync(CATALOG, datetime="2020-01-01T00:00:00Z/2020-12-31T23:59:59Z"),
+        'datetime overlapping 2020',
+        rustac.search_sync(CATALOG, datetime='2020-01-01T00:00:00Z/2020-12-31T23:59:59Z'),
     )
 
     # The same file is plain parquet, so DuckDB can query it over https.
@@ -42,12 +42,12 @@ def main() -> None:
         print(f"  {id_}: {title}")
 
     # Find a data href; open it lazily with xarray.
-    item = rustac.search_sync(CATALOG, ids=["gpcp-daily"])[0]
-    asset = item["assets"]["data"]
-    print("\nopen with icechunk:", asset["alternate"]["s3"]["href"])
-    print("or via https:", asset["href"])
+    item = rustac.search_sync(CATALOG, ids=['gpcp-daily'])[0]
+    asset = item['assets']['data']
+    print('\nopen with icechunk:', asset['alternate']['s3']['href'])
+    print('or via https:', asset['href'])
     # import xarray as xr; ds = xr.open_zarr(<zarr https href>)  # lazy, metadata only
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

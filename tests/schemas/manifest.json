@@ -1,15 +1,15 @@
 {
- "https://geojson.org/schema/Feature.json": "geojson.org__schema__Feature.json",
- "https://geojson.org/schema/Geometry.json": "geojson.org__schema__Geometry.json",
- "https://schemas.stacspec.org/v1.0.0/item-spec/json-schema/basics.json": "schemas.stacspec.org__v1.0.0__item-spec__json-schema__basics.json",
- "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/bands.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__bands.json",
- "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/basics.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__basics.json",
- "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/common.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__common.json",
- "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/data-values.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__data-values.json",
- "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/datetime.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__datetime.json",
- "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/instrument.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__instrument.json",
- "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/item.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__item.json",
- "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/licensing.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__licensing.json",
- "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/provider.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__provider.json",
- "https://stac-extensions.github.io/alternate-assets/v1.2.0/schema.json": "stac-extensions.github.io__alternate-assets__v1.2.0__schema.json"
+  "https://geojson.org/schema/Feature.json": "geojson.org__schema__Feature.json",
+  "https://geojson.org/schema/Geometry.json": "geojson.org__schema__Geometry.json",
+  "https://schemas.stacspec.org/v1.0.0/item-spec/json-schema/basics.json": "schemas.stacspec.org__v1.0.0__item-spec__json-schema__basics.json",
+  "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/bands.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__bands.json",
+  "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/basics.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__basics.json",
+  "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/common.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__common.json",
+  "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/data-values.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__data-values.json",
+  "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/datetime.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__datetime.json",
+  "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/instrument.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__instrument.json",
+  "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/item.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__item.json",
+  "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/licensing.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__licensing.json",
+  "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/provider.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__provider.json",
+  "https://stac-extensions.github.io/alternate-assets/v1.2.0/schema.json": "stac-extensions.github.io__alternate-assets__v1.2.0__schema.json"
 }
