@@ -9,8 +9,8 @@ Last updated: 2026-11-23
 | # | PR | Covers | Branch | Status |
 |---|----|--------|--------|--------|
 | 0 | Housekeeping: save the reference branch, cut `modernize` | - | - | [x] |
-| 0.5 | Design research notes (no code) | 3.1 | - | [ ] |
-| 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [x] built, tested, uploaded; PR into `modernize` not opened |
+| 0.5 | Design research notes (no code) | 3.1 | - | [x] `docs/design-research.md` |
+| 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash) |
 | 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [ ] |
 | 3 | zarr-layer viewer on current stores, ncview-js link removed | 5.1 | `modernize-03-viewer` | [ ] |
 | 4 | Merge dynamical.org STAC; scheduled rebuild | 2.1 | `modernize-04-dynamical` | [ ] |
@@ -149,7 +149,7 @@ These are single-branch repos. PR 7 decides whether to keep them, add a `viz` br
 
 - Review dynamical.org's catalog, the source.coop catalog and the Earthmover marketplace.
 - Write short notes covering card layout, facets, featured items, detail page structure, access snippets and the map preview.
-- Save the notes as an artifact and link it here. They inform PR 2 and PR 6.
+- Done: notes are in `docs/design-research.md`, kept in the repo so agents can read them. They inform PR 2, PR 5 and PR 6.
 
 ## PR 1 (1.1): STAC source of truth and stac-geoparquet build
 
@@ -232,10 +232,12 @@ Upload (done 2026-11-23, user approved overwrite):
 - `https://nyu1.osn.mghpcc.org/leap-pangeo-pipeline/catalog/catalog.parquet` returns 200, 83473 bytes. A remote `rustac.search_sync(url, filter="a_contains(keywords, 'ocean')")` returns 7 items.
 - This replaced the reference branch's 2026-10-05 build, so `arco-icechunk2` previews now read the new schema and may break. That branch is reference only.
 
-TODO before PR 2:
-- Open the PR `modernize-01-stac-build` into `modernize` and merge it.
-- Step 0.5 design research notes.
-- Add a CORS rule for localhost/preview origins if `npm run dev` cannot fetch the parquet (check at the start of PR 2).
+Follow-ups (2026-11-23):
+- [x] PR #185 squash-merged into `modernize` (the repo allows squash merges only).
+- [x] Step 0.5 notes: `docs/design-research.md`.
+- [x] CORS check. Preflight from `http://localhost:3000` and Vercel preview origins returns 403; only `https://catalog.leap.columbia.edu` is allowed. The pipeline key gets AccessDenied on `GetBucketCors`, so it cannot change the rule either; that needs the OSN/LEAP bucket admins.
+  - PR 2 is not blocked: `getFeedstocks` runs in server components (`app/page.tsx`, `app/feedstock/[slug]/page.tsx`), and server fetches do not use CORS. Keep the parquet read server-side.
+  - PR 3 is affected: the viewer reads stores from the browser, so on localhost and Vercel previews it fails for OSN stores. Options: ask the admins to add `http://localhost:3000` and the preview origin, or route dev reads through a Next.js rewrite proxy. Decide at the start of PR 3.
 
 Tests: `uv run pytest tests/test_build_catalog.py` runs 14 tests offline. Schemas are vendored in `tests/schemas/` with a `manifest.json` mapping each URL to its file. To refresh them, re-crawl `item.json` and the extension schemas.
 
@@ -327,6 +329,6 @@ Done when:
 ## Open questions
 
 - The spacetimer API and its recommended encodings (PR 7).
-- Whether the OSN CORS rule allows localhost/preview origins (production origin passes) and reads of `arco/` (PR 2, PR 3).
+- OSN CORS denies localhost and Vercel preview origins; only the production origin passes. Who can add origins, and should we ask (PR 3)?
 - Which OSN key the GitHub Action uses (PR 4).
 - Whether to keep, add a `viz` branch to, or rebuild the 8 existing single-branch ARCO repos (PR 7).
