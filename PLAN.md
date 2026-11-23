@@ -11,8 +11,8 @@ Last updated: 2026-11-23
 | 0 | Housekeeping: save the reference branch, cut `modernize` | - | - | [x] |
 | 0.5 | Design research notes (no code) | 3.1 | - | [x] `docs/design-research.md` |
 | 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash) |
-| 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [~] handed to an agent; not reviewed yet |
-| 3 | zarr-layer viewer on current stores, ncview-js link removed | 5.1 | `modernize-03-viewer` | [ ] |
+| 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [~] done and reviewed; branch pushed? no; PR/merge waiting on user go |
+| 3 | zarr-layer viewer on current stores, ncview-js link removed | 5.1 | `modernize-03-viewer` | [~] handed to an agent |
 | 4 | Merge dynamical.org STAC; scheduled rebuild | 2.1 | `modernize-04-dynamical` | [ ] |
 | 5 | Metadata enrichment (datacube), editorial pass, remove html-reprs | 2.2 | `modernize-05-metadata` | [ ] |
 | 6 | Search, facets, featured ranking | 3.1 | `modernize-06-search` | [ ] |
@@ -290,11 +290,49 @@ Done when:
 - `npm run dev` shows the home page, search, a detail page, and a correct snippet.
 - A slug that is missing from the build renders on demand.
 
+### PR 2 implementation notes (2026-11-23)
+
+What was built (an agent wrote it and the lead reviewed it; 4 commits on `modernize-02-web-stac`):
+- `utils/get-feedstocks.ts`: fetches the whole parquet on the server with `fetch(url, { next: { revalidate: 3600 } })`, decodes it with `hyparquet` `parquetReadObjects`, and maps Items per the table above.
+  - hyparquet fills every key of the union asset struct, so absent fields come back as `null`; the mapper filters them.
+- `Store.url` is the https href, used by the browser, html-reprs and the viewer. `Store.nativeUrl` is the `alternate.*.href`. `Store.format` is `zarr` or `icechunk`; `Store.virtual` comes from `leap:virtual`.
+- `public` and `geospatial` are hard-coded true. `ncviewjs:meta_yaml_url` is set from the `via` link so the Repository block still renders.
+- Snippet:
+  - The `open` tab uses `icechunk.s3_storage(..., anonymous=True)`, with `endpoint_url` for OSN and `region` for AWS.
+  - Virtual stores add `authorize_virtual_chunk_access` with anonymous credentials for every `config.virtual_chunk_containers` prefix. Without it, metadata opens but chunk reads fail.
+  - The `find` tab does a `rustac` id lookup.
+- The "Open in stac-map" link is `https://developmentseed.org/stac-map/?href=<encoded parquet url>`. It has not been opened in a browser.
+- `examples/search_catalog.py` covers keyword (7 hits), bbox, datetime (14 hits) and DuckDB (7 rows).
+
+Verified:
+- `npm run build` passes, and `next start` lists 25 datasets.
+- Snippets opened lazily for a zarr store (cm26), an icechunk store (GPCP-daily) and a virtual icechunk store (nasa-rasi HISTORICAL).
+- `uv run pytest tests/` gives 14 passed.
+
+Known issues:
+- `leap-pangeo-pipeline/OSTIA/OSTIA.zarr` has global attrs but no arrays, so `open_zarr` returns an empty dataset. This is a data problem: fix the store or drop it. Other stores were not checked for emptiness.
+- `/feedstock/[slug]` builds as dynamic (`ƒ`), not ISR, probably because of the `?catalog=` searchParams. The fetch is still cached for an hour.
+- Not tested: the `find` tab run as pasted, and the tab and copy buttons in a real browser.
+
+TODO:
+- Push the branch, open the PR into `modernize`, and squash merge it. This needs the user's go.
+- Milestone: merge `modernize` into `main` after PR 2. This deploys production, so it needs the user's go.
+
 ## PR 3 (5.1, early): zarr-layer viewer on current stores
 
 - Add `@carbonplan/zarr-layer`, `zarrita` and `maplibre-gl`, dynamically imported. Port `zarr-map-viewer.tsx`, `utils/crs.ts`, `utils/store-schema.ts` and `utils/store-url.ts` from the reference branch.
 - Show the viewer only where an asset has `leap:viewer: true` in `datasets.yaml`: rectilinear, web-sized chunks, CORS-readable. Other datasets show no map until their `viz` branch exists in PR 7.
 - Remove the ncview-js link (`data-viewer.tsx`). After this PR nothing in the app uses zarr-proxy.
+
+Decisions made at the start of PR 3 (2026-11-23):
+- **CORS: use a dev and preview proxy.** Do not ask the admins.
+  - `next.config.mjs` rewrites `/osn/:path*` to `https://nyu1.osn.mghpcc.org/:path*`.
+  - The viewer rewrites OSN hrefs to `/osn/...` unless the page origin is `https://catalog.leap.columbia.edu`, which OSN CORS already allows.
+  - Non-OSN buckets (AWS, GCS) use their own CORS. Each candidate store is preflight-checked from `https://catalog.leap.columbia.edu` and `http://localhost:3000`, and the results are recorded here.
+  - Revert by deleting the rewrite and the href swap.
+- **The `viewer: true` flag goes on stores in `datasets.yaml`.** `build_catalog.py` copies it to `leap:viewer`. A store is set only after a lazy metadata probe: rectilinear lat/lon, chunks of 1-2 MB or less (or a v3 shard read the viewer can use), and CORS-readable.
+- **icechunk stores:** read them with `icechunk-js`, as the reference viewer does. Avoid `getSnapshotMetadata()` (see Known gotchas).
+- **Local testing before upload:** serve a local build over http, for example `uv run python -m http.server` in a scratch dir holding `catalog.parquet`, and set `NEXT_PUBLIC_CATALOG_URL` to it. Uploading the new parquet to OSN needs the user's go.
 
 ## PR 4 (2.1): merge dynamical.org STAC; scheduled rebuild
 
