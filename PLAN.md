@@ -13,14 +13,14 @@ Last updated: 2026-11-23
 | 1   | STAC source of truth and stac-geoparquet build                  | 1.1           | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash)  |
 | 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`   | [x] merged into `modernize` (#186)          |
 | 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)          |
-| 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [~] PR open (#188); parquet not re-uploaded |
+| 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [~] PR open (#188); parquet uploaded 2026-11-23 |
 | 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [ ]                                         |
 | 5   | Metadata enrichment (datacube), editorial pass, variable table  | 2.2           | `modernize-05-metadata`   | [ ]                                         |
 | 6   | Search, facets, featured ranking                                | 3.1           | `modernize-06-search`     | [ ]                                         |
 | 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ]                                         |
 | 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                         |
 
-Next up: finish PR 3.5 (#188 open). Merge it into `modernize` and upload the rebuilt `catalog.parquet` to OSN after the user's go. Then PR 4, which merges in dynamical.org and adds a scheduled rebuild, and it needs a decision on which OSN key the GitHub Action uses.
+Next up: merge PR 3.5 (#188) into `modernize`. The rebuilt `catalog.parquet` is on OSN (2026-11-23, 90062 bytes, 25 items, densified footprints). Then PR 4, which merges in dynamical.org and adds a scheduled rebuild, and it needs a decision on which OSN key the GitHub Action uses.
 Small follow-ups:
 
 - eslint 10 vs `eslint-config-next` peer warnings and Node 23 engine warnings. Pin eslint 9 or use Node 22/24.
@@ -420,7 +420,7 @@ Done when: `npm run build` passes; `npm run dev` shows no Next.js issue badge; O
 - **Access Data:** with one store, "Access Data" is the expander itself. With several, the header stays and each expander shows the asset title. No uppercase.
 - **stac-map:** the cause is the 4-corner polygon. On a globe, every corner of a global box sits on the antimeridian, so it draws as a line. `build_catalog.py` `footprint()` now adds a vertex every 10 degrees; `bbox` is unchanged.
   - Checked in Chrome by swapping the local build in for the OSN URL (Playwright route): global boxes draw as outlines along latitude lines.
-  - The live link stays broken until the rebuilt parquet is uploaded to OSN (needs the user's go).
+  - Rebuilt parquet uploaded to OSN 2026-11-23 (90062 bytes); the live stac-map link reads it.
 - Verified: `uv run pytest tests/` gives 16 passed; `npm run build` passes; Playwright on `/`, ostia, gpcp-daily and metaflux shows no console errors and no issue badge.
 
 ## PR 4 (2.1): merge dynamical.org STAC; scheduled rebuild
