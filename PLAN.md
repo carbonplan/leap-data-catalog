@@ -19,6 +19,12 @@ Last updated: 2026-11-23
 | 7 | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint | 4.1, 4.2, 5.2 | `modernize-07-arco` | [ ] |
 | 8 | Shut down the fly.io services | 5.3 | - | [ ] |
 
+Next up: PR 4. It merges in dynamical.org and adds a scheduled rebuild, and it needs a decision on which OSN key the GitHub Action uses.
+Small follow-ups:
+- eslint 10 vs `eslint-config-next` peer warnings and Node 23 engine warnings. Pin eslint 9 or use Node 22/24.
+- The OSTIA store is empty.
+- The default colour range in the viewer.
+
 Branching:
 - `modernize` is a long-lived branch cut from an up-to-date `main`.
 - Each PR branches from `modernize` once the previous PR has merged into it, and targets `modernize`.
@@ -318,8 +324,7 @@ Known issues:
 - `/feedstock/[slug]` builds as dynamic (`ƒ`), not ISR, probably because of the `?catalog=` searchParams. The fetch is still cached for an hour.
 - Not tested: the `find` tab run as pasted, and the tab and copy buttons in a real browser.
 
-TODO:
-- Push the branch, open the PR into `modernize`, and squash merge it. This needs the user's go.
+Merged as #186. The user ran it locally with `npm run dev` on 2026-11-23 and it works.
 
 ## PR 3 (5.1, early): zarr-layer viewer on current stores
 
