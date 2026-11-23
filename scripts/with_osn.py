@@ -1,6 +1,6 @@
 """Run a command with OSN keys from an rclone remote exported as AWS_* env vars (never printed).
 
-Usage: python scripts/with_osn.py [--remote leappipeline] uv run scripts/build_catalog.py --upload
+Usage: uv run python scripts/with_osn.py [--remote leappipeline] uv run --locked scripts/upload_catalog.py catalog.parquet
 """
 
 import configparser

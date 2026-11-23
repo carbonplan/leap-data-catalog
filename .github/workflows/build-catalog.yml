@@ -1,0 +1,74 @@
+# Build catalog.parquet (LEAP datasets.yaml + dynamical.org) and upload it to OSN.
+# Secret handling: the OSN keys are environment secrets on `osn-catalog`, which only main and modernize can use.
+# Only the final upload step sees them; it runs one locked dependency, offline. PRs never reach the upload job.
+name: build-catalog
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC; runs only on the default branch
+  workflow_dispatch:
+  push:
+    branches: [main, modernize]
+    paths:
+      - catalog/**
+      - scripts/build_catalog.py
+      - scripts/upload_catalog.py*
+      - .github/workflows/build-catalog.yml
+  pull_request:
+    paths:
+      - catalog/**
+      - scripts/**
+      - tests/**
+      - .github/workflows/build-catalog.yml
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+      - run: uv run --locked pytest tests/
+      - run: uv run scripts/build_catalog.py --out catalog.parquet
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: catalog
+          path: catalog.parquet
+          retention-days: 7
+          if-no-files-found: error
+
+  upload:
+    needs: build
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/modernize')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: osn-catalog
+    concurrency:
+      group: osn-catalog-upload
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            scripts/upload_catalog.py
+            scripts/upload_catalog.py.lock
+          sparse-checkout-cone-mode: false
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+        with:
+          enable-cache: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: catalog
+      # Install before the keys exist in any step's env; the upload step then runs offline.
+      - run: uv sync --script scripts/upload_catalog.py --locked
+      - name: Upload to OSN
+        run: uv run --locked --offline scripts/upload_catalog.py catalog.parquet
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.OSN_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.OSN_SECRET_ACCESS_KEY }}

@@ -1,22 +1,27 @@
 # /// script
 # requires-python = ">=3.11"
-# dependencies = ["rustac", "pyyaml", "obstore"]
+# dependencies = ["rustac", "pyyaml"]
 # ///
-"""Build the LEAP stac-geoparquet catalog from catalog/datasets.yaml.
+"""Build the LEAP stac-geoparquet catalog from catalog/datasets.yaml plus the dynamical.org STAC catalog.
 
-One STAC Item per dataset, one asset per store. Each asset has an https `href` for the browser and,
+One STAC Item per dataset, one asset per store. dynamical.org Collections become Items with `leap:source: dynamical`;
+a datasets.yaml entry with the same id wins. Each asset has an https `href` for the browser and,
 for s3/gs stores, `alternate.<scheme>.href` with the native URI for Python.
 
 Usage:
-    uv run scripts/build_catalog.py --out catalog.parquet
-    python scripts/with_osn.py uv run scripts/build_catalog.py --out catalog.parquet --upload
+    uv run scripts/build_catalog.py --out catalog.parquet [--no-dynamical]
+    Upload with scripts/upload_catalog.py.
 """
 
 from __future__ import annotations
 
 import argparse
 import asyncio
+import json
 import math
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timezone
 from pathlib import Path
 
 import rustac
@@ -25,7 +30,9 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 DATASETS = ROOT / 'catalog' / 'datasets.yaml'
 OSN = 'https://nyu1.osn.mghpcc.org'
-UPLOAD_BUCKET, UPLOAD_KEY = 'leap-pangeo-pipeline', 'catalog/catalog.parquet'
+DYNAMICAL = 'https://stac.dynamical.org/catalog.json'
+# Collection links that point into dynamical's own catalog tree; dropped from our Items.
+DYNAMICAL_TREE_RELS = {'root', 'self', 'parent'}
 STAC_EXTENSIONS = ['https://stac-extensions.github.io/alternate-assets/v1.2.0/schema.json']
 MEDIA = {
     'zarr': 'application/vnd+zarr',
@@ -69,7 +76,9 @@ def https_href(href: str) -> str:
 
 def asset(store: dict) -> dict:
     href = store['href'].rstrip('/')
-    out = {'href': https_href(href), 'type': MEDIA[store['format']], 'roles': ['data']}
+    https = store.get('https') or https_href(href)
+    assert https.startswith('https://'), https
+    out = {'href': https, 'type': MEDIA[store['format']], 'roles': ['data']}
     if store.get('name'):
         out['title'] = store['name']
     scheme = href.partition('://')[0]
@@ -100,7 +109,7 @@ def links(entry: dict) -> list[dict]:
         out.append({'rel': 'via', 'href': url, 'type': 'text/html', 'title': 'Source repository'})
     if url := entry.get('license_url'):
         out.append({'rel': 'license', 'href': url, 'title': 'License'})
-    return out
+    return out + entry.get('links', [])
 
 
 def footprint(w: float, s: float, e: float, n: float, step: float = 10.0) -> list[list[float]]:
@@ -126,6 +135,7 @@ def item(entry: dict) -> dict:
         'keywords': entry.get('domain', []) + entry.get('kind', []),
         'license': entry['license'],
         'providers': providers(entry),
+        'leap:source': entry.get('source', 'leap'),
     }
     if start and end:
         props |= {'start_datetime': start, 'end_datetime': end}
@@ -147,8 +157,61 @@ def item(entry: dict) -> dict:
     }
 
 
-def load_items(path: Path = DATASETS) -> list[dict]:
-    items = [item(e) for e in yaml.safe_load(path.read_text())]
+def fetch_json(url: str) -> dict:
+    with urllib.request.urlopen(url, timeout=60) as r:
+        return json.load(r)
+
+
+def dynamical_collections(root: str = DYNAMICAL) -> list[dict]:
+    children = [link['href'] for link in fetch_json(root)['links'] if link['rel'] == 'child']
+    with ThreadPoolExecutor(8) as pool:
+        return list(pool.map(fetch_json, children))
+
+
+def dynamical_entry(c: dict, now: str) -> dict:
+    """datasets.yaml-shaped entry for a dynamical.org Collection; open-ended time ranges end at `now`."""
+    native, https = c['assets']['icechunk'], c['assets']['icechunk-https']
+    [bbox] = c['extent']['spatial']['bbox']
+    [[start, end]] = c['extent']['temporal']['interval']
+    links = [link for link in c['links'] if link['rel'] not in DYNAMICAL_TREE_RELS]
+    summary = {k: v[0] for k, v in c.get('summaries', {}).items() if v}
+    entry = {
+        'id': c['id'],
+        'title': c['title'],
+        'summary': c['description'],
+        'description': c.get('description_summary') or c['description'],
+        'domain': ['atmosphere'],
+        'kind': ['forecast' if 'forecast' in c['id'] else 'analysis'],
+        'license': c['license'],
+        'providers': c['providers'],
+        'bbox': bbox,
+        'start': start,
+        'end': end or now,
+        'source': 'dynamical',
+        'links': links,
+        'stores': [
+            {
+                'key': 'data',
+                # Some stores (Cloudflare R2) are https-only; those get no s3 alternate.
+                'href': native['href'] if native['href'].startswith('s3://') else https['href'],
+                'https': https['href'].rstrip('/'),
+                'format': 'icechunk',
+                'name': native.get('title'),
+                'virtual': 'icechunk:virtual_chunk_containers' in native,
+            }
+        ],
+    } | {k: summary[k] for k in ('spatial_domain', 'spatial_resolution', 'time_resolution') if k in summary}
+    if c['license'] == 'other':
+        entry['license_text'] = next(link['title'] for link in links if link['rel'] == 'license')
+    return entry
+
+
+def load_items(path: Path = DATASETS, collections: list[dict] | None = None, now: str | None = None) -> list[dict]:
+    entries = yaml.safe_load(path.read_text())
+    now = now or datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    leap_ids = {e['id'] for e in entries}
+    entries += [dynamical_entry(c, now) for c in collections or [] if c['id'] not in leap_ids]
+    items = [item(e) for e in entries]
     ids = [i['id'] for i in items]
     assert len(ids) == len(set(ids)), 'duplicate dataset ids'
     return items
@@ -161,26 +224,15 @@ async def write(items: list[dict], out: Path) -> None:
     assert len(back) == len(items), (len(back), len(items))
 
 
-async def upload(path: Path) -> None:
-    """Needs OSN write keys in AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY (see with_osn.py)."""
-    from obstore.store import S3Store
-
-    store = S3Store(UPLOAD_BUCKET, endpoint=OSN, region='us-east-1', virtual_hosted_style_request=False)
-    await store.put_async(UPLOAD_KEY, path.read_bytes())
-    print(f"uploaded -> {OSN}/{UPLOAD_BUCKET}/{UPLOAD_KEY}")
-
-
 async def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--out', type=Path, default=Path('catalog.parquet'))
-    ap.add_argument('--upload', action='store_true', help=f"upload to s3://{UPLOAD_BUCKET}/{UPLOAD_KEY}")
+    ap.add_argument('--no-dynamical', action='store_true', help='skip the dynamical.org crawl (offline builds)')
     args = ap.parse_args()
 
-    items = load_items()
+    items = load_items(collections=None if args.no_dynamical else dynamical_collections())
     await write(items, args.out)
     print(f"wrote {len(items)} items ({sum(len(i['assets']) for i in items)} assets) -> {args.out}")
-    if args.upload:
-        await upload(args.out)
 
 
 if __name__ == '__main__':
