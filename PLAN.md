@@ -11,7 +11,7 @@ Last updated: 2026-11-23
 | 0 | Housekeeping: save the reference branch, cut `modernize` | - | - | [x] |
 | 0.5 | Design research notes (no code) | 3.1 | - | [x] `docs/design-research.md` |
 | 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash) |
-| 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [ ] |
+| 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [~] handed to an agent; not reviewed yet |
 | 3 | zarr-layer viewer on current stores, ncview-js link removed | 5.1 | `modernize-03-viewer` | [ ] |
 | 4 | Merge dynamical.org STAC; scheduled rebuild | 2.1 | `modernize-04-dynamical` | [ ] |
 | 5 | Metadata enrichment (datacube), editorial pass, remove html-reprs | 2.2 | `modernize-05-metadata` | [ ] |
@@ -255,6 +255,35 @@ Tests: `uv run pytest tests/test_build_catalog.py` runs 14 tests offline. Schema
   - opening a found asset with xarray
 - Add an "Open in stac-map" link pointing at the parquet URL.
 - html-reprs stays until PR 5.
+
+Added after PR 1 and step 0.5 (2026-11-23):
+- **Read the parquet on the server.** Keep `getFeedstocks` in server components (`app/page.tsx`, `app/feedstock/[slug]/page.tsx`). OSN CORS only allows `https://catalog.leap.columbia.edu`, so a browser read fails on localhost and Vercel previews.
+- **Free-text search.** `rustac` `q=` free text does nothing on geoparquet. Snippets and examples use CQL2, e.g. `filter="a_contains(keywords, 'ocean')"`.
+- **hyparquet decoding.**
+  - The parquet is snappy-compressed, so `hyparquet` needs no extra codecs.
+  - Nested columns (`assets`, `providers`, `links`) decode to JS objects. `datetime` / `start_datetime` / `end_datetime` decode as timestamps; check whether they come back as `Date` or BigInt.
+  - `bbox` is a struct (`xmin`/`ymin`/`xmax`/`ymax`) in stac-geoparquet, not an array.
+  - Geometry is WKB; skip it.
+- **Mapping to the existing types** (keeps components mostly untouched):
+
+  | `Feedstock` field | From the Item |
+  |-------------------|---------------|
+  | `slug` | `id` |
+  | `title` | `title` |
+  | `description` | `description` |
+  | `tags` | `keywords` |
+  | `provenance.providers` | `providers` |
+  | `provenance.license` | `license` (show `leap:license_text` when the license is `other`) |
+  | `provenance.license_link` | `links[rel=license]` |
+  | `links` | `links[rel=via]` |
+  | `stores[]` | one per asset; `url` is the native `alternate.*.href`, falling back to the https `href`; keep the https href for the browser; `name` is the asset `title` or key |
+
+  - `maintainers` has no source. Default it to `[]` and hide the section when it is empty.
+  - Slugs change from `slugify(title)` to the Item id, so old `/feedstock/<slug>` links can 404. This is acceptable; do not add redirects.
+- **Snippet** (`code-snippet.tsx`), following `docs/design-research.md`. Use two tabs with a copy button if `@carbonplan/components` makes that cheap; otherwise use one block. Each tab must work as pasted:
+  - **open:** an icechunk repo via `icechunk.s3_storage(bucket=..., prefix=..., endpoint_url=..., anonymous=True)` + `readonly_session("main")` + `xr.open_zarr(session.store)`, or a zarr store via `xr.open_zarr(<https or s3 href>)`.
+  - **find:** `rustac.search_sync(CATALOG_URL, ids=[id])`, then `assets[key]["alternate"]["s3"]["href"]`.
+- **Examples.** `examples/search_catalog.py` is a PEP 723 uv script. Its keyword and bbox queries run against the live OSN URL; it never opens data beyond metadata.
 
 Done when:
 - `npm run build` passes.
