@@ -8,9 +8,9 @@ Last updated: 2026-11-23
 
 | # | PR | Covers | Branch | Status |
 |---|----|--------|--------|--------|
-| 0 | Housekeeping: save the reference branch, cut `modernize` | - | - | [ ] |
+| 0 | Housekeeping: save the reference branch, cut `modernize` | - | - | [x] |
 | 0.5 | Design research notes (no code) | 3.1 | - | [ ] |
-| 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [ ] |
+| 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [~] code + tests done; upload pending |
 | 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [ ] |
 | 3 | zarr-layer viewer on current stores, ncview-js link removed | 5.1 | `modernize-03-viewer` | [ ] |
 | 4 | Merge dynamical.org STAC; scheduled rebuild | 2.1 | `modernize-04-dynamical` | [ ] |
@@ -203,6 +203,34 @@ Done when:
 - `uv run pytest tests/test_build_catalog.py` passes with no network.
 - `rustac.search("catalog.parquet", q="ocean")` returns rows.
 - The file is uploaded to OSN, `curl -I` on the public URL returns 200, and a CORS preflight from a browser origin succeeds.
+
+### PR 1 implementation notes (2026-11-23)
+
+What was built:
+- `catalog/datasets.yaml` holds 25 datasets and 40 stores. It was produced by a one-off regroup of the reference branch's curated yaml, not re-seeded from the consolidated JSON, so the curated summaries, domain/kind values and fixed hrefs are kept. `scripts/seed_datasets.py` was not ported because a re-seed would discard that curation.
+- Each yaml entry now holds `stores: [{key, name, href, format, group?, virtual?}]`, and the `key` becomes the asset key.
+  - Single-store datasets use `data`.
+  - Multi-store dataset ids are the shared id prefix (`ldeo-hpd`, `era5`, `ceres-ebaf`, and so on).
+- `start`, `end` and `bbox` come from the reference `metadata.json`, unioned across each dataset's stores.
+- Licenses are normalized to SPDX ids. 10 datasets are `other`: they keep their original text in `leap:license_text`, or a `license` link when the original was a URL. That cleanup belongs to PR 5.
+- Providers are objects. The build adds `LEAP` with role `host` when any store is in a `leap-pangeo-*` bucket.
+- Two typos were fixed: `Zendodo` and a comma-joined name.
+- The icechunk media type is `application/x-icechunk`, matching dynamical.org. Zarr uses `application/vnd+zarr`.
+- Custom fields: `leap:summary`, `leap:spatial_domain`, `leap:coverage`, `leap:spatial_resolution`, `leap:time_resolution` and `leap:featured` (int rank, 4 datasets) on Items; `leap:group` and `leap:virtual` on assets.
+
+Known limits:
+- Four datasets have no known time range: corrdiff-nyc, gotm, caravan, glad-lclu. They get a placeholder `datetime` of 1970-01-01 plus `leap:temporal_unknown: true`. PR 5 must fill real extents.
+  - Datasets with no known bbox default to global, so bbox searches over-match until PR 5.
+- `rustac.search(..., q=...)` free-text search is ignored on geoparquet and returns every item. Use CQL2 instead, e.g. `filter="a_contains(keywords, 'ocean')"`. Use this in the PR 2 snippet and examples.
+
+Checks:
+- The OSN CORS preflight passes for origin `https://catalog.leap.columbia.edu` (GET).
+- Preview and localhost origins are untested and may need a CORS rule for `npm run dev`.
+
+Pending:
+- Upload. `catalog/catalog.parquet` on OSN currently holds the reference branch's build from 2026-10-05, in a different schema. Overwriting it changes what the reference branch previews read, so the upload waits for the user's go.
+
+Tests: `uv run pytest tests/test_build_catalog.py` runs 14 tests offline. Schemas are vendored in `tests/schemas/` with a `manifest.json` mapping each URL to its file. To refresh them, re-crawl `item.json` and the extension schemas.
 
 ## PR 2 (1.2 + 1.3): web app reads STAC; Python snippet; search examples
 
