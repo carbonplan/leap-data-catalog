@@ -22,7 +22,7 @@ Last updated: 2026-11-23
 Branching:
 - `modernize` is a long-lived branch cut from an up-to-date `main`.
 - Each PR branches from `modernize` once the previous PR has merged into it, and targets `modernize`.
-- `modernize` merges to `main` at two milestones: after PR 2 (the site runs on STAC) and after PR 7 (the data is migrated).
+- **Never merge `modernize` into `main`.** All PRs target `modernize`. Only the user merges to `main`. Agents also do not merge any PR unless the user explicitly asks.
 
 ---
 
@@ -316,7 +316,6 @@ Known issues:
 
 TODO:
 - Push the branch, open the PR into `modernize`, and squash merge it. This needs the user's go.
-- Milestone: merge `modernize` into `main` after PR 2. This deploys production, so it needs the user's go.
 
 ## PR 3 (5.1, early): zarr-layer viewer on current stores
 
@@ -381,7 +380,7 @@ Decisions made at the start of PR 3 (2026-11-23):
 
 ## PR 8 (5.3): shut down the fly.io services
 
-- Starts after PRs 3 and 5 are on `main`.
+- Starts after PRs 3 and 5 are on `modernize` and the user has deployed them.
 - Search the `leap-stc` and `carbonplan` orgs for other users of zarr-proxy, ncview-js and html-reprs.
 - Confirm with the user, then scale the fly apps to zero. After one quiet week, destroy them.
 
