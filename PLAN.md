@@ -11,7 +11,7 @@ Last updated: 2026-11-23
 | 0 | Housekeeping: save the reference branch, cut `modernize` | - | - | [x] |
 | 0.5 | Design research notes (no code) | 3.1 | - | [x] `docs/design-research.md` |
 | 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash) |
-| 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [~] done and reviewed; branch pushed? no; PR/merge waiting on user go |
+| 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [~] done and reviewed, local only; push + PR + merge wait on user go |
 | 3 | zarr-layer viewer on current stores, ncview-js link removed | 5.1 | `modernize-03-viewer` | [~] handed to an agent |
 | 4 | Merge dynamical.org STAC; scheduled rebuild | 2.1 | `modernize-04-dynamical` | [ ] |
 | 5 | Metadata enrichment (datacube), editorial pass, remove html-reprs | 2.2 | `modernize-05-metadata` | [ ] |
