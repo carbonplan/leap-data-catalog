@@ -1,6 +1,5 @@
 'use client'
 import { arraysFromStore, type ArrayMeta } from '@/utils/store-schema'
-import { browserUrl } from '@/utils/store-url'
 import { Colorbar } from '@carbonplan/components'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
@@ -120,7 +119,7 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
         })
 
         const { IcechunkStore } = await import('icechunk-js')
-        const store = await IcechunkStore.open(browserUrl(url), {
+        const store = await IcechunkStore.open(url, {
           signal: ac.signal,
         })
         if (cancelled) return
