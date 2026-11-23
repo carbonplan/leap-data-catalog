@@ -10,7 +10,7 @@ Last updated: 2026-11-23
 |---|----|--------|--------|--------|
 | 0 | Housekeeping: save the reference branch, cut `modernize` | - | - | [x] |
 | 0.5 | Design research notes (no code) | 3.1 | - | [ ] |
-| 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [~] code + tests done; upload pending |
+| 1 | STAC source of truth and stac-geoparquet build | 1.1 | `modernize-01-stac-build` | [x] built, tested, uploaded; PR into `modernize` not opened |
 | 2 | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3 | `modernize-02-web-stac` | [ ] |
 | 3 | zarr-layer viewer on current stores, ncview-js link removed | 5.1 | `modernize-03-viewer` | [ ] |
 | 4 | Merge dynamical.org STAC; scheduled rebuild | 2.1 | `modernize-04-dynamical` | [ ] |
@@ -97,7 +97,7 @@ These are single-branch repos. PR 7 decides whether to keep them, add a `viz` br
   - Why: the data is moving to OSN (PR 7), OSN has no egress fees, and the team already chose this location in October 2026.
 - **Source of truth: `catalog/datasets.yaml` in this repo.** It is hand-edited and reviewed in PRs. The per-feedstock yaml files in `leap-stc/data-management` are retired.
 - **Rebuilds.**
-  - Until PR 4, rebuilds are manual on purpose: `python scripts/with_osn.py uv run scripts/build_catalog.py --out catalog.parquet --upload`. `with_osn.py` uses the `leappipeline` remote by default; pass `--remote <name>` first to pick another.
+  - Until PR 4, rebuilds are manual on purpose: `uv run python scripts/with_osn.py uv run scripts/build_catalog.py --out catalog.parquet --upload`. `with_osn.py` uses the `leappipeline` remote by default; pass `--remote <name>` first to pick another.
   - PR 4 adds a GitHub Action that rebuilds weekly and on pushes to `catalog/datasets.yaml`.
   - The Action uses an OSN write key stored as a GitHub secret. Picking or creating a scoped key is the user's call.
 - **New datasets need no redeploy.** Detail pages render on demand and revalidate hourly. Keep this, and add `export const revalidate = 3600` to the detail page to make it explicit.
@@ -227,8 +227,15 @@ Checks:
 - The OSN CORS preflight passes for origin `https://catalog.leap.columbia.edu` (GET).
 - Preview and localhost origins are untested and may need a CORS rule for `npm run dev`.
 
-Pending:
-- Upload. `catalog/catalog.parquet` on OSN currently holds the reference branch's build from 2026-10-05, in a different schema. Overwriting it changes what the reference branch previews read, so the upload waits for the user's go.
+Upload (done 2026-11-23, user approved overwrite):
+- `uv run python scripts/with_osn.py uv run scripts/build_catalog.py --out catalog.parquet --upload` (no bare `python` on PATH).
+- `https://nyu1.osn.mghpcc.org/leap-pangeo-pipeline/catalog/catalog.parquet` returns 200, 83473 bytes. A remote `rustac.search_sync(url, filter="a_contains(keywords, 'ocean')")` returns 7 items.
+- This replaced the reference branch's 2026-10-05 build, so `arco-icechunk2` previews now read the new schema and may break. That branch is reference only.
+
+TODO before PR 2:
+- Open the PR `modernize-01-stac-build` into `modernize` and merge it.
+- Step 0.5 design research notes.
+- Add a CORS rule for localhost/preview origins if `npm run dev` cannot fetch the parquet (check at the start of PR 2).
 
 Tests: `uv run pytest tests/test_build_catalog.py` runs 14 tests offline. Schemas are vendored in `tests/schemas/` with a `manifest.json` mapping each URL to its file. To refresh them, re-crawl `item.json` and the extension schemas.
 
@@ -320,6 +327,6 @@ Done when:
 ## Open questions
 
 - The spacetimer API and its recommended encodings (PR 7).
-- Whether the OSN bucket's CORS rule allows browser reads of `catalog/` and `arco/` (PR 1, PR 3).
+- Whether the OSN CORS rule allows localhost/preview origins (production origin passes) and reads of `arco/` (PR 2, PR 3).
 - Which OSN key the GitHub Action uses (PR 4).
 - Whether to keep, add a `viz` branch to, or rebuild the 8 existing single-branch ARCO repos (PR 7).
