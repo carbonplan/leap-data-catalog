@@ -69,6 +69,10 @@ def test_custom_props_prefixed(items: list[dict]) -> None:
             assert all(k in {"href", "type", "roles", "title", "alternate"} or k.startswith("leap:") for k in a)
 
 
+def test_viewer_flag_copied(items: list[dict]) -> None:
+    assert any(a.get("leap:viewer") is True for i in items for a in i["assets"].values())
+
+
 def test_license_and_providers(items: list[dict]) -> None:
     for item in items:
         p = item["properties"]

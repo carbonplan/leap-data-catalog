@@ -168,6 +168,7 @@
   - key: data
     href: s3://leap-pangeo-pipeline/GPCP-daily
     format: icechunk
+    viewer: true
 - id: pco2-testbed
   title: Large Ensemble pCO2 Testbed
   summary: Earth system model ensembles sampled like SOCAT, for testing pCO2 reconstruction methods.
@@ -230,10 +231,12 @@
     name: Daily
     href: s3://leap-pangeo-pipeline/metaflux_daily
     format: icechunk
+    viewer: true
   - key: monthly
     name: Monthly
     href: s3://leap-pangeo-pipeline/meatflux_monthly
     format: icechunk
+    viewer: true
 - id: climsim-lowres
   title: ClimSim
   summary: Multi-scale climate simulation dataset for training ML emulators of sub-grid physics.
@@ -437,6 +440,7 @@
   - key: data
     href: s3://leap-pangeo-pipeline/arco/grace-tws.icechunk
     format: icechunk
+    viewer: true
 - id: glab-vod
   title: GLAB Vegetation Optical Depth
   summary: Global L-band vegetation optical depth, a proxy for vegetation water content.
@@ -467,6 +471,7 @@
   - key: data
     href: s3://leap-pangeo-pipeline/GLAB-VOD
     format: icechunk
+    viewer: true
 - id: lcspp-avhrr
   title: LCSPP-AVHRR Photosynthesis Proxy
   summary: Long-term SIF-informed photosynthesis proxy from calibrated AVHRR reflectance, 1982 to 2023.
@@ -499,6 +504,7 @@
   - key: data
     href: s3://leap-pangeo-pipeline/GLAB-CSIF
     format: icechunk
+    viewer: true
 - id: srtm-dem
   title: SRTM Digital Elevation Model
   summary: 1 arc-second (~30 m) SRTM elevation tiles.
@@ -571,10 +577,12 @@
     name: Potential evapotranspiration (PISCOeo_pm)
     href: s3://leap-pangeo-pipeline/evapotranspiration
     format: icechunk
+    viewer: true
   - key: tmax
     name: Max temperature (PISCOt)
     href: s3://leap-pangeo-pipeline/tmax
     format: icechunk
+    viewer: true
 - id: nex-gddp-cmip6-virtual
   title: NASA NEX-GDDP-CMIP6
   summary: Daily 0.25° bias-corrected, downscaled CMIP6 projections, 1950-2100, as one virtual Icechunk datatree.

@@ -74,7 +74,7 @@ def asset(store: dict) -> dict:
     scheme = href.partition("://")[0]
     if scheme in ("s3", "gs"):
         out["alternate"] = {"s3" if scheme == "s3" else "gcs": {"href": href}}
-    for k in ("group", "virtual", "public"):
+    for k in ("group", "virtual", "public", "viewer"):
         if k in store:
             out[f"leap:{k}"] = store[k]
     return out
