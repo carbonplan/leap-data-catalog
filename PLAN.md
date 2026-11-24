@@ -27,7 +27,7 @@ Small follow-ups:
 
 - Vercel preview deploys have failed since #186 (PR 2). A clean `npm ci && npm run build` passes locally, so read the Vercel build log first (needs a Vercel login) and check whether `NEXT_PUBLIC_CATALOG_URL` is set there.
 
-- eslint 10 vs `eslint-config-next` peer warnings and Node 23 engine warnings. Pin eslint 9 or use Node 22/24.
+- eslint is pinned to 9 (PR 4.5). Go back to 10 once `eslint-config-next` supports it; dependabot will propose it before then.
 - The OSTIA store is empty.
 - The default colour range in the viewer.
 
@@ -470,6 +470,17 @@ Done when: `npm run build` passes; `npm run dev` shows no Next.js issue badge; O
 - **CI:** add a workflow that runs `npm run build`. `npm run lint` calls `next lint`, which Next 16 removed; replace it.
 
 Done when: each fix is checked on a local build, `uv run pytest tests/` passes, and the new workflow is green.
+
+### PR 4.5 implementation notes (2026-11-24)
+
+- **License:** the link is the STAC license link, else SPDX when the license is not `other`, else plain text.
+- **Source:** `ncviewjs:meta_yaml_url` is now `source` (a `Link`). 23 pages show "Repository", 51 show "Source".
+- **CERES:** opened all 5 groups lazily (45 variables each); the old snippet's root group has 0 variables.
+- **dynamical fields** are `leap:attribution`, `leap:model_id`, `leap:model_name` and `leap:version`, set on all 49 items. The UI does not show the attribution until PR 6b.
+- **`?catalog=`** allows only `https://nyu1.osn.mghpcc.org/leap-pangeo-*` (`utils/catalog-url.ts`). Use `NEXT_PUBLIC_CATALOG_URL` for local files. A blocked url returns 500.
+- **Lint:** pinned eslint 9, because eslint 10 crashes `eslint-plugin-react` in `eslint-config-next` 16. npm marks eslint 9 as unsupported. Flat config in `eslint.config.mjs`. The one error it found is fixed: `app/page.tsx` wrapped `notFound()` in a try/catch.
+- **CI:** `.github/workflows/web.yml` runs lint, `npm test` (node's test runner) and build on every PR.
+- **Not fixed:** Vercel previews (needs the build log).
 
 ## PR 5 (2.2): metadata enrichment and editorial pass
 
