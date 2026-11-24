@@ -14,7 +14,7 @@ Last updated: 2026-11-24
 | 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`   | [x] merged into `modernize` (#186)                              |
 | 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)                              |
 | 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
-| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [x] merged into modernize (#189); first CI upload 2026-11-24 |
+| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [x] merged into modernize (#189); first CI upload 2026-11-24    |
 | 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`     | [ ] next                                                        |
 | 5   | Metadata enrichment (datacube), editorial pass, variable table  | 2.2           | `modernize-05-enrich`     | [ ]                                                             |
 | 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`    | [ ] design chosen 2026-11-24                                    |
@@ -497,11 +497,11 @@ Done when: each fix is checked on a local build, `uv run pytest tests/` passes, 
 
 **Decision (2026-11-24): layout C.** The mockup is the visual reference: https://claude.ai/artifact/2zivn5sXUX5tNhdKnZNoS8 (private; version 2). It runs on the 74 published items.
 
-| Option     | Layout                                                             | Status                                           |
-| ---------- | ------------------------------------------------------------------ | ------------------------------------------------ |
-| A. Rows    | Filter rail, text rows, no images                                  | Not chosen; its rail and rows are reused in C    |
-| B. Cards   | Filter chips on top, image cards                                   | Not chosen; its cards and chips are reused in C  |
-| C. Hybrid  | First screen with search and featured, then the list below         | **Chosen**                                       |
+| Option    | Layout                                                     | Status                                          |
+| --------- | ---------------------------------------------------------- | ----------------------------------------------- |
+| A. Rows   | Filter rail, text rows, no images                          | Not chosen; its rail and rows are reused in C   |
+| B. Cards  | Filter chips on top, image cards                           | Not chosen; its cards and chips are reused in C |
+| C. Hybrid | First screen with search and featured, then the list below | **Chosen**                                      |
 
 First screen:
 
