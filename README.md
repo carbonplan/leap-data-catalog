@@ -31,7 +31,7 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The site reads a stac-geoparquet file from OSN. Set `NEXT_PUBLIC_CATALOG_URL` to read another one.
+The site reads a stac-geoparquet file from OSN. Set `CATALOG_URL` to read another one.
 
 ## search the catalog
 

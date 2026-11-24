@@ -102,7 +102,7 @@ function toFeedstock(item: StacItem, catalogUrl: string): Feedstock {
 }
 
 export async function getFeedstocks(): Promise<Feedstock[]> {
-  const url = process.env.NEXT_PUBLIC_CATALOG_URL || defaultCatalogUrl
+  const url = process.env.CATALOG_URL || defaultCatalogUrl
 
   try {
     // The file is small (~110 KB): fetch it whole so Next caches it for an hour.

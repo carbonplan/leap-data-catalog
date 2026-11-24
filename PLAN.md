@@ -15,18 +15,18 @@ Last updated: 2026-11-24
 | 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)                              |
 | 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
 | 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [x] merged into modernize (#189); first CI upload 2026-11-24    |
-| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`     | [ ] open (#190), waiting for review and merge                   |
-| 4.6 | Look-back review fixes                                          | -             | `modernize-04c-review-fixes` | [ ] on the branch, stacked on #190                              |
+| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`     | [x] merged into `modernize` (#190)                              |
+| 4.6 | Look-back review fixes                                          | -             | `modernize-04c-review-fixes` | [ ] open, waiting for review and merge                          |
 | 5   | Metadata enrichment, dataset descriptions and titles            | 2.2           | `modernize-05-enrich`     | [ ] waiting (user, 2026-11-24)                                  |
 | 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`    | [ ] design chosen 2026-11-24                                    |
 | 6b  | Detail page redesign                                            | 3.1           | `modernize-06b-detail`    | [ ] design chosen 2026-11-24                                    |
 | 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ] on hold (2026-11-24)                                        |
 | 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                                             |
 
-Next up: review and merge #190 (PR 4.5), then PR 4.6. PR 5 (dataset updates and fixes) waits until the user says go; whether PR 6 starts before it is open. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
+Next up: review and merge PR 4.6. PR 5 (dataset updates and fixes) waits until the user says go; whether PR 6 starts before it is open. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
 Small follow-ups:
 
-- **Deferred by the user until all PRs look good; must be done before any merge to `main`:** Vercel deploys have failed since #186 with `Failed to fetch feedstocks: Error: 404 Not Found`. Likely cause, not confirmed: a stale `NEXT_PUBLIC_CATALOG_URL` in the Vercel settings (added by #28 in March 2024; `main` stopped reading it in #39). The default OSN url returns 200, and pointing the variable at a missing file gives the same error. Fix: delete the variable in every environment (note whether it covers Production), then redeploy. Until then the red Vercel check is expected; use the `web` check and local builds.
+- Vercel builds failed from #186 on with `404 Not Found`. Likely cause: a stale `NEXT_PUBLIC_CATALOG_URL` in the Vercel settings; the url #28 used (`catalog/datasets/consolidated-web-catalog.json`) is now 404. PR 4.6 renames the variable to `CATALOG_URL` (it is only read on the server), so the old value is ignored. Not seen in the Vercel settings directly; delete the old variable there when convenient.
 
 - eslint is pinned to 9 (PR 4.5). Go back to 10 once `eslint-config-next` supports it; dependabot will propose it before then.
 - `maplibre-gl` 5 has a critical advisory (HTML sanitizer, <=6.4.0). The viewer renders no HTML through it (no popups, no attribution). Upgrade to 6 once checked with zarr-layer.
@@ -363,7 +363,7 @@ Decisions made at the start of PR 3 (2026-11-23):
 
 - **CORS: read directly, no proxy.** The proxy planned at the start was built, then removed in review (`d86cb12`). The viewer's requests (icechunk-js + zarr-layer) are all CORS-safelisted (none, or bounded Range), and OSN answers them with `allow-origin: *`. See "Known gotchas". The browser test from localhost read every flagged store directly.
 - **The `viewer: true` flag goes on stores in `datasets.yaml`.** `build_catalog.py` copies it to `leap:viewer`.
-- **Local testing before upload:** serve a local build over http and set `NEXT_PUBLIC_CATALOG_URL` to it. After rebuilding the parquet, delete `.next/cache/fetch-cache`. Uploading to OSN needs the user's go.
+- **Local testing before upload:** serve a local build over http and set `CATALOG_URL` to it. After rebuilding the parquet, delete `.next/cache/fetch-cache`. Uploading to OSN needs the user's go.
 
 ### PR 3 implementation notes (2026-11-23)
 
@@ -492,7 +492,7 @@ Code only; no dataset edits.
 - **Snippets** are in `utils/snippet.ts` with tests. OSN zarr stores open through obstore and `zarr.storage.ObjectStore`.
 - **Build:** fails on an empty dynamical crawl, an antimeridian bbox, or an `other` license with no titled link. Open-ended items get `leap:ongoing: true`. CI builds with the locked env the tests use. The cron is daily, and starts once the workflow is on `main`.
 - **License test** checks a list of known ids; the old regex accepted anything. dynamical items from the live crawl are not checked.
-- **`?catalog=` is removed.** `/` and all 74 detail pages are now static with hourly revalidation (they were server-rendered on every request). Use `NEXT_PUBLIC_CATALOG_URL` for another catalog. The fetch error now names the url, which should settle the Vercel 404.
+- **`?catalog=` is removed.** `/` and all 74 detail pages are now static with hourly revalidation (they were server-rendered on every request). Use `CATALOG_URL` for another catalog (renamed, see the follow-ups at the top). The fetch error now names the url.
 - **Viewer:** the zarr-layer module loads before the store is shown, so the first layer uses the current range and selectors. `valid_range` is read. Layer and selector errors show in the status line.
 - **Next** 16.4.6 and generated config committed. Dead pangeo-forge code deleted.
 - **Checked:** 22 pytest and 5 node tests, lint, types, build. OSTIA (4 variables), Caravan (40), chirps, casm, modis-lai, one CERES group and one virtual store opened lazily as pasted. In a browser: GRACE, GPCP and MetaFlux, slider and variable change, no errors; home shows 74 cards; an unknown slug gives 404.
