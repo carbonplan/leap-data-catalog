@@ -6,22 +6,22 @@ Last updated: 2026-11-24
 
 ## Status
 
-| #   | PR                                                              | Covers        | Branch                    | Status                                                          |
-| --- | --------------------------------------------------------------- | ------------- | ------------------------- | --------------------------------------------------------------- |
-| 0   | Housekeeping: save the reference branch, cut `modernize`        | -             | -                         | [x]                                                             |
-| 0.5 | Design research notes (no code)                                 | 3.1           | -                         | [x] `docs/design-research.md`                                   |
-| 1   | STAC source of truth and stac-geoparquet build                  | 1.1           | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash)                      |
-| 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`   | [x] merged into `modernize` (#186)                              |
-| 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)                              |
-| 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
-| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [x] merged into modernize (#189); first CI upload 2026-11-24    |
-| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`     | [x] merged into `modernize` (#190)                              |
+| #   | PR                                                              | Covers        | Branch                       | Status                                                          |
+| --- | --------------------------------------------------------------- | ------------- | ---------------------------- | --------------------------------------------------------------- |
+| 0   | Housekeeping: save the reference branch, cut `modernize`        | -             | -                            | [x]                                                             |
+| 0.5 | Design research notes (no code)                                 | 3.1           | -                            | [x] `docs/design-research.md`                                   |
+| 1   | STAC source of truth and stac-geoparquet build                  | 1.1           | `modernize-01-stac-build`    | [x] merged into `modernize` (#185, squash)                      |
+| 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`      | [x] merged into `modernize` (#186)                              |
+| 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`        | [x] merged into `modernize` (#187)                              |
+| 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`     | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
+| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`     | [x] merged into modernize (#189); first CI upload 2026-11-24    |
+| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`        | [x] merged into `modernize` (#190)                              |
 | 4.6 | Look-back review fixes                                          | -             | `modernize-04c-review-fixes` | [ ] open, waiting for review and merge                          |
-| 5   | Metadata enrichment, dataset descriptions and titles            | 2.2           | `modernize-05-enrich`     | [ ] waiting (user, 2026-11-24)                                  |
-| 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`    | [ ] design chosen 2026-11-24                                    |
-| 6b  | Detail page redesign                                            | 3.1           | `modernize-06b-detail`    | [ ] design chosen 2026-11-24                                    |
-| 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ] on hold (2026-11-24)                                        |
-| 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                                             |
+| 5   | Metadata enrichment, dataset descriptions and titles            | 2.2           | `modernize-05-enrich`        | [ ] waiting (user, 2026-11-24)                                  |
+| 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`       | [ ] design chosen 2026-11-24                                    |
+| 6b  | Detail page redesign                                            | 3.1           | `modernize-06b-detail`       | [ ] design chosen 2026-11-24                                    |
+| 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`          | [ ] on hold (2026-11-24)                                        |
+| 8   | Shut down the fly.io services                                   | 5.3           | -                            | [ ]                                                             |
 
 Next up: review and merge PR 4.6. PR 5 (dataset updates and fixes) waits until the user says go; whether PR 6 starts before it is open. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
 Small follow-ups:
