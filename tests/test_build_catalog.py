@@ -13,6 +13,7 @@ import rustac
 from referencing import Registry, Resource
 
 import build_catalog as bc
+import upload_catalog as uc
 
 SCHEMAS = Path(__file__).parent / 'schemas'
 MANIFEST: dict[str, str] = json.loads((SCHEMAS / 'manifest.json').read_text())
@@ -22,6 +23,9 @@ STANDARD_PROPS = {
     'datetime', 'start_datetime', 'end_datetime', 'title', 'description', 'keywords', 'license', 'providers',
 }
 SPDX_OR_OTHER = re.compile(r'^[\w\-.+]+$')
+# Trimmed dynamical.org Collections: s3 native, s3 virtual, R2 https-only with license 'other'.
+DYNAMICAL: list[dict] = json.loads((Path(__file__).parent / 'fixtures' / 'dynamical_collections.json').read_text())
+NOW = '2026-11-23T00:00:00Z'
 
 
 def retrieve(uri: str) -> Resource:
@@ -33,7 +37,7 @@ REGISTRY = Registry(retrieve=retrieve)
 
 @pytest.fixture(scope='module')
 def items() -> list[dict]:
-    return bc.load_items()
+    return bc.load_items(collections=DYNAMICAL, now=NOW)
 
 
 def validate(item: dict) -> None:
@@ -137,3 +141,40 @@ def test_footprint_densified_and_closed() -> None:
     assert len(ring) == 2 * (36 + 18) + 1
     assert {tuple(p) for p in ring} >= {(-180, -90), (180, -90), (180, 90), (-180, 90)}
     assert bc.footprint(0, 0, 1, 1) == [[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]
+
+
+def test_dynamical_items(items: list[dict]) -> None:
+    by_id = {i['id']: i for i in items}
+    gfs = by_id['noaa-gfs-analysis']
+    assert gfs['properties']['leap:source'] == 'dynamical'
+    assert gfs['properties']['end_datetime'] == NOW  # open-ended interval
+    assert not {link['rel'] for link in gfs['links']} & bc.DYNAMICAL_TREE_RELS
+    data = gfs['assets']['data']
+    assert data['href'] == 'https://dynamical-noaa-gfs.s3.us-west-2.amazonaws.com/noaa-gfs-analysis/v0.1.0.icechunk'
+    assert data['alternate']['s3']['href'] == 's3://dynamical-noaa-gfs/noaa-gfs-analysis/v0.1.0.icechunk'
+    assert data['leap:virtual'] is False and by_id['noaa-gfs-analysis-virtual']['assets']['data']['leap:virtual']
+    wn = by_id['google-weathernext2-forecast-operational-virtual']
+    assert wn['assets']['data']['href'].startswith('https://google-weathernext2.r2.dynamical.org/')
+    assert 'alternate' not in wn['assets']['data']
+    assert wn['properties']['license'] == 'other' and wn['properties']['leap:license_text']
+    assert by_id['ostia']['properties']['leap:source'] == 'leap'
+
+
+def test_leap_id_wins_over_dynamical() -> None:
+    clash = dict(DYNAMICAL[0], id='ostia')
+    items = bc.load_items(collections=[clash], now=NOW)
+    assert [i['properties']['leap:source'] for i in items if i['id'] == 'ostia'] == ['leap']
+
+
+def test_upload_scrubs_keys(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv('AWS_ACCESS_KEY_ID', 'AKIDEXAMPLE')
+    monkeypatch.setenv('AWS_SECRET_ACCESS_KEY', 's3cr3t')
+    assert uc.scrub('<AWSAccessKeyId>AKIDEXAMPLE</AWSAccessKeyId> s3cr3t') == '<AWSAccessKeyId>***</AWSAccessKeyId> ***'
+
+
+def test_upload_refuses_non_parquet(tmp_path: Path) -> None:
+    bad = tmp_path / 'catalog.parquet'
+    bad.write_text('not parquet')
+    with pytest.raises(SystemExit, match='not a parquet file'):
+        uc.main(bad)
+    assert uc.is_parquet(b'PAR1' + b'x' * 8 + b'PAR1')

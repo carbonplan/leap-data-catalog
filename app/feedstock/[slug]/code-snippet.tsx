@@ -6,6 +6,9 @@ import React, { useState } from 'react'
 import { Box } from 'theme-ui'
 
 const icechunkStorage = (store: Store) => {
+  // https-only stores (e.g. Cloudflare R2) have no s3:// alternate.
+  if (store.nativeUrl!.startsWith('https://'))
+    return `icechunk.http_storage('${store.url}')`
   const s3 = new URL(store.nativeUrl!)
   const https = new URL(store.url)
   const prefix = s3.pathname.slice(1)
@@ -25,8 +28,12 @@ storage = ${icechunkStorage(store)}
 ${
   store.virtual
     ? `# Virtual store: allow anonymous reads of the chunk containers it references.
+# GRIB-backed virtual stores also need \`pip install gribberish\`.
 config = icechunk.Repository.fetch_config(storage)
-creds = icechunk.containers_credentials({p: icechunk.s3_anonymous_credentials() for p in config.virtual_chunk_containers})
+creds = icechunk.containers_credentials({
+    p: icechunk.Credentials.HttpAccess() if p.startswith('http') else icechunk.s3_anonymous_credentials()
+    for p in config.virtual_chunk_containers
+})
 repo = icechunk.Repository.open(storage, authorize_virtual_chunk_access=creds)`
     : 'repo = icechunk.Repository.open(storage)'
 }

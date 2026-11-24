@@ -14,14 +14,16 @@ Last updated: 2026-11-23
 | 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`   | [x] merged into `modernize` (#186)                              |
 | 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)                              |
 | 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
-| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [ ]                                                             |
+| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [~] PR open (#189); env secrets set 2026-11-23                  |
 | 5   | Metadata enrichment (datacube), editorial pass, variable table  | 2.2           | `modernize-05-metadata`   | [ ]                                                             |
 | 6   | Search, facets, featured ranking                                | 3.1           | `modernize-06-search`     | [ ]                                                             |
 | 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ]                                                             |
 | 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                                             |
 
-Next up: PR 4. The rebuilt `catalog.parquet` is on OSN (2026-11-23, 90062 bytes, 25 items, densified footprints). PR 4 merges in dynamical.org and adds a scheduled rebuild; it needs a decision on which OSN key the GitHub Action uses.
+Next up: merge PR 4 (#189) into `modernize` after the user's go. The merge runs the first CI upload and replaces the 25-item OSN catalog with the 74-item build; check the upload job log afterwards. Then PR 5 (metadata enrichment). Work stays on `modernize`; it does not merge to `main` yet.
 Small follow-ups:
+
+- Vercel preview deploys fail on `modernize` and on #187-#189 (not caused by PR 4). Read the Vercel build log.
 
 - eslint 10 vs `eslint-config-next` peer warnings and Node 23 engine warnings. Pin eslint 9 or use Node 22/24.
 - The OSTIA store is empty.
@@ -113,7 +115,7 @@ These are single-branch repos. PR 7 decides whether to keep them, add a `viz` br
   - Why: the data is moving to OSN (PR 7), OSN has no egress fees, and the team already chose this location in October 2026.
 - **Source of truth: `catalog/datasets.yaml` in this repo.** It is hand-edited and reviewed in PRs. The per-feedstock yaml files in `leap-stc/data-management` are retired.
 - **Rebuilds.**
-  - Until PR 4, rebuilds are manual on purpose: `uv run python scripts/with_osn.py uv run scripts/build_catalog.py --out catalog.parquet --upload`. `with_osn.py` uses the `leappipeline` remote by default; pass `--remote <name>` first to pick another.
+  - Manual rebuild: `uv run scripts/build_catalog.py --out catalog.parquet`, then `uv run python scripts/with_osn.py uv run --locked scripts/upload_catalog.py catalog.parquet`. From PR 4 the `build-catalog` workflow does this. `with_osn.py` uses the `leappipeline` remote by default; pass `--remote <name>` first to pick another.
   - PR 4 adds a GitHub Action that rebuilds weekly and on pushes to `catalog/datasets.yaml`.
   - The Action uses an OSN write key stored as a GitHub secret. Picking or creating a scoped key is the user's call.
 - **New datasets need no redeploy.** Detail pages render on demand and revalidate hourly. Keep this, and add `export const revalidate = 3600` to the detail page to make it explicit.
@@ -183,7 +185,7 @@ New files:
   - Map `stores[]` to assets.
   - Map `maintainers` to providers with role `processor`.
   - Map `links` to STAC links.
-- `scripts/build_catalog.py` (PEP 723): reads the yaml, builds Items, and writes `catalog.parquet` with `rustac`. `--upload` uploads it with `obstore`.
+- `scripts/build_catalog.py` (PEP 723): reads the yaml, builds Items, and writes `catalog.parquet` with `rustac`. Upload moved to `scripts/upload_catalog.py` in PR 4.
 - `scripts/with_osn.py`: copied from the reference branch.
 - `tests/test_build_catalog.py`, offline:
   - Structural checks: required fields, unique ids, Provider objects, an https `href` for every `s3://` or `gs://` source, and `leap:` prefixes on custom fields.
@@ -254,7 +256,7 @@ Checks:
 
 Upload (done 2026-11-23, user approved overwrite):
 
-- `uv run python scripts/with_osn.py uv run scripts/build_catalog.py --out catalog.parquet --upload` (no bare `python` on PATH).
+- `uv run python scripts/with_osn.py uv run --locked scripts/upload_catalog.py catalog.parquet` (no bare `python` on PATH).
 - `https://nyu1.osn.mghpcc.org/leap-pangeo-pipeline/catalog/catalog.parquet` returns 200, 83473 bytes. A remote `rustac.search_sync(url, filter="a_contains(keywords, 'ocean')")` returns 7 items.
 - This replaced the reference branch's 2026-10-05 build, so `arco-icechunk2` previews now read the new schema and may break. That branch is reference only.
 
@@ -429,7 +431,31 @@ Done when: `npm run build` passes; `npm run dev` shows no Next.js issue badge; O
   - Set `leap:source: dynamical`, keep their assets and links, and dedupe by id.
   - Test the mapping against a saved fixture in `tests/fixtures/`.
 - Add `.github/workflows/build-catalog.yml`: weekly cron plus a run on push to `catalog/datasets.yaml`. It installs uv, runs the tests, then builds and uploads with OSN secrets.
-- The UI gets a source badge or filter for LEAP vs dynamical.
+- The UI gets a source badge or filter for LEAP vs dynamical. (Moved to PR 6 facets; detail pages already list dynamical.org as a provider.)
+
+### PR 4 implementation notes (2026-11-23)
+
+- **Mapping** (`dynamical_entry()`): each Collection becomes a datasets.yaml-shaped entry, so `item()` builds it like any LEAP dataset.
+  - One `data` asset: the `icechunk-https` href, plus `alternate.s3` from the `icechunk` asset. The 6 Google WeatherNext stores are https-only on Cloudflare R2 and get no alternate.
+  - `leap:virtual` comes from `icechunk:virtual_chunk_containers`. Open-ended intervals end at the build time.
+  - Links: their `root`/`self`/`parent` are dropped; `about`, `example`, `via` and `license` are kept.
+  - `keywords`: `atmosphere` plus `forecast` or `analysis` from the id. License `other` (5 WeatherNext) gets `leap:license_text` from the first license link title.
+  - A datasets.yaml entry with the same id wins. All 49 Collections are included, virtual twins too.
+  - `cube:*` is not copied: it is keyed by variable name, so stac-geoparquet would make one struct column per variable across all Items. PR 5 must store it another way (JSON string column or a sidecar file).
+- **Snippet:** https-only icechunk stores use `icechunk.http_storage`; virtual-container credentials use `Credentials.HttpAccess()` for http prefixes. GRIB-backed virtual stores need `gribberish`; the snippet says so.
+  - Checked by opening noaa-gfs-analysis, noaa-gfs-analysis-virtual and google-weathernext2-forecast-operational-virtual lazily with the snippet code.
+- **Upload split:** `scripts/upload_catalog.py` depends only on `obstore`, locked with hashes (`upload_catalog.py.lock`). It refuses non-parquet files and scrubs both key values from error messages. `build_catalog.py --upload` is gone; `--no-dynamical` skips the crawl.
+- **Workflow** `.github/workflows/build-catalog.yml`:
+  - Build job (no secrets): pytest, build with the live crawl, artifact.
+  - Upload job: only on main/modernize, never on PRs. Environment `osn-catalog` (deployment branches main and modernize). Installs the locked dependency first; the upload step alone gets the secrets and runs `--offline`.
+  - Actions pinned to commit SHAs. `contents: read`, `persist-credentials: false`, one upload at a time. zizmor reports no findings.
+  - The weekly schedule only runs from the default branch, so it starts once `modernize` reaches `main`. Pushes to `modernize` that touch the catalog sources upload right away. Manual `workflow_dispatch` runs also need the workflow on the default branch.
+  - Remaining risk: anyone who can push to main or modernize can edit the workflow to read the secrets. `main` does not require PR reviews.
+- **Secrets (2026-11-23):** the user set `OSN_ACCESS_KEY_ID` and `OSN_SECRET_ACCESS_KEY` on the `osn-catalog` environment by piping them from the rclone `leappipeline` remote into `gh secret set`, so they never showed on screen.
+  - Checked without printing values: environment-only (no repo-wide secrets), branches limited to main and modernize, both values non-empty with no stray whitespace.
+  - Neither value appears in shell history, the Claude session transcripts, the working tree, or the repo's git history.
+  - No workflow run has used them yet; the #189 merge is the first.
+- **Verified:** `uv run pytest tests/` gives 20 passed; all 49 live Collections build and validate (74 Items, 113 KB); `npm run build` against the local 74-item catalog renders 77 pages; GFS virtual and WeatherNext detail pages return 200 with the right snippet.
 
 ## PR 5 (2.2): metadata enrichment and editorial pass
 
