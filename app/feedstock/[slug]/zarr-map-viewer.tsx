@@ -159,7 +159,7 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, bbox }) => {
           if (cancelled) return
           map.addSource('coast', {
             type: 'geojson',
-            data: '/coastline-110m.json',
+            data: '/coastline-110m.geojson',
           })
           map.addLayer({
             id: 'coast',
