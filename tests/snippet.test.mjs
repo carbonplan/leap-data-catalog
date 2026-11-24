@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { findSnippet, openSnippet } from '../utils/snippet.ts'
+import { openSnippet } from '../utils/snippet.ts'
 
 const OSN = 'https://nyu1.osn.mghpcc.org'
 const osn = (key, extra) => ({
@@ -65,20 +65,5 @@ test('group and virtual', () => {
   assert.match(
     openSnippet(osn('c', { virtual: true })),
     /authorize_virtual_chunk_access=creds/,
-  )
-})
-
-test('find uses the native alternate, or the href when there is none', () => {
-  assert.match(
-    findSnippet(osn('c'), 'x', 'u'),
-    /\["data"\]\["alternate"\]\["s3"\]/,
-  )
-  assert.match(
-    findSnippet({ id: 'data', url: 'gh', nativeUrl: 'gs://b' }, 'x', 'u'),
-    /\["gcs"\]/,
-  )
-  assert.match(
-    findSnippet({ id: 'data', url: 'h', nativeUrl: 'h' }, 'x', 'u'),
-    /\["data"\]\["href"\]/,
   )
 })

@@ -44,7 +44,7 @@ export const DatasetLink = ({
   )
 }
 
-const badgeSx: ThemeUICSSObject = {
+export const badgeSx: ThemeUICSSObject = {
   px: '7px',
   py: '5px',
   fontFamily: 'mono',

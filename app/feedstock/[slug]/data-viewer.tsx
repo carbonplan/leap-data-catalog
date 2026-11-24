@@ -1,22 +1,32 @@
+/** @jsxImportSource theme-ui */
 'use client'
-import { Store } from '@/types/types'
+import { Feedstock, Store } from '@/types/types'
 import dynamic from 'next/dynamic'
-import React from 'react'
-import { Box } from 'theme-ui'
 
 const ZarrMapViewer = dynamic(
   () => import('./zarr-map-viewer').then((m) => m.ZarrMapViewer),
-  { ssr: false, loading: () => <Box sx={{ fontSize: 0 }}>loading...</Box> },
+  { ssr: false, loading: () => <p sx={{ m: 0, fontSize: 1 }}>loading...</p> },
 )
 
 interface DataViewerProps {
   store: Store
-  color: string
+  bbox: Feedstock['bbox']
 }
 
-export const DataViewer: React.FC<DataViewerProps> = ({ store, color }) =>
+export const DataViewer = ({ store, bbox }: DataViewerProps) =>
   store.viewer ? (
-    <ZarrMapViewer url={store.url} color={color} />
+    <ZarrMapViewer url={store.url} bbox={bbox} />
   ) : (
-    <Box sx={{ fontSize: [1, 1, 1, 2] }}>No map preview for this dataset</Box>
+    <p
+      sx={{
+        m: 0,
+        px: '14px',
+        py: '10px',
+        bg: 'hinted',
+        fontSize: 1,
+        color: 'secondary',
+      }}
+    >
+      No map preview for this dataset.
+    </p>
   )

@@ -54,14 +54,48 @@ export interface Feedstock {
   ongoing: boolean
   /** west, south, east, north */
   bbox: [number, number, number, number]
-  maintainers: Maintainer[]
   provenance: Provenance
   thumbnail: string
   tags?: string[]
-  links?: Link[]
   stores: Store[]
-  source?: Link
   slug: string
   catalogUrl: string
   color: string
+}
+
+export interface Cube {
+  'cube:dimensions': Record<
+    string,
+    {
+      type: string
+      extent?: [string | number | null, string | number | null]
+      values?: (string | number)[]
+      size?: number
+      unit?: string
+    }
+  >
+  'cube:variables': Record<
+    string,
+    {
+      dimensions: string[]
+      unit?: string
+      long_name?: string
+      comment?: string
+    }
+  >
+}
+
+/** Adds what only the dataset's own page shows, so the list page does not carry it. */
+export interface FeedstockDetail extends Feedstock {
+  /** By store id. */
+  cubes: Record<string, Cube>
+  attribution?: string
+  version?: string
+  maintainers: Maintainer[]
+  citations: Link[]
+  docs: Link[]
+  examples: Link[]
+  source?: Link
+  /** Other datasets of the same model. */
+  related: Feedstock[]
 }

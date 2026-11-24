@@ -1,5 +1,11 @@
 'use client'
-import { arraysFromStore, type ArrayMeta } from '@/utils/store-schema'
+import { Feedstock } from '@/types/types'
+import { cfDates, dataRange, mapBounds, sampleBox } from '@/utils/map'
+import {
+  arraysFromStore,
+  withFillValues,
+  type ArrayMeta,
+} from '@/utils/store-schema'
 import { Colorbar } from '@carbonplan/components'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -40,16 +46,49 @@ const fmtVal = (x: number) =>
     ? x.toExponential(2)
     : x.toFixed(2)
 
-interface ZarrMapViewerProps {
-  url: string
-  color: string
+// Labels of a dimension's values: dates for time, else the coordinate values.
+async function coordLabels(store: any, coord: ArrayMeta): Promise<string[]> {
+  const zarr = await import('zarrita')
+  const array = await zarr.open.v3(zarr.root(store).resolve(coord.path), {
+    kind: 'array',
+  })
+  const { data } = await zarr.get(array)
+  const { units, calendar } = coord.attrs ?? {}
+  const dates = cfDates(data as ArrayLike<number>, units, calendar)
+  return dates ?? Array.from(data as ArrayLike<number>, String)
 }
 
-export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
+// A grid larger than this is sampled around its centre to find the colour range.
+const MAX_CELLS = 2_000_000
+
+async function layerRange(
+  layer: any,
+  variable: ArrayMeta,
+  bounds: ReturnType<typeof mapBounds>,
+) {
+  const cells = variable.dims.reduce(
+    (n, d, i) => (isSpatial(d) ? n * variable.shape[i] : n),
+    1,
+  )
+  const result = await layer.queryData(
+    { type: 'Polygon', coordinates: [sampleBox(bounds, cells, MAX_CELLS)] },
+    undefined,
+    { includeSpatialCoordinates: false },
+  )
+  return dataRange(result[variable.path] as number[])
+}
+
+interface ZarrMapViewerProps {
+  url: string
+  bbox: Feedstock['bbox']
+}
+
+export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, bbox }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const mapRef = useRef<any>(null)
   const layerRef = useRef<any>(null)
   const storeRef = useRef<any>(null)
+  const bboxRef = useRef(bbox)
   const layerClassRef = useRef<any>(null)
 
   const [arrays, setArrays] = useState<ArrayMeta[]>([])
@@ -60,6 +99,9 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
   const [variable, setVariable] = useState('')
   const [clim, setClim] = useState<[number, number]>([0, 1])
   const [sel, setSel] = useState<Record<string, number>>({})
+  const [labels, setLabels] = useState<Record<string, string[]>>({})
+  // A range the viewer sets by hand is kept until the variable changes.
+  const climTouched = useRef(false)
 
   const renderables = useMemo(() => arrays.filter(renderable), [arrays])
   const current = renderables.find((v) => v.path === variable)
@@ -67,6 +109,7 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
   // A new variable resets clim and the non-spatial selectors.
   const selectVariable = useCallback((v: ArrayMeta) => {
     setVariable(v.path)
+    climTouched.current = false
     setClim(defaultClim(v))
     setSel(
       Object.fromEntries(
@@ -100,8 +143,9 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
               },
             ],
           },
-          center: [0, 0],
-          zoom: 0,
+          bounds: mapBounds(bboxRef.current),
+          fitBoundsOptions: { padding: 12 },
+          renderWorldCopies: false,
           attributionControl: false,
         })
         mapRef.current = map
@@ -109,11 +153,20 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
           new maplibregl.NavigationControl({ showCompass: false }),
           'top-right',
         )
-        // The viewer mounts inside a collapsed expander, so the container starts at zero size.
         ro = new ResizeObserver(() => map.resize())
         ro.observe(containerRef.current)
         map.on('load', () => {
           if (cancelled) return
+          map.addSource('coast', {
+            type: 'geojson',
+            data: '/coastline-110m.geojson',
+          })
+          map.addLayer({
+            id: 'coast',
+            type: 'line',
+            source: 'coast',
+            paint: { 'line-color': '#ffffff', 'line-width': 0.8 },
+          })
           setMapReady(true)
         })
 
@@ -126,7 +179,7 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
           signal: ac.signal,
         })
         if (cancelled) return
-        storeRef.current = store
+        storeRef.current = withFillValues(store)
         layerClassRef.current = ZarrLayer
         const found = arraysFromStore(store)
         const first = found.find(renderable)
@@ -134,6 +187,18 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
         if (first) selectVariable(first)
         setStoreReady(true)
         setStatus('')
+
+        // Dimensions without a readable coordinate keep their index.
+        const used = new Set(found.filter(renderable).flatMap((v) => v.dims))
+        for (const coord of found) {
+          if (!used.has(coord.name) || isSpatial(coord.name)) continue
+          if (coord.dims.length !== 1 || coord.dims[0] !== coord.name) continue
+          coordLabels(store, coord)
+            .then((l) => {
+              if (!cancelled) setLabels((all) => ({ ...all, [coord.name]: l }))
+            })
+            .catch((e) => console.warn(`no labels for ${coord.name}`, e))
+        }
       } catch (e) {
         if (cancelled || (e as Error).name === 'AbortError') return
         setError((e as Error).message ?? String(e))
@@ -157,6 +222,7 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
   useEffect(() => {
     if (!mapReady || !storeReady || !current) return
     const map = mapRef.current
+    let stale = false
     try {
       if (map.getLayer('zarr')) map.removeLayer('zarr')
       const layer = new layerClassRef.current({
@@ -181,13 +247,23 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
                 : '',
           ),
       })
-      map.addLayer(layer)
+      map.addLayer(layer, 'coast')
       layerRef.current = layer
+      layerRange(layer, current, mapBounds(bboxRef.current))
+        .then((range) => {
+          if (range && !stale && !climTouched.current) setClim(range)
+        })
+        .catch((e: Error) => {
+          if (!stale) console.warn('no data range', e)
+        })
     } catch (e) {
       layerRef.current = null
       // reports a failure of an external system (the map), not derived state
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setStatus(`error: ${(e as Error).message}`)
+    }
+    return () => {
+      stale = true
     }
     // clim and sel are applied live below; only a new variable rebuilds the layer.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -220,10 +296,9 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
           position: 'relative',
           width: '100%',
           height: [300, 400, 480, 480],
-          borderRadius: 4,
           overflow: 'hidden',
           border: '1px solid',
-          borderColor: 'muted',
+          borderColor: 'line',
         }}
       >
         <Box ref={containerRef} sx={{ width: '100%', height: '100%' }} />
@@ -232,6 +307,7 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
       <Flex sx={{ gap: 3, mt: 2, alignItems: 'center', flexWrap: 'wrap' }}>
         {renderables.length > 0 && (
           <Select
+            aria-label='Variable'
             value={variable}
             onChange={(e) =>
               selectVariable(
@@ -257,7 +333,10 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
             horizontal
             colormap={COLORMAP}
             clim={clim}
-            setClim={setClim}
+            setClim={(next: React.SetStateAction<[number, number]>) => {
+              climTouched.current = true
+              setClim(next)
+            }}
             setClimStep={Math.max(
               (Math.abs(clim[1] - clim[0]) || 1) / 200,
               1e-6,
@@ -288,9 +367,10 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
                 letterSpacing: 'mono',
               }}
             >
-              {d}: {sel[d] ?? 0} / {size - 1}
+              {d}: {labels[d]?.[sel[d] ?? 0] ?? `${sel[d] ?? 0} / ${size - 1}`}
             </Text>
             <Slider
+              aria-label={d}
               min={0}
               max={Math.max(0, size - 1)}
               step={1}
@@ -298,7 +378,7 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
               onChange={(e) =>
                 setSel((s) => ({ ...s, [d]: Number(e.target.value) }))
               }
-              sx={{ mt: 1, color }}
+              sx={{ mt: 1, color: 'text' }}
             />
           </Box>
         )

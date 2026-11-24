@@ -6,31 +6,41 @@ Last updated: 2026-11-24
 
 ## Status
 
-| #   | PR                                                              | Covers        | Branch                       | Status                                                          |
-| --- | --------------------------------------------------------------- | ------------- | ---------------------------- | --------------------------------------------------------------- |
-| 0   | Housekeeping: save the reference branch, cut `modernize`        | -             | -                            | [x]                                                             |
-| 0.5 | Design research notes (no code)                                 | 3.1           | -                            | [x] `docs/design-research.md`                                   |
-| 1   | STAC source of truth and stac-geoparquet build                  | 1.1           | `modernize-01-stac-build`    | [x] merged into `modernize` (#185, squash)                      |
-| 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`      | [x] merged into `modernize` (#186)                              |
-| 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`        | [x] merged into `modernize` (#187)                              |
-| 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`     | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
-| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`     | [x] merged into modernize (#189); first CI upload 2026-11-24    |
-| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`        | [x] merged into `modernize` (#190)                              |
-| 4.6 | Look-back review fixes                                          | -             | `modernize-04c-review-fixes` | [x] merged into `modernize` (#191)                              |
-| 5   | Metadata enrichment, dataset descriptions and titles            | 2.2           | `modernize-05-enrich`        | [ ] waiting (user, 2026-11-24)                                  |
-| 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`       | [ ] open, waiting for review and merge                          |
-| 6b  | Detail page redesign                                            | 3.1           | `modernize-06b-detail`       | [ ] design chosen 2026-11-24                                    |
-| 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`          | [ ] on hold (2026-11-24)                                        |
-| 8   | Shut down the fly.io services                                   | 5.3           | -                            | [ ]                                                             |
+| #   | PR                                                              | Covers        | Branch                           | Status                                                          |
+| --- | --------------------------------------------------------------- | ------------- | -------------------------------- | --------------------------------------------------------------- |
+| 0   | Housekeeping: save the reference branch, cut `modernize`        | -             | -                                | [x]                                                             |
+| 0.5 | Design research notes (no code)                                 | 3.1           | -                                | [x] `docs/design-research.md`                                   |
+| 1   | STAC source of truth and stac-geoparquet build                  | 1.1           | `modernize-01-stac-build`        | [x] merged into `modernize` (#185, squash)                      |
+| 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`          | [x] merged into `modernize` (#186)                              |
+| 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`            | [x] merged into `modernize` (#187)                              |
+| 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`         | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
+| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`         | [x] merged into modernize (#189); first CI upload 2026-11-24    |
+| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`            | [x] merged into `modernize` (#190)                              |
+| 4.6 | Look-back review fixes                                          | -             | `modernize-04c-review-fixes`     | [x] merged into `modernize` (#191)                              |
+| 5   | Metadata enrichment, dataset descriptions and titles            | 2.2           | `modernize-05-06b-enrich-detail` | [ ] draft #193 (with 6b), CI green, waiting for review          |
+| 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`           | [x] merged into `modernize` (#192)                              |
+| 6b  | Detail page redesign                                            | 3.1           | `modernize-05-06b-enrich-detail` | [ ] draft #193 (with 5), CI green, waiting for review           |
+| 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`              | [ ] on hold (2026-11-24)                                        |
+| 8   | Shut down the fly.io services                                   | 5.3           | -                                | [ ]                                                             |
 
-Next up: review and merge PR 6. PR 5 (dataset updates and fixes) waits until the user says go; PR 6b needs its own go and its order against PR 5 is open. Work stays on `modernize`; it does not merge to `main` yet.
+Next up:
+
+1. Review and merge #193 (PR 5 and 6b). Merging rebuilds and replaces the live parquet on OSN; the Vercel preview shows the new text, variable tables and featured four only after that.
+2. After the merge, check the `modernize` preview: featured order, one LEAP and one dynamical page, one map.
+3. PR 8 can start once the user has deployed `modernize`. PR 7 stays on hold.
+
+Work stays on `modernize`; it does not merge to `main` yet.
+
 Small follow-ups:
 
 - Vercel builds failed from #186 on with `404 Not Found`. Likely cause: a stale `NEXT_PUBLIC_CATALOG_URL` in the Vercel settings; the url #28 used (`catalog/datasets/consolidated-web-catalog.json`) is now 404. PR 4.6 renames the variable to `CATALOG_URL` (it is only read on the server), so the old value is ignored. Not seen in the Vercel settings directly; delete the old variable there when convenient.
 
 - eslint is pinned to 9 (PR 4.5). Go back to 10 once `eslint-config-next` supports it; dependabot will propose it before then.
 - `maplibre-gl` 5 has a critical advisory (HTML sanitizer, <=6.4.0). The viewer renders no HTML through it (no popups, no attribution). Upgrade to 6 once checked with zarr-layer.
-- The default colour range in the viewer.
+- `llc4320-agulhas`: the store's coordinates are in the southeast Pacific, not the Agulhas (see PR 5 notes). Ask the data's authors. Not featured until then.
+- License gaps: modis-lai (none stated for the 8-day 0.05° files; ask the contact in the store's attributes), the enatl60 600 m files, and cm26-control.
+- zarr-layer 0.11: the `fillValue` option is ignored when drawing, and area queries on 0-360 grids read one side only. Report upstream; then drop `withFillValues`.
+- Rerun `scripts/enrich_datasets.py` by hand when a store changes (ERA5's end date moves monthly). The daily build does not run it.
 
 Branching:
 
@@ -500,7 +510,7 @@ Code only; no dataset edits.
 
 ## PR 5 (2.2): dataset metadata, descriptions and titles
 
-**Waiting (2026-11-24, user decision).** No dataset updates or fixes until the user says go.
+**Go given 2026-11-24**, in one PR with 6b. The user also lifted the review-before-writing rule below: text went straight into `datasets.yaml`, reviewed in the PR.
 
 ### Metadata
 
@@ -509,10 +519,10 @@ Code only; no dataset edits.
   - Results go to `catalog/metadata.json`. Values in `datasets.yaml` override them.
   - Vendor the datacube schema for the tests.
   - Starting point: `arco-icechunk2` has metadata for 23 of the 25 LEAP datasets. CorrDiff NYC and NEX-GDDP need new reads.
-- Known bad values to fix: ERA5 ends in 2050, the CHIRPS license is "Just a Test", 24 of 25 LEAP items have no resolution, and 39 LEAP provider entries have no url.
+- Known bad values (fixed): ERA5 ends in 2050, the CHIRPS license is "Just a Test", 24 of 25 LEAP items have no resolution, and 39 LEAP provider entries have no url.
 - Maintainers: production credits people per dataset, and the regroup in PR 1 dropped them. Restore from the old consolidated JSON; PR 6b shows them.
-- CorrDiff's description says NetCDF; the store is icechunk. CMIP6 (no stores) was dropped in PR 1 without a note; decide whether to list it.
-- **Featured (user, 2026-11-24):** replace today's four with a mix of LEAP and dynamical datasets. Proposed, not confirmed: `llc4320-agulhas`, `noaa-gfs-forecast`, `metaflux`, `ecmwf-aifs-single-forecast`. The build has no way to rank a dynamical item yet; the site accepts any ranked item.
+- CorrDiff's description says NetCDF; the store is icechunk. CMIP6 (no stores) was dropped in PR 1 without a note; it stays unlisted.
+- **Featured (user, 2026-11-24):** replace the four LEAP datasets with two LEAP or external and two dynamical.org ones. Done; see the notes below.
 - Vocabulary check for `keywords` in `build_catalog.py` (moved from PR 6, which is front-end only).
 - Add a variable and dimension table built from `cube:*` where the html-repr panel was (the html-repr code was removed in PR 3.5).
 
@@ -534,7 +544,7 @@ Rules:
 - License, provider url and citation are collected in the same pass.
 - The 49 dynamical.org descriptions come from upstream on every build. Leave them; report problems only.
 
-Review: draft all 25 in one table (title, summary, paragraph, sources, gaps). Nothing goes into `datasets.yaml` until the user has marked it up. Work in batches of about 5, starting with the 9 shortest: climsim-lowres, pco2-testbed, era5, chirps-daily, metaflux, cm26-control, casm, ostia, enatl60.
+Review: in PR #193 (the user lifted the mark-up step). Its description has the before/after titles and licenses and the gaps.
 
 ### Dataset titles
 
@@ -547,6 +557,21 @@ Make titles consistent across the catalog. Propose a rule and a before/after lis
 - Titles also pick the photo and colour today (`utils/colors.ts`, `utils/thumbnail.ts` hash the title), so renaming changes them until PR 6 replaces both.
 
 Done when: every LEAP item has a reviewed title, summary and paragraph, at least one source or a listed gap, and a real or explicitly unknown license; `uv run pytest tests/` passes.
+
+### PR 5 implementation notes (2026-11-24)
+
+- **Metadata:** `scripts/enrich_datasets.py` writes `catalog/metadata.json` for all 48 stores. `datasets.yaml` wins. Rerun it after adding a store; a test fails until then.
+- **`cube:*`** is one JSON string, `leap:cube`, by asset key. Real columns would give parquet a field per variable name. The parquet grows from 117 to about 310 KB.
+- **Featured** order is `catalog/featured.yaml`: metaflux, noaa-gfs-forecast, era5, ecmwf-aifs-single-forecast (user, 2026-11-24; metaflux replaces llc4320-agulhas, see below). An unknown id fails the build.
+- **ERA5** dates come from the store's `valid_time_*` attributes; its time axis is allocated to 2050.
+- **Fixed on the way:** corrdiff-nyc and llc4320-agulhas are virtual but were not marked, so their snippets could not read data. corrdiff-nyc and nex-gddp-cmip6-virtual are datatrees, so their snippets opened an empty root; stores now name a group.
+- **Licenses changed to match the source:** casm, caravan, climsim-lowres, pco2-testbed and glab-vod to CC-BY-4.0; era5 to the Copernicus licence; ostia, grace-tws and srtm-dem to NASA EOSDIS open data; chirps-daily to public domain; modis-lai to the CC BY 4.0 of the authors' 4TU deposit, which covers the monthly 0.5° files only. The feedstock said CC BY-NC-ND for glab-vod; its Zenodo record says CC BY.
+- **Wrong before:** grace-tws holds GRACE only, not GRACE-FO. srtm-dem is 32 sample tiles, not global. climsim-lowres has inputs only. nasa-rasi is the south-central US.
+- **llc4320-agulhas is probably mislabelled at the source.** Its coordinates span 125W-110W, 55S-40S. The sibling store `australia.zarr` spans 20E-33E at the same latitudes, which is the Agulhas. The page says so.
+- **Not listed:** CMIP6, which has no stores.
+- **glab-vod follows Zenodo (10.5281/zenodo.10306095)** in three places: the catalog, the feedstock (leap-stc/VOD-GLAB#3, merged) and the store's root attributes (`license`, `doi`, `short_description`). The store commit is snapshot `1MHN49XVY9J8N6SPV4PG`; reset `main` to `BDRETC91RDB3B90SSQTG` to undo it. Arrays are unchanged.
+- **modis-lai:** the producer's page (http only) states no license. The authors' 4TU deposit (10.4121/21858717) is CC BY 4.0 but holds the monthly 0.5° files. No support was found for the old CC0.
+- **Links not checked:** many publisher and Zenodo pages block scripts, so those DOIs were checked by metadata.
 
 ## PR 6 (3.1): listing redesign (search, facets, featured)
 
@@ -615,6 +640,15 @@ Visual reference: the three "Detail" views in the same mockup (GPCP, GFS forecas
 
 Done when: the three mockup pages match at 1440 and 390 px, and the shown snippets open lazily as pasted for one zarr, one icechunk, one grouped and one virtual store.
 
+### PR 6b implementation notes (2026-11-24)
+
+- **Detail-only fields** are in `FeedstockDetail` (`getFeedstockDetail`), so the home page does not carry them.
+- **Colour range:** 2nd to 98th percentile of the first slice, through `ZarrLayer.queryData`; grids above 2 million cells are sampled around the centre. 0-360 grids answer for one half of the globe only (a zarr-layer limit, logged in the console).
+- **Missing values:** zarr-layer 0.11 ignores its `fillValue` option when it draws, so `withFillValues` puts xarray's `_FillValue` into the zarr metadata. GRACE oceans are now blank.
+- **Breadcrumb** replaces the Back button and restores the list view.
+- **Coastlines:** Natural Earth 110m (public domain) in `public/`.
+- **Checked:** 74 pages at 1440 and 390 px with no errors or sideways scroll, 8 maps, 74 JSON-LD blocks, and 7 snippets opened lazily (zarr, icechunk, grouped, virtual).
+
 ## PR 7 (4.1 + 4.2 + 5.2): icechunk 2 on OSN with time-series and viz branches
 
 **On hold (2026-11-24, user decision).** Do not start rewrites or transfers until the user says so.
@@ -651,5 +685,4 @@ Done when: the three mockup pages match at 1440 and 390 px, and the shown snippe
 
 - The spacetimer API and its recommended encodings (PR 7).
 - OSN CORS preflights deny every origin except production and allow no request headers. Simple GETs work everywhere, so this only matters if a client starts sending suffix ranges or custom headers. Ask the admins to allow `Range` in preflights? (low priority)
-- Whether `cube:*` goes in one JSON string column (proposed) or a sidecar file. Decide when PR 5 starts.
 - Whether to keep, add a `viz` branch to, or rebuild the 8 existing single-branch ARCO repos (PR 7).

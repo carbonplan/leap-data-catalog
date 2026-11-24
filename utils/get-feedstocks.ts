@@ -1,4 +1,11 @@
-import { Feedstock, Provider, Store } from '@/types/types'
+import {
+  Cube,
+  Feedstock,
+  FeedstockDetail,
+  Maintainer,
+  Provider,
+  Store,
+} from '@/types/types'
 import { compareTitles, domainColor } from '@/utils/listing'
 import { getThumbnail } from '@/utils/thumbnail'
 import { parquetReadObjects } from 'hyparquet'
@@ -48,6 +55,10 @@ interface StacItem {
   'leap:time_resolution'?: string | null
   'leap:ongoing'?: boolean | null
   'leap:temporal_unknown'?: boolean | null
+  'leap:attribution'?: string | null
+  'leap:version'?: string | null
+  'leap:maintainers'?: Nullable<Maintainer>[] | null
+  'leap:cube'?: string | null
 }
 
 function toStore(key: string, asset: Nullable<StacAsset>): Store {
@@ -91,7 +102,6 @@ function toFeedstock(
 ): Feedstock {
   const links = item.links ?? []
   const license = links.find((l) => l.rel === 'license')
-  const via = links.find((l) => l.rel === 'via')
   const stores = Object.entries(item.assets)
     .filter(([, a]) => a?.href)
     .map(([key, a]) => toStore(key, a!))
@@ -114,7 +124,6 @@ function toFeedstock(
     ongoing: item['leap:ongoing'] ?? false,
     bbox: [item.bbox.xmin, item.bbox.ymin, item.bbox.xmax, item.bbox.ymax],
     tags: item.keywords ?? [],
-    maintainers: [],
     provenance: {
       providers: (item.providers ?? []).map((p) => ({
         name: p.name!,
@@ -127,10 +136,6 @@ function toFeedstock(
         '',
       license_link: licenseLink(item, license),
     },
-    source: via && toLink(via),
-    links: links
-      .filter((l) => l.rel === 'about' || l.rel === 'example')
-      .map(toLink),
     stores,
     catalogUrl,
     color: domainColor(item.keywords ?? []),
@@ -138,17 +143,61 @@ function toFeedstock(
   }
 }
 
-export async function getFeedstocks(): Promise<Feedstock[]> {
+const toDetail = (
+  item: StacItem,
+  feedstock: Feedstock,
+  all: Feedstock[],
+): FeedstockDetail => {
+  const linksOf = (rel: string) =>
+    (item.links ?? []).filter((l) => l.rel === rel).map(toLink)
+  return {
+    ...feedstock,
+    cubes: JSON.parse(item['leap:cube'] ?? '{}') as Record<string, Cube>,
+    attribution: item['leap:attribution'] ?? undefined,
+    version: item['leap:version'] ?? undefined,
+    maintainers: (item['leap:maintainers'] ?? []).map((m) => ({
+      name: m.name!,
+      github: m.github ?? undefined,
+    })),
+    citations: linksOf('cite-as'),
+    docs: linksOf('about'),
+    examples: linksOf('example'),
+    source: linksOf('via')[0],
+    related: all.filter(
+      (f) =>
+        feedstock.modelName &&
+        f.modelName === feedstock.modelName &&
+        f.slug !== feedstock.slug,
+    ),
+  }
+}
+
+async function load() {
   const url = process.env.CATALOG_URL || defaultCatalogUrl
 
   try {
-    // The file is small (~110 KB): fetch it whole so Next caches it for an hour.
+    // The file is small (~310 KB): fetch it whole so Next caches it for an hour.
     const res = await fetch(url, { next: { revalidate: 3600 } })
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
     const file = await res.arrayBuffer()
     const items = (await parquetReadObjects({ file })) as StacItem[]
-    return items.sort(byRank).map((item, i) => toFeedstock(item, url, i))
+    items.sort(byRank)
+    return {
+      items,
+      feedstocks: items.map((item, i) => toFeedstock(item, url, i)),
+    }
   } catch (error) {
     throw new Error(`Failed to fetch feedstocks from ${url}: ${error}`)
   }
+}
+
+export const getFeedstocks = async (): Promise<Feedstock[]> =>
+  (await load()).feedstocks
+
+export const getFeedstockDetail = async (
+  slug: string,
+): Promise<FeedstockDetail | undefined> => {
+  const { items, feedstocks } = await load()
+  const i = feedstocks.findIndex((f) => f.slug === slug)
+  return i < 0 ? undefined : toDetail(items[i], feedstocks[i], feedstocks)
 }
