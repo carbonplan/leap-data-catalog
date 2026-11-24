@@ -552,10 +552,10 @@ Done when: every LEAP item has a reviewed title, summary and paragraph, at least
 
 - **Metadata:** `scripts/enrich_datasets.py` writes `catalog/metadata.json` for all 48 stores. `datasets.yaml` wins. Rerun it after adding a store; a test fails until then.
 - **`cube:*`** is one JSON string, `leap:cube`, by asset key. Real columns would give parquet a field per variable name. The parquet grows from 117 to about 310 KB.
-- **Featured** order is `catalog/featured.yaml`: llc4320-agulhas, noaa-gfs-forecast, era5, ecmwf-aifs-single-forecast (user, 2026-11-24). An unknown id fails the build.
+- **Featured** order is `catalog/featured.yaml`: metaflux, noaa-gfs-forecast, era5, ecmwf-aifs-single-forecast (user, 2026-11-24; metaflux replaces llc4320-agulhas, see below). An unknown id fails the build.
 - **ERA5** dates come from the store's `valid_time_*` attributes; its time axis is allocated to 2050.
 - **Fixed on the way:** corrdiff-nyc and llc4320-agulhas are virtual but were not marked, so their snippets could not read data. corrdiff-nyc and nex-gddp-cmip6-virtual are datatrees, so their snippets opened an empty root; stores now name a group.
-- **Licenses changed to match the source:** casm, caravan, climsim-lowres, pco2-testbed and glab-vod to CC-BY-4.0; era5 to the Copernicus licence; ostia, grace-tws and srtm-dem to NASA EOSDIS open data; chirps-daily to public domain; modis-lai to unknown. The feedstock said CC BY-NC-ND for glab-vod; its Zenodo record says CC BY.
+- **Licenses changed to match the source:** casm, caravan, climsim-lowres, pco2-testbed and glab-vod to CC-BY-4.0; era5 to the Copernicus licence; ostia, grace-tws and srtm-dem to NASA EOSDIS open data; chirps-daily to public domain; modis-lai to the CC BY 4.0 of the authors' 4TU deposit, which covers the monthly 0.5° files only. The feedstock said CC BY-NC-ND for glab-vod; its Zenodo record says CC BY.
 - **Wrong before:** grace-tws holds GRACE only, not GRACE-FO. srtm-dem is 32 sample tiles, not global. climsim-lowres has inputs only. nasa-rasi is the south-central US.
 - **llc4320-agulhas is probably mislabelled at the source.** Its coordinates span 125W-110W, 55S-40S. The sibling store `australia.zarr` spans 20E-33E at the same latitudes, which is the Agulhas. The page says so.
 - **Not listed:** CMIP6, which has no stores.

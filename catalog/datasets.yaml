@@ -647,20 +647,22 @@
   title: Reprocessed MODIS Leaf Area Index
   summary: Gap-filled, smoothed 0.05° global leaf area index every 8 days, 2002 to 2020.
   description:
-    "Global leaf area index (the area of leaves per area of ground) every 8 days from 2002 to 2020 at
-    0.05°. It is the MODIS version 6.1 product reprocessed for land surface and climate models at Sun Yat-sen University:
-    a two-step method fills the gaps and reduces the noise in the original. The paper finds it closer to reference
-    maps than the original MODIS product, and smoother and more continuous in space and time. LEAP's copy combines
-    the yearly files into one Zarr store. The producer's site was not reachable when this page was written, so
-    its current terms of use could not be checked."
+    "Global leaf area index (the area of leaves per area of ground) every 8 days from 2002 to 2020 at 0.05°. It is the
+    MODIS version 6.1 product reprocessed for land surface and climate models at Sun Yat-sen University: a two-step
+    method fills the gaps and reduces the noise in the original. The paper finds it closer to reference maps than the
+    original MODIS product, and smoother and more continuous in space and time. Data before July 2002 come from the Terra
+    satellite only, so the authors advise starting trend studies in 2003. LEAP's copy combines the yearly 8-day files
+    into one Zarr store; the producer's series now runs from 2000 to 2025. The producer's page states no license for these
+    files. The authors published the monthly 0.5° version under CC BY 4.0."
   source_url: https://github.com/leap-stc/MODIS-LAI
   license: other
-  license_text: Unknown
+  license_text: CC BY 4.0 (authors' deposit of the monthly 0.5° files)
+  license_url: https://doi.org/10.4121/21858717
   providers:
     - name: Land-Atmosphere Interaction Research Group, Sun Yat-sen University
       roles:
         - producer
-      url: https://doi.org/10.3390/rs15071780
+      url: http://globalchange.bnu.edu.cn/research/laiv061
     - name: NASA MODIS
       roles:
         - producer
@@ -677,6 +679,10 @@
     - title: Method (Yuan et al., 2011)
       href: https://doi.org/10.1016/j.rse.2011.01.001
       rel: cite-as
+    - title: Data page (Sun Yat-sen University)
+      href: http://globalchange.bnu.edu.cn/research/laiv061
+    - title: Monthly 0.5° files (4TU.ResearchData)
+      href: https://doi.org/10.4121/21858717
   domain:
     - land
   kind:

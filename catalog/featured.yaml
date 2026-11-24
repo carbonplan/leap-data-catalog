@@ -1,5 +1,5 @@
 # Featured datasets, in order. LEAP and dynamical.org ids; the build fails on an unknown id.
-- llc4320-agulhas
+- metaflux
 - noaa-gfs-forecast
 - era5
 - ecmwf-aifs-single-forecast
