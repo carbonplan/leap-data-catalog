@@ -182,6 +182,23 @@ def item(entry: dict) -> dict:
     }
 
 
+def relabel(entry: dict, cube: dict[str, dict]) -> dict[str, dict]:
+    """Cube with the entry's hand-written `labels` and `units` applied, and `m s**-1` units written `m s-1`."""
+    labels, units = entry.get('labels', {}), entry.get('units', {})
+    if unknown := (labels.keys() | units.keys()) - {n for c in cube.values() for n in c['cube:variables']}:
+        raise ValueError(f"{entry['id']}: unknown variables {sorted(unknown)}")
+
+    def variable(name: str, v: dict) -> dict:
+        out = v | ({'long_name': labels[name]} if name in labels else {})
+        unit = units.get(name, v.get('unit'))
+        return out | {'unit': unit.replace('**', '')} if unit else out
+
+    return {
+        key: c | {'cube:variables': {n: variable(n, v) for n, v in c['cube:variables'].items()}}
+        for key, c in cube.items()
+    }
+
+
 def with_metadata(entry: dict, metadata: dict[str, dict]) -> dict:
     """Entry with the gaps filled from its stores' metadata: dates and bbox span them, resolutions are listed."""
     stores = {s['key']: metadata[key] for s in entry['stores'] if (key := f"{entry['id']}/{s['key']}") in metadata}
@@ -196,7 +213,7 @@ def with_metadata(entry: dict, metadata: dict[str, dict]) -> dict:
         if values := list(dict.fromkeys(m[k] for m in found if k in m)):
             filled[k] = ', '.join(values)
     if cube := {key: {k: m[k] for k in ('cube:dimensions', 'cube:variables')} for key, m in stores.items()}:
-        filled['cube'] = cube
+        filled['cube'] = relabel(entry, cube)
     return filled | entry
 
 

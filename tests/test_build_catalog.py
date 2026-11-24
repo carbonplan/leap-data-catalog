@@ -121,11 +121,20 @@ def test_featured_ranks_both_sources() -> None:
 
 def test_references_and_maintainers(items: list[dict]) -> None:
     casm = next(i for i in items if i['id'] == 'casm')
-    assert [ln['title'] for ln in casm['links'] if ln['rel'] == 'cite-as'][0] == 'Data (Zenodo)'
+    assert [ln['title'] for ln in casm['links'] if ln['rel'] == 'cite-as'][0] == 'CASM data (Zenodo)'
     assert {'name': 'Mitra Cattry', 'github': 'mitraA90'} in casm['properties']['leap:maintainers']
     for item in items:
         if item['properties']['leap:source'] == 'leap':
             assert any(ln['rel'] in ('cite-as', 'about') for ln in item['links']), item['id']
+
+
+def test_variable_labels() -> None:
+    cube = {'a': {'cube:variables': {'t': {'dimensions': [], 'unit': 'm s**-1'}, 'u': {'dimensions': []}}}}
+    out = bc.relabel({'id': 'x', 'labels': {'u': 'Wind'}, 'units': {'u': 'K'}}, cube)['a']['cube:variables']
+    assert out == {'t': {'dimensions': [], 'unit': 'm s-1'}, 'u': {'dimensions': [], 'long_name': 'Wind', 'unit': 'K'}}
+    assert cube['a']['cube:variables']['t']['unit'] == 'm s**-1'
+    with pytest.raises(ValueError, match='unknown variables'):
+        bc.relabel({'id': 'x', 'labels': {'typo': ''}}, cube)
 
 
 def test_viewer_flag_copied(items: list[dict]) -> None:
