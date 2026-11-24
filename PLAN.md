@@ -14,13 +14,13 @@ Last updated: 2026-11-23
 | 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`   | [x] merged into `modernize` (#186)                              |
 | 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)                              |
 | 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
-| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [~] PR open (#189); env secrets set 2026-11-23                  |
+| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [x] merged into modernize (#189); first CI upload 2026-11-24 |
 | 5   | Metadata enrichment (datacube), editorial pass, variable table  | 2.2           | `modernize-05-metadata`   | [ ]                                                             |
 | 6   | Search, facets, featured ranking                                | 3.1           | `modernize-06-search`     | [ ]                                                             |
 | 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ]                                                             |
 | 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                                             |
 
-Next up: merge PR 4 (#189) into `modernize` after the user's go. The merge runs the first CI upload and replaces the 25-item OSN catalog with the 74-item build; check the upload job log afterwards. Then PR 5 (metadata enrichment). Work stays on `modernize`; it does not merge to `main` yet.
+Next up: PR 5 (metadata enrichment), on a branch off `modernize`. Work stays on `modernize`; it does not merge to `main` yet.
 Small follow-ups:
 
 - Vercel preview deploys fail on `modernize` and on #187-#189 (not caused by PR 4). Read the Vercel build log.
@@ -454,7 +454,7 @@ Done when: `npm run build` passes; `npm run dev` shows no Next.js issue badge; O
 - **Secrets (2026-11-23):** the user set `OSN_ACCESS_KEY_ID` and `OSN_SECRET_ACCESS_KEY` on the `osn-catalog` environment by piping them from the rclone `leappipeline` remote into `gh secret set`, so they never showed on screen.
   - Checked without printing values: environment-only (no repo-wide secrets), branches limited to main and modernize, both values non-empty with no stray whitespace.
   - Neither value appears in shell history, the Claude session transcripts, the working tree, or the repo's git history.
-  - No workflow run has used them yet; the #189 merge is the first.
+  - First use: run 45298954443 (push to modernize after the #189 merge). Both jobs passed; the log shows the keys only as `***`, and a local check confirmed neither real value appears in the saved log. The public parquet is 112,993 bytes, 74 Items (25 leap, 49 dynamical).
 - **Verified:** `uv run pytest tests/` gives 20 passed; all 49 live Collections build and validate (74 Items, 113 KB); `npm run build` against the local 74-item catalog renders 77 pages; GFS virtual and WeatherNext detail pages return 200 with the right snippet.
 
 ## PR 5 (2.2): metadata enrichment and editorial pass
