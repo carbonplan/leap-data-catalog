@@ -24,19 +24,19 @@ export const License: React.FC<LicenseProps> = ({ license, license_link }) => {
         </Text>
       </Box>
 
-      <Button
-        size='xs'
-        as={Link}
-        href={
-          license === 'proprietary'
-            ? license_link?.url
-            : `https://spdx.org/licenses/${license}`
-        }
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        {license || license_link?.title}
-      </Button>
+      {license_link?.url ? (
+        <Button
+          size='xs'
+          as={Link}
+          href={license_link.url}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          {license || license_link.title}
+        </Button>
+      ) : (
+        <Box sx={{ fontSize: [2, 2, 2, 3] }}>{license || 'Not specified'}</Box>
+      )}
     </Box>
   )
 }

@@ -22,6 +22,7 @@ export interface Store {
   url: string
   nativeUrl?: string
   format?: 'zarr' | 'icechunk'
+  group?: string
   virtual?: boolean
   viewer?: boolean
   rechunking?: { [key: string]: string }[]
@@ -69,7 +70,7 @@ export interface Feedstock {
   tags?: string[]
   links?: Link[]
   stores?: Store[]
-  'ncviewjs:meta_yaml_url'?: string
+  source?: Link
   slug: string
   catalogUrl: string
   color: string

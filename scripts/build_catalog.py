@@ -53,7 +53,12 @@ GLOBAL = [-180.0, -90.0, 180.0, 90.0]
 UNKNOWN_DATETIME = '1970-01-01T00:00:00Z'
 LEAP_HOST = {'name': 'LEAP', 'roles': ['host'], 'url': 'https://leap.columbia.edu'}
 # Dataset-level yaml keys copied to `leap:<key>` properties.
-LEAP_PROPS = ('summary', 'spatial_domain', 'coverage', 'spatial_resolution', 'time_resolution', 'featured')
+LEAP_PROPS = (
+    'summary', 'spatial_domain', 'coverage', 'spatial_resolution', 'time_resolution', 'featured',
+    'attribution', 'model_id', 'model_name', 'version',
+)
+# dynamical.org Collection fields kept as `leap:<key>` properties.
+DYNAMICAL_PROPS = ('attribution', 'model_id', 'model_name', 'version')
 
 
 def https_href(href: str) -> str:
@@ -201,6 +206,7 @@ def dynamical_entry(c: dict, now: str) -> dict:
             }
         ],
     } | {k: summary[k] for k in ('spatial_domain', 'spatial_resolution', 'time_resolution') if k in summary}
+    entry |= {k: c[k] for k in DYNAMICAL_PROPS if k in c}
     if c['license'] == 'other':
         entry['license_text'] = next(link['title'] for link in links if link['rel'] == 'license')
     return entry

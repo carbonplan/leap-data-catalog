@@ -147,6 +147,8 @@ def test_dynamical_items(items: list[dict]) -> None:
     by_id = {i['id']: i for i in items}
     gfs = by_id['noaa-gfs-analysis']
     assert gfs['properties']['leap:source'] == 'dynamical'
+    assert gfs['properties']['leap:model_name'] == 'NOAA GFS'
+    assert gfs['properties']['leap:attribution'].startswith('NOAA NWS NCEP GFS data')
     assert gfs['properties']['end_datetime'] == NOW  # open-ended interval
     assert not {link['rel'] for link in gfs['links']} & bc.DYNAMICAL_TREE_RELS
     data = gfs['assets']['data']

@@ -19,6 +19,9 @@ const icechunkStorage = (store: Store) => {
   return `icechunk.s3_storage(bucket='${s3.hostname}', prefix='${prefix}', ${place}, anonymous=True)`
 }
 
+const zarrGroup = (store: Store) =>
+  store.group ? `, group='${store.group}'` : ''
+
 const openSnippet = (store: Store) =>
   store.format === 'icechunk'
     ? `import icechunk
@@ -38,11 +41,11 @@ repo = icechunk.Repository.open(storage, authorize_virtual_chunk_access=creds)`
     : 'repo = icechunk.Repository.open(storage)'
 }
 session = repo.readonly_session('main')
-ds = xr.open_zarr(session.store)
+ds = xr.open_zarr(session.store${zarrGroup(store)})
 `
     : `import xarray as xr
 
-ds = xr.open_zarr('${store.url}')
+ds = xr.open_zarr('${store.url}'${zarrGroup(store)})
 `
 
 const findSnippet = (store: Store, itemId: string, catalogUrl: string) => {

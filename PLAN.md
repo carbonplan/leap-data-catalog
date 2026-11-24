@@ -2,7 +2,7 @@
 
 This file holds the working plan and the context any agent or contributor needs to pick up the work. Update the status boxes as PRs land.
 
-Last updated: 2026-11-23
+Last updated: 2026-11-24
 
 ## Status
 
@@ -14,18 +14,20 @@ Last updated: 2026-11-23
 | 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`   | [x] merged into `modernize` (#186)                              |
 | 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)                              |
 | 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
-| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [~] PR open (#189); env secrets set 2026-11-23                  |
-| 5   | Metadata enrichment (datacube), editorial pass, variable table  | 2.2           | `modernize-05-metadata`   | [ ]                                                             |
-| 6   | Search, facets, featured ranking                                | 3.1           | `modernize-06-search`     | [ ]                                                             |
-| 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ]                                                             |
+| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [x] merged into modernize (#189); first CI upload 2026-11-24    |
+| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`     | [ ] open (#190), waiting for review and merge                   |
+| 5   | Metadata enrichment, dataset descriptions and titles            | 2.2           | `modernize-05-enrich`     | [ ] waiting (user, 2026-11-24)                                  |
+| 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`    | [ ] design chosen 2026-11-24                                    |
+| 6b  | Detail page redesign                                            | 3.1           | `modernize-06b-detail`    | [ ] design chosen 2026-11-24                                    |
+| 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ] on hold (2026-11-24)                                        |
 | 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                                             |
 
-Next up: merge PR 4 (#189) into `modernize` after the user's go. The merge runs the first CI upload and replaces the 25-item OSN catalog with the 74-item build; check the upload job log afterwards. Then PR 5 (metadata enrichment). Work stays on `modernize`; it does not merge to `main` yet.
+Next up: review and merge #190 (PR 4.5). PR 5 (dataset updates and fixes) waits until the user says go; whether PR 6 starts before it is open. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
 Small follow-ups:
 
-- Vercel preview deploys fail on `modernize` and on #187-#189 (not caused by PR 4). Read the Vercel build log.
+- **Deferred by the user until all PRs look good; must be done before any merge to `main`:** Vercel deploys have failed since #186 with `Failed to fetch feedstocks: Error: 404 Not Found`. Likely cause, not confirmed: a stale `NEXT_PUBLIC_CATALOG_URL` in the Vercel settings (added by #28 in March 2024; `main` stopped reading it in #39). The default OSN url returns 200, and pointing the variable at a missing file gives the same error. Fix: delete the variable in every environment (note whether it covers Production), then redeploy. Until then the red Vercel check is expected; use the `web` check and local builds.
 
-- eslint 10 vs `eslint-config-next` peer warnings and Node 23 engine warnings. Pin eslint 9 or use Node 22/24.
+- eslint is pinned to 9 (PR 4.5). Go back to 10 once `eslint-config-next` supports it; dependabot will propose it before then.
 - The OSTIA store is empty.
 - The default colour range in the viewer.
 
@@ -454,43 +456,137 @@ Done when: `npm run build` passes; `npm run dev` shows no Next.js issue badge; O
 - **Secrets (2026-11-23):** the user set `OSN_ACCESS_KEY_ID` and `OSN_SECRET_ACCESS_KEY` on the `osn-catalog` environment by piping them from the rclone `leappipeline` remote into `gh secret set`, so they never showed on screen.
   - Checked without printing values: environment-only (no repo-wide secrets), branches limited to main and modernize, both values non-empty with no stray whitespace.
   - Neither value appears in shell history, the Claude session transcripts, the working tree, or the repo's git history.
-  - No workflow run has used them yet; the #189 merge is the first.
+  - First use: run 45298954443 (push to modernize after the #189 merge). Both jobs passed; the log shows the keys only as `***`, and a local check confirmed neither real value appears in the saved log. The public parquet is 112,993 bytes, 74 Items (25 leap, 49 dynamical).
 - **Verified:** `uv run pytest tests/` gives 20 passed; all 49 live Collections build and validate (74 Items, 113 KB); `npm run build` against the local 74-item catalog renders 77 pages; GFS virtual and WeatherNext detail pages return 200 with the right snippet.
 
-## PR 5 (2.2): metadata enrichment and editorial pass
+## PR 4.5: bug fixes from the PR 1-4 review (2026-11-24)
+
+- **Search:** `components/catalog.tsx` builds a `RegExp` from the raw text, so `(` crashes the page. Use a substring match. In `components/search-box.tsx`, Enter submits the form and reloads; prevent it. Both reproduced on production.
+- **License links:** `components/feedstock/license.tsx` always builds an SPDX url. 15 items (10 LEAP, 5 WeatherNext) are not SPDX ids. Use the license link when there is one, else plain text.
+- **Repository links:** `components/feedstock/repo.tsx` assumes github.com. 51 items (49 dynamical, 2 LEAP) have another host. For those, show a "Source" link with the STAC link title.
+- **CERES groups:** carry `leap:group` through `utils/get-feedstocks.ts` and `types/types.ts`, and pass it to `xr.open_zarr` in `code-snippet.tsx`. Today all 5 CERES stores show the same snippet.
+- **Dropped STAC fields:** `build_catalog.py` keeps dynamical `attribution`, `model_id`, `model_name` and `version`. The UI shows `about` and `example` links.
+- **`?catalog=`** makes the server fetch any url. Allow only known hosts, or remove it.
+- **CI:** add a workflow that runs `npm run build`. `npm run lint` calls `next lint`, which Next 16 removed; replace it.
+
+Done when: each fix is checked on a local build, `uv run pytest tests/` passes, and the new workflow is green.
+
+### PR 4.5 implementation notes (2026-11-24)
+
+- **License:** the link is the STAC license link, else SPDX when the license is not `other`, else plain text.
+- **Source:** `ncviewjs:meta_yaml_url` is now `source` (a `Link`). 23 pages show "Repository", 51 show "Source".
+- **CERES:** opened all 5 groups lazily (45 variables each); the old snippet's root group has 0 variables.
+- **dynamical fields** are `leap:attribution`, `leap:model_id`, `leap:model_name` and `leap:version`, set on all 49 items. The UI does not show the attribution until PR 6b.
+- **`?catalog=`** allows only `https://nyu1.osn.mghpcc.org/leap-pangeo-*` (`utils/catalog-url.ts`). Use `NEXT_PUBLIC_CATALOG_URL` for local files. A blocked url returns 500.
+- **Lint:** pinned eslint 9, because eslint 10 crashes `eslint-plugin-react` in `eslint-config-next` 16. npm marks eslint 9 as unsupported. Flat config in `eslint.config.mjs`. The one error it found is fixed: `app/page.tsx` wrapped `notFound()` in a try/catch.
+- **CI:** `.github/workflows/web.yml` runs lint, `npm test` (node's test runner) and build on every PR.
+- **Checked:** 20 pytest tests and the url allowlist test; lint clean; builds on Node 20, 22 and 24. In a browser against a local build of the new catalog: all 74 detail pages, search (`(` and Enter), the license cases, an allowed and a blocked `?catalog=` url.
+- **On merge:** `build_catalog.py` changed, so `build-catalog` rebuilds and replaces the parquet on OSN. The new fields go live then.
+- **Not fixed:** Vercel previews (deferred; see the small follow-ups at the top). Bad metadata values (PR 5).
+
+## PR 5 (2.2): dataset metadata, descriptions and titles
+
+**Waiting (2026-11-24, user decision).** No dataset updates or fixes until the user says go.
+
+### Metadata
 
 - `scripts/enrich_datasets.py`:
   - Lazy reads only (metadata, dims, coords) that fill `cube:dimensions`, `cube:variables`, the temporal extent and the bbox.
   - Results go to `catalog/metadata.json`. Values in `datasets.yaml` override them.
   - Vendor the datacube schema for the tests.
-- Editorial pass on titles, summaries and descriptions. The user reviews the wording.
+  - Starting point: `arco-icechunk2` has metadata for 23 of the 25 LEAP datasets. CorrDiff NYC and NEX-GDDP need new reads.
+- Known bad values to fix: ERA5 ends in 2050, the CHIRPS license is "Just a Test", 24 of 25 LEAP items have no resolution, and 39 LEAP provider entries have no url.
 - Add a variable and dimension table built from `cube:*` where the html-repr panel was (the html-repr code was removed in PR 3.5).
 
-## PR 6 (3.1): search, facets, featured
+### Dataset research and descriptions
 
+Read about each of the 25 LEAP datasets, then write one paragraph for it. Descriptions today run from 39 to 731 characters, and 9 are under 150.
+
+1. **Read the store:** global attrs, variable attrs, dims and coords of every store (lazy reads only).
+2. **Follow the links:** `source_url`, the feedstock repo README, the license link, any DOI or paper named in the attrs or description, and the producer's dataset page. Resolve each DOI to its landing page. Look for a DOI or paper when the entry names none.
+3. **Record sources** in `datasets.yaml` as `references: [{title, href}]`. They become STAC links (`cite-as` for the dataset DOI, `about` for the rest) and the citation on the detail page.
+4. **Write the paragraph** (about 60-120 words, plain language): what it is, who made it and how, coverage and resolution, what it is used for, how LEAP's copy differs from the original (subset, regrid, time range), and known limits.
+5. **Update the one-line `summary`** (up to about 120 characters) to match.
+
+Rules:
+
+- Every claim traces to a listed source or to the store metadata. If sources disagree with the store, report it; the store wins for dims, dates and resolution.
+- Use our own words; do not paste abstracts.
+- Anything not found is listed as a gap (no DOI, no license, dead link), not guessed.
+- License, provider url and citation are collected in the same pass.
+- The 49 dynamical.org descriptions come from upstream on every build. Leave them; report problems only.
+
+Review: draft all 25 in one table (title, summary, paragraph, sources, gaps). Nothing goes into `datasets.yaml` until the user has marked it up. Work in batches of about 5, starting with the 9 shortest: climsim-lowres, pco2-testbed, era5, chirps-daily, metaflux, cm26-control, casm, ostia, enatl60.
+
+### Dataset titles
+
+Make titles consistent across the catalog. Propose a rule and a before/after list, reviewed with the descriptions.
+
+- Proposed rule: `<short name> <what it is>`, with the provider only when the name is not known without it, and a place or period only when it is part of the product. No format or pipeline words ("ARCO", "virtual"), no versions unless two versions are listed. Up to about 50 characters so it fits a card.
+- What is inconsistent today: some titles are a bare acronym ("ClimSim", "NASA RASI"), some name the process ("ERA5 (ARCO)"), some carry a version ("CHIRPS v2.0 Daily Precipitation"), and the order of provider, product and variable varies.
+- LEAP uses title case and dynamical.org uses sentence case ("NOAA GFS forecast"). Pick one for LEAP. dynamical titles come from upstream, and the grouping in PR 6 relies on them starting with `leap:model_name`, so do not rename them without changing that.
+- Item ids do not change: they are the page URLs and the ids in user code.
+- Titles also pick the photo and colour today (`utils/colors.ts`, `utils/thumbnail.ts` hash the title), so renaming changes them until PR 6 replaces both.
+
+Done when: every LEAP item has a reviewed title, summary and paragraph, at least one source or a listed gap, and a real or explicitly unknown license; `uv run pytest tests/` passes.
+
+## PR 6 (3.1): listing redesign (search, facets, featured)
+
+**Decision (2026-11-24): layout C.** The mockup is the visual reference: https://claude.ai/artifact/2zivn5sXUX5tNhdKnZNoS8 (private; version 2). It runs on the 74 published items.
+
+| Option    | Layout                                                     | Status                                          |
+| --------- | ---------------------------------------------------------- | ----------------------------------------------- |
+| A. Rows   | Filter rail, text rows, no images                          | Not chosen; its rail and rows are reused in C   |
+| B. Cards  | Filter chips on top, image cards                           | Not chosen; its cards and chips are reused in C |
+| C. Hybrid | First screen with search and featured, then the list below | **Chosen**                                      |
+
+First screen:
+
+- Title, tagline, full-width search, four featured cards (photo, title, summary; no badge) ordered by `leap:featured`, and a "Browse all N datasets" link. It fills the viewport so no list cards show until you scroll.
+- Typing in search hides the featured cards and brings the results up. Ticking a filter does not move the page.
+
+List:
+
+- Left filter rail with live counts: domain, kind, source, has map. OR inside a facet, AND across facets. On phones the rail sits behind a "Filters" button.
+- Header line: result count, "Group by model" (on by default), removable filter chips with "Clear all", sort (featured, A-Z, longest record), and a Cards/Rows switch. **Cards are the default.**
+- Card: 120px photo, title, summary, one spec line (coverage, resolution, frequency, dates), source and map badges.
+- Row: same fields, no photo. A model group expands to list its datasets.
+- Grouping uses dynamical's `model_name` (PR 4.5): 74 entries become 43. Featured items are not repeated at the top of the list.
+- Photo tint and dot colour encode the first domain, replacing today's colour from the title hash.
+- The "Query this catalog from Python" block sits below the list, collapsed.
+- Empty state names the search text and offers "Clear search and filters".
+
+Implementation:
+
+- `components/catalog.tsx`, `components/feedstock-card.tsx`, `components/search-box.tsx`, `components/tag-filter.tsx`, `utils/colors.ts`, `utils/thumbnail.ts`. Ideas to reuse from `arco-icechunk2:components/catalog.tsx`: sorting and URL state.
+- Search, filter, sort and layout state go in URL query params (not in the mockup).
 - Controlled vocabularies, checked by `build_catalog.py`, both stored in `keywords`:
   - domain: atmosphere, ocean, land, hydrology, carbon, cryosphere
   - kind: observations, reanalysis, analysis, simulation, forecast, ML-ready
 - `leap:featured` is an integer rank; lower comes first, and unset items are not featured.
-- UI, following the step 0.5 notes:
-  - Client-side text search over title, summary and keywords.
-  - Select-only facet chips.
-  - Featured items first, then alphabetical.
-  - Update `components/catalog.tsx`, `components/search-box.tsx` and `components/tag-filter.tsx`.
+- Images: request sized photos (`w=`, webp). Production sends about 7.4 MB for 32 cards; the mockup's 8 photos total about 120 KB. Grow the pool from 8 to about 30 in the same style (Unsplash license). Optional: a STAC asset with `roles: [thumbnail]` overrides the pool.
+- Accessibility: `h1`/`h2`/`h3`, a `main` landmark, alt text, keyboard-reachable controls, label contrast of at least 4.5:1 (today about 2:1).
 
-UI/UX review items (user feedback, 2026-11-23):
+Done when: home matches the mockup at 1440 and 390 px with no sideways scroll, `(` and Enter work in search, and a shared URL restores the same view.
 
-- **Catalog-level snippet on the home page.** A code block near the top: the catalog parquet URL plus a short `rustac` search (keyword via CQL2, bbox). It shows users the catalog is a STAC file they can query directly.
-- **Rethink the "open" / "find" tabs on the detail page.** Users do not see a real difference between them. Options:
-  - One block: find the item, then open it, as a single script.
-  - Keep "open" as the main snippet and move "find" into an "about this catalog" note that links to the home page snippet.
-- **"find" output is opaque.** If it stays, show what it returns: print the item id/title and the resolved `href`, e.g.
-  `item = rustac.search_sync(CATALOG_URL, ids=["ostia"])[0]` then `print(item["assets"]["data"]["alternate"]["s3"]["href"])`.
-- **More card images.** `utils/thumbnail.ts` hashes each title into a pool of only 8 Unsplash photos, so 25 datasets (more after PR 4) repeat images often.
-  - Grow the pool to about 30, matching the current style: satellite/aerial Earth, clouds, ocean, ice, terrain. Unsplash license; keep the same URL params (`auto=format&fit=crop&q=80`).
-  - Optional: let an Item set its own image via a STAC asset with `roles: [thumbnail]` in `datasets.yaml`, falling back to the pool. dynamical.org Items may already carry one.
+## PR 6b (3.1): detail page redesign
+
+Visual reference: the three "Detail" views in the same mockup (GPCP, GFS forecast, CERES).
+
+- No banner photo. Breadcrumb, badges, title and summary, then two columns: content on the left, facts on the right. On phones the facts come after the content.
+- Content order: open this dataset, map, about, dimensions and variables, license and citation, other datasets of the same model.
+- **One code block**, always visible, 14px, with a copy button. It replaces the "open" / "find" tabs. Datasets with several stores get a store picker, and the code passes `group`. dynamical example notebooks are listed below it.
+- Dimensions and variables come from `cube:*` (PR 5), with a filter box when there are more than 8 variables.
+- Facts: coverage, resolution, frequency, time range, format, version, license, providers, source, docs, dataset id.
+- Map: dates instead of indices, coastlines, fit to the bbox, per-variable colour ranges. Datasets without a map say so.
+- Discoverability: page titles use the dataset title (today `Feedstock: <slug>`), plus `sitemap`, `robots` and schema.org `Dataset` JSON-LD.
+- User-facing text says "dataset", not "feedstock".
+
+Done when: the three mockup pages match at 1440 and 390 px, and the shown snippets open lazily as pasted for one zarr, one icechunk, one grouped and one virtual store.
 
 ## PR 7 (4.1 + 4.2 + 5.2): icechunk 2 on OSN with time-series and viz branches
+
+**On hold (2026-11-24, user decision).** Do not start rewrites or transfers until the user says so.
 
 1. **Checklist (go/no-go gate).** Inventory every LEAP GCS store: size, zarr version, chunking, CRS, and whether it is curvilinear.
    - Reuse the existing inventory artifact (https://claude.ai/artifact/MpdE8NrcK1sLpVN5LanS8W) where it is still valid.
@@ -524,5 +620,6 @@ UI/UX review items (user feedback, 2026-11-23):
 
 - The spacetimer API and its recommended encodings (PR 7).
 - OSN CORS preflights deny every origin except production and allow no request headers. Simple GETs work everywhere, so this only matters if a client starts sending suffix ranges or custom headers. Ask the admins to allow `Range` in preflights? (low priority)
-- Which OSN key the GitHub Action uses (PR 4).
+- Whether `cube:*` goes in one JSON string column (proposed) or a sidecar file. Decide when PR 5 starts.
+- Where a grouped card links: the mockup opens the first dataset in the group. Decide when PR 6 starts.
 - Whether to keep, add a `viz` branch to, or rebuild the 8 existing single-branch ARCO repos (PR 7).

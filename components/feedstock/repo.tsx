@@ -1,9 +1,10 @@
+import { Link as SourceLink } from '@/types/types'
 import { Button, Link } from '@carbonplan/components'
 import { RotatingArrow } from '@carbonplan/icons'
 import { Box, Text } from 'theme-ui'
 
 interface RepositoryProps {
-  metaURL?: string
+  source?: SourceLink
 }
 
 function getOrgAndRepo(url: string): string {
@@ -13,13 +14,13 @@ function getOrgAndRepo(url: string): string {
   return `${org}/${repo}`
 }
 
-export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
-  if (!metaURL) {
+export const Repository: React.FC<RepositoryProps> = ({ source }) => {
+  if (!source) {
     return null
   }
 
-  const orgAndRepo = getOrgAndRepo(metaURL)
-  const githubUrl = `https://github.com/${orgAndRepo}`
+  const isGithub = new URL(source.url).hostname === 'github.com'
+  const orgAndRepo = getOrgAndRepo(source.url)
 
   return (
     <Box>
@@ -34,7 +35,7 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
             textTransform: 'uppercase',
           }}
         >
-          Repository
+          {isGithub ? 'Repository' : 'Source'}
         </Text>
       </Box>
 
@@ -42,14 +43,14 @@ export const Repository: React.FC<RepositoryProps> = ({ metaURL }) => {
         size='xs'
         suffix={<RotatingArrow />}
         as={Link}
-        href={githubUrl}
+        href={isGithub ? `https://github.com/${orgAndRepo}` : source.url}
         target='_blank'
         rel='noopener noreferrer'
         sx={{
           wordBreak: 'break-word',
         }}
       >
-        {orgAndRepo}
+        {isGithub ? orgAndRepo : source.label}
       </Button>
     </Box>
   )
