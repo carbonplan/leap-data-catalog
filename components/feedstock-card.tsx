@@ -1,94 +1,105 @@
-'use client'
-
-import { Thumbnail } from '@/components/feedstock'
-import { Feedstock } from '@/types/types'
-import { alpha } from '@theme-ui/color'
-import Link from 'next/link'
-import { Box, Flex, Text } from 'theme-ui'
+/** @jsxImportSource theme-ui */
+import {
+  Badges,
+  DatasetLink,
+  GroupMembers,
+  GroupToggle,
+  stretchSx,
+} from '@/components/entry-parts'
+import { headingSx, specSx } from '@/components/styles'
+import { entrySpec } from '@/utils/listing'
+import type { Entry } from '@/utils/listing'
+import { sizedPhoto } from '@/utils/thumbnail'
+import { Image } from 'theme-ui'
 
 interface FeedstockCardProps {
-  feedstock: Feedstock
+  entry: Entry
+  open?: boolean
+  onToggle?: () => void
+  /** Larger photo, no spec line or badges. */
+  featured?: boolean
 }
 
-export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
-  const { slug, description, provenance, tags, thumbnail, color, title } =
-    feedstock
-
-  const truncateDescription = (text: string, maxLength: number) => {
-    if (text.length <= maxLength) {
-      return text
-    }
-    return text.slice(0, maxLength).trim() + '...'
-  }
-
-  const truncatedDescription = truncateDescription(description, 200)
+export const FeedstockCard: React.FC<FeedstockCardProps> = ({
+  entry,
+  open = false,
+  onToggle,
+  featured,
+}) => {
+  const first = entry.items[0]
+  const group = entry.items.length > 1 && onToggle
 
   return (
-    <Link
-      href={`/feedstock/${slug}`}
-      style={{
-        textDecoration: 'none',
-        color: 'inherit',
-        display: 'block',
-        height: '100%',
-      }}
-    >
-      <Box
-        id={slug}
+    <li sx={{ minWidth: 0 }}>
+      <div
         sx={{
-          height: '100%',
+          position: 'relative',
           display: 'flex',
           flexDirection: 'column',
-          position: 'relative',
-          transition: 'all 0.3s ease',
-          m: -2,
-          p: 2,
-          ':hover': {
-            backgroundColor: alpha(color, 0.05),
-          },
+          gap: '7px',
         }}
       >
-        <Box sx={{ flex: '0 0 auto', position: 'relative' }}>
-          <Thumbnail url={thumbnail} color={color} tags={tags} />
-        </Box>
-
-        <Flex
+        <div
           sx={{
-            flexDirection: 'column',
-            flex: '1 1 auto',
-            justifyContent: 'space-between',
+            position: 'relative',
+            height: featured ? 'clamp(120px, 21svh, 210px)' : 120,
+            overflow: 'hidden',
+            bg: 'hinted',
+            '::after': {
+              content: '""',
+              position: 'absolute',
+              inset: 0,
+              bg: first.color,
+              opacity: 0.42,
+              mixBlendMode: 'multiply',
+            },
           }}
         >
-          <Box>
-            <Flex
-              sx={{
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                mt: 2,
-                mb: 2,
-              }}
-            >
-              <Box
-                sx={{
-                  fontSize: [3, 3, 3, 4],
-                  fontFamily: 'heading',
-                  mb: 2,
-                  pt: ['2px'],
-                  mt: 2,
-                }}
-              >
-                <Box>{title}</Box>
-              </Box>
-            </Flex>
-
-            <Box sx={{ mb: 2 }}>
-              <Text sx={{ fontSize: [2, 2, 2, 3] }}>
-                {truncatedDescription}
-              </Text>
-            </Box>
-          </Box>
-        </Flex>
-      </Box>
-    </Link>
+          <Image
+            src={sizedPhoto(first.thumbnail, 640)}
+            alt=''
+            loading={featured ? 'eager' : 'lazy'}
+            width={640}
+            height={240}
+            sx={{
+              display: 'block',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              filter: 'grayscale(100%)',
+            }}
+          />
+        </div>
+        <h3 sx={{ ...headingSx, fontSize: 3, lineHeight: 1.2 }}>
+          {group ? (
+            entry.title
+          ) : (
+            <DatasetLink feedstock={first} sx={stretchSx}>
+              {entry.title}
+            </DatasetLink>
+          )}
+        </h3>
+        <p sx={{ m: 0, fontSize: 1, lineHeight: 1.4, color: 'secondary' }}>
+          {first.summary}
+        </p>
+        {!featured && (
+          <>
+            <p sx={specSx}>{entrySpec(entry)}</p>
+            <div sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+              <Badges entry={entry} />
+            </div>
+          </>
+        )}
+        {group && (
+          <GroupToggle
+            entry={entry}
+            open={open}
+            onToggle={onToggle}
+            sx={stretchSx}
+          />
+        )}
+      </div>
+      {group && <GroupMembers entry={entry} open={open} />}
+    </li>
   )
 }

@@ -27,7 +27,7 @@ const ClientFeedstockPage: React.FC<ClientFeedstockPageProps> = ({
           stores={feedstock.stores}
           itemId={feedstock.slug}
           catalogUrl={feedstock.catalogUrl}
-          color={feedstock.color}
+          color='text'
         />
         <SectionDivider sx={{ mb: 4 }} color={feedstock.color} />
         <FeedstockDetails feedstock={feedstock} />

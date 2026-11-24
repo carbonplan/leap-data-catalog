@@ -1,54 +1,32 @@
-import { Input } from '@carbonplan/components'
-import { Box, Flex, Text } from 'theme-ui'
-
+/** @jsxImportSource theme-ui */
 interface SearchBoxProps {
-  sx?: React.CSSProperties
   search: string
   setSearch: (value: string) => void
 }
 
-export const SearchBox: React.FC<SearchBoxProps> = ({
-  sx,
-  search,
-  setSearch,
-}) => {
+export const SearchBox: React.FC<SearchBoxProps> = ({ search, setSearch }) => {
   return (
-    <Box as='section' sx={{ width: '100%', ...sx }}>
-      <Flex
+    <form role='search' onSubmit={(e) => e.preventDefault()}>
+      <input
+        type='search'
+        aria-label='Search datasets'
+        placeholder='Search datasets, e.g. ocean carbon or GFS'
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
         sx={{
-          alignItems: 'flex-end',
           width: '100%',
+          height: 44,
+          px: '14px',
+          fontFamily: 'body',
+          fontSize: 2,
+          color: 'text',
+          bg: 'background',
+          border: '1px solid',
+          borderColor: 'text',
+          borderRadius: 0,
+          '::placeholder': { color: 'secondary', opacity: 1 },
         }}
-      >
-        <Text
-          sx={{
-            fontWeight: 'bold',
-            fontSize: [3, 3, 3, 4],
-          }}
-        >
-          Search
-        </Text>
-        <Box
-          sx={{
-            ml: [4],
-            width: '100%',
-          }}
-        >
-          <form onSubmit={(e) => e.preventDefault()}>
-            <Input
-              size='md'
-              value={search}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setSearch(e.target.value)
-              }
-              sx={{
-                flexGrow: 1,
-                width: '100%',
-              }}
-            />
-          </form>
-        </Box>
-      </Flex>
-    </Box>
+      />
+    </form>
   )
 }

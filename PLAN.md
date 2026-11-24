@@ -16,14 +16,14 @@ Last updated: 2026-11-24
 | 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`     | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
 | 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`     | [x] merged into modernize (#189); first CI upload 2026-11-24    |
 | 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`        | [x] merged into `modernize` (#190)                              |
-| 4.6 | Look-back review fixes                                          | -             | `modernize-04c-review-fixes` | [ ] open, waiting for review and merge                          |
+| 4.6 | Look-back review fixes                                          | -             | `modernize-04c-review-fixes` | [x] merged into `modernize` (#191)                              |
 | 5   | Metadata enrichment, dataset descriptions and titles            | 2.2           | `modernize-05-enrich`        | [ ] waiting (user, 2026-11-24)                                  |
-| 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`       | [ ] design chosen 2026-11-24                                    |
+| 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`       | [ ] open, waiting for review and merge                          |
 | 6b  | Detail page redesign                                            | 3.1           | `modernize-06b-detail`       | [ ] design chosen 2026-11-24                                    |
 | 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`          | [ ] on hold (2026-11-24)                                        |
 | 8   | Shut down the fly.io services                                   | 5.3           | -                            | [ ]                                                             |
 
-Next up: review and merge PR 4.6. PR 5 (dataset updates and fixes) waits until the user says go; whether PR 6 starts before it is open. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
+Next up: review and merge PR 6. PR 5 (dataset updates and fixes) waits until the user says go; PR 6b needs its own go and its order against PR 5 is open. Work stays on `modernize`; it does not merge to `main` yet.
 Small follow-ups:
 
 - Vercel builds failed from #186 on with `404 Not Found`. Likely cause: a stale `NEXT_PUBLIC_CATALOG_URL` in the Vercel settings; the url #28 used (`catalog/datasets/consolidated-web-catalog.json`) is now 404. PR 4.6 renames the variable to `CATALOG_URL` (it is only read on the server), so the old value is ignored. Not seen in the Vercel settings directly; delete the old variable there when convenient.
@@ -512,6 +512,8 @@ Code only; no dataset edits.
 - Known bad values to fix: ERA5 ends in 2050, the CHIRPS license is "Just a Test", 24 of 25 LEAP items have no resolution, and 39 LEAP provider entries have no url.
 - Maintainers: production credits people per dataset, and the regroup in PR 1 dropped them. Restore from the old consolidated JSON; PR 6b shows them.
 - CorrDiff's description says NetCDF; the store is icechunk. CMIP6 (no stores) was dropped in PR 1 without a note; decide whether to list it.
+- **Featured (user, 2026-11-24):** replace today's four with a mix of LEAP and dynamical datasets. Proposed, not confirmed: `llc4320-agulhas`, `noaa-gfs-forecast`, `metaflux`, `ecmwf-aifs-single-forecast`. The build has no way to rank a dynamical item yet; the site accepts any ranked item.
+- Vocabulary check for `keywords` in `build_catalog.py` (moved from PR 6, which is front-end only).
 - Add a variable and dimension table built from `cube:*` where the html-repr panel was (the html-repr code was removed in PR 3.5).
 
 ### Dataset research and descriptions
@@ -585,6 +587,19 @@ Implementation:
 
 Done when: home matches the mockup at 1440 and 390 px with no sideways scroll, `(` and Enter work in search, and a shared URL restores the same view.
 
+### PR 6 implementation notes (2026-11-24)
+
+Front-end only; the live parquet is not rebuilt.
+
+- **User answers:** grouped entries expand in place; blank spec fields ship as gaps; the photo pool stays at 8; the featured change waits for PR 5.
+- **Logic** is in `utils/listing.ts`, tested in `tests/listing.test.mjs`. Titles sort with the `en` locale so server and browser agree.
+- **URL state** (`utils/use-view.ts`): `q`, `domain`, `kind`, `source`, `map`, `sort`, `group`, `view`, and `open` for expanded groups. It is read with `useSyncExternalStore`, so `/` stays static and all 74 links are in its HTML. A hard load of a shared url shows the default view until hydration.
+- **Back** on a detail page calls `router.back()` when it was opened from the list in this tab, otherwise it goes to `/`.
+- **Different from the mockup:** "Longest record" sorts by end minus start (the mockup: earliest start). Group member names drop the model only at a word break ("NOAA RTMA-RU analysis"). Filter values with a count of 0 are not faded (contrast). The photo order differs past the featured four.
+- **Detail pages until 6b:** new header, darker banner and dark "Access Data" text, because the domain colours are too pale for text.
+- **Known:** a group shows the summary of its first dataset (A-Z), which can be too narrow (NASA IMERG says "Early Run").
+- **Stale data:** `npm run build` reuses `.next/cache/fetch-cache` for up to an hour; delete it when a field or group is missing.
+
 ## PR 6b (3.1): detail page redesign
 
 Visual reference: the three "Detail" views in the same mockup (GPCP, GFS forecast, CERES).
@@ -637,5 +652,4 @@ Done when: the three mockup pages match at 1440 and 390 px, and the shown snippe
 - The spacetimer API and its recommended encodings (PR 7).
 - OSN CORS preflights deny every origin except production and allow no request headers. Simple GETs work everywhere, so this only matters if a client starts sending suffix ranges or custom headers. Ask the admins to allow `Range` in preflights? (low priority)
 - Whether `cube:*` goes in one JSON string column (proposed) or a sidecar file. Decide when PR 5 starts.
-- Where a grouped card links: the mockup opens the first dataset in the group. Decide when PR 6 starts.
 - Whether to keep, add a `viz` branch to, or rebuild the 8 existing single-branch ARCO repos (PR 7).
