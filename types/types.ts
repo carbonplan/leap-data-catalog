@@ -1,21 +1,3 @@
-interface Rechunking {
-  path: string
-}
-
-interface Dataset {
-  id: string
-  name?: string
-  url: string
-  'ncviewjs:rechunking'?: Rechunking[]
-  public?: boolean
-  geospatial?: boolean
-}
-
-export interface XarrayOpenKwargsType {
-  engine: string
-  chunks: Record<string, any>
-}
-
 export interface Store {
   id: string
   name?: string
@@ -25,12 +7,6 @@ export interface Store {
   group?: string
   virtual?: boolean
   viewer?: boolean
-  rechunking?: { [key: string]: string }[]
-  'ncviewjs:rechunking'?: Rechunking[]
-  public?: boolean
-  geospatial?: boolean
-
-  xarray_open_kwargs: XarrayOpenKwargsType
 }
 
 export interface Link {
@@ -69,7 +45,7 @@ export interface Feedstock {
   thumbnail: string
   tags?: string[]
   links?: Link[]
-  stores?: Store[]
+  stores: Store[]
   source?: Link
   slug: string
   catalogUrl: string

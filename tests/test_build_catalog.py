@@ -22,7 +22,10 @@ ITEM_SCHEMA = 'https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/item.js
 STANDARD_PROPS = {
     'datetime', 'start_datetime', 'end_datetime', 'title', 'description', 'keywords', 'license', 'providers',
 }
-SPDX_OR_OTHER = re.compile(r'^[\w\-.+]+$')
+# SPDX ids in use; add new ones here after checking https://spdx.org/licenses/.
+LICENSES = {
+    'Apache-2.0', 'CC-BY-4.0', 'CC-BY-NC-4.0', 'CC-BY-NC-ND-4.0', 'CC0-1.0', 'other',
+}
 # Trimmed dynamical.org Collections: s3 native, s3 virtual, R2 https-only with license 'other'.
 DYNAMICAL: list[dict] = json.loads((Path(__file__).parent / 'fixtures' / 'dynamical_collections.json').read_text())
 NOW = '2026-11-23T00:00:00Z'
@@ -80,7 +83,7 @@ def test_viewer_flag_copied(items: list[dict]) -> None:
 def test_license_and_providers(items: list[dict]) -> None:
     for item in items:
         p = item['properties']
-        assert SPDX_OR_OTHER.match(p['license']), item['id']
+        assert p['license'] in LICENSES, (item['id'], p['license'])
         assert p['providers'] and all(isinstance(x, dict) and x['name'] for x in p['providers'])
 
 
@@ -149,7 +152,8 @@ def test_dynamical_items(items: list[dict]) -> None:
     assert gfs['properties']['leap:source'] == 'dynamical'
     assert gfs['properties']['leap:model_name'] == 'NOAA GFS'
     assert gfs['properties']['leap:attribution'].startswith('NOAA NWS NCEP GFS data')
-    assert gfs['properties']['end_datetime'] == NOW  # open-ended interval
+    assert gfs['properties']['end_datetime'] == NOW and gfs['properties']['leap:ongoing'] is True
+    assert 'leap:ongoing' not in by_id['ostia']['properties']
     assert not {link['rel'] for link in gfs['links']} & bc.DYNAMICAL_TREE_RELS
     data = gfs['assets']['data']
     assert data['href'] == 'https://dynamical-noaa-gfs.s3.us-west-2.amazonaws.com/noaa-gfs-analysis/v0.1.0.icechunk'
@@ -160,6 +164,23 @@ def test_dynamical_items(items: list[dict]) -> None:
     assert 'alternate' not in wn['assets']['data']
     assert wn['properties']['license'] == 'other' and wn['properties']['leap:license_text']
     assert by_id['ostia']['properties']['leap:source'] == 'leap'
+
+
+def test_closed_interval_is_not_ongoing() -> None:
+    c = json.loads(json.dumps(DYNAMICAL[0]))
+    c['extent']['temporal']['interval'][0][1] = '2025-01-01T00:00:00Z'
+    assert 'ongoing' not in bc.dynamical_entry(c, NOW)
+
+
+def test_bad_input_fails_the_build(monkeypatch: pytest.MonkeyPatch) -> None:
+    with pytest.raises(ValueError, match='antimeridian'):
+        bc.footprint(170, -10, -170, 10)
+    no_license_link = dict(DYNAMICAL[0], license='other', links=[])
+    with pytest.raises(ValueError, match='license'):
+        bc.dynamical_entry(no_license_link, NOW)
+    monkeypatch.setattr(bc, 'fetch_json', lambda url: {'links': []})
+    with pytest.raises(ValueError, match='no child collections'):
+        bc.dynamical_collections()
 
 
 def test_leap_id_wins_over_dynamical() -> None:

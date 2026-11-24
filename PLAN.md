@@ -6,29 +6,30 @@ Last updated: 2026-11-24
 
 ## Status
 
-| #   | PR                                                              | Covers        | Branch                    | Status                                                          |
-| --- | --------------------------------------------------------------- | ------------- | ------------------------- | --------------------------------------------------------------- |
-| 0   | Housekeeping: save the reference branch, cut `modernize`        | -             | -                         | [x]                                                             |
-| 0.5 | Design research notes (no code)                                 | 3.1           | -                         | [x] `docs/design-research.md`                                   |
-| 1   | STAC source of truth and stac-geoparquet build                  | 1.1           | `modernize-01-stac-build` | [x] merged into `modernize` (#185, squash)                      |
-| 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`   | [x] merged into `modernize` (#186)                              |
-| 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)                              |
-| 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
-| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [x] merged into modernize (#189); first CI upload 2026-11-24    |
-| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`     | [ ] open (#190), waiting for review and merge                   |
-| 5   | Metadata enrichment, dataset descriptions and titles            | 2.2           | `modernize-05-enrich`     | [ ] waiting (user, 2026-11-24)                                  |
-| 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`    | [ ] design chosen 2026-11-24                                    |
-| 6b  | Detail page redesign                                            | 3.1           | `modernize-06b-detail`    | [ ] design chosen 2026-11-24                                    |
-| 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ] on hold (2026-11-24)                                        |
-| 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                                             |
+| #   | PR                                                              | Covers        | Branch                       | Status                                                          |
+| --- | --------------------------------------------------------------- | ------------- | ---------------------------- | --------------------------------------------------------------- |
+| 0   | Housekeeping: save the reference branch, cut `modernize`        | -             | -                            | [x]                                                             |
+| 0.5 | Design research notes (no code)                                 | 3.1           | -                            | [x] `docs/design-research.md`                                   |
+| 1   | STAC source of truth and stac-geoparquet build                  | 1.1           | `modernize-01-stac-build`    | [x] merged into `modernize` (#185, squash)                      |
+| 2   | Web app reads the STAC parquet; Python snippet; search examples | 1.2, 1.3      | `modernize-02-web-stac`      | [x] merged into `modernize` (#186)                              |
+| 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`        | [x] merged into `modernize` (#187)                              |
+| 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`     | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
+| 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`     | [x] merged into modernize (#189); first CI upload 2026-11-24    |
+| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`        | [x] merged into `modernize` (#190)                              |
+| 4.6 | Look-back review fixes                                          | -             | `modernize-04c-review-fixes` | [ ] open, waiting for review and merge                          |
+| 5   | Metadata enrichment, dataset descriptions and titles            | 2.2           | `modernize-05-enrich`        | [ ] waiting (user, 2026-11-24)                                  |
+| 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`       | [ ] design chosen 2026-11-24                                    |
+| 6b  | Detail page redesign                                            | 3.1           | `modernize-06b-detail`       | [ ] design chosen 2026-11-24                                    |
+| 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`          | [ ] on hold (2026-11-24)                                        |
+| 8   | Shut down the fly.io services                                   | 5.3           | -                            | [ ]                                                             |
 
-Next up: review and merge #190 (PR 4.5). PR 5 (dataset updates and fixes) waits until the user says go; whether PR 6 starts before it is open. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
+Next up: review and merge PR 4.6. PR 5 (dataset updates and fixes) waits until the user says go; whether PR 6 starts before it is open. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
 Small follow-ups:
 
-- **Deferred by the user until all PRs look good; must be done before any merge to `main`:** Vercel deploys have failed since #186 with `Failed to fetch feedstocks: Error: 404 Not Found`. Likely cause, not confirmed: a stale `NEXT_PUBLIC_CATALOG_URL` in the Vercel settings (added by #28 in March 2024; `main` stopped reading it in #39). The default OSN url returns 200, and pointing the variable at a missing file gives the same error. Fix: delete the variable in every environment (note whether it covers Production), then redeploy. Until then the red Vercel check is expected; use the `web` check and local builds.
+- Vercel builds failed from #186 on with `404 Not Found`. Likely cause: a stale `NEXT_PUBLIC_CATALOG_URL` in the Vercel settings; the url #28 used (`catalog/datasets/consolidated-web-catalog.json`) is now 404. PR 4.6 renames the variable to `CATALOG_URL` (it is only read on the server), so the old value is ignored. Not seen in the Vercel settings directly; delete the old variable there when convenient.
 
 - eslint is pinned to 9 (PR 4.5). Go back to 10 once `eslint-config-next` supports it; dependabot will propose it before then.
-- The OSTIA store is empty.
+- `maplibre-gl` 5 has a critical advisory (HTML sanitizer, <=6.4.0). The viewer renders no HTML through it (no popups, no attribution). Upgrade to 6 once checked with zarr-layer.
 - The default colour range in the viewer.
 
 Branching:
@@ -346,7 +347,7 @@ Verified:
 
 Known issues:
 
-- `leap-pangeo-pipeline/OSTIA/OSTIA.zarr` has global attrs but no arrays, so `open_zarr` returns an empty dataset. This is a data problem: fix the store or drop it. Other stores were not checked for emptiness.
+- Corrected 2026-11-24: OSTIA is not empty. It and Caravan have `consolidated_metadata: null`, and https cannot list a bucket, so `open_zarr(<https>)` finds no arrays. Fixed in the snippet (PR 4.6).
 - `/feedstock/[slug]` builds as dynamic (`ƒ`), not ISR, probably because of the `?catalog=` searchParams. The fetch is still cached for an hour.
 - Not tested: the `find` tab run as pasted, and the tab and copy buttons in a real browser.
 
@@ -362,7 +363,7 @@ Decisions made at the start of PR 3 (2026-11-23):
 
 - **CORS: read directly, no proxy.** The proxy planned at the start was built, then removed in review (`d86cb12`). The viewer's requests (icechunk-js + zarr-layer) are all CORS-safelisted (none, or bounded Range), and OSN answers them with `allow-origin: *`. See "Known gotchas". The browser test from localhost read every flagged store directly.
 - **The `viewer: true` flag goes on stores in `datasets.yaml`.** `build_catalog.py` copies it to `leap:viewer`.
-- **Local testing before upload:** serve a local build over http and set `NEXT_PUBLIC_CATALOG_URL` to it. After rebuilding the parquet, delete `.next/cache/fetch-cache`. Uploading to OSN needs the user's go.
+- **Local testing before upload:** serve a local build over http and set `CATALOG_URL` to it. After rebuilding the parquet, delete `.next/cache/fetch-cache`. Uploading to OSN needs the user's go.
 
 ### PR 3 implementation notes (2026-11-23)
 
@@ -388,7 +389,7 @@ Rejected, with the reason:
 - Unknown dim names: pco2-testbed (`ylat`/`xlon`).
 - Groups not supported by the viewer: ceres-ebaf. Chunks are 0.26 MB, so this is a cheap win once group support exists.
 - nex-gddp: 1,414 arrays in groups.
-- OSTIA: empty store.
+- OSTIA: zarr, and SST objects of 6-10 MB (it was wrongly listed as empty; see PR 4.6).
 - nasa-rasi: unverified. CORS and chunks are fine, but the virtual chunk read drew a near-blank canvas.
 
 Verified:
@@ -477,12 +478,25 @@ Done when: each fix is checked on a local build, `uv run pytest tests/` passes, 
 - **Source:** `ncviewjs:meta_yaml_url` is now `source` (a `Link`). 23 pages show "Repository", 51 show "Source".
 - **CERES:** opened all 5 groups lazily (45 variables each); the old snippet's root group has 0 variables.
 - **dynamical fields** are `leap:attribution`, `leap:model_id`, `leap:model_name` and `leap:version`, set on all 49 items. The UI does not show the attribution until PR 6b.
-- **`?catalog=`** allows only `https://nyu1.osn.mghpcc.org/leap-pangeo-*` (`utils/catalog-url.ts`). Use `NEXT_PUBLIC_CATALOG_URL` for local files. A blocked url returns 500.
+- **`?catalog=`** (removed in PR 4.6) allows only `https://nyu1.osn.mghpcc.org/leap-pangeo-*` (`utils/catalog-url.ts`). Use `NEXT_PUBLIC_CATALOG_URL` for local files. A blocked url returns 500.
 - **Lint:** pinned eslint 9, because eslint 10 crashes `eslint-plugin-react` in `eslint-config-next` 16. npm marks eslint 9 as unsupported. Flat config in `eslint.config.mjs`. The one error it found is fixed: `app/page.tsx` wrapped `notFound()` in a try/catch.
 - **CI:** `.github/workflows/web.yml` runs lint, `npm test` (node's test runner) and build on every PR.
 - **Checked:** 20 pytest tests and the url allowlist test; lint clean; builds on Node 20, 22 and 24. In a browser against a local build of the new catalog: all 74 detail pages, search (`(` and Enter), the license cases, an allowed and a blocked `?catalog=` url.
 - **On merge:** `build_catalog.py` changed, so `build-catalog` rebuilds and replaces the parquet on OSN. The new fields go live then.
 - **Not fixed:** Vercel previews (deferred; see the small follow-ups at the top). Bad metadata values (PR 5).
+
+## PR 4.6: look-back review fixes (2026-11-24)
+
+Code only; no dataset edits.
+
+- **Snippets** are in `utils/snippet.ts` with tests. OSN zarr stores open through obstore and `zarr.storage.ObjectStore`.
+- **Build:** fails on an empty dynamical crawl, an antimeridian bbox, or an `other` license with no titled link. Open-ended items get `leap:ongoing: true`. CI builds with the locked env the tests use. The cron is daily, and starts once the workflow is on `main`.
+- **License test** checks a list of known ids; the old regex accepted anything. dynamical items from the live crawl are not checked.
+- **`?catalog=` is removed.** `/` and all 74 detail pages are now static with hourly revalidation (they were server-rendered on every request). Use `CATALOG_URL` for another catalog (renamed, see the follow-ups at the top). The fetch error now names the url.
+- **Viewer:** the zarr-layer module loads before the store is shown, so the first layer uses the current range and selectors. `valid_range` is read. Layer and selector errors show in the status line.
+- **Next** 16.4.6 and generated config committed. Dead pangeo-forge code deleted.
+- **Checked:** 22 pytest and 5 node tests, lint, types, build. OSTIA (4 variables), Caravan (40), chirps, casm, modis-lai, one CERES group and one virtual store opened lazily as pasted. In a browser: GRACE, GPCP and MetaFlux, slider and variable change, no errors; home shows 74 cards; an unknown slug gives 404.
+- **For 6b:** GRACE declares +-30 m, so its map is now nearly flat, and its ocean cells draw as low values. MetaFlux has no range metadata and still saturates. Both need per-variable ranges.
 
 ## PR 5 (2.2): dataset metadata, descriptions and titles
 
@@ -496,6 +510,8 @@ Done when: each fix is checked on a local build, `uv run pytest tests/` passes, 
   - Vendor the datacube schema for the tests.
   - Starting point: `arco-icechunk2` has metadata for 23 of the 25 LEAP datasets. CorrDiff NYC and NEX-GDDP need new reads.
 - Known bad values to fix: ERA5 ends in 2050, the CHIRPS license is "Just a Test", 24 of 25 LEAP items have no resolution, and 39 LEAP provider entries have no url.
+- Maintainers: production credits people per dataset, and the regroup in PR 1 dropped them. Restore from the old consolidated JSON; PR 6b shows them.
+- CorrDiff's description says NetCDF; the store is icechunk. CMIP6 (no stores) was dropped in PR 1 without a note; decide whether to list it.
 - Add a variable and dimension table built from `cube:*` where the html-repr panel was (the html-repr code was removed in PR 3.5).
 
 ### Dataset research and descriptions

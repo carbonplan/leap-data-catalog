@@ -8,13 +8,9 @@ import { Box, Flex, Text } from 'theme-ui'
 
 interface FeedstockCardProps {
   feedstock: Feedstock
-  catalog?: string
 }
 
-export const FeedstockCard: React.FC<FeedstockCardProps> = ({
-  feedstock,
-  catalog,
-}) => {
+export const FeedstockCard: React.FC<FeedstockCardProps> = ({ feedstock }) => {
   const { slug, description, provenance, tags, thumbnail, color, title } =
     feedstock
 
@@ -29,9 +25,7 @@ export const FeedstockCard: React.FC<FeedstockCardProps> = ({
 
   return (
     <Link
-      href={
-        catalog ? `/feedstock/${slug}?catalog=${catalog}` : `/feedstock/${slug}`
-      }
+      href={`/feedstock/${slug}`}
       style={{
         textDecoration: 'none',
         color: 'inherit',

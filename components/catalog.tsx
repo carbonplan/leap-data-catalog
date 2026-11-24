@@ -12,12 +12,10 @@ const FeedstockList = ({
   feedstocks,
   search,
   tags,
-  catalog,
 }: {
   feedstocks: Feedstock[]
   search: string
   tags: string[]
-  catalog?: string
 }) => {
   const filteredFeedstocks = useMemo(() => {
     if (!feedstocks || feedstocks.length === 0) {
@@ -55,12 +53,8 @@ const FeedstockList = ({
 
   return (
     <Row columns={[1, 2, 3, 3]} gap={[4, 5, 5, 6]} sx={{ gridAutoRows: '1fr' }}>
-      {filteredFeedstocks.map((feedstock, index) => (
-        <FeedstockCard
-          key={feedstock.title}
-          feedstock={feedstock}
-          catalog={catalog}
-        />
+      {filteredFeedstocks.map((feedstock) => (
+        <FeedstockCard key={feedstock.slug} feedstock={feedstock} />
       ))}
     </Row>
   )
@@ -69,10 +63,9 @@ const FeedstockList = ({
 type CatalogProps = {
   feedstocks: Feedstock[]
   error?: Error
-  catalog?: string
 }
 
-export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
+export const Catalog = ({ feedstocks, error }: CatalogProps) => {
   const [search, setSearch] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
@@ -129,7 +122,6 @@ export const Catalog = ({ feedstocks, error, catalog }: CatalogProps) => {
                 tags={selectedTags}
                 feedstocks={feedstocks}
                 search={search}
-                catalog={catalog}
               />
             </Suspense>
           </Box>

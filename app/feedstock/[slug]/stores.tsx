@@ -1,6 +1,5 @@
 'use client'
 
-import { TooltipWrapper } from '@/components/tooltip-wrapper'
 import { Store } from '@/types/types'
 import { Button, Column, Expander, Row } from '@carbonplan/components'
 import React, { useState } from 'react'
@@ -25,12 +24,6 @@ export const FeedstockStore: React.FC<{
   color: string
 }> = ({ store, label, itemId, catalogUrl, color }) => {
   const [expanded, setExpanded] = useState(false)
-
-  const tooltipContent = !store.public
-    ? 'Private dataset. Access requires credentials or a Columbia-LEAP JupyterHub server.'
-    : store.geospatial
-      ? ''
-      : 'This dataset contains non-geospatial data not supported by the data viewer.'
 
   return (
     <Box sx={{ mb: 4 }}>
@@ -71,10 +64,8 @@ export const FeedstockStore: React.FC<{
                 </Text>
               </Box>
 
-              <TooltipWrapper isExpanded tooltip={tooltipContent} color={color}>
-                {/* mount lazily so collapsed stores do not fetch */}
-                {expanded && <DataViewer store={store} color={color} />}
-              </TooltipWrapper>
+              {/* mount lazily so collapsed stores do not fetch */}
+              {expanded && <DataViewer store={store} color={color} />}
             </Box>
           </Column>
           <Column start={[1, 5, 7, 7]} width={[6, 4, 5, 5]}>
@@ -102,13 +93,13 @@ export const FeedstockStore: React.FC<{
 }
 
 export const FeedstockStores: React.FC<{
-  stores: Store[] | undefined
+  stores: Store[]
   itemId: string
   catalogUrl: string
   color: string
 }> = ({ stores, itemId, catalogUrl, color }) => {
   // one store: "Access Data" is the expander itself; several: a header, then one expander per store
-  const single = stores?.length === 1
+  const single = stores.length === 1
   return (
     <>
       {!single && (
@@ -121,31 +112,16 @@ export const FeedstockStores: React.FC<{
         </Row>
       )}
 
-      {stores ? (
-        stores.map((store) => (
-          <FeedstockStore
-            key={store.id}
-            store={store}
-            label={single ? 'Access Data' : store.name || store.id}
-            itemId={itemId}
-            catalogUrl={catalogUrl}
-            color={color}
-          />
-        ))
-      ) : (
-        <Box sx={{ mb: 4 }}>
-          <Row>
-            <Column start={[1, 1, 2, 2]} width={[6, 4, 4, 5]}>
-              <Box sx={{ mt: 2, fontSize: [1, 1, 1, 2] }}>
-                Due to the large number of data stores associated with the
-                feedstock, we have opted not to list them individually here.
-                Instead, you can access information about the data stores by
-                visiting the feedstock&apos;s GitHub repository linked below.
-              </Box>
-            </Column>
-          </Row>
-        </Box>
-      )}
+      {stores.map((store) => (
+        <FeedstockStore
+          key={store.id}
+          store={store}
+          label={single ? 'Access Data' : store.name || store.id}
+          itemId={itemId}
+          catalogUrl={catalogUrl}
+          color={color}
+        />
+      ))}
     </>
   )
 }
