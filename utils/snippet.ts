@@ -60,20 +60,3 @@ session = repo.readonly_session('main')
 ds = xr.open_zarr(session.store${zarrGroup(store)})
 `
     : zarrSnippet(store)
-
-export const findSnippet = (
-  store: Store,
-  itemId: string,
-  catalogUrl: string,
-) => {
-  const scheme = store.nativeUrl?.startsWith('gs://') ? 'gcs' : 's3'
-  const href =
-    store.nativeUrl && store.nativeUrl !== store.url
-      ? `["alternate"]["${scheme}"]["href"]`
-      : `["href"]`
-  return `import rustac
-
-item = rustac.search_sync('${catalogUrl}', ids=['${itemId}'])[0]
-href = item["assets"]["${store.id}"]${href}
-`
-}

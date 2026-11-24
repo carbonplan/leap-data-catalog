@@ -5,7 +5,7 @@ import { Metadata } from 'next'
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
-  title: 'LEAP Data Catalog',
+  title: { default: 'LEAP Data Catalog', template: '%s | LEAP Data Catalog' },
   description: 'Explore and discover datasets from the LEAP project',
   icons: {
     icon: [

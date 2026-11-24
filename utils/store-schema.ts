@@ -1,3 +1,4 @@
+import { fillValue } from '@/utils/map'
 import { IcechunkStore } from 'icechunk-js'
 
 export interface ArrayMeta {
@@ -26,3 +27,26 @@ export function arraysFromStore(store: IcechunkStore): ArrayMeta[] {
   }
   return arrays
 }
+
+/**
+ * The store with xarray's `_FillValue` as the zarr fill value: zarr-layer 0.11 masks only the latter when it
+ * draws a region, whatever its `fillValue` option says.
+ */
+export const withFillValues = (store: IcechunkStore): IcechunkStore =>
+  new Proxy(store, {
+    get(target, prop) {
+      const value = Reflect.get(target, prop, target)
+      if (typeof value !== 'function') return value
+      if (prop !== 'get') return value.bind(target)
+      return async (...args: Parameters<IcechunkStore['get']>) => {
+        const bytes = await target.get(...args)
+        if (!bytes || !args[0].endsWith('zarr.json')) return bytes
+        const meta = JSON.parse(new TextDecoder().decode(bytes))
+        const fill = fillValue(meta.attributes?._FillValue)
+        if (fill === undefined) return bytes
+        return new TextEncoder().encode(
+          JSON.stringify({ ...meta, fill_value: fill }),
+        )
+      }
+    },
+  })

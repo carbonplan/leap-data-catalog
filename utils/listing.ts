@@ -212,7 +212,7 @@ const capitalize = (s: string) => s && s[0].toUpperCase() + s.slice(1)
 const latitude = (y: number) =>
   `${Math.abs(Math.round(y))}°${y < 0 ? 'S' : 'N'}`
 
-const coverage = (f: Feedstock): string => {
+export const coverage = (f: Feedstock): string => {
   if (f.spatialDomain) return f.spatialDomain
   if (f.coverage) return capitalize(f.coverage)
   const [w, s, e, n] = f.bbox
@@ -222,13 +222,13 @@ const coverage = (f: Feedstock): string => {
   return n - s >= 130 ? 'Global' : `${latitude(s)} to ${latitude(n)}`
 }
 
-const resolution = (f: Feedstock): string =>
+export const resolution = (f: Feedstock): string =>
   (f.spatialResolution ?? '')
     .replace(/ degrees?/g, '°')
     .replace(/ \(~[^)]*\)/g, '')
     .replace(/^[\d-]+ hours: (.*), [\d-]+ hours: (.*)$/, '$1 then $2')
 
-const frequency = (f: Feedstock): string =>
+export const frequency = (f: Feedstock): string =>
   (f.timeResolution ?? '')
     .replace(/^Forecasts initialized /, '')
     .replace(/^every (1 hours|hour)$|^1 hour$/, 'hourly')
@@ -241,6 +241,14 @@ const dates = ({ start, end, ongoing }: Feedstock): string => {
   if (a < 1000) return a === b ? `model year ${a}` : `model years ${a}–${b}`
   if (ongoing) return `${a}–present`
   return a === b ? `${a}` : `${a}–${b}`
+}
+
+/** Full dates, for the dataset's own page. */
+export const timeRange = (f: Feedstock): string => {
+  if (!f.start || !f.end || Number(f.start.slice(0, 4)) < 1000) return dates(f)
+  const end = f.ongoing ? 'present' : f.end.slice(0, 10)
+  const start = f.start.slice(0, 10)
+  return start === end ? start : `${start} to ${end}`
 }
 
 // Lines wrap between parts, not inside them ("3 km").
