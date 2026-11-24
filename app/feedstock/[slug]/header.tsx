@@ -3,6 +3,7 @@ import { BackButton } from '@/components/back-button'
 import { Feedstock } from '@/types/types'
 import { Column, Row } from '@carbonplan/components'
 import { alpha } from '@theme-ui/color'
+import { Suspense } from 'react'
 import { Box, Container } from 'theme-ui'
 
 export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
@@ -55,13 +56,16 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
         <Row sx={{ mt: [8, 6, 6, 6], mb: 3 }}>
           <Column start={[1]} width={[6, 1, 1, 1]}>
             <Box sx={{ mb: [4, 4, 0, 0] }}>
-              <BackButton
-                sx={{
-                  color: 'white',
-                  mt: [0, 0, '26px', '28px'],
-                }}
-                preserveQuery
-              />
+              {/* useSearchParams needs a boundary on a static page */}
+              <Suspense>
+                <BackButton
+                  sx={{
+                    color: 'white',
+                    mt: [0, 0, '26px', '28px'],
+                  }}
+                  preserveQuery
+                />
+              </Suspense>
             </Box>
           </Column>
           <Column start={[1, 1, 2, 2]} width={[6, 6, 6, 6]}>

@@ -5,7 +5,7 @@ name: build-catalog
 
 on:
   schedule:
-    - cron: '0 6 * * 1' # Mondays 06:00 UTC; runs only on the default branch
+    - cron: '0 6 * * *' # daily 06:00 UTC, so open-ended datasets end today; runs only on the default branch
   workflow_dispatch:
   push:
     branches: [main, modernize]
@@ -13,12 +13,16 @@ on:
       - catalog/**
       - scripts/build_catalog.py
       - scripts/upload_catalog.py*
+      - pyproject.toml
+      - uv.lock
       - .github/workflows/build-catalog.yml
   pull_request:
     paths:
       - catalog/**
       - scripts/**
       - tests/**
+      - pyproject.toml
+      - uv.lock
       - .github/workflows/build-catalog.yml
 
 permissions:
@@ -34,7 +38,8 @@ jobs:
           persist-credentials: false
       - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
       - run: uv run --locked pytest tests/
-      - run: uv run scripts/build_catalog.py --out catalog.parquet
+      # `python` uses the locked project env the tests ran in, not the script's own unlocked one.
+      - run: uv run --locked python scripts/build_catalog.py --out catalog.parquet
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: catalog

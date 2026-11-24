@@ -55,7 +55,7 @@ LEAP_HOST = {'name': 'LEAP', 'roles': ['host'], 'url': 'https://leap.columbia.ed
 # Dataset-level yaml keys copied to `leap:<key>` properties.
 LEAP_PROPS = (
     'summary', 'spatial_domain', 'coverage', 'spatial_resolution', 'time_resolution', 'featured',
-    'attribution', 'model_id', 'model_name', 'version',
+    'attribution', 'model_id', 'model_name', 'version', 'ongoing',
 )
 # dynamical.org Collection fields kept as `leap:<key>` properties.
 DYNAMICAL_PROPS = ('attribution', 'model_id', 'model_name', 'version')
@@ -119,6 +119,8 @@ def links(entry: dict) -> list[dict]:
 
 def footprint(w: float, s: float, e: float, n: float, step: float = 10.0) -> list[list[float]]:
     """Closed bbox ring with a vertex every `step` degrees; globe renderers (stac-map) collapse 4-corner global boxes to a line."""
+    if w > e:
+        raise ValueError(f"bbox crosses the antimeridian (not supported): {[w, s, e, n]}")
     nx, ny = max(1, math.ceil((e - w) / step)), max(1, math.ceil((n - s) / step))
     xs = [w + (e - w) * i / nx for i in range(nx + 1)]
     ys = [s + (n - s) * j / ny for j in range(ny + 1)]
@@ -169,6 +171,8 @@ def fetch_json(url: str) -> dict:
 
 def dynamical_collections(root: str = DYNAMICAL) -> list[dict]:
     children = [link['href'] for link in fetch_json(root)['links'] if link['rel'] == 'child']
+    if not children:
+        raise ValueError(f"no child collections in {root}")  # else the upload would drop every dynamical item
     with ThreadPoolExecutor(8) as pool:
         return list(pool.map(fetch_json, children))
 
@@ -207,8 +211,13 @@ def dynamical_entry(c: dict, now: str) -> dict:
         ],
     } | {k: summary[k] for k in ('spatial_domain', 'spatial_resolution', 'time_resolution') if k in summary}
     entry |= {k: c[k] for k in DYNAMICAL_PROPS if k in c}
+    if end is None:
+        entry['ongoing'] = True
     if c['license'] == 'other':
-        entry['license_text'] = next(link['title'] for link in links if link['rel'] == 'license')
+        title = next((link.get('title') for link in links if link['rel'] == 'license'), None)
+        if not title:
+            raise ValueError(f"{c['id']}: license 'other' needs a titled license link")
+        entry['license_text'] = title
     return entry
 
 

@@ -1,6 +1,5 @@
 import { Feedstock, Provider, Store } from '@/types/types'
 import { getColor } from '@/utils/colors'
-import { isAllowedCatalog } from '@/utils/catalog-url'
 import { getThumbnail } from '@/utils/thumbnail'
 import { parquetReadObjects } from 'hyparquet'
 
@@ -49,9 +48,6 @@ function toStore(key: string, asset: Nullable<StacAsset>): Store {
     group: asset['leap:group'] ?? undefined,
     virtual: asset['leap:virtual'] ?? false,
     viewer: asset['leap:viewer'] ?? false,
-    public: true,
-    geospatial: true,
-    xarray_open_kwargs: { engine: 'zarr', chunks: {} },
   }
 }
 
@@ -105,20 +101,17 @@ function toFeedstock(item: StacItem, catalogUrl: string): Feedstock {
   }
 }
 
-export async function getFeedstocks(catalog?: string): Promise<Feedstock[]> {
-  if (catalog && !isAllowedCatalog(catalog))
-    throw new Error(`Catalog url not allowed: ${catalog}`)
-  const url =
-    catalog || process.env.NEXT_PUBLIC_CATALOG_URL || defaultCatalogUrl
+export async function getFeedstocks(): Promise<Feedstock[]> {
+  const url = process.env.NEXT_PUBLIC_CATALOG_URL || defaultCatalogUrl
 
   try {
-    // The file is small (~80 KB): fetch it whole so Next caches it for an hour.
+    // The file is small (~110 KB): fetch it whole so Next caches it for an hour.
     const res = await fetch(url, { next: { revalidate: 3600 } })
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
     const file = await res.arrayBuffer()
     const items = (await parquetReadObjects({ file })) as StacItem[]
     return items.map((item) => toFeedstock(item, url))
   } catch (error) {
-    throw new Error(`Failed to fetch feedstocks: ${error}`)
+    throw new Error(`Failed to fetch feedstocks from ${url}: ${error}`)
   }
 }

@@ -12,31 +12,23 @@ export async function generateStaticParams() {
   }))
 }
 
-async function getFeedstock(slug: string, catalog?: string) {
-  const feedstocks = await getFeedstocks(catalog)
+async function getFeedstock(slug: string) {
+  const feedstocks = await getFeedstocks()
   return feedstocks.find((f) => f.slug === slug)
 }
 
 type Props = {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ catalog?: string }>
 }
 
-export async function generateMetadata({
-  params,
-  searchParams,
-}: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const { catalog } = await searchParams
-  return {
-    title: `Feedstock: ${slug}${catalog ? ` (${catalog})` : ''}`,
-  }
+  return { title: `Feedstock: ${slug}` }
 }
 
-export default async function FeedstockPage({ params, searchParams }: Props) {
+export default async function FeedstockPage({ params }: Props) {
   const { slug } = await params
-  const { catalog } = await searchParams
-  const feedstock = await getFeedstock(slug, catalog)
+  const feedstock = await getFeedstock(slug)
 
   if (!feedstock) {
     notFound()

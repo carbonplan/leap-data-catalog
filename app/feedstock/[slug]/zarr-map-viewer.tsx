@@ -2,7 +2,7 @@
 import { arraysFromStore, type ArrayMeta } from '@/utils/store-schema'
 import { Colorbar } from '@carbonplan/components'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Box, Flex, Select, Slider, Text } from 'theme-ui'
 
 const COLORMAP = [
@@ -28,9 +28,9 @@ const renderable = (v: ArrayMeta) =>
 
 function defaultClim(v: ArrayMeta): [number, number] {
   const a = v.attrs ?? {}
-  const actual = Array.isArray(a['actual_range']) ? a['actual_range'] : []
-  const lo = a['valid_min'] ?? actual[0]
-  const hi = a['valid_max'] ?? actual[1]
+  const range = [a['actual_range'], a['valid_range']].find(Array.isArray) ?? []
+  const lo = a['valid_min'] ?? range[0]
+  const hi = a['valid_max'] ?? range[1]
   if (lo != null && hi != null) return [Number(lo), Number(hi)]
   return [0, 1]
 }
@@ -50,6 +50,7 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
   const mapRef = useRef<any>(null)
   const layerRef = useRef<any>(null)
   const storeRef = useRef<any>(null)
+  const layerClassRef = useRef<any>(null)
 
   const [arrays, setArrays] = useState<ArrayMeta[]>([])
   const [error, setError] = useState<string | null>(null)
@@ -61,20 +62,18 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
   const [sel, setSel] = useState<Record<string, number>>({})
 
   const renderables = useMemo(() => arrays.filter(renderable), [arrays])
-  const current = renderables.find((v) => v.path === variable) ?? renderables[0]
+  const current = renderables.find((v) => v.path === variable)
 
-  // Reset clim and non-spatial selectors when the variable changes.
-  useEffect(() => {
-    if (!current) return
-    setVariable(current.path)
-    setClim(defaultClim(current))
+  // A new variable resets clim and the non-spatial selectors.
+  const selectVariable = useCallback((v: ArrayMeta) => {
+    setVariable(v.path)
+    setClim(defaultClim(v))
     setSel(
       Object.fromEntries(
-        current.dims.filter((d) => !isSpatial(d)).map((d) => [d, 0]),
+        v.dims.filter((d) => !isSpatial(d)).map((d) => [d, 0]),
       ),
     )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [current?.path])
+  }, [])
 
   // Mount the map and open the store.
   useEffect(() => {
@@ -118,13 +117,21 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
           setMapReady(true)
         })
 
-        const { IcechunkStore } = await import('icechunk-js')
+        // Load the layer class here too, so layers are built synchronously with current state.
+        const [{ IcechunkStore }, { ZarrLayer }] = await Promise.all([
+          import('icechunk-js'),
+          import('@carbonplan/zarr-layer'),
+        ])
         const store = await IcechunkStore.open(url, {
           signal: ac.signal,
         })
         if (cancelled) return
         storeRef.current = store
-        setArrays(arraysFromStore(store))
+        layerClassRef.current = ZarrLayer
+        const found = arraysFromStore(store)
+        const first = found.find(renderable)
+        setArrays(found)
+        if (first) selectVariable(first)
         setStoreReady(true)
         setStatus('')
       } catch (e) {
@@ -144,18 +151,15 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
       mapRef.current = null
       storeRef.current = null
     }
-  }, [url])
+  }, [url, selectVariable])
 
   // (Re)create the layer when the variable changes.
   useEffect(() => {
     if (!mapReady || !storeReady || !current) return
-    let stale = false
-    ;(async () => {
-      const { ZarrLayer } = await import('@carbonplan/zarr-layer')
-      const map = mapRef.current
-      if (stale || !map) return
+    const map = mapRef.current
+    try {
       if (map.getLayer('zarr')) map.removeLayer('zarr')
-      const layer = new ZarrLayer({
+      const layer = new layerClassRef.current({
         id: 'zarr',
         store: storeRef.current,
         variable: current.path,
@@ -179,19 +183,23 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
       })
       map.addLayer(layer)
       layerRef.current = layer
-    })()
-    return () => {
-      stale = true
+    } catch (e) {
+      layerRef.current = null
+      // reports a failure of an external system (the map), not derived state
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setStatus(`error: ${(e as Error).message}`)
     }
     // clim and sel are applied live below; only a new variable rebuilds the layer.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapReady, storeReady, current?.path])
 
   useEffect(() => {
-    layerRef.current?.setClim?.(clim)
+    layerRef.current?.setClim(clim)
   }, [clim])
   useEffect(() => {
-    layerRef.current?.setSelector?.(toSelector(sel))
+    layerRef.current
+      ?.setSelector(toSelector(sel))
+      .catch((e: Error) => setStatus(`error: ${e.message}`))
   }, [sel])
 
   const extraDims = current?.dims.filter((d) => !isSpatial(d)) ?? []
@@ -224,8 +232,12 @@ export const ZarrMapViewer: React.FC<ZarrMapViewerProps> = ({ url, color }) => {
       <Flex sx={{ gap: 3, mt: 2, alignItems: 'center', flexWrap: 'wrap' }}>
         {renderables.length > 0 && (
           <Select
-            value={current?.path}
-            onChange={(e) => setVariable(e.target.value)}
+            value={variable}
+            onChange={(e) =>
+              selectVariable(
+                renderables.find((v) => v.path === e.target.value)!,
+              )
+            }
             sx={{
               fontSize: 0,
               fontFamily: 'mono',

@@ -28,3 +28,8 @@ updates:
           - '@types/*'
           - 'eslint*'
           - 'playwright'
+
+  - package-ecosystem: 'uv'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
