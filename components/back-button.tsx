@@ -1,34 +1,19 @@
 'use client'
+import { openedFromList } from '@/utils/use-view'
 import { Button } from '@carbonplan/components'
 import { Left } from '@carbonplan/icons'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { ThemeUIStyleObject } from 'theme-ui'
 
 interface BackButtonProps {
-  href?: string
-  preserveQuery?: boolean
   sx?: ThemeUIStyleObject
 }
 
-export const BackButton: React.FC<BackButtonProps> = ({
-  href = '/',
-  preserveQuery = false,
-  sx,
-}) => {
+export const BackButton: React.FC<BackButtonProps> = ({ sx }) => {
   const router = useRouter()
-  const searchParams = useSearchParams()
 
-  const handleClick = () => {
-    if (preserveQuery) {
-      const currentParams = new URLSearchParams(searchParams.toString())
-      const newUrl = `${href}${
-        currentParams.toString() ? '?' + currentParams.toString() : ''
-      }`
-      router.push(newUrl)
-    } else {
-      router.push(href)
-    }
-  }
+  const handleClick = () =>
+    openedFromList(window.location.pathname) ? router.back() : router.push('/')
 
   return (
     <Button inverted size='xs' onClick={handleClick} prefix={<Left />} sx={sx}>

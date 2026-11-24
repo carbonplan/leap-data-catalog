@@ -39,7 +39,21 @@ export interface Provenance {
 
 export interface Feedstock {
   title: string
+  summary: string
   description: string
+  origin: string
+  featured?: number
+  modelName?: string
+  coverage?: string
+  spatialDomain?: string
+  spatialResolution?: string
+  timeResolution?: string
+  /** ISO strings; unset when the dates are unknown. */
+  start?: string
+  end?: string
+  ongoing: boolean
+  /** west, south, east, north */
+  bbox: [number, number, number, number]
   maintainers: Maintainer[]
   provenance: Provenance
   thumbnail: string

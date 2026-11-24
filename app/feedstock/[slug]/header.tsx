@@ -1,9 +1,9 @@
 'use client'
 import { BackButton } from '@/components/back-button'
 import { Feedstock } from '@/types/types'
+import { sizedPhoto } from '@/utils/thumbnail'
 import { Column, Row } from '@carbonplan/components'
 import { alpha } from '@theme-ui/color'
-import { Suspense } from 'react'
 import { Box, Container } from 'theme-ui'
 
 export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
@@ -21,13 +21,14 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
       <Box
         as='img'
         // @ts-ignore
-        src={feedstock.thumbnail}
+        src={sizedPhoto(feedstock.thumbnail, 1600)}
         alt={`${feedstock.title} thumbnail`}
         sx={{
           position: 'absolute',
           height: '100%',
           width: '100%',
-          filter: 'grayscale(100%)',
+          // Dark enough for 4.5:1 white text over any domain colour.
+          filter: 'grayscale(100%) brightness(0.3)',
           objectFit: 'cover',
         }}
       />
@@ -56,16 +57,12 @@ export const FeedstockHeader: React.FC<{ feedstock: Feedstock }> = ({
         <Row sx={{ mt: [8, 6, 6, 6], mb: 3 }}>
           <Column start={[1]} width={[6, 1, 1, 1]}>
             <Box sx={{ mb: [4, 4, 0, 0] }}>
-              {/* useSearchParams needs a boundary on a static page */}
-              <Suspense>
-                <BackButton
-                  sx={{
-                    color: 'white',
-                    mt: [0, 0, '26px', '28px'],
-                  }}
-                  preserveQuery
-                />
-              </Suspense>
+              <BackButton
+                sx={{
+                  color: 'white',
+                  mt: [0, 0, '26px', '28px'],
+                }}
+              />
             </Box>
           </Column>
           <Column start={[1, 1, 2, 2]} width={[6, 6, 6, 6]}>

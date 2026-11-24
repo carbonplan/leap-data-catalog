@@ -9,7 +9,7 @@ interface TagsProps {
 }
 
 export const Tags: React.FC<TagsProps> = ({ tags, sx }) => {
-  const sortedTags = tags.sort((a, b) => a.localeCompare(b))
+  const sortedTags = [...tags].sort((a, b) => a.localeCompare(b))
   return (
     <Flex
       sx={{
