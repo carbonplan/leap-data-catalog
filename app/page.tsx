@@ -13,17 +13,11 @@ type Props = {
 
 export default async function HomePage({ searchParams }: Props) {
   const { catalog } = await searchParams
-  try {
-    const feedstocks = catalog
-      ? await getFeedstocks(catalog)
-      : await getFeedstocks()
+  const feedstocks = await getFeedstocks(catalog)
 
-    if (!feedstocks || feedstocks.length === 0) {
-      notFound()
-    }
-
-    return <Catalog feedstocks={feedstocks} catalog={catalog} />
-  } catch (error) {
-    throw new Error(`${error}`)
+  if (feedstocks.length === 0) {
+    notFound()
   }
+
+  return <Catalog feedstocks={feedstocks} catalog={catalog} />
 }

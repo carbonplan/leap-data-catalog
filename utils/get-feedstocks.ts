@@ -1,5 +1,6 @@
 import { Feedstock, Provider, Store } from '@/types/types'
 import { getColor } from '@/utils/colors'
+import { isAllowedCatalog } from '@/utils/catalog-url'
 import { getThumbnail } from '@/utils/thumbnail'
 import { parquetReadObjects } from 'hyparquet'
 
@@ -14,6 +15,7 @@ interface StacAsset {
   title?: string
   type?: string
   alternate?: { [scheme: string]: { href: string } | null }
+  'leap:group'?: string
   'leap:virtual'?: boolean
   'leap:viewer'?: boolean
 }
@@ -44,12 +46,26 @@ function toStore(key: string, asset: Nullable<StacAsset>): Store {
     url: asset.href!,
     nativeUrl: native || asset.href!,
     format: asset.type?.includes('icechunk') ? 'icechunk' : 'zarr',
+    group: asset['leap:group'] ?? undefined,
     virtual: asset['leap:virtual'] ?? false,
     viewer: asset['leap:viewer'] ?? false,
     public: true,
     geospatial: true,
     xarray_open_kwargs: { engine: 'zarr', chunks: {} },
   }
+}
+
+const toLink = (l: StacLink) => ({ label: l.title || l.rel, url: l.href })
+
+function licenseLink(item: StacItem, link?: StacLink) {
+  if (link) return { title: link.title || 'License', url: link.href }
+  // "other" is the STAC value for a license without an SPDX id.
+  return item.license && item.license !== 'other'
+    ? {
+        title: item.license,
+        url: `https://spdx.org/licenses/${item.license}`,
+      }
+    : undefined
 }
 
 function toFeedstock(item: StacItem, catalogUrl: string): Feedstock {
@@ -74,14 +90,14 @@ function toFeedstock(item: StacItem, catalogUrl: string): Feedstock {
         url: p.url ?? undefined,
       })),
       license:
-        (item.license === 'other' ? item['leap:license_text'] : null) ??
-        item.license ??
+        (item.license === 'other' ? item['leap:license_text'] : item.license) ??
         '',
-      license_link: license
-        ? { title: license.title || 'License', url: license.href }
-        : undefined,
+      license_link: licenseLink(item, license),
     },
-    'ncviewjs:meta_yaml_url': via?.href,
+    source: via && toLink(via),
+    links: links
+      .filter((l) => l.rel === 'about' || l.rel === 'example')
+      .map(toLink),
     stores,
     catalogUrl,
     color: getColor(item.title),
@@ -90,6 +106,8 @@ function toFeedstock(item: StacItem, catalogUrl: string): Feedstock {
 }
 
 export async function getFeedstocks(catalog?: string): Promise<Feedstock[]> {
+  if (catalog && !isAllowedCatalog(catalog))
+    throw new Error(`Catalog url not allowed: ${catalog}`)
   const url =
     catalog || process.env.NEXT_PUBLIC_CATALOG_URL || defaultCatalogUrl
 

@@ -27,13 +27,12 @@ const FeedstockList = ({
     let result = feedstocks
 
     if (search) {
-      const re = new RegExp(search, 'i')
+      const query = search.toLowerCase()
+      const hit = (text: string) => text.toLowerCase().includes(query)
 
       result = result.filter(
         (d: Feedstock) =>
-          d.title.match(re) ||
-          d.tags?.some((tag) => tag.match(re)) ||
-          d.description.match(re),
+          hit(d.title) || d.tags?.some(hit) || hit(d.description),
       )
     }
 

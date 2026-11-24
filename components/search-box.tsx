@@ -34,7 +34,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
             width: '100%',
           }}
         >
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <Input
               size='md'
               value={search}
