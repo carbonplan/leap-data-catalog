@@ -31,6 +31,18 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+The site reads a stac-geoparquet file from OSN. Set `CATALOG_URL` to read another one.
+
+## search the catalog
+
+The same file can be searched from Python with [rustac](https://github.com/stac-utils/rustac) or DuckDB:
+
+```bash
+uv run examples/search_catalog.py
+```
+
+Free-text `q=` does nothing on geoparquet; filter with CQL2, e.g. `rustac.search_sync(url, filter="a_contains(keywords, 'ocean')")`. Browse the catalog on a map with [stac-map](https://developmentseed.org/stac-map/?href=https%3A%2F%2Fnyu1.osn.mghpcc.org%2Fleap-pangeo-pipeline%2Fcatalog%2Fcatalog.parquet).
+
 ## license
 
 All the code in this repository is [MIT](https://choosealicense.com/licenses/mit/)-licensed, but we request that you please provide attribution if reusing any of our digital content (graphics, logo, articles, etc.).

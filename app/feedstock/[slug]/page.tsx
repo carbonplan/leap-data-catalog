@@ -1,7 +1,10 @@
-import { getFeedstocks } from '@/utils/get-feedstocks'
+import { getFeedstockDetail, getFeedstocks } from '@/utils/get-feedstocks'
+import { jsonLd, SITE } from '@/utils/json-ld'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import ClientFeedstockPage from './client-feedstock-page'
+import { DatasetPage } from './dataset-page'
+
+export const revalidate = 3600
 
 export async function generateStaticParams() {
   const feedstocks = await getFeedstocks()
@@ -10,35 +13,40 @@ export async function generateStaticParams() {
   }))
 }
 
-async function getFeedstock(slug: string, catalog?: string) {
-  const feedstocks = await getFeedstocks(catalog)
-  return feedstocks.find((f) => f.slug === slug)
-}
-
 type Props = {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ catalog?: string }>
 }
 
-export async function generateMetadata({
-  params,
-  searchParams,
-}: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const { catalog } = await searchParams
+  const feedstock = await getFeedstockDetail(slug)
+  if (!feedstock) return {}
+  const { title, summary: description } = feedstock
+  const url = `${SITE}/feedstock/${slug}`
   return {
-    title: `Feedstock: ${slug}${catalog ? ` (${catalog})` : ''}`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, siteName: 'LEAP Data Catalog' },
+    twitter: { card: 'summary', title, description },
   }
 }
 
-export default async function FeedstockPage({ params, searchParams }: Props) {
+export default async function FeedstockPage({ params }: Props) {
   const { slug } = await params
-  const { catalog } = await searchParams
-  const feedstock = await getFeedstock(slug, catalog)
+  const feedstock = await getFeedstockDetail(slug)
 
   if (!feedstock) {
     notFound()
   }
 
-  return <ClientFeedstockPage feedstock={feedstock} />
+  return (
+    <>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: jsonLd(feedstock) }}
+      />
+      <DatasetPage feedstock={feedstock} />
+    </>
+  )
 }

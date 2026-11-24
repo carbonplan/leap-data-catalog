@@ -46,6 +46,7 @@ export const Footer = () => {
           <Box sx={{ mt: [3] }}>
             <IconButton
               as='a'
+              aria-label='Twitter'
               // @ts-ignore
               href='https://twitter.com/LeapStc'
               // sx={{ mx: 2 }}
@@ -54,6 +55,7 @@ export const Footer = () => {
             </IconButton>
             <IconButton
               as='a'
+              aria-label='GitHub'
               // @ts-ignore
               href='https://github.com/leap-stc'
               sx={{ mx: 2 }}
@@ -62,6 +64,7 @@ export const Footer = () => {
             </IconButton>
             <IconButton
               as='a'
+              aria-label='YouTube'
               // @ts-ignore
               href='https://www.youtube.com/@LEAP_STC'
               sx={{ mx: 2 }}
@@ -71,6 +74,7 @@ export const Footer = () => {
 
             <IconButton
               as='a'
+              aria-label='LEAP website'
               // @ts-ignore
               href='https://leap.columbia.edu/'
               sx={{ mx: 2 }}

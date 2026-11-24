@@ -1,0 +1,16 @@
+[project]
+name = "leap-data-catalog"
+version = "0.1.0"
+description = "Build tooling for the LEAP STAC catalog"
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest", "jsonschema", "referencing", "rustac", "pyyaml", "obstore"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["scripts"]

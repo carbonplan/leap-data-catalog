@@ -30,3 +30,12 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# python
+__pycache__/
+.venv/
+/catalog.parquet
+
+# claude worktrees
+.claude/worktrees/
+tsconfig.tsbuildinfo

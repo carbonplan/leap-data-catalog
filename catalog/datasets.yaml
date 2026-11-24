@@ -1,0 +1,1556 @@
+# LEAP data catalog source. One entry per dataset; each store becomes a STAC asset.
+# Dates, bbox, resolution and variables come from metadata.json (scripts/enrich_datasets.py) unless set here.
+# `labels` and `units` replace those of a variable in every store of the dataset; the stores are unchanged.
+# Build: uv run scripts/build_catalog.py --out catalog.parquet
+- id: corrdiff-nyc
+  title: CorrDiff NYC Downscaling Data
+  summary: >-
+    Hourly ERA5 and HRRR fields with CorrDiff inputs, targets and outputs for the New York City region.
+  description: >-
+    Training data and results from experiments that downscale ERA5 over the New York City region with
+    CorrDiff, a generative diffusion model. The store has 46 hourly groups on a 128 x 128 grid: ERA5 fields
+    interpolated to the HRRR grid, HRRR reference fields, and model inputs, targets and outputs. Each group
+    covers one year or part of one; the 1945 to 2005 groups use one year per decade, and groups ending in
+    2021_1 and 2021_2 are partial copies of 2021. Outputs have an extra dimension of 3 or 10 generated
+    samples. The code on this page opens one group; change the group name for another, such as input_1945. The
+    original NetCDF files are read in place.
+  source_url: https://github.com/leap-stc/corrdiff_feedstock
+  spatial_domain: New York City
+  coverage: regional
+  time_resolution: hourly
+  license: Apache-2.0
+  providers:
+    - name: LEAP
+      roles:
+        - processor
+      url: https://leap.columbia.edu
+  maintainers:
+    - name: Sarika de Bruyn
+      github: sarika-debruyn
+  references:
+    - title: Feedstock README
+      href: https://github.com/leap-stc/corrdiff_feedstock
+    - title: CorrDiff paper (Mardani et al., 2025)
+      href: https://doi.org/10.1038/s43247-025-02042-5
+  domain:
+    - atmosphere
+  kind:
+    - ML-ready
+  start: '1945-01-01T00:00:00Z'
+  end: '2025-11-21T23:00:00Z'
+  bbox:
+    - -76.4429
+    - 38.6794
+    - -70.9166
+    - 42.8623
+  labels:
+    '10m_u_component_of_wind': '10 m U wind component'
+    '10m_v_component_of_wind': '10 m V wind component'
+    '2m_temperature': '2 m temperature'
+    geopotential_500: Geopotential at 500 hPa
+    geopotential_850: Geopotential at 850 hPa
+    refc: Composite radar reflectivity
+    t2m: '2 m temperature'
+    temperature_500: Temperature at 500 hPa
+    temperature_850: Temperature at 850 hPa
+    total_column_water_vapour: Total column water vapor
+    total_precipitation: Total precipitation
+    tp: Total precipitation
+    u10: '10 m U wind component'
+    u_component_of_wind_500: U component of wind at 500 hPa
+    u_component_of_wind_850: U component of wind at 850 hPa
+    v10: '10 m V wind component'
+    v_component_of_wind_500: V component of wind at 500 hPa
+    v_component_of_wind_850: V component of wind at 850 hPa
+  stores:
+    - key: era5
+      name: ERA5 on the HRRR grid, 2020
+      href: s3://leap-pangeo-pipeline/arco/corrdiff-nyc.icechunk
+      format: icechunk
+      virtual: true
+      group: ERA5_hrrr_interp_128_2020
+    - key: hrrr
+      name: HRRR reference, 2021
+      href: s3://leap-pangeo-pipeline/arco/corrdiff-nyc.icechunk
+      format: icechunk
+      virtual: true
+      group: hrrr_NYC_128_2021
+    - key: input
+      name: Model input, 2021
+      href: s3://leap-pangeo-pipeline/arco/corrdiff-nyc.icechunk
+      format: icechunk
+      virtual: true
+      group: input_2021
+    - key: target
+      name: Model target, 2021
+      href: s3://leap-pangeo-pipeline/arco/corrdiff-nyc.icechunk
+      format: icechunk
+      virtual: true
+      group: target_2021
+    - key: output
+      name: Model output, 2021
+      href: s3://leap-pangeo-pipeline/arco/corrdiff-nyc.icechunk
+      format: icechunk
+      virtual: true
+      group: output_2021
+- id: ostia
+  title: OSTIA Sea Surface Temperature
+  summary: >-
+    Daily, gap-free 0.05° global sea surface temperature and sea ice from the UK Met Office, 1982 to 2023.
+  description: >-
+    A daily, gap-free analysis of global foundation sea surface temperature and sea ice concentration at
+    0.05°, made by the UK Met Office from more than 25 satellite sensors and in situ measurements. This is the
+    reprocessed version, made for climate work; the published evaluation finds a possible cool bias after the
+    1991 Pinatubo eruption. LEAP's copy is one Zarr store of the version distributed by NASA PO.DAAC, 1982 to
+    2023. Temperatures are in kelvin, each with an estimated error, and a mask marks land, sea, lake and ice.
+  source_url: https://github.com/leap-stc/OSTIA_REP
+  license: other
+  license_text: Open data, no restrictions (NASA EOSDIS)
+  license_url: https://www.earthdata.nasa.gov/data/catalog/pocloud-ostia-ukmo-l4-glob-rep-v2.0-2.0
+  providers:
+    - name: UK Met Office
+      roles:
+        - producer
+      url: https://www.metoffice.gov.uk
+    - name: NASA PO.DAAC
+      roles:
+        - host
+      url: https://podaac.jpl.nasa.gov
+  maintainers:
+    - name: Raphael Hagen
+      github: norlandrhagen
+  references:
+    - title: OSTIA reprocessed data, v2.0 (NASA PO.DAAC)
+      href: https://doi.org/10.5067/GHOST-4RM02
+      rel: cite-as
+    - title: Copernicus Marine product page
+      href: https://doi.org/10.48670/moi-00168
+    - title: OSTIA reprocessed paper (Worsfold et al., 2024)
+      href: https://doi.org/10.3390/rs16183358
+    - title: OSTIA system paper (Good et al., 2020)
+      href: https://doi.org/10.3390/rs12040720
+  domain:
+    - ocean
+  kind:
+    - observations
+  labels:
+    analysed_sst: Analysed sea surface temperature
+    analysis_error: Estimated error standard deviation of analysed_sst
+    mask: Land, sea, lake and ice bit mask
+    sea_ice_fraction: Sea ice area fraction
+  units:
+    analysed_sst: K
+    analysis_error: K
+  stores:
+    - key: data
+      href: s3://leap-pangeo-pipeline/OSTIA/OSTIA.zarr
+      format: zarr
+- id: ldeo-hpd
+  title: LDEO-HPD Surface Ocean pCO2
+  summary: >-
+    Monthly 1° surface ocean CO2 and air-sea CO2 flux from machine-learning-corrected ocean models, 1959 to
+    2022.
+  description: >-
+    LDEO-HPD (Lamont-Doherty Earth Observatory Hybrid Physics Data) estimates surface ocean CO2 and air-sea
+    CO2 exchange on a monthly 1° grid. A gradient boosting model learns the mismatch between ocean
+    biogeochemical models and observations, then corrects the model fields everywhere. Before 1982, when
+    observations are sparse, the correction is a climatology of the mismatches. The monthly store covers 1959
+    to 2022. The annual store, 1990 to 2018, holds both measured and reconstructed values. The flux is
+    positive into the ocean. This copy was made for LEAP's ocean carbon sink data story.
+  source_url: https://github.com/carbonplan/ocean-carbon-sink-data-feedstock
+  license: CC-BY-4.0
+  providers:
+    - name: Lamont-Doherty Earth Observatory
+      roles:
+        - producer
+        - licensor
+      url: https://lamont.columbia.edu
+    - name: LEAP
+      roles:
+        - producer
+        - licensor
+      url: https://leap.columbia.edu
+  maintainers:
+    - name: Anderson Banihirwe
+      github: andersy005
+  references:
+    - title: LDEO-HPD method (Gloege et al., 2022)
+      href: https://doi.org/10.1029/2021MS002620
+      rel: cite-as
+    - title: LDEO-HPD extension to 1959 (Bennington et al., 2022)
+      href: https://doi.org/10.1029/2022GL098632
+      rel: cite-as
+    - title: LDEO-HPD back in time data (Zenodo)
+      href: https://doi.org/10.5281/zenodo.13891722
+    - title: LDEO product page
+      href: https://oceancarbon.ldeo.columbia.edu/content/ldeo-hpd
+    - title: Ocean carbon sink data story
+      href: https://stories.leap.columbia.edu/ocean-sink
+  domain:
+    - carbon
+    - ocean
+  kind:
+    - observations
+  labels:
+    fgco2: Air-sea CO2 flux, positive into the ocean
+  stores:
+    - key: monthly
+      name: Monthly pCO2 and air-sea flux
+      href: s3://carbonplan-data-viewer/demo/leap-data-stories/GCB-2023_dataprod_LDEO-HPD_1959-2022-updated-flipped-lon.zarr
+      format: zarr
+    - key: annual
+      name: Annual pCO2
+      href: s3://carbonplan-data-viewer/demo/leap-data-stories/annual-sfco2.zarr
+      format: zarr
+- id: era5
+  title: ERA5 Reanalysis
+  summary: >-
+    ECMWF hourly global reanalysis at 0.25° from 1940, on single, pressure and model levels.
+  description: >-
+    ERA5 is the ECMWF global reanalysis of the atmosphere, land surface and ocean waves, produced for the
+    Copernicus Climate Change Service. This entry links to the analysis-ready hourly 0.25° copy in Google
+    Research's ARCO-ERA5 project. One store has 273 surface and pressure-level variables on 37 levels; the
+    other has 14 variables on 137 model levels. The time axis runs from 1900 to 2050, but data exist only
+    between the store attributes valid_time_start (1940-01-01) and valid_time_stop. Final data arrive about
+    three months behind real time, and preliminary ERA5T data sooner (valid_time_stop_era5t).
+  source_url: https://github.com/leap-stc/arco-era5_feedstock
+  license: CC-BY-4.0
+  providers:
+    - name: ECMWF
+      roles:
+        - producer
+        - licensor
+      url: https://www.ecmwf.int
+    - name: Google Research
+      roles:
+        - processor
+        - host
+      url: https://github.com/google-research/arco-era5
+  maintainers:
+    - name: Julius Busecke
+      github: jbusecke
+  references:
+    - title: ARCO-ERA5 project
+      href: https://github.com/google-research/arco-era5
+    - title: ERA5 paper (Hersbach et al., 2020)
+      href: https://doi.org/10.1002/qj.3803
+      rel: cite-as
+    - title: ERA5 hourly data (Copernicus Climate Data Store)
+      href: https://doi.org/10.24381/cds.adbb2d47
+  domain:
+    - atmosphere
+  kind:
+    - reanalysis
+  ongoing: true
+  stores:
+    - key: single-pressure-levels
+      name: Single and pressure levels
+      href: gs://gcp-public-data-arco-era5/ar/full_37-1h-0p25deg-chunk-1.zarr-v3
+      format: zarr
+    - key: model-levels
+      name: Model levels
+      href: gs://gcp-public-data-arco-era5/ar/model-level-1h-0p25deg.zarr-v1
+      format: zarr
+- id: cm26-control
+  title: GFDL CM2.6 Control Run
+  summary: >-
+    Daily ocean surface and atmosphere output from a preindustrial run of a climate model with a 0.1° ocean.
+  description: >-
+    Output from the preindustrial control run of GFDL CM2.6, a coupled climate model whose 0.1° ocean grid
+    resolves mesoscale eddies, with the miniBLING ocean biogeochemistry model. The ocean store has daily
+    surface temperature, salinity, currents, sea level and biogeochemistry for model years 181 to 200. The
+    atmosphere store has daily fields on a 0.5° x 0.625° grid for model years 120 to 200. Years are model
+    years, not calendar dates. The stores do not name the forcing; preindustrial is how the CM2-O-miniBLING
+    control is described elsewhere.
+  source_url: https://github.com/leap-stc/cm2o_feedstock
+  spatial_resolution: 0.1° ocean, 0.5° x 0.625° atmosphere
+  license: other
+  license_text: Not stated
+  providers:
+    - name: NOAA GFDL
+      roles:
+        - producer
+      url: https://www.gfdl.noaa.gov
+  maintainers:
+    - name: Julius Busecke
+      github: jbusecke
+  references:
+    - title: CM2-O models (Griffies et al., 2015)
+      href: https://doi.org/10.1175/JCLI-D-14-00353.1
+    - title: miniBLING (Galbraith et al., 2015)
+      href: https://doi.org/10.1002/2015MS000463
+    - title: CM2-O-miniBLING runs (SOCCOM)
+      href: https://soccom.princeton.edu/modeling/model-assessment-projects
+    - title: Preindustrial CM2.6 run (Dufour et al., 2017)
+      href: https://doi.org/10.1175/JCLI-D-16-0586.1
+    - title: CM2-O suite tutorial (PDF; covers the 1990 runs)
+      href: https://mom-ocean.github.io/assets/pdfs/CM2_O_suite_1990_tutorial_and_analysis.pdf
+  domain:
+    - atmosphere
+    - carbon
+    - ocean
+  kind:
+    - simulation
+  labels:
+    h250: '250 mb geopotential height'
+    h500: '500 mb geopotential height'
+    h700: '700 mb geopotential height'
+    h850: '850 mb geopotential height'
+    kw: Gas exchange piston velocity for DIC
+    prec_ls: Precipitation rate from stratiform cloud
+    snow_ls: Frozen precipitation rate from stratiform cloud
+    snow_tot: Frozen precipitation rate from all sources
+    t_ref_max: Maximum temperature at 2 m
+    t_ref_min: Minimum temperature at 2 m
+    u250: '250 mb zonal wind'
+    u500: '500 mb zonal wind'
+    u700: '700 mb zonal wind'
+    u850: '850 mb zonal wind'
+    usurf: Surface zonal current
+    vsurf: Surface meridional current
+    wind_max: Maximum wind speed for flux calculations
+  units:
+    u250: 'm/s'
+    u500: 'm/s'
+    u700: 'm/s'
+    u850: 'm/s'
+  stores:
+    - key: ocean
+      name: Ocean surface biogeochemistry
+      href: gs://cmip6/GFDL_CM2_6/control/surface
+      format: zarr
+    - key: atmosphere
+      name: Atmosphere
+      href: gs://cmip6/GFDL_CM2_6/control/atmos_daily.zarr
+      format: zarr
+- id: gpcp-daily
+  title: GPCP Daily Precipitation
+  summary: >-
+    Daily 1° global precipitation merged from satellites and rain gauges, 1996 to early 2025.
+  description: >-
+    The Global Precipitation Climatology Project (GPCP) daily climate data record, version 1.3: global
+    precipitation at 1°, merged from satellite estimates and rain gauges. It is made at the University of
+    Maryland and published by NOAA NCEI. LEAP's copy is one Icechunk store, 1 October 1996 to 28 February
+    2025, and is not extended as NOAA adds months. The latitude and longitude values label one edge of each
+    cell; the lat_bounds and lon_bounds variables give both edges.
+  source_url: https://github.com/leap-stc/gpcp-feedstock
+  license: other
+  license_text: No constraints on data access or use (NOAA NCEI)
+  providers:
+    - name: University of Maryland ESSIC
+      roles:
+        - producer
+      url: https://essic.umd.edu
+    - name: NOAA NCEI
+      roles:
+        - licensor
+      url: https://www.ncei.noaa.gov
+  maintainers:
+    - name: Ryan Abernathey
+      github: rabernat
+    - name: Raphael Hagen
+      github: norlandrhagen
+  references:
+    - title: GPCP daily data, v1.3 (NOAA NCEI)
+      href: https://doi.org/10.7289/V5RX998Z
+      rel: cite-as
+    - title: NOAA NCEI product page
+      href: https://www.ncei.noaa.gov/products/climate-data-records/precipitation-gpcp-daily
+  domain:
+    - atmosphere
+    - hydrology
+  kind:
+    - observations
+  labels:
+    lat_bounds: Latitude cell edges
+    lon_bounds: Longitude cell edges
+    precip: Daily precipitation
+  stores:
+    - key: data
+      href: s3://leap-pangeo-pipeline/GPCP-daily
+      format: icechunk
+      viewer: true
+- id: pco2-testbed
+  title: Large Ensemble pCO2 Testbed
+  summary: >-
+    Ocean CO2 from three Earth system model ensembles, sampled like real observations, to test
+    reconstructions.
+  description: >-
+    A testbed for methods that fill gaps in sparse ocean CO2 observations. Monthly surface fields from three
+    Earth system model ensembles, at 1° from 1982 to early 2017, come with copies sampled where and when the
+    SOCAT observations were made (variables ending in _socat), so a reconstruction can be scored everywhere.
+    There is one store each for CESM (24 members), CanESM2 (25) and GFDL ESM2M (24); the published testbed has
+    25 members of each of four models. All three have pCO2, sea surface temperature and salinity, mixed layer
+    depth, chlorophyll, wind and sea ice; only CESM has the air-sea CO2 flux. The CanESM2 files also carry the
+    CCCma data license.
+  source_url: https://github.com/leap-stc/large-ensemble-pCO2-testbed-feedstock
+  license: CC-BY-4.0
+  providers:
+    - name: Gloege et al.
+      roles:
+        - producer
+        - licensor
+      url: https://doi.org/10.6084/m9.figshare.c.4568555
+    - name: LEAP
+      roles:
+        - processor
+      url: https://leap.columbia.edu
+  maintainers:
+    - name: Julius Busecke
+      github: jbusecke
+  references:
+    - title: pCO2 testbed paper (Gloege et al., 2021)
+      href: https://doi.org/10.1029/2020GB006788
+      rel: cite-as
+    - title: pCO2 testbed data (figshare)
+      href: https://doi.org/10.6084/m9.figshare.c.4568555
+      rel: cite-as
+  domain:
+    - carbon
+    - ocean
+  kind:
+    - ML-ready
+    - simulation
+  labels:
+    pCO2: Surface ocean pCO2
+    pCO2_socat: Surface ocean pCO2
+    socat_mask: SOCAT sampling mask
+  start: '1982-01-01T00:00:00Z'
+  end: '2017-01-31T00:00:00Z'
+  stores:
+    - key: cesm
+      name: CESM
+      href: s3://leap-pangeo-pipeline/CESM
+      format: icechunk
+    - key: canesm2
+      name: CanESM2
+      href: s3://leap-pangeo-pipeline/CanESM2
+      format: icechunk
+    - key: gfdl
+      name: GFDL ESM2M
+      href: s3://leap-pangeo-pipeline/GFDL
+      format: icechunk
+- id: metaflux
+  title: MetaFlux Global Carbon Fluxes
+  summary: >-
+    Daily and monthly 0.25° plant carbon uptake (GPP) and ecosystem respiration, 2001 to 2021.
+  description: >-
+    Global gross primary production (carbon taken up by plants) and ecosystem respiration at 0.25°, daily and
+    monthly from 2001 to 2021. An ensemble of neural networks is trained on 206 FLUXNET2015 tower sites with a
+    meta-learning method meant for places with few measurements, such as the tropics and drylands. Inputs are
+    ERA5 weather and MODIS leaf area and vegetation index. Each flux comes as the ensemble mean and the
+    ensemble spread (variables ending in _std). The daily and monthly stores use different names for latitude
+    and longitude.
+  source_url: https://github.com/leap-stc/metaflux_feedstock
+  license: CC-BY-4.0
+  providers:
+    - name: Nathaniel et al.
+      roles:
+        - producer
+        - licensor
+      url: https://doi.org/10.1038/s41597-023-02349-y
+    - name: Zenodo
+      roles:
+        - host
+      url: https://doi.org/10.5281/zenodo.7761881
+  maintainers:
+    - name: Julius Busecke
+      github: jbusecke
+  references:
+    - title: MetaFlux data (Zenodo)
+      href: https://doi.org/10.5281/zenodo.7761881
+      rel: cite-as
+    - title: MetaFlux paper (Nathaniel et al., 2023)
+      href: https://doi.org/10.1038/s41597-023-02349-y
+      rel: cite-as
+  domain:
+    - carbon
+    - land
+  kind:
+    - observations
+  labels:
+    GPP: Gross primary production, ensemble mean
+    GPP_std: Gross primary production, ensemble spread
+    RECO: Ecosystem respiration, ensemble mean
+    RECO_std: Ecosystem respiration, ensemble spread
+  units:
+    GPP: gC m-2 d-1
+    GPP_std: gC m-2 d-1
+    RECO: gC m-2 d-1
+    RECO_std: gC m-2 d-1
+  stores:
+    - key: daily
+      name: Daily
+      href: s3://leap-pangeo-pipeline/metaflux_daily
+      format: icechunk
+      viewer: true
+    - key: monthly
+      name: Monthly
+      href: s3://leap-pangeo-pipeline/meatflux_monthly
+      format: icechunk
+      viewer: true
+- id: climsim-lowres
+  title: ClimSim Low-Resolution Inputs
+  summary: >-
+    Machine learning inputs from a multi-scale climate simulation: 384 columns every 20 minutes for 8 years.
+  description: >-
+    Model inputs from ClimSim, a dataset for training machine learning emulators of the small-scale physics
+    inside a multi-scale climate model. This is the low-resolution version: 384 atmospheric columns with 60
+    levels, every 20 minutes for 8 model years in a calendar without leap days. LEAP's copy merges the input
+    files (named mli) into one store. It does not include the matching output files needed as training
+    targets; those are in the original on Hugging Face. The grid is unstructured: columns have an index (ncol)
+    but no latitude or longitude here.
+  source_url: https://github.com/leap-stc/climsim_feedstock
+  coverage: global
+  time_resolution: 20 minutes
+  license: CC-BY-4.0
+  providers:
+    - name: Yu et al.
+      roles:
+        - producer
+        - licensor
+      url: https://arxiv.org/abs/2306.08754
+    - name: Hugging Face
+      roles:
+        - host
+      url: https://huggingface.co/datasets/LEAP/ClimSim_low-res
+  maintainers:
+    - name: Qingyuan Yang
+      github: yiqioyang
+  references:
+    - title: ClimSim low-resolution data (Hugging Face)
+      href: https://doi.org/10.57967/hf/0740
+      rel: cite-as
+    - title: ClimSim paper (Yu et al., 2023)
+      href: https://arxiv.org/abs/2306.08754
+    - title: ClimSim code
+      href: https://github.com/leap-stc/ClimSim
+  domain:
+    - atmosphere
+  kind:
+    - ML-ready
+    - simulation
+  labels:
+    cam_in_OCNFRAC: Ocean areal fraction
+    tod: Time of day
+    ymd: Date (year, month, day)
+  stores:
+    - key: data
+      name: Model inputs (mli)
+      href: s3://leap-pangeo-pipeline/arco/climsim-lowres.icechunk
+      format: icechunk
+- id: llc4320-agulhas
+  title: LLC4320 Regional Ocean Simulation
+  summary: >-
+    12-hourly 3D ocean fields at 1/48° for one region of the global LLC4320 simulation, 2011 to 2012.
+  description: >-
+    One region of LLC4320, a global 1/48° ocean simulation run with MITgcm at NASA JPL. Fields are 12-hourly
+    averages from September 2011 to November 2012 for the top 690 m (45 levels): temperature, salinity,
+    velocity, boundary layer depth, surface heat flux and wind stress. It is one of 12 regions prepared to
+    study ocean submesoscale mixing. Check the location before use: the source names this region Agulhas, but
+    its coordinates cover 125°W to 110°W and 55°S to 40°S, in the southeast Pacific. The grid is the
+    curvilinear model grid, and the original Zarr chunks are read in place.
+  source_url: https://github.com/leap-stc/LLC4320_12h_3D-regions_feedstock
+  spatial_domain: Southeast Pacific (labelled Agulhas)
+  coverage: regional
+  spatial_resolution: 1/48°
+  license: CC-BY-NC-4.0
+  providers:
+    - name: NASA JPL
+      roles:
+        - producer
+      url: https://www.jpl.nasa.gov
+    - name: Abigail Bodner
+      roles:
+        - processor
+    - name: Dhruv Balwada
+      roles:
+        - processor
+  maintainers:
+    - name: Julius Busecke
+      github: jbusecke
+  references:
+    - title: Regional data and neural network (Bodner et al., 2025)
+      href: https://doi.org/10.1029/2025MS004991
+    - title: LLC4320 evaluation (Gallmeier et al., 2023)
+      href: https://doi.org/10.5194/gmd-16-7143-2023
+  domain:
+    - ocean
+  kind:
+    - simulation
+  bbox:
+    - -124.9896
+    - -54.9908
+    - -110.0104
+    - -40.0013
+  stores:
+    - key: data
+      name: 12-hourly 3D fields
+      href: s3://leap-pangeo-pipeline/arco/llc4320-agulhas.icechunk
+      format: icechunk
+      virtual: true
+- id: chirps-daily
+  title: CHIRPS Daily Precipitation
+  summary: >-
+    Daily 0.05° rainfall for 50°S to 50°N from infrared satellite data and rain gauges, 1981 to 2024.
+  description: >-
+    CHIRPS (Climate Hazards Center InfraRed Precipitation with Station data) version 2.0: daily rainfall at
+    0.05° between 50°S and 50°N, made by the UC Santa Barbara Climate Hazards Center with the US Geological
+    Survey for drought monitoring. It combines a rainfall climatology, infrared observations of cold clouds
+    and station data. The producer notes that satellite-only estimates are biased in complex terrain and that
+    rural gauges are sparse. LEAP's copy is one Zarr store, 1 January 1981 to 31 October 2024, and is not
+    updated. Version 3 is available, and production of version 2 ends after December 2026.
+  source_url: https://github.com/leap-stc/chirps_feedstock
+  license: other
+  license_text: Public domain
+  license_url: https://www.chc.ucsb.edu/data/chirps
+  providers:
+    - name: UCSB Climate Hazards Center
+      roles:
+        - producer
+        - licensor
+      url: https://www.chc.ucsb.edu
+  maintainers:
+    - name: Julius Busecke
+      github: jbusecke
+  references:
+    - title: CHIRPS v2.0 data (Climate Hazards Center)
+      href: https://doi.org/10.15780/G2RP4Q
+      rel: cite-as
+    - title: CHIRPS paper (Funk et al., 2015)
+      href: https://doi.org/10.1038/sdata.2015.66
+      rel: cite-as
+    - title: Climate Hazards Center CHIRPS page
+      href: https://www.chc.ucsb.edu/data/chirps
+  domain:
+    - atmosphere
+    - hydrology
+  kind:
+    - observations
+  labels:
+    precip: Daily rainfall
+  stores:
+    - key: data
+      href: s3://leap-pangeo-pipeline/chirps_feedstock/chirps-global-daily.zarr
+      format: zarr
+- id: gotm
+  title: GOTM Ocean Mixing Training Data
+  summary: >-
+    General Ocean Turbulence Model output for training neural networks of ocean boundary layer mixing.
+  description: >-
+    Training data for a neural network that predicts how strongly turbulence mixes the ocean surface boundary
+    layer, from the General Ocean Turbulence Model (GOTM). Each sample has forcing terms, such as wind stress,
+    heat flux and latitude, and a 16-point vertical profile; there is no map grid or calendar time. The raw
+    store has 2.5 million samples. The shape function (SF) store has 1.3 million, with adjusted boundary layer
+    depths and samples limited to heat flux below 610 W/m2, wind stress up to 1.2 N/m2 and layer depth between
+    5 and 750 m. Extra test data are in a text file linked on this page.
+  source_url: https://github.com/leap-stc/GOTM
+  license: CC-BY-4.0
+  providers:
+    - name: Sane et al.
+      roles:
+        - producer
+        - licensor
+      url: https://doi.org/10.1029/2023MS003890
+    - name: Zenodo
+      roles:
+        - host
+      url: https://doi.org/10.5281/zenodo.8293998
+  maintainers:
+    - name: Raphael Hagen
+      github: norlandrhagen
+  references:
+    - title: GOTM training data and code (Zenodo)
+      href: https://doi.org/10.5281/zenodo.8293998
+      rel: cite-as
+    - title: Mixing neural network paper (Sane et al., 2023)
+      href: https://doi.org/10.1029/2023MS003890
+      rel: cite-as
+    - title: Test data (text file)
+      href: https://nyu1.osn.mghpcc.org/leap-pangeo-manual/GOTM/data_testing_4_paper.txt
+  domain:
+    - ocean
+  kind:
+    - ML-ready
+    - simulation
+  labels:
+    SF: Shape function
+    b0: Surface buoyancy flux
+    h: Boundary layer depth
+    heat: Surface heat flux
+    kappa_max: Maximum diffusivity
+    lat: Latitude
+    tx: Surface wind stress
+    ustar: Surface friction velocity
+  units:
+    b0: m2 s-3
+    h: m
+    heat: W m-2
+    tx: N m-2
+    ustar: m s-1
+  stores:
+    - key: raw
+      name: Raw
+      href: s3://leap-pangeo-pipeline/arco/gotm-raw.icechunk
+      format: icechunk
+    - key: sf
+      name: Shape function (SF)
+      href: s3://leap-pangeo-pipeline/arco/gotm-sf.icechunk
+      format: icechunk
+- id: casm
+  title: CASM Soil Moisture
+  summary: >-
+    Global 25 km surface soil moisture every 3 days, 2002 to 2020, extending the SMAP record back in time.
+  description: >-
+    The Consistent AI-based Soil Moisture (CASM) dataset gives global moisture in the top soil layer every 3
+    days from 2002 to 2020 on a 25 km EASE-2 grid. Neural networks learn to reproduce NASA SMAP soil moisture
+    from SMOS and AMSR-E/2 brightness temperatures, which extends the record to 13 years before SMAP launched.
+    Against 367 ground stations the median correlation is 0.66, similar to SMAP. The store also has the
+    seasonal cycle and two uncertainty estimates. The data cover 55°S to 80°N, and the grid is not evenly
+    spaced in latitude.
+  source_url: https://github.com/leap-stc/CASM
+  spatial_resolution: 25 km
+  license: CC-BY-4.0
+  providers:
+    - name: Skulovich and Gentine, Columbia University
+      roles:
+        - producer
+        - licensor
+      url: https://doi.org/10.1038/s41597-023-02053-x
+    - name: Zenodo
+      roles:
+        - host
+      url: https://doi.org/10.5281/zenodo.7072512
+  maintainers:
+    - name: Raphael Hagen
+      github: norlandrhagen
+    - name: Mitra Cattry
+      github: mitraA90
+  references:
+    - title: CASM data (Zenodo)
+      href: https://doi.org/10.5281/zenodo.7072512
+      rel: cite-as
+    - title: CASM paper (Skulovich and Gentine, 2023)
+      href: https://doi.org/10.1038/s41597-023-02053-x
+      rel: cite-as
+  domain:
+    - hydrology
+    - land
+  kind:
+    - observations
+  labels:
+    CASM_soil_moisture: Soil moisture in the top soil layer
+    data_uncertainty: Example aleatoric uncertainty for a small (<10%) perturbation of the input data
+    seasonal_cycle: Seasonal cycle of soil moisture
+    structural_uncertainty: Epistemic uncertainty
+  stores:
+    - key: data
+      href: s3://leap-pangeo-pipeline/CASM/obstore/casm.zarr
+      format: zarr
+- id: modis-lai
+  title: Reprocessed MODIS Leaf Area Index
+  summary: >-
+    Gap-filled, smoothed 0.05° global leaf area index every 8 days, 2002 to 2020.
+  description: >-
+    Global leaf area index (the area of leaves per area of ground) every 8 days from 2002 to 2020 at 0.05°.
+    Sun Yat-sen University reprocessed the MODIS version 6.1 product for land surface and climate models,
+    filling gaps and reducing noise. LEAP's copy combines the yearly files into one Zarr store; the producer's
+    series now runs from 2000 to 2025. Data before July 2002 come from the Terra satellite only, so the
+    authors advise starting trend studies in 2003. The producer's page states no license for these files; the
+    authors published the monthly 0.5° version under CC BY 4.0.
+  source_url: https://github.com/leap-stc/MODIS-LAI
+  license: other
+  license_text: Not stated (authors' monthly 0.5° version is CC BY 4.0)
+  license_url: https://doi.org/10.4121/21858717
+  providers:
+    - name: Land-Atmosphere Interaction Research Group, Sun Yat-sen University
+      roles:
+        - producer
+      url: http://globalchange.bnu.edu.cn/research/laiv061
+    - name: NASA MODIS
+      roles:
+        - producer
+      url: https://modis.gsfc.nasa.gov
+  maintainers:
+    - name: Mitra Cattry
+      github: mitraA90
+    - name: Raphael Hagen
+      github: norlandrhagen
+  references:
+    - title: Reprocessed MODIS LAI paper (Lin et al., 2023)
+      href: https://doi.org/10.3390/rs15071780
+      rel: cite-as
+    - title: MODIS LAI reprocessing method (Yuan et al., 2011)
+      href: https://doi.org/10.1016/j.rse.2011.01.001
+      rel: cite-as
+    - title: Data page (Sun Yat-sen University)
+      href: http://globalchange.bnu.edu.cn/research/laiv061
+    - title: Monthly 0.5° files (4TU.ResearchData)
+      href: https://doi.org/10.4121/21858717
+  domain:
+    - land
+  kind:
+    - observations
+  labels:
+    lai: Leaf area index
+  stores:
+    - key: data
+      href: s3://leap-pangeo-pipeline/MODIS_LAI/MODIS_LAI.zarr
+      format: zarr
+- id: enatl60
+  title: eNATL60 North Atlantic Simulation
+  summary: >-
+    Daily temperature, salinity and vertical velocity at 60 m and 600 m from a 1/60° ocean simulation.
+  description: >-
+    Daily fields from eNATL60, a 1/60° NEMO ocean simulation of the North Atlantic run by Ocean Next and the
+    MEOM group at IGE, Grenoble. The domain reaches from about 6°N to the polar circle and includes the Gulf
+    of Mexico, the Mediterranean and the Black Sea. The two stores hold temperature, salinity and vertical
+    velocity at 60 m and at 600 m from the run with explicit tides (BLBT02), July 2009 to June 2010. The 600 m
+    store has no time coordinate. Positions are two-dimensional (nav_lat and nav_lon) on the curvilinear grid.
+    The 60 m source files are CC0; no license was found for the 600 m files.
+  source_url: https://github.com/leap-stc/eNATL_feedstock
+  spatial_domain: North Atlantic
+  coverage: regional
+  spatial_resolution: 1/60°
+  license: other
+  license_text: CC0 (60 m); not stated (600 m)
+  providers:
+    - name: MEOM group, IGE Grenoble
+      roles:
+        - producer
+      url: http://meom-group.github.io
+    - name: Ocean Next
+      roles:
+        - producer
+      url: https://github.com/ocean-next/eNATL60
+    - name: Zenodo
+      roles:
+        - host
+      url: https://doi.org/10.5281/zenodo.10261274
+  maintainers:
+    - name: Julius Busecke
+      github: jbusecke
+    - name: Charles Stern
+      github: cisaacstern
+    - name: Raphael Hagen
+      github: norlandrhagen
+  references:
+    - title: eNATL60 setup and assessment (Zenodo)
+      href: https://doi.org/10.5281/zenodo.4032732
+      rel: cite-as
+    - title: eNATL60 60 m data, July 2009 (Zenodo)
+      href: https://doi.org/10.5281/zenodo.10261274
+      rel: cite-as
+    - title: Simulation description
+      href: https://github.com/ocean-next/eNATL60
+  domain:
+    - ocean
+  kind:
+    - simulation
+  labels:
+    vosaline: Salinity
+    votemper: Temperature
+    vovecrtz: Vertical velocity
+  stores:
+    - key: 60m
+      name: 60 m
+      href: s3://leap-pangeo-pipeline/arco/enatl60-60m.icechunk
+      format: icechunk
+    - key: 600m
+      name: 600 m
+      href: s3://leap-pangeo-pipeline/eNATL600m-BLBT02
+      format: icechunk
+- id: grace-tws
+  title: GRACE Land Water Storage Anomalies
+  summary: >-
+    Monthly 1° land water storage anomalies from the GRACE satellites, 2002 to 2017.
+  description: >-
+    Monthly changes in water stored on land, in meters of equivalent water thickness, from the GRACE satellite
+    gravity mission. This is the JPL RL06 version 04 land product at 1°, relative to the 2005 to 2010 mean,
+    with an uncertainty field. Stripes are removed and a 300 km smoothing filter is applied. Filtering weakens
+    the signal; the cited paper corrects for this with gridded gain factors, which are not in this store. It
+    covers April 2002 to June 2017 (163 months, with gaps) and holds GRACE data only, not the follow-on
+    mission, GRACE-FO.
+  source_url: https://github.com/leap-stc/GRACE-GRACE-FO-TWS
+  license: other
+  license_text: Open data, no restrictions (NASA EOSDIS)
+  license_url: https://www.earthdata.nasa.gov/data/catalog/pocloud-tellus-grac-l3-jpl-rl06-lnd-v04-rl06v04
+  providers:
+    - name: NASA JPL
+      roles:
+        - producer
+      url: https://www.jpl.nasa.gov
+    - name: NASA PO.DAAC
+      roles:
+        - host
+      url: https://podaac.jpl.nasa.gov
+  maintainers:
+    - name: Mitra Cattry
+      github: mitraA90
+    - name: Raphael Hagen
+      github: norlandrhagen
+  references:
+    - title: JPL GRACE land data, RL06 v04 (NASA PO.DAAC)
+      href: https://doi.org/10.5067/TELND-3AJ64
+      rel: cite-as
+    - title: GRACE scaling paper (Landerer and Swenson, 2012)
+      href: https://doi.org/10.1029/2011WR011453
+      rel: cite-as
+  domain:
+    - hydrology
+    - land
+  kind:
+    - observations
+  labels:
+    lat_bounds: Latitude cell edges
+    lon_bounds: Longitude cell edges
+    lwe_thickness: Liquid water equivalent thickness
+    time_bounds: First and last day included in each monthly solution
+    uncertainty: Uncertainty
+  stores:
+    - key: data
+      href: s3://leap-pangeo-pipeline/arco/grace-tws.icechunk
+      format: icechunk
+      viewer: true
+- id: glab-vod
+  title: GLAB-VOD Vegetation Optical Depth
+  summary: >-
+    Global 25 km L-band vegetation optical depth every 18 days, 2002 to 2020.
+  description: >-
+    Global L-band vegetation optical depth, an indicator of vegetation water content and biomass, every 18
+    days from 2002 to 2020 at 25 km, from Columbia University and INRAE Bordeaux. A neural network reproduces
+    the combined SMOS and SMAP product (SMOSMAP-IB) from SMOS, AMSR-E and AMSR-2 brightness temperatures and
+    the CASM soil moisture dataset. The store has the full signal and the residual after removing the seasonal
+    cycle, each with a standard deviation from the network ensemble. It covers 52°S to 76°N on the EASE-2
+    grid, which is not evenly spaced in latitude.
+  source_url: https://github.com/leap-stc/VOD-GLAB
+  spatial_resolution: 25 km
+  license: CC-BY-4.0
+  providers:
+    - name: Skulovich, Gentine, Wigneron and Li
+      roles:
+        - producer
+        - licensor
+      url: https://doi.org/10.5281/zenodo.10306095
+    - name: Zenodo
+      roles:
+        - host
+      url: https://doi.org/10.5281/zenodo.10306095
+  maintainers:
+    - name: Mitra Cattry
+      github: mitraA90
+  references:
+    - title: GLAB-VOD data (Zenodo)
+      href: https://doi.org/10.5281/zenodo.10306095
+      rel: cite-as
+  domain:
+    - land
+  kind:
+    - observations
+  labels:
+    VOD: Vegetation optical depth, full signal (ensemble mean)
+    VOD_residual: VOD residual (full signal minus seasonal cycle)
+    VOD_residual_std: Standard deviation of the VOD residual (network ensemble)
+    VOD_std: Standard deviation of VOD (network ensemble)
+  stores:
+    - key: data
+      href: s3://leap-pangeo-pipeline/GLAB-VOD
+      format: icechunk
+      viewer: true
+- id: lcspp-avhrr
+  title: LCSPP-AVHRR Photosynthesis Proxy
+  summary: >-
+    Twice-monthly 0.05° proxy for plant photosynthesis from calibrated AVHRR reflectance, 1982 to 2023.
+  description: >-
+    LCSPP-AVHRR version 3.2 is a proxy for plant photosynthesis at 0.05°, two values per month from 1982 to
+    2023, split after day 15. A neural network trained on OCO-2 solar-induced fluorescence (SIF) is applied to
+    AVHRR reflectance calibrated against MODIS. The store has instantaneous and daily clear-sky values,
+    all-sky daily values weighted by ERA5 sunlight, and a quality flag. The authors advise using only observed
+    (flag 0) and high-quality gap-filled (flag 1) values, and say not to treat it as measured SIF or use it to
+    estimate fluorescence yield.
+  source_url: https://github.com/leap-stc/GLAB-CSIF
+  time_resolution: 2 per month
+  license: CC-BY-4.0
+  providers:
+    - name: Columbia University
+      roles:
+        - producer
+      url: https://www.columbia.edu
+    - name: Seoul National University
+      roles:
+        - producer
+      url: https://en.snu.ac.kr
+    - name: Zenodo
+      roles:
+        - host
+      url: https://doi.org/10.5281/zenodo.7916850
+  maintainers:
+    - name: Mitra Cattry
+      github: mitraA90
+  references:
+    - title: LCSPP-AVHRR data, 1982 to 2000 (Zenodo)
+      href: https://doi.org/10.5281/zenodo.7916850
+      rel: cite-as
+    - title: LCSPP-AVHRR data, 2001 to 2023 (Zenodo)
+      href: https://doi.org/10.5281/zenodo.11906675
+      rel: cite-as
+    - title: LCSPP paper (arXiv)
+      href: https://arxiv.org/abs/2311.14987
+  domain:
+    - carbon
+    - land
+  kind:
+    - observations
+  labels:
+    lcspp_all_daily: All-sky daily mean LCSPP, weighted by ERA5 sunlight
+    lcspp_clear_daily: Clear-sky daily LCSPP, adjusted by cosine of solar zenith angle
+    lcspp_clear_inst: Clear-sky instantaneous LCSPP
+    lcspp_qa: 'Quality flag: 0 observed, 1 good gap fill, 2 low-quality gap fill, 3 no data'
+  stores:
+    - key: data
+      href: s3://leap-pangeo-pipeline/GLAB-CSIF
+      format: icechunk
+      viewer: true
+- id: srtm-dem
+  title: SRTM Elevation Sample Tiles
+  summary: >-
+    32 sample tiles of 1 arc-second (about 30 m) land elevation from the Shuttle Radar Topography Mission.
+  description: >-
+    Land elevation at 1 arc-second (about 30 m) from the Shuttle Radar Topography Mission (SRTM), flown in
+    February 2000 by NASA with the US National Geospatial-Intelligence Agency and the German and Italian space
+    agencies. LEAP's copy is a sample, not the full product, which covers 60°N to 56°S. It holds 32 tiles of
+    1° x 1°, most of them near the equator, stacked along a tile_id dimension. Each tile has its own latitude
+    and longitude arrays, so select a tile before plotting.
+  source_url: https://github.com/leap-stc/SRTMGL1_DEM
+  coverage: 32 tiles
+  spatial_resolution: 1 arc-second
+  license: other
+  license_text: Open data, no restrictions (NASA EOSDIS)
+  license_url: https://www.earthdata.nasa.gov/data/catalog/lpcloud-srtmgl1-003
+  providers:
+    - name: NASA JPL
+      roles:
+        - producer
+      url: https://www.jpl.nasa.gov
+    - name: NASA LP DAAC
+      roles:
+        - host
+      url: https://www.earthdata.nasa.gov/centers/lp-daac
+  maintainers:
+    - name: Mitra Cattry
+      github: mitraA90
+  references:
+    - title: SRTMGL1 v003 data (NASA LP DAAC)
+      href: https://doi.org/10.5067/MEaSUREs/SRTM/SRTMGL1.003
+      rel: cite-as
+    - title: SRTM mission paper (Farr et al., 2007)
+      href: https://doi.org/10.1029/2005RG000183
+  domain:
+    - land
+  kind:
+    - observations
+  bbox:
+    - -92.0
+    - -5.0
+    - 143.0
+    - 60.0
+  labels:
+    elevation: Land elevation
+  units:
+    elevation: m
+  stores:
+    - key: data
+      href: s3://leap-pangeo-pipeline/SRTMGL1_DEM
+      format: icechunk
+- id: caravan
+  title: Caravan Streamflow and Forcing
+  summary: >-
+    Daily streamflow and weather forcing for 16,299 river catchments, standardized across seven source
+    datasets.
+  description: >-
+    Caravan joins large-sample hydrology datasets from many countries into one standard format: daily
+    streamflow with matching weather and land surface variables from ERA5-Land. LEAP's store holds 40 daily
+    variables, 1950 to 2023, for 16,299 catchments from seven sources: CAMELS for the US, Australia, Brazil,
+    Chile and Great Britain, plus HYSETS and LamaH. The store cites Caravan version 1.5; newer versions are on
+    Zenodo. Static catchment attributes are not in the store. The authors ask users to cite the source
+    datasets too.
+  source_url: https://github.com/leap-stc/Caravan
+  coverage: global
+  license: CC-BY-4.0
+  providers:
+    - name: Kratzert et al.
+      roles:
+        - producer
+        - licensor
+      url: https://doi.org/10.1038/s41597-023-01975-w
+    - name: Zenodo
+      roles:
+        - host
+      url: https://doi.org/10.5281/zenodo.14673536
+  maintainers:
+    - name: Raphael Hagen
+      github: norlandrhagen
+    - name: Kara D. Lamb
+      github: kdlamb
+    - name: Samarth Agrawal
+      github: SammyAgrawal
+  references:
+    - title: Caravan v1.5 data (Zenodo)
+      href: https://doi.org/10.5281/zenodo.14673536
+      rel: cite-as
+    - title: Caravan paper (Kratzert et al., 2023)
+      href: https://doi.org/10.1038/s41597-023-01975-w
+      rel: cite-as
+    - title: Caravan code
+      href: https://github.com/kratzert/Caravan
+  domain:
+    - hydrology
+  kind:
+    - observations
+  labels:
+    dewpoint_temperature_2m_max: '2 m dew point temperature, daily maximum'
+    dewpoint_temperature_2m_mean: '2 m dew point temperature, daily mean'
+    dewpoint_temperature_2m_min: '2 m dew point temperature, daily minimum'
+    potential_evaporation_sum_ERA5_LAND: Potential evaporation from ERA5-Land, daily sum
+    potential_evaporation_sum_FAO_PENMAN_MONTEITH: Potential evaporation (FAO Penman-Monteith), daily sum
+    snow_depth_water_equivalent_max: Snow water equivalent, daily maximum
+    snow_depth_water_equivalent_mean: Snow water equivalent, daily mean
+    snow_depth_water_equivalent_min: Snow water equivalent, daily minimum
+    streamflow: Streamflow
+    surface_net_solar_radiation_max: Surface net solar radiation, daily maximum
+    surface_net_solar_radiation_mean: Surface net solar radiation, daily mean
+    surface_net_solar_radiation_min: Surface net solar radiation, daily minimum
+    surface_net_thermal_radiation_max: Surface net thermal radiation, daily maximum
+    surface_net_thermal_radiation_mean: Surface net thermal radiation, daily mean
+    surface_net_thermal_radiation_min: Surface net thermal radiation, daily minimum
+    surface_pressure_max: Surface pressure, daily maximum
+    surface_pressure_mean: Surface pressure, daily mean
+    surface_pressure_min: Surface pressure, daily minimum
+    temperature_2m_max: '2 m air temperature, daily maximum'
+    temperature_2m_mean: '2 m air temperature, daily mean'
+    temperature_2m_min: '2 m air temperature, daily minimum'
+    total_precipitation_sum: Total precipitation, daily sum
+    u_component_of_wind_10m_max: '10 m U wind component, daily maximum'
+    u_component_of_wind_10m_mean: '10 m U wind component, daily mean'
+    u_component_of_wind_10m_min: '10 m U wind component, daily minimum'
+    v_component_of_wind_10m_max: '10 m V wind component, daily maximum'
+    v_component_of_wind_10m_mean: '10 m V wind component, daily mean'
+    v_component_of_wind_10m_min: '10 m V wind component, daily minimum'
+    volumetric_soil_water_layer_1_max: Volumetric soil water, 0-7 cm, daily maximum
+    volumetric_soil_water_layer_1_mean: Volumetric soil water, 0-7 cm, daily mean
+    volumetric_soil_water_layer_1_min: Volumetric soil water, 0-7 cm, daily minimum
+    volumetric_soil_water_layer_2_max: Volumetric soil water, 7-28 cm, daily maximum
+    volumetric_soil_water_layer_2_mean: Volumetric soil water, 7-28 cm, daily mean
+    volumetric_soil_water_layer_2_min: Volumetric soil water, 7-28 cm, daily minimum
+    volumetric_soil_water_layer_3_max: Volumetric soil water, 28-100 cm, daily maximum
+    volumetric_soil_water_layer_3_mean: Volumetric soil water, 28-100 cm, daily mean
+    volumetric_soil_water_layer_3_min: Volumetric soil water, 28-100 cm, daily minimum
+    volumetric_soil_water_layer_4_max: Volumetric soil water, 100-289 cm, daily maximum
+    volumetric_soil_water_layer_4_mean: Volumetric soil water, 100-289 cm, daily mean
+    volumetric_soil_water_layer_4_min: Volumetric soil water, 100-289 cm, daily minimum
+  units:
+    dewpoint_temperature_2m_max: '°C'
+    dewpoint_temperature_2m_mean: '°C'
+    dewpoint_temperature_2m_min: '°C'
+    potential_evaporation_sum_ERA5_LAND: mm
+    potential_evaporation_sum_FAO_PENMAN_MONTEITH: mm
+    snow_depth_water_equivalent_max: mm
+    snow_depth_water_equivalent_mean: mm
+    snow_depth_water_equivalent_min: mm
+    surface_net_solar_radiation_max: W m-2
+    surface_net_solar_radiation_mean: W m-2
+    surface_net_solar_radiation_min: W m-2
+    surface_net_thermal_radiation_max: W m-2
+    surface_net_thermal_radiation_mean: W m-2
+    surface_net_thermal_radiation_min: W m-2
+    surface_pressure_max: kPa
+    surface_pressure_mean: kPa
+    surface_pressure_min: kPa
+    temperature_2m_max: '°C'
+    temperature_2m_mean: '°C'
+    temperature_2m_min: '°C'
+    total_precipitation_sum: mm
+    u_component_of_wind_10m_max: m s-1
+    u_component_of_wind_10m_mean: m s-1
+    u_component_of_wind_10m_min: m s-1
+    v_component_of_wind_10m_max: m s-1
+    v_component_of_wind_10m_mean: m s-1
+    v_component_of_wind_10m_min: m s-1
+    volumetric_soil_water_layer_1_max: m3 m-3
+    volumetric_soil_water_layer_1_mean: m3 m-3
+    volumetric_soil_water_layer_1_min: m3 m-3
+    volumetric_soil_water_layer_2_max: m3 m-3
+    volumetric_soil_water_layer_2_mean: m3 m-3
+    volumetric_soil_water_layer_2_min: m3 m-3
+    volumetric_soil_water_layer_3_max: m3 m-3
+    volumetric_soil_water_layer_3_mean: m3 m-3
+    volumetric_soil_water_layer_3_min: m3 m-3
+    volumetric_soil_water_layer_4_max: m3 m-3
+    volumetric_soil_water_layer_4_mean: m3 m-3
+    volumetric_soil_water_layer_4_min: m3 m-3
+  stores:
+    - key: data
+      href: s3://leap-pangeo-pipeline/Caravan/Caravan.zarr
+      format: zarr
+- id: pisco
+  title: PISCO Peru Evapotranspiration and Temperature
+  summary: >-
+    Daily reference evapotranspiration (0.01°) and maximum temperature (0.1°) for Peru.
+  description: >-
+    Two daily gridded datasets for Peru, built from quality-controlled, gap-filled weather station records.
+    PISCOeo_pm is reference evapotranspiration from the FAO Penman-Monteith equation, 1981 to 2016 at 0.01°.
+    PISCOt v1.2 is air temperature, 1981 to 2020; the paper gives a mean absolute error of 1.4 °C for daily
+    maximum temperature. LEAP's copy has one store for evapotranspiration and one for maximum temperature
+    only, at 0.1° rather than the published 0.01°.
+  source_url: https://github.com/leap-stc/PISCOeo_pm
+  spatial_domain: Peru
+  license: CC-BY-4.0
+  providers:
+    - name: Huerta et al.
+      roles:
+        - producer
+        - licensor
+      url: https://doi.org/10.1038/s41597-022-01373-8
+    - name: Figshare
+      roles:
+        - host
+      url: https://doi.org/10.6084/m9.figshare.c.5633182
+  maintainers:
+    - name: Jiameng Wu
+      github: just-meng
+  references:
+    - title: PISCOeo_pm paper (Huerta et al., 2022)
+      href: https://doi.org/10.1038/s41597-022-01373-8
+      rel: cite-as
+    - title: PISCOt v1.2 paper (Huerta et al., 2023)
+      href: https://doi.org/10.1038/s41597-023-02777-w
+      rel: cite-as
+    - title: PISCOeo_pm data (figshare)
+      href: https://doi.org/10.6084/m9.figshare.c.5633182
+    - title: PISCOt data (figshare)
+      href: https://doi.org/10.6084/m9.figshare.c.5959863
+  domain:
+    - atmosphere
+    - hydrology
+  kind:
+    - observations
+  labels:
+    eo: Reference evapotranspiration
+    tmax: Daily maximum air temperature
+  units:
+    eo: mm
+    tmax: '°C'
+  stores:
+    - key: eo
+      name: Reference evapotranspiration (PISCOeo_pm)
+      href: s3://leap-pangeo-pipeline/evapotranspiration
+      format: icechunk
+      viewer: true
+    - key: tmax
+      name: Maximum temperature (PISCOt v1.2)
+      href: s3://leap-pangeo-pipeline/tmax
+      format: icechunk
+      viewer: true
+- id: nex-gddp-cmip6-virtual
+  title: NASA NEX-GDDP-CMIP6 Climate Projections
+  summary: >-
+    Daily 0.25° CMIP6 climate projections, bias-corrected and downscaled by NASA, 1950 to 2100.
+  description: >-
+    NASA Earth Exchange Global Daily Downscaled Projections (NEX-GDDP-CMIP6), version 2.0: daily CMIP6 output,
+    bias-corrected and downscaled to 0.25° for 1950 to 2100, 60°S to 90°N. Variables are temperature,
+    humidity, precipitation, radiation and wind. This Icechunk store references NASA's public NetCDF files (38
+    TB), with one group per model and scenario, such as CESM2/ssp245. There are 35 model groups, two of them
+    grids of GFDL-CM4; variables and scenarios differ between models. The code on this page opens ACCESS-CM2;
+    change the group name for another model. NASA calls the data provisional.
+  source_url: https://github.com/virtual-zarr/nex-gddp-cmip6
+  coverage: global
+  license: CC0-1.0
+  providers:
+    - name: NASA Earth Exchange
+      roles:
+        - producer
+        - licensor
+      url: https://www.nasa.gov/nasa-earth-exchange-nex/
+    - name: CarbonPlan
+      roles:
+        - processor
+      url: https://carbonplan.org
+    - name: Source Cooperative
+      roles:
+        - host
+      url: https://source.coop
+  references:
+    - title: NEX-GDDP-CMIP6 paper (Thrasher et al., 2022)
+      href: https://doi.org/10.1038/s41597-022-01393-4
+      rel: cite-as
+    - title: NASA documentation
+      href: https://doi.org/10.7917/OFSG3345
+    - title: Virtual store code
+      href: https://github.com/virtual-zarr/nex-gddp-cmip6
+    - title: License (AWS Open Data)
+      href: https://registry.opendata.aws/nex-gddp-cmip6/
+  domain:
+    - atmosphere
+  kind:
+    - simulation
+  labels:
+    tas: Daily Mean Near-Surface Air Temperature
+    tasmin: Daily Minimum Near-Surface Air Temperature
+  stores:
+    - key: historical
+      name: ACCESS-CM2, historical
+      href: s3://us-west-2.opendata.source.coop/carbonplan/virtual-datasets/nex-gddp-cmip6/store.icechunk
+      format: icechunk
+      virtual: true
+      group: ACCESS-CM2/historical
+    - key: ssp126
+      name: ACCESS-CM2, SSP1-2.6
+      href: s3://us-west-2.opendata.source.coop/carbonplan/virtual-datasets/nex-gddp-cmip6/store.icechunk
+      format: icechunk
+      virtual: true
+      group: ACCESS-CM2/ssp126
+    - key: ssp245
+      name: ACCESS-CM2, SSP2-4.5
+      href: s3://us-west-2.opendata.source.coop/carbonplan/virtual-datasets/nex-gddp-cmip6/store.icechunk
+      format: icechunk
+      virtual: true
+      group: ACCESS-CM2/ssp245
+    - key: ssp370
+      name: ACCESS-CM2, SSP3-7.0
+      href: s3://us-west-2.opendata.source.coop/carbonplan/virtual-datasets/nex-gddp-cmip6/store.icechunk
+      format: icechunk
+      virtual: true
+      group: ACCESS-CM2/ssp370
+    - key: ssp585
+      name: ACCESS-CM2, SSP5-8.5
+      href: s3://us-west-2.opendata.source.coop/carbonplan/virtual-datasets/nex-gddp-cmip6/store.icechunk
+      format: icechunk
+      virtual: true
+      group: ACCESS-CM2/ssp585
+- id: ceres-ebaf
+  title: CERES EBAF Radiation Budget
+  summary: >-
+    Monthly 1° radiation fluxes at the top of the atmosphere and the surface, with cloud properties, from
+    2000.
+  description: >-
+    Satellite estimates of the energy entering and leaving Earth: shortwave and longwave fluxes at the top of
+    the atmosphere and the surface, cloud radiative effects and cloud properties, monthly at 1°. This is CERES
+    EBAF (Energy Balanced and Filled) Edition 4.2.1 from NASA Langley. LEAP's copy covers March 2000 to March
+    2026 and adds albedo, emission and skin temperatures, climatologies, annual means and a whole-record mean,
+    each averaging period in its own group. The data for 2000 and 2026 cover only part of the year. Clear-sky
+    fluxes come in two versions: for the cloud-free areas of each cell and for the whole cell.
+  source_url: https://github.com/carbonplan/LEAP-atm-flux-data-viewer
+  license: other
+  license_text: Open data, no restrictions (NASA EOSDIS)
+  license_url: https://www.earthdata.nasa.gov/data/catalog/larc-cloud-ceres-ebaf-edition4.2.1-0
+  providers:
+    - name: NASA Langley Research Center
+      roles:
+        - producer
+      url: https://ceres.larc.nasa.gov
+    - name: CarbonPlan
+      roles:
+        - processor
+      url: https://carbonplan.org
+  references:
+    - title: CERES EBAF Edition 4.2.1 data (NASA Langley)
+      href: https://doi.org/10.5067/TERRA-AQUA-NOAA20/CERES/EBAF_L3B004.2.1
+      rel: cite-as
+    - title: EBAF Edition 4.0 paper (Loeb et al., 2018)
+      href: https://doi.org/10.1175/JCLI-D-17-0208.1
+    - title: CERES data page
+      href: https://ceres.larc.nasa.gov/data/
+  domain:
+    - atmosphere
+  kind:
+    - observations
+  labels:
+    cldarea_total_daynight_mon: Cloud area fraction, day and night
+    cldpress_total_daynight_mon: Cloud effective pressure, day and night
+    cldtau_total_day_mon: Cloud visible optical depth, daytime
+    cldtemp_total_daynight_mon: Cloud effective temperature, day and night
+    sfc_cre_net_lw_mon: Surface cloud radiative effect, net longwave flux, uses whole-cell clear-sky
+    sfc_cre_net_sw_mon: Surface cloud radiative effect, net shortwave flux, uses whole-cell clear-sky
+    sfc_cre_net_tot_mon: Surface cloud radiative effect, net total flux, uses whole-cell clear-sky
+    sfc_lw_down_all_mon: Surface longwave flux down, all-sky
+    sfc_lw_down_clr_c_mon: Surface longwave flux down, clear-sky (cloud-free areas)
+    sfc_lw_down_clr_t_mon: Surface longwave flux down, clear-sky (whole cell)
+    sfc_lw_up_all_mon: Surface longwave flux up, all-sky
+    sfc_lw_up_clr_c_mon: Surface longwave flux up, clear-sky (cloud-free areas)
+    sfc_lw_up_clr_t_mon: Surface longwave flux up, clear-sky (whole cell)
+    sfc_net_lw_all_mon: Surface net longwave flux, all-sky
+    sfc_net_lw_clr_c_mon: Surface net longwave flux, clear-sky (cloud-free areas)
+    sfc_net_lw_clr_t_mon: Surface net longwave flux, clear-sky (whole cell)
+    sfc_net_sw_all_mon: Surface net shortwave flux, all-sky
+    sfc_net_sw_clr_c_mon: Surface net shortwave flux, clear-sky (cloud-free areas)
+    sfc_net_sw_clr_t_mon: Surface net shortwave flux, clear-sky (whole cell)
+    sfc_net_tot_all_mon: Surface net total flux, all-sky
+    sfc_net_tot_clr_c_mon: Surface net total flux, clear-sky (cloud-free areas)
+    sfc_net_tot_clr_t_mon: Surface net total flux, clear-sky (whole cell)
+    sfc_sw_down_all_mon: Surface shortwave flux down, all-sky
+    sfc_sw_down_clr_c_mon: Surface shortwave flux down, clear-sky (cloud-free areas)
+    sfc_sw_down_clr_t_mon: Surface shortwave flux down, clear-sky (whole cell)
+    sfc_sw_up_all_mon: Surface shortwave flux up, all-sky
+    sfc_sw_up_clr_c_mon: Surface shortwave flux up, clear-sky (cloud-free areas)
+    sfc_sw_up_clr_t_mon: Surface shortwave flux up, clear-sky (whole cell)
+    sfc_t_skin: Surface skin temperature (from surface upwelling longwave), all-sky
+    solar_mon: Incoming solar flux
+    toa_albedo_all_mon: TOA albedo, all-sky
+    toa_albedo_clr_mon: TOA albedo, clear-sky (cloud-free areas)
+    toa_cre_lw_mon: TOA cloud radiative effect, longwave flux, uses whole-cell clear-sky
+    toa_cre_net_mon: TOA cloud radiative effect, net flux, uses whole-cell clear-sky
+    toa_cre_sw_mon: TOA cloud radiative effect, shortwave flux, uses whole-cell clear-sky
+    toa_lw_all_mon: TOA longwave flux, all-sky
+    toa_lw_clr_c_mon: TOA longwave flux, clear-sky (cloud-free areas)
+    toa_lw_clr_t_mon: TOA longwave flux, clear-sky (whole cell)
+    toa_net_all_mon: TOA net flux, all-sky
+    toa_net_clr_c_mon: TOA net flux, clear-sky (cloud-free areas)
+    toa_net_clr_t_mon: TOA net flux, clear-sky (whole cell)
+    toa_sw_all_mon: TOA shortwave flux, all-sky
+    toa_sw_clr_c_mon: TOA shortwave flux, clear-sky (cloud-free areas)
+    toa_sw_clr_t_mon: TOA shortwave flux, clear-sky (whole cell)
+    toa_t_eff: Effective emission temperature (from TOA longwave), all-sky
+  stores:
+    - key: monthly
+      name: Monthly means
+      href: s3://leap-pangeo-pipeline/CERES_EBAF/store_auto_clim.icechunk
+      format: icechunk
+      group: monthly
+    - key: clim-monthly
+      name: Monthly climatology
+      href: s3://leap-pangeo-pipeline/CERES_EBAF/store_auto_clim.icechunk
+      format: icechunk
+      group: climatology/monthly
+    - key: clim-seasonal
+      name: Seasonal climatology
+      href: s3://leap-pangeo-pipeline/CERES_EBAF/store_auto_clim.icechunk
+      format: icechunk
+      group: climatology/seasonal
+    - key: annual
+      name: Annual means
+      href: s3://leap-pangeo-pipeline/CERES_EBAF/store_auto_clim.icechunk
+      format: icechunk
+      group: climatology/annual
+    - key: record-mean
+      name: Record mean
+      href: s3://leap-pangeo-pipeline/CERES_EBAF/store_auto_clim.icechunk
+      format: icechunk
+      group: climatology/mean
+- id: glad-lclu
+  title: GLAD Land Cover and Land Use Change
+  summary: >-
+    30 m global land cover and land use from Landsat, every 5 years from 2000 to 2020.
+  description: >-
+    Global maps of land cover and land use at 30 m from the Landsat archive, made by the GLAD group at the
+    University of Maryland: forest extent and height, cropland, built-up land, surface water, and perennial
+    snow and ice. Accuracy is above 85% for every theme except built-up land, which the producers call
+    provisional. Forest includes trees outside forests, unlike the FAO definition, and cropland leaves out
+    tree crops and shifting cultivation. This copy, a sample Icechunk dataset hosted by Earthmover, has five
+    maps from 2000 to 2020 for 60°S to 80°N.
+  source_url: https://glad.umd.edu/dataset/GLCLUC2020
+  coverage: global
+  spatial_resolution: 30 m
+  time_resolution: 5 years
+  license: CC-BY-4.0
+  providers:
+    - name: University of Maryland GLAD
+      roles:
+        - producer
+        - licensor
+      url: https://glad.umd.edu
+    - name: Earthmover
+      roles:
+        - host
+      url: https://earthmover.io
+  references:
+    - title: GLAD paper (Potapov et al., 2022)
+      href: https://doi.org/10.3389/frsen.2022.856903
+      rel: cite-as
+    - title: GLAD dataset page
+      href: https://glad.umd.edu/dataset/GLCLUC2020
+    - title: Icechunk sample datasets
+      href: https://icechunk.io/en/latest/sample-datasets/
+  domain:
+    - land
+  kind:
+    - observations
+  start: '2000-01-01T00:00:00Z'
+  end: '2020-12-31T00:00:00Z'
+  bbox:
+    - -180.0
+    - -59.9999
+    - 180.0
+    - 79.9999
+  labels:
+    lclu: Land cover and land use class
+  stores:
+    - key: data
+      href: s3://icechunk-public-data/v1/glad
+      format: icechunk
+- id: nasa-rasi
+  title: NASA RASI Land Hydrology Projections
+  summary: >-
+    Monthly 0.1° percentiles of soil moisture, runoff and snow for the south-central US, 1950 to 2099.
+  description: >-
+    Monthly land hydrology at 0.1° over the south-central United States and northern Mexico, from NASA RASI
+    (Risk Analysis and Solutions Innovators). Each variable is stored as five percentiles: root zone soil
+    moisture, surface and subsurface runoff, snow water, snow depth and snowfall, surface temperature and
+    precipitation. NASA project slides tie RASI to its Land Information System; no paper describing this
+    dataset was found. There is one store for 1950 to 2014 and one each for SSP2-4.5 (2015 to 2099) and
+    SSP5-8.5 (2015 to 2096). The stores were made by Development Seed and reference the original files in a
+    public NASA bucket.
+  source_url: https://github.com/virtual-zarr/rasi-icechunk
+  spatial_domain: South-central US
+  coverage: regional
+  license: CC-BY-4.0
+  providers:
+    - name: NASA
+      roles:
+        - producer
+        - licensor
+      url: https://www.nasa.gov/rasi/
+    - name: Development Seed
+      roles:
+        - processor
+      url: https://developmentseed.org
+  references:
+    - title: Icechunk sample datasets
+      href: https://icechunk.io/en/latest/sample-datasets/
+    - title: RASI and LIS (NASA slides, 2025, PDF)
+      href: https://wwao.jpl.nasa.gov/documents/157/20250513_wwao_erlingis.pptx.pdf
+    - title: LIS ensemble (NASA slides, 2024, PDF)
+      href: https://wwao.jpl.nasa.gov/documents/102/WWAO-Annual-Meeting-Presentation-2024-Erlingis_hxXJN5P.pdf
+    - title: NASA RASI project page
+      href: https://www.nasa.gov/rasi/
+  domain:
+    - hydrology
+  kind:
+    - simulation
+  labels:
+    AvgSurfT_Percentiles: Surface temperature percentiles
+    Qs_Percentiles: Surface runoff percentiles
+    Qsb_Percentiles: Subsurface runoff percentiles
+    RZSM_Percentiles: Root zone soil moisture percentiles
+    SWE_Percentiles: Snow water equivalent percentiles
+    SnowDepth_Percentiles: Snow depth percentiles
+    Snowf_Percentiles: Snowfall percentiles
+    Snowf_percentiles: Snowfall percentiles
+    TotalPrecip_Percentiles: Total precipitation percentiles
+  units:
+    RZSM_Percentiles: m3 m-3
+  stores:
+    - key: historical
+      name: Historical
+      href: s3://nasa-waterinsight/virtual-zarr-store/icechunk/RASI/HISTORICAL
+      format: icechunk
+      virtual: true
+    - key: ssp245
+      name: SSP2-4.5
+      href: s3://nasa-waterinsight/virtual-zarr-store/icechunk/RASI/SSP245
+      format: icechunk
+      virtual: true
+    - key: ssp585
+      name: SSP5-8.5
+      href: s3://nasa-waterinsight/virtual-zarr-store/icechunk/RASI/SSP585
+      format: icechunk
+      virtual: true
