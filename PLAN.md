@@ -16,13 +16,13 @@ Last updated: 2026-11-24
 | 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
 | 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [x] merged into modernize (#189); first CI upload 2026-11-24    |
 | 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`     | [ ] open (#190), waiting for review and merge                   |
-| 5   | Metadata enrichment (datacube), editorial pass, variable table  | 2.2           | `modernize-05-enrich`     | [ ] next, after #190 merges                                     |
+| 5   | Metadata enrichment, dataset descriptions and titles            | 2.2           | `modernize-05-enrich`     | [ ] waiting (user, 2026-11-24)                                  |
 | 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`    | [ ] design chosen 2026-11-24                                    |
 | 6b  | Detail page redesign                                            | 3.1           | `modernize-06b-detail`    | [ ] design chosen 2026-11-24                                    |
 | 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ] on hold (2026-11-24)                                        |
 | 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                                             |
 
-Next up: review and merge #190 (PR 4.5), then PR 5 on a branch off `modernize`. Order: 4.5, 5, 6, 6b. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
+Next up: review and merge #190 (PR 4.5). PR 5 (dataset updates and fixes) waits until the user says go; whether PR 6 starts before it is open. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
 Small follow-ups:
 
 - **Deferred by the user until all PRs look good; must be done before any merge to `main`:** Vercel deploys have failed since #186 with `Failed to fetch feedstocks: Error: 404 Not Found`. Likely cause, not confirmed: a stale `NEXT_PUBLIC_CATALOG_URL` in the Vercel settings (added by #28 in March 2024; `main` stopped reading it in #39). The default OSN url returns 200, and pointing the variable at a missing file gives the same error. Fix: delete the variable in every environment (note whether it covers Production), then redeploy. Until then the red Vercel check is expected; use the `web` check and local builds.
@@ -484,16 +484,51 @@ Done when: each fix is checked on a local build, `uv run pytest tests/` passes, 
 - **On merge:** `build_catalog.py` changed, so `build-catalog` rebuilds and replaces the parquet on OSN. The new fields go live then.
 - **Not fixed:** Vercel previews (deferred; see the small follow-ups at the top). Bad metadata values (PR 5).
 
-## PR 5 (2.2): metadata enrichment and editorial pass
+## PR 5 (2.2): dataset metadata, descriptions and titles
+
+**Waiting (2026-11-24, user decision).** No dataset updates or fixes until the user says go.
+
+### Metadata
 
 - `scripts/enrich_datasets.py`:
   - Lazy reads only (metadata, dims, coords) that fill `cube:dimensions`, `cube:variables`, the temporal extent and the bbox.
   - Results go to `catalog/metadata.json`. Values in `datasets.yaml` override them.
   - Vendor the datacube schema for the tests.
+  - Starting point: `arco-icechunk2` has metadata for 23 of the 25 LEAP datasets. CorrDiff NYC and NEX-GDDP need new reads.
 - Known bad values to fix: ERA5 ends in 2050, the CHIRPS license is "Just a Test", 24 of 25 LEAP items have no resolution, and 39 LEAP provider entries have no url.
-- Add a citation per LEAP dataset.
-- Editorial pass on titles, summaries and descriptions. The user reviews the wording.
 - Add a variable and dimension table built from `cube:*` where the html-repr panel was (the html-repr code was removed in PR 3.5).
+
+### Dataset research and descriptions
+
+Read about each of the 25 LEAP datasets, then write one paragraph for it. Descriptions today run from 39 to 731 characters, and 9 are under 150.
+
+1. **Read the store:** global attrs, variable attrs, dims and coords of every store (lazy reads only).
+2. **Follow the links:** `source_url`, the feedstock repo README, the license link, any DOI or paper named in the attrs or description, and the producer's dataset page. Resolve each DOI to its landing page. Look for a DOI or paper when the entry names none.
+3. **Record sources** in `datasets.yaml` as `references: [{title, href}]`. They become STAC links (`cite-as` for the dataset DOI, `about` for the rest) and the citation on the detail page.
+4. **Write the paragraph** (about 60-120 words, plain language): what it is, who made it and how, coverage and resolution, what it is used for, how LEAP's copy differs from the original (subset, regrid, time range), and known limits.
+5. **Update the one-line `summary`** (up to about 120 characters) to match.
+
+Rules:
+
+- Every claim traces to a listed source or to the store metadata. If sources disagree with the store, report it; the store wins for dims, dates and resolution.
+- Use our own words; do not paste abstracts.
+- Anything not found is listed as a gap (no DOI, no license, dead link), not guessed.
+- License, provider url and citation are collected in the same pass.
+- The 49 dynamical.org descriptions come from upstream on every build. Leave them; report problems only.
+
+Review: draft all 25 in one table (title, summary, paragraph, sources, gaps). Nothing goes into `datasets.yaml` until the user has marked it up. Work in batches of about 5, starting with the 9 shortest: climsim-lowres, pco2-testbed, era5, chirps-daily, metaflux, cm26-control, casm, ostia, enatl60.
+
+### Dataset titles
+
+Make titles consistent across the catalog. Propose a rule and a before/after list, reviewed with the descriptions.
+
+- Proposed rule: `<short name> <what it is>`, with the provider only when the name is not known without it, and a place or period only when it is part of the product. No format or pipeline words ("ARCO", "virtual"), no versions unless two versions are listed. Up to about 50 characters so it fits a card.
+- What is inconsistent today: some titles are a bare acronym ("ClimSim", "NASA RASI"), some name the process ("ERA5 (ARCO)"), some carry a version ("CHIRPS v2.0 Daily Precipitation"), and the order of provider, product and variable varies.
+- LEAP uses title case and dynamical.org uses sentence case ("NOAA GFS forecast"). Pick one for LEAP. dynamical titles come from upstream, and the grouping in PR 6 relies on them starting with `leap:model_name`, so do not rename them without changing that.
+- Item ids do not change: they are the page URLs and the ids in user code.
+- Titles also pick the photo and colour today (`utils/colors.ts`, `utils/thumbnail.ts` hash the title), so renaming changes them until PR 6 replaces both.
+
+Done when: every LEAP item has a reviewed title, summary and paragraph, at least one source or a listed gap, and a real or explicitly unknown license; `uv run pytest tests/` passes.
 
 ## PR 6 (3.1): listing redesign (search, facets, featured)
 
