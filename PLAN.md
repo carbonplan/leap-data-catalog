@@ -15,14 +15,14 @@ Last updated: 2026-11-24
 | 3   | zarr-layer viewer on current stores, ncview-js link removed     | 5.1           | `modernize-03-viewer`     | [x] merged into `modernize` (#187)                              |
 | 3.5 | Quick UI fixes from the first review                            | -             | `modernize-03b-ui-fixes`  | [x] merged into `modernize` (#188); parquet uploaded 2026-11-23 |
 | 4   | Merge dynamical.org STAC; scheduled rebuild                     | 2.1           | `modernize-04-dynamical`  | [x] merged into modernize (#189); first CI upload 2026-11-24    |
-| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`     | [ ] next                                                        |
-| 5   | Metadata enrichment (datacube), editorial pass, variable table  | 2.2           | `modernize-05-enrich`     | [ ]                                                             |
+| 4.5 | Bug fixes from the PR 1-4 review                                | -             | `modernize-04b-fixes`     | [ ] open (#190), waiting for review and merge                   |
+| 5   | Metadata enrichment (datacube), editorial pass, variable table  | 2.2           | `modernize-05-enrich`     | [ ] next, after #190 merges                                     |
 | 6   | Listing redesign: search, facets, featured (layout C)           | 3.1           | `modernize-06-listing`    | [ ] design chosen 2026-11-24                                    |
 | 6b  | Detail page redesign                                            | 3.1           | `modernize-06b-detail`    | [ ] design chosen 2026-11-24                                    |
 | 7   | GCS to icechunk 2 on OSN (`main` + `viz` branches), repoint     | 4.1, 4.2, 5.2 | `modernize-07-arco`       | [ ] on hold (2026-11-24)                                        |
 | 8   | Shut down the fly.io services                                   | 5.3           | -                         | [ ]                                                             |
 
-Next up: PR 4.5 (bug fixes), on a branch off `modernize`. Order: 4.5, 5, 6, 6b. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
+Next up: review and merge #190 (PR 4.5), then PR 5 on a branch off `modernize`. Order: 4.5, 5, 6, 6b. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
 Small follow-ups:
 
 - **Deferred by the user until all PRs look good; must be done before any merge to `main`:** Vercel deploys have failed since #186 with `Failed to fetch feedstocks: Error: 404 Not Found`. Likely cause, not confirmed: a stale `NEXT_PUBLIC_CATALOG_URL` in the Vercel settings (added by #28 in March 2024; `main` stopped reading it in #39). The default OSN url returns 200, and pointing the variable at a missing file gives the same error. Fix: delete the variable in every environment (note whether it covers Production), then redeploy. Until then the red Vercel check is expected; use the `web` check and local builds.
@@ -480,7 +480,9 @@ Done when: each fix is checked on a local build, `uv run pytest tests/` passes, 
 - **`?catalog=`** allows only `https://nyu1.osn.mghpcc.org/leap-pangeo-*` (`utils/catalog-url.ts`). Use `NEXT_PUBLIC_CATALOG_URL` for local files. A blocked url returns 500.
 - **Lint:** pinned eslint 9, because eslint 10 crashes `eslint-plugin-react` in `eslint-config-next` 16. npm marks eslint 9 as unsupported. Flat config in `eslint.config.mjs`. The one error it found is fixed: `app/page.tsx` wrapped `notFound()` in a try/catch.
 - **CI:** `.github/workflows/web.yml` runs lint, `npm test` (node's test runner) and build on every PR.
-- **Not fixed:** Vercel previews (deferred; see the small follow-ups at the top).
+- **Checked:** 20 pytest tests and the url allowlist test; lint clean; builds on Node 20, 22 and 24. In a browser against a local build of the new catalog: all 74 detail pages, search (`(` and Enter), the license cases, an allowed and a blocked `?catalog=` url.
+- **On merge:** `build_catalog.py` changed, so `build-catalog` rebuilds and replaces the parquet on OSN. The new fields go live then.
+- **Not fixed:** Vercel previews (deferred; see the small follow-ups at the top). Bad metadata values (PR 5).
 
 ## PR 5 (2.2): metadata enrichment and editorial pass
 
