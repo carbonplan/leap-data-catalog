@@ -17,6 +17,7 @@ import upload_catalog as uc
 
 SCHEMAS = Path(__file__).parent / 'schemas'
 MANIFEST: dict[str, str] = json.loads((SCHEMAS / 'manifest.json').read_text())
+CUBE_SCHEMA = 'https://stac-extensions.github.io/datacube/v2.2.0/schema.json'
 ITEM_SCHEMA = 'https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/item.json'
 # STAC common-metadata fields and extension prefixes allowed in item properties.
 STANDARD_PROPS = {
@@ -74,6 +75,57 @@ def test_custom_props_prefixed(items: list[dict]) -> None:
         assert all(k.startswith('leap:') for k in extra), (item['id'], extra)
         for a in item['assets'].values():
             assert all(k in {'href', 'type', 'roles', 'title', 'alternate'} or k.startswith('leap:') for k in a)
+
+
+def test_cubes_validate(items: list[dict]) -> None:
+    schema = retrieve(CUBE_SCHEMA).contents
+    fields = {'$ref': f"{CUBE_SCHEMA}#/definitions/fields"}
+    check = jsonschema.validators.validator_for(schema)(fields, registry=REGISTRY)
+    for item in items:
+        cube = json.loads(item['properties'].get('leap:cube', '{}'))
+        if item['properties']['leap:source'] == 'leap':
+            assert set(cube) == set(item['assets']), item['id']  # run scripts/enrich_datasets.py for a new store
+        for c in cube.values():
+            check.validate(c)
+            assert c['cube:variables']
+            dims = {d for v in c['cube:variables'].values() for d in v['dimensions']}
+            assert dims <= set(c['cube:dimensions']), item['id']
+
+
+def test_bad_cube_fails_schema() -> None:
+    fields = {'$ref': f"{CUBE_SCHEMA}#/definitions/fields"}
+    bad = {'cube:dimensions': {'lat': {'type': 'spatial', 'axis': 'y'}}}  # no extent
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.Draft7Validator(fields, registry=REGISTRY).validate(bad)
+
+
+def test_metadata_fills_gaps_and_yaml_wins() -> None:
+    entry = {'id': 'x', 'stores': [{'key': 'a'}, {'key': 'b'}, {'key': 'new'}], 'spatial_resolution': '25 km'}
+    cube = {'cube:dimensions': {}, 'cube:variables': {}}
+    metadata = {
+        'x/a': cube | {'start': '2000', 'end': '2005', 'bbox': [0, 0, 5, 5], 'time_resolution': 'daily'},
+        'x/b': cube | {'start': '1990', 'end': '2001', 'bbox': [-5, 1, 2, 9], 'time_resolution': 'monthly',
+                       'spatial_resolution': '1°'},
+    }
+    out = bc.with_metadata(entry, metadata)
+    assert (out['start'], out['end'], out['bbox']) == ('1990', '2005', [-5, 0, 5, 9])
+    assert out['time_resolution'] == 'daily, monthly' and out['spatial_resolution'] == '25 km'
+    assert set(out['cube']) == {'a', 'b'}
+
+
+def test_featured_ranks_both_sources() -> None:
+    ranked = bc.load_items(collections=DYNAMICAL, now=NOW, featured=['noaa-gfs-analysis', 'era5'])
+    ranks = {i['id']: i['properties']['leap:featured'] for i in ranked if 'leap:featured' in i['properties']}
+    assert ranks == {'noaa-gfs-analysis': 1, 'era5': 2}
+
+
+def test_references_and_maintainers(items: list[dict]) -> None:
+    casm = next(i for i in items if i['id'] == 'casm')
+    assert [ln['title'] for ln in casm['links'] if ln['rel'] == 'cite-as'][0] == 'Data (Zenodo)'
+    assert {'name': 'Mitra Cattry', 'github': 'mitraA90'} in casm['properties']['leap:maintainers']
+    for item in items:
+        if item['properties']['leap:source'] == 'leap':
+            assert any(ln['rel'] in ('cite-as', 'about') for ln in item['links']), item['id']
 
 
 def test_viewer_flag_copied(items: list[dict]) -> None:
@@ -152,6 +204,11 @@ def test_dynamical_items(items: list[dict]) -> None:
     assert gfs['properties']['leap:source'] == 'dynamical'
     assert gfs['properties']['leap:model_name'] == 'NOAA GFS'
     assert gfs['properties']['leap:attribution'].startswith('NOAA NWS NCEP GFS data')
+    cube = json.loads(gfs['properties']['leap:cube'])['data']
+    assert cube['cube:variables']['temperature_2m'] == {
+        'dimensions': ['time', 'latitude', 'longitude'], 'type': 'data', 'unit': 'degree_Celsius',
+        'long_name': '2 metre temperature',
+    }
     assert gfs['properties']['end_datetime'] == NOW and gfs['properties']['leap:ongoing'] is True
     assert 'leap:ongoing' not in by_id['ostia']['properties']
     assert not {link['rel'] for link in gfs['links']} & bc.DYNAMICAL_TREE_RELS
@@ -178,6 +235,10 @@ def test_bad_input_fails_the_build(monkeypatch: pytest.MonkeyPatch) -> None:
     no_license_link = dict(DYNAMICAL[0], license='other', links=[])
     with pytest.raises(ValueError, match='license'):
         bc.dynamical_entry(no_license_link, NOW)
+    with pytest.raises(ValueError, match='unknown dataset nope'):
+        bc.load_items(featured=['nope'])
+    with pytest.raises(ValueError, match='unknown domain or kind'):
+        bc.keywords({'id': 'x', 'domain': ['space']})
     monkeypatch.setattr(bc, 'fetch_json', lambda url: {'links': []})
     with pytest.raises(ValueError, match='no child collections'):
         bc.dynamical_collections()

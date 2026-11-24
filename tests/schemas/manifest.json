@@ -11,5 +11,6 @@
   "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/item.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__item.json",
   "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/licensing.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__licensing.json",
   "https://schemas.stacspec.org/v1.1.0/item-spec/json-schema/provider.json": "schemas.stacspec.org__v1.1.0__item-spec__json-schema__provider.json",
-  "https://stac-extensions.github.io/alternate-assets/v1.2.0/schema.json": "stac-extensions.github.io__alternate-assets__v1.2.0__schema.json"
+  "https://stac-extensions.github.io/alternate-assets/v1.2.0/schema.json": "stac-extensions.github.io__alternate-assets__v1.2.0__schema.json",
+  "https://stac-extensions.github.io/datacube/v2.2.0/schema.json": "stac-extensions.github.io__datacube__v2.2.0__schema.json"
 }
