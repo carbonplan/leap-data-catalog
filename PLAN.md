@@ -25,7 +25,7 @@ Last updated: 2026-11-24
 Next up: PR 4.5 (bug fixes), on a branch off `modernize`. Order: 4.5, 5, 6, 6b. Each needs its own go. Work stays on `modernize`; it does not merge to `main` yet.
 Small follow-ups:
 
-- Vercel preview deploys have failed since #186 (PR 2). A clean `npm ci && npm run build` passes locally, so read the Vercel build log first (needs a Vercel login) and check whether `NEXT_PUBLIC_CATALOG_URL` is set there.
+- **Deferred by the user until all PRs look good; must be done before any merge to `main`:** Vercel deploys have failed since #186 with `Failed to fetch feedstocks: Error: 404 Not Found`. Likely cause, not confirmed: a stale `NEXT_PUBLIC_CATALOG_URL` in the Vercel settings (added by #28 in March 2024; `main` stopped reading it in #39). The default OSN url returns 200, and pointing the variable at a missing file gives the same error. Fix: delete the variable in every environment (note whether it covers Production), then redeploy. Until then the red Vercel check is expected; use the `web` check and local builds.
 
 - eslint is pinned to 9 (PR 4.5). Go back to 10 once `eslint-config-next` supports it; dependabot will propose it before then.
 - The OSTIA store is empty.
@@ -480,7 +480,7 @@ Done when: each fix is checked on a local build, `uv run pytest tests/` passes, 
 - **`?catalog=`** allows only `https://nyu1.osn.mghpcc.org/leap-pangeo-*` (`utils/catalog-url.ts`). Use `NEXT_PUBLIC_CATALOG_URL` for local files. A blocked url returns 500.
 - **Lint:** pinned eslint 9, because eslint 10 crashes `eslint-plugin-react` in `eslint-config-next` 16. npm marks eslint 9 as unsupported. Flat config in `eslint.config.mjs`. The one error it found is fixed: `app/page.tsx` wrapped `notFound()` in a try/catch.
 - **CI:** `.github/workflows/web.yml` runs lint, `npm test` (node's test runner) and build on every PR.
-- **Not fixed:** Vercel previews (needs the build log).
+- **Not fixed:** Vercel previews (deferred; see the small follow-ups at the top).
 
 ## PR 5 (2.2): metadata enrichment and editorial pass
 
